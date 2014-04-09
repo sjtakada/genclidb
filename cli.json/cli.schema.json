@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "CLI JSON schema",
+  "description": "Define CLI tree structure",
+  "type": "object",
+  "patternProperties": {
+    "^[a-zA-Z0-9\-]+$": {
+      "type": "object",
+      "properties": {
+        "children": {
+          "$ref": "#"
+        },
+        "token": {
+          "type": "object",
+          "patternProperties": {
+            "^[:\.a-z_A-Z0-9\-]+$": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[0-9\.]+$"
+                },
+                "type": {
+                  "enum": [
+                    "keyword", "integer", "string", "ipv4address",
+                    "ipv4inversemask", "ipv4prefix",
+                    "ipv6addr", "ipv6prefix" ]
+                },
+                "range": {
+                  "type": "array",
+                  "items": { "type": "number" },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "help": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "command": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "defun": {
+                "type": "string"
+              },
+              "mode": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9\-]+$"
+                }
+              },
+              "if": {
+                "type": "object",
+                "patternProperties": {
+                  "^[a-zA-Z0-9\-]+$": {
+                    "type": "object",
+                    "properties": {
+                      "do": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "method": {
+                "enum": [ "GET", "POST", "PUT", "DELETE", "NONE" ]
+              },
+              "path": {
+                "type": "string"
+              },
+              "params": {
+                "type": "object",
+                "patternProperties": {
+                  "^[a-zA-Z0-9\-]+$": {
+                    "type": "string"
+                  }
+                }
+              },
+              "update": {
+                "type": "object"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
