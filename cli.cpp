@@ -96,7 +96,7 @@ Cli::cli_parse_command(Json::Value& tokens, Json::Value& command)
   Json::Value defun = command["defun"];
   Json::Value modes = command["mode"];
 
-  if (defun != NULL && modes != NULL)
+  if (!defun.isNull() && !modes.isNull())
     for (Json::Value::iterator it = modes.begin(); it != modes.end(); ++it)
       {
         Json::Value mode = (*it);
@@ -110,7 +110,7 @@ Cli::cli_parse_command(Json::Value& tokens, Json::Value& command)
 void
 Cli::cli_parse_command_all(Json::Value& tokens, Json::Value& commands)
 {
-  if (tokens != NULL && commands != NULL)
+  if (!tokens.isNull() && !commands.isNull())
     for (Json::Value::iterator it = commands.begin();
          it != commands.end(); ++it)
       {
@@ -131,7 +131,7 @@ Cli::cli_read(char *filename)
     {
       Json::Value attr = (*it);
 
-      if (attr != NULL)
+      if (!attr.isNull())
         cli_parse_command_all(attr["token"], attr["command"]);
     }
 }
@@ -148,7 +148,7 @@ Cli::cli_mode_traverse(Json::Value& current, CliTree *parent)
       CliTree *tree = new CliTree(mode, parent);
       tree_[mode] = tree;
 
-      if (value["children"] != NULL)
+      if (!value["children"].isNull())
         cli_mode_traverse(value["children"], tree);
     }
 }
