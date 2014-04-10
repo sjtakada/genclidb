@@ -48,7 +48,7 @@ Cli::init()
   // signal init
 
   // CLI mode init.
-  cli_mode_read((char *)"cli.json/quagga.cli_mode.json");
+  mode_read((char *)"cli.json/quagga.cli_mode.json");
 
   // Read CLI definitions.
   cli_read((char *)"cli.json/ospf_vty.cli.json");
@@ -57,6 +57,9 @@ Cli::init()
   rl_.init(this);
 
   // banner
+
+  // TODO: currently set OSPF NODE.
+  mode_ = "OSPF-NODE";
 }
 
 void
@@ -67,7 +70,7 @@ Cli::loop()
 }
 
 
-// Read CLI JSON file and build CLI tree.
+// Utility to read CLI JSON file.
 int
 Cli::json_read(char *filename, Json::Value& root)
 {
@@ -91,7 +94,7 @@ Cli::json_read(char *filename, Json::Value& root)
 }
 
 void
-Cli::cli_parse_command(Json::Value& tokens, Json::Value& command)
+Cli::parse_defun(Json::Value& tokens, Json::Value& command)
 {
   Json::Value defun = command["defun"];
   Json::Value modes = command["mode"];
@@ -108,13 +111,13 @@ Cli::cli_parse_command(Json::Value& tokens, Json::Value& command)
 }
 
 void
-Cli::cli_parse_command_all(Json::Value& tokens, Json::Value& commands)
+Cli::parse_defun_all(Json::Value& tokens, Json::Value& commands)
 {
   if (!tokens.isNull() && !commands.isNull())
     for (Json::Value::iterator it = commands.begin();
          it != commands.end(); ++it)
       {
-        cli_parse_command(tokens, (*it));
+        parse_defun(tokens, (*it));
       }
 }
 
@@ -132,12 +135,12 @@ Cli::cli_read(char *filename)
       Json::Value attr = (*it);
 
       if (!attr.isNull())
-        cli_parse_command_all(attr["token"], attr["command"]);
+        parse_defun_all(attr["token"], attr["command"]);
     }
 }
 
 void
-Cli::cli_mode_traverse(Json::Value& current, CliTree *parent)
+Cli::mode_traverse(Json::Value& current, CliTree *parent)
 {
   for (Json::Value::iterator it = current.begin(); it != current.end(); ++it)
     {
@@ -149,17 +152,17 @@ Cli::cli_mode_traverse(Json::Value& current, CliTree *parent)
       tree_[mode] = tree;
 
       if (!value["children"].isNull())
-        cli_mode_traverse(value["children"], tree);
+        mode_traverse(value["children"], tree);
     }
 }
 
 void
-Cli::cli_mode_read(char *filename)
+Cli::mode_read(char *filename)
 {
   Json::Value root;
 
   json_read(filename, root);
 
-  cli_mode_traverse(root, NULL);
+  mode_traverse(root, NULL);
 }
 

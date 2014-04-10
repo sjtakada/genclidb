@@ -108,7 +108,7 @@ int
 CliReadline::describe()
 {
   // current mode.
-  CliTree *current = cli_->current_mode();
+  CliTree *current = cli_->current_tree();
   CliNode *node = current->node_;
   CliNode *candidate;
   CliNodeVector matched;
@@ -117,7 +117,7 @@ CliReadline::describe()
   cout << "?" << endl;
 
   // No input.
-  if (rl_end == 0)
+  if (rl_end == 0 || strspn(rl_line_buffer, " \t\n") == rl_end)
     {
       for (CliNodeVector::iterator it = node->next_.begin();
            it != node->next_.end(); ++it)
@@ -187,7 +187,7 @@ readline_completion_dummy(const char *, int)
 char *
 CliReadline::completion_matches(const char *text, int state)
 {
-  CliTree *current = cli_->current_mode();
+  CliTree *current = cli_->current_tree();
   CliNodeVector matched;
   int ret;
 
@@ -205,9 +205,23 @@ CliReadline::completion_matches(const char *text, int state)
       ret = parse(current->node_, matched);
       if (matched.size() > 0)
         {
+          if (matched.size() == 1 &&
+              isspace(rl_line_buffer[rl_end - 1]))
+            {
+              CliNode *node = matched[0];
+              matched.clear();
+
+              for (CliNodeVector::iterator it = node->next_.begin();
+                   it != node->next_.end(); ++it)
+                {
+                  matched.push_back(*it);
+                }
+            }
+
           int i = 0;
 
-          matched_strvec_ = (char **)calloc(matched.size() + 1, sizeof(char *));
+          matched_strvec_ =
+            (char **)calloc(matched.size() + 1, sizeof(char *));
           for (CliNodeVector::iterator it = matched.begin();
                it != matched.end(); ++it)
             {

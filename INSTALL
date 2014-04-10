@@ -1,0 +1,21 @@
+Requirement
+-----------
+- Linux (being developed under CentOS 6.x)
+- g++
+- GNU readline
+- boost-regex, boost-devel
+- json-cpp (https://jsoncpp.sourceforge.net/)
+- Ruby
+- Ruby on Rails (TBD)
+
+Build
+-----
+- Download and build json-cpp (latest 0.6.0-rc2).
+-- Copy include/json and lib/linux*/libjson-gcc-4.4.7_libmt.a under 'genclidb'
+   source tree.
+- Download quagga(or zebra) routing suite and extract source tree somewhere.
+- Go to quagga protocol directory and run "cli.json/quagga.cli2json.rb" script
+  to generate from *.c file to *.cli.json.
+- Copy *.cli.json file to cli.json/ directory.
+- do 'make'.
+

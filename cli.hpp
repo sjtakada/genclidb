@@ -32,23 +32,15 @@ class Cli
 public:
   static Cli *instance();
   static CliReadline& readline() { return Cli::instance()->rl_; }
-  CliTree *current_mode() { return tree_["OSPF-NODE"]; }
+  CliTree *current_tree() { return tree_[mode_]; }
 
   void init();
   void loop();
   int json_read(char *filename, Json::Value& root);
 
   void cli_read(char *filename);
-  void cli_mode_read(char *filename);
-  void cli_mode_traverse(Json::Value& current, CliTree *parent);
-  //
-  //  void readline_split(char *line, vector<string *>& tokens);
-  //  int match_token(string *input, CliNode *node, CliNodeVector& matched);
-  //  int readline_parse(CliNode *node, CliNodeVector& matched);
-
-  //  int readline_describe();
-  //  char **readline_completion(const char *text, int start, int end);
-  //  char *readline_completion_matches(const char *text, int state);
+  void mode_read(char *filename);
+  void mode_traverse(Json::Value& current, CliTree *parent);
 
 private:
   // For singleton instance.
@@ -58,6 +50,9 @@ private:
   // Singleton instance.
   static Cli *instance_;
 
+  // Current mode string.
+  string mode_;
+
   // Readline parser.
   CliReadline rl_;
 
@@ -65,14 +60,8 @@ private:
   typedef map<string, CliTree *> ModeTreeMap;
   ModeTreeMap tree_;
 
-  // Member functions.
-  //  void readline_init();
-  //  char *readline_gets();
-  //  void readline_execute() { };
-  //  char *prompt();
-
-  void cli_parse_command_all(Json::Value& tokens, Json::Value& commands);
-  void cli_parse_command(Json::Value& tokens, Json::Value& command);
+  void parse_defun_all(Json::Value& tokens, Json::Value& commands);
+  void parse_defun(Json::Value& tokens, Json::Value& command);
 };
 
 #endif /* _CLI_HPP_ */

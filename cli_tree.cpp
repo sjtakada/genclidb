@@ -25,7 +25,7 @@
 #include "project.hpp"
 #include "cli_tree.hpp"
 
-// Regexp to parse JSON CLI defun.
+// Regexp to parse CLI JSON defun.
 const boost::regex CliTree::re_keyword("^([a-z0-9][a-z_A-Z0-9\\-]*)");
 const boost::regex CliTree::re_whitespace("^( +)");
 const boost::regex CliTree::re_pipe("^(\\|)");
