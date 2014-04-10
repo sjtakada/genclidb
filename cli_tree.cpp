@@ -48,33 +48,33 @@ CliTree::get_token(string& str, string& token)
   int type = 0;
 
   if (boost::regex_search(str, m, re_whitespace))
-    type = CliTree::WhiteSpace;
+    type = CliTree::white_space;
   else if (boost::regex_search(str, m, re_pipe))
-    type = CliTree::Pipe;
+    type = CliTree::pipe;
   else if (boost::regex_search(str, m, re_leftparen))
-    type = CliTree::LeftParen;
+    type = CliTree::left_paren;
   else if (boost::regex_search(str, m, re_rightparen))
-    type = CliTree::RightParen;
+    type = CliTree::right_paren;
   else if (boost::regex_search(str, m, re_left_bracket))
-    type = CliTree::LeftBracket;
+    type = CliTree::left_bracket;
   else if (boost::regex_search(str, m, re_right_bracket))
-    type = CliTree::RightBracket;
+    type = CliTree::right_bracket;
   else if (boost::regex_search(str, m, re_ipv4_prefix))
-    type = CliTree::IPv4Prefix;
+    type = CliTree::ipv4_prefix;
   else if (boost::regex_search(str, m, re_ipv4_address))
-    type = CliTree::IPv4Address;
+    type = CliTree::ipv4_address;
   else if (boost::regex_search(str, m, re_ipv6_prefix))
-    type = CliTree::IPv6Prefix;
+    type = CliTree::ipv6_prefix;
   else if (boost::regex_search(str, m, re_ipv6_address))
-    type = CliTree::IPv6Address;
+    type = CliTree::ipv6_address;
   else if (boost::regex_search(str, m, re_range))
-    type = CliTree::Range;
+    type = CliTree::range;
   else if (boost::regex_search(str, m, re_word))
-    type = CliTree::Word;
+    type = CliTree::word;
   else if (boost::regex_search(str, m, re_array))
-    type = CliTree::Array;
+    type = CliTree::array;
   else if (boost::regex_search(str, m, re_keyword))
-    type = CliTree::Keyword;
+    type = CliTree::keyword;
   else
     {
       cout << "no match";
@@ -115,23 +115,28 @@ CliTree::build(CliNode *current, string& str, Json::Value& tokens)
       type = get_token(str, def_token);
       switch (type)
         {
-        case CliTree::WhiteSpace:
+        case CliTree::white_space:
           continue;
-        case CliTree::Pipe:
+        case CliTree::pipe:
           continue;
-        case CliTree::LeftParen:
-        case CliTree::RightParen:
-        case CliTree::LeftBracket:
-        case CliTree::RightBracket:
+        case CliTree::left_paren:
+        case CliTree::left_bracket:
+        case CliTree::left_brace:
+
+
           continue;
-        case CliTree::IPv4Prefix:
-        case CliTree::IPv4Address:
-        case CliTree::IPv6Prefix:
-        case CliTree::IPv6Address:
-        case CliTree::Range:
-        case CliTree::Word:
-        case CliTree::Array:
-        case CliTree::Keyword:
+        case CliTree::right_paren:
+        case CliTree::right_bracket:
+        case CliTree::right_brace:
+          continue;
+        case CliTree::ipv4_prefix:
+        case CliTree::ipv4_address:
+        case CliTree::ipv6_prefix:
+        case CliTree::ipv6_address:
+        case CliTree::range:
+        case CliTree::word:
+        case CliTree::array:
+        case CliTree::keyword:
           break;
         }
 
@@ -143,19 +148,19 @@ CliTree::build(CliNode *current, string& str, Json::Value& tokens)
 
           switch (type)
             {
-            case CliTree::IPv4Prefix:
+            case CliTree::ipv4_prefix:
               node = new CliNodeIPv4Prefix(type, id, def_token, help);
               break;
-            case CliTree::IPv4Address:
+            case CliTree::ipv4_address:
               node = new CliNodeIPv4Address(type, id, def_token, help);
               break;
-            case CliTree::IPv6Prefix:
+            case CliTree::ipv6_prefix:
               node = new CliNodeIPv6Prefix(type, id, def_token, help);
               break;
-            case CliTree::IPv6Address:
+            case CliTree::ipv6_address:
               node = new CliNodeIPv6Address(type, id, def_token, help);
               break;
-            case CliTree::Range:
+            case CliTree::range:
               {
                 Json::Value range = tokens[def_token]["range"];
                 u_int64_t min = range[(Json::Value::ArrayIndex)0].asUInt();
@@ -164,13 +169,13 @@ CliTree::build(CliNode *current, string& str, Json::Value& tokens)
                                         min, max);
                 break;
               }
-            case CliTree::Word:
+            case CliTree::word:
               node = new CliNodeWord(type, id, def_token, help);
               break;
-            case CliTree::Array:
+            case CliTree::array:
               node = new CliNodeWord(type, id, def_token, help);
               break;
-            case CliTree::Keyword:
+            case CliTree::keyword:
               node = new CliNodeKeyword(type, id, def_token, help);
               break;
             }

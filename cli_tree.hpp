@@ -171,22 +171,24 @@ public:
   ~CliTree() { }
 
   enum {
-    Undef,
-    WhiteSpace,
-    Pipe,
-    LeftParen,
-    RightParen,
-    LeftBracket,
-    RightBracket,
-    IPv4Prefix,
-    IPv4Address,
-    IPv6Prefix,
-    IPv6Address,
-    Range,
-    Word,
-    Array,
-    Keyword,
-  } Token;
+    undef,
+    white_space,
+    pipe,
+    left_paren,
+    right_paren,
+    left_bracket,
+    right_bracket,
+    left_brace,
+    right_brace,
+    ipv4_prefix,
+    ipv4_address,
+    ipv6_prefix,
+    ipv6_address,
+    range,
+    word,
+    array,
+    keyword,
+  } token;
 
   void parse_defun(Json::Value& defun, Json::Value& tokens);
   void build(CliNode *current, string& str, Json::Value& tokens);
