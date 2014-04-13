@@ -19,6 +19,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 // 
+#include <algorithm>
+
 #include "boost/regex.hpp"
 #include "json/json.h"
 
@@ -27,10 +29,12 @@
 
 // Regexp to parse CLI JSON defun.
 const boost::regex CliTree::re_keyword("^([a-z0-9][a-z_A-Z0-9\\-]*)");
-const boost::regex CliTree::re_whitespace("^( +)");
-const boost::regex CliTree::re_pipe("^(\\|)");
-const boost::regex CliTree::re_leftparen("^(\\()");
-const boost::regex CliTree::re_rightparen("^(\\))");
+const boost::regex CliTree::re_white_space("^( +)");
+const boost::regex CliTree::re_vertical_bar("^(\\|)");
+const boost::regex CliTree::re_left_paren("^(\\()");
+const boost::regex CliTree::re_right_paren("^(\\))");
+const boost::regex CliTree::re_left_brace("^(\\{)");
+const boost::regex CliTree::re_right_brace("^(\\})");
 const boost::regex CliTree::re_left_bracket("^(\\[)");
 const boost::regex CliTree::re_right_bracket("^(\\])");
 const boost::regex CliTree::re_ipv4_prefix("^(IPV4-PREFIX:[0-9\\.]+)");
@@ -47,14 +51,20 @@ CliTree::get_token(string& str, string& token)
   boost::smatch m;
   int type = 0;
 
-  if (boost::regex_search(str, m, re_whitespace))
-    type = CliTree::white_space;
-  else if (boost::regex_search(str, m, re_pipe))
-    type = CliTree::pipe;
-  else if (boost::regex_search(str, m, re_leftparen))
+  // First skip whitespace.
+  if (boost::regex_search(str, m, re_white_space))
+    str = m.suffix();
+
+  if (boost::regex_search(str, m, re_vertical_bar))
+    type = CliTree::vertical_bar;
+  else if (boost::regex_search(str, m, re_left_paren))
     type = CliTree::left_paren;
-  else if (boost::regex_search(str, m, re_rightparen))
+  else if (boost::regex_search(str, m, re_right_paren))
     type = CliTree::right_paren;
+  else if (boost::regex_search(str, m, re_left_brace))
+    type = CliTree::left_brace;
+  else if (boost::regex_search(str, m, re_right_brace))
+    type = CliTree::right_brace;
   else if (boost::regex_search(str, m, re_left_bracket))
     type = CliTree::left_bracket;
   else if (boost::regex_search(str, m, re_right_bracket))
@@ -77,8 +87,8 @@ CliTree::get_token(string& str, string& token)
     type = CliTree::keyword;
   else
     {
-      cout << "no match";
-      abort();
+      cout << "no match" << endl;
+      assert(0);
     }
 
   token = m[0];
@@ -88,111 +98,179 @@ CliTree::get_token(string& str, string& token)
 }
 
 CliNode *
-CliTree::find_by_def_token(CliNode *current, string& token)
+CliTree::find_next_by_def_token(CliNodeVector& v, string& token)
 {
   CliNode *node;
 
-  for (CliNodeVector::iterator it = current->next_.begin();
-       it != current->next_.end(); ++it)
+  for (CliNodeVector::iterator it = v.begin(); it != v.end(); ++it)
     {
       node = (*it);
-
-      if (node->def_token_ == token)
-        return node;
+      for (CliNodeVector::iterator is = node->next_.begin();
+         is != node->next_.end(); ++is)
+        if ((*is)->def_token_ == token)
+          return (*is);
     }
 
   return NULL;
 }
 
-void
-CliTree::build(CliNode *current, string& str, Json::Value& tokens)
+CliNode *
+CliTree::new_node_by_type(int type, Json::Value& tokens, string& def_token)
 {
+  string id = tokens[def_token]["id"].asString();
+  string help = tokens[def_token]["help"].asString();
+  CliNode *node;
+
+  switch (type)
+    {
+    case CliTree::ipv4_prefix:
+      node = new CliNodeIPv4Prefix(type, id, def_token, help);
+      break;
+    case CliTree::ipv4_address:
+      node = new CliNodeIPv4Address(type, id, def_token, help);
+      break;
+    case CliTree::ipv6_prefix:
+      node = new CliNodeIPv6Prefix(type, id, def_token, help);
+      break;
+    case CliTree::ipv6_address:
+      node = new CliNodeIPv6Address(type, id, def_token, help);
+      break;
+    case CliTree::range:
+      {
+        Json::Value range = tokens[def_token]["range"];
+        u_int64_t min = range[(Json::Value::ArrayIndex)0].asUInt();
+        u_int64_t max = range[(Json::Value::ArrayIndex)1].asUInt();
+        node = new CliNodeRange(type, id, def_token, help,
+                                min, max);
+        break;
+      }
+    case CliTree::word:
+      node = new CliNodeWord(type, id, def_token, help);
+      break;
+    case CliTree::array:
+      node = new CliNodeWord(type, id, def_token, help);
+      break;
+    case CliTree::keyword:
+      node = new CliNodeKeyword(type, id, def_token, help);
+      break;
+    default:
+      cout << "Unknown type" << endl;
+      assert(0);
+    }
+
+  return node;
+}
+
+void
+CliTree::vector_add_node_each(CliNodeVector& curr, CliNode *node)
+{
+  for (CliNodeVector::iterator it = curr.begin(); it != curr.end(); ++it)
+    (*it)->next_.push_back(node);
+}
+
+int
+CliTree::build_recursive(CliNodeVector& curr,
+                         CliNodeVector& head,
+                         CliNodeVector& tail,
+                         string& str, Json::Value& tokens)
+{
+  CliNode *next;
   string def_token;
   int type;
+  bool is_head = true;
 
   while (str.begin() != str.end())
     {
       type = get_token(str, def_token);
       switch (type)
         {
-        case CliTree::white_space:
-          continue;
-        case CliTree::pipe:
-          continue;
         case CliTree::left_paren:
         case CliTree::left_bracket:
         case CliTree::left_brace:
+          {
+            CliNodeVector hv, tv;
 
+            do
+              {
+                CliNodeVector cv(curr);
+                type = build_recursive(cv, hv, tv, str, tokens);
+              }
+            while (type == CliTree::vertical_bar);
 
-          continue;
+            if (type == CliTree::right_brace)
+              {
+                for (CliNodeVector::iterator it = hv.begin();
+                     it != hv.end(); ++it)
+                  vector_add_node_each(tv, *it);
+              }
+
+            curr = tv;
+          }
+          break;
+        case CliTree::vertical_bar:
         case CliTree::right_paren:
         case CliTree::right_bracket:
         case CliTree::right_brace:
-          continue;
-        case CliTree::ipv4_prefix:
-        case CliTree::ipv4_address:
-        case CliTree::ipv6_prefix:
-        case CliTree::ipv6_address:
-        case CliTree::range:
-        case CliTree::word:
-        case CliTree::array:
-        case CliTree::keyword:
-          break;
-        }
+          for (CliNodeVector::iterator it = curr.begin();
+               it != curr.end(); ++it)
+            tail.push_back(*it);
 
-      CliNode *node = find_by_def_token(current, def_token);
-      if (node == NULL)
-        {
-          string id = tokens[def_token]["id"].asString();
-          string help = tokens[def_token]["help"].asString();
+          return type;
 
-          switch (type)
+        default:
+          next = find_next_by_def_token(curr, def_token);
+          if (next == NULL)
             {
-            case CliTree::ipv4_prefix:
-              node = new CliNodeIPv4Prefix(type, id, def_token, help);
-              break;
-            case CliTree::ipv4_address:
-              node = new CliNodeIPv4Address(type, id, def_token, help);
-              break;
-            case CliTree::ipv6_prefix:
-              node = new CliNodeIPv6Prefix(type, id, def_token, help);
-              break;
-            case CliTree::ipv6_address:
-              node = new CliNodeIPv6Address(type, id, def_token, help);
-              break;
-            case CliTree::range:
-              {
-                Json::Value range = tokens[def_token]["range"];
-                u_int64_t min = range[(Json::Value::ArrayIndex)0].asUInt();
-                u_int64_t max = range[(Json::Value::ArrayIndex)1].asUInt();
-                node = new CliNodeRange(type, id, def_token, help,
-                                        min, max);
-                break;
-              }
-            case CliTree::word:
-              node = new CliNodeWord(type, id, def_token, help);
-              break;
-            case CliTree::array:
-              node = new CliNodeWord(type, id, def_token, help);
-              break;
-            case CliTree::keyword:
-              node = new CliNodeKeyword(type, id, def_token, help);
-              break;
+              next = new_node_by_type(type, tokens, def_token);
+              vector_add_node_each(curr, next);
             }
 
-          current->next_.push_back(node);
-        }
+          // Moving forward.
+          curr.clear();
+          curr.push_back(next);
 
-      current = node;
+          if (is_head)
+            {
+              head.push_back(next);
+              is_head = false;
+            }
+          break;
+        }
     }
+
+  // TODO
+  for (CliNodeVector::iterator it = curr.begin(); it != curr.end(); ++it)
+    (*it)->cmd_ = true;
+
+  return CliTree::undef;
 }
 
 void
-CliTree::parse_defun(Json::Value& defun, Json::Value& tokens)
+CliTree::build_command(Json::Value& defun, Json::Value& tokens)
 {
   string str(defun.asString());
+  CliNodeVector cv, hv, tv;
+  cv.push_back(top_);
 
-  build(node_, str, tokens);
+  build_recursive(cv, hv, tv, str, tokens);
+}
+
+
+bool
+CliNodeCriterion(CliNode *n, CliNode *m)
+{
+  return strcmp(n->cli_token(), m->cli_token()) < 0;
+}
+
+void
+CliNode::sort_recursive()
+{
+  sort(next_.begin(), next_.end(), CliNodeCriterion);
+  sorted_ = true;
+
+  for (CliNodeVector::iterator it = next_.begin(); it != next_.end(); ++it)
+    if (!(*it)->sorted_)
+      (*it)->sort_recursive();
 }
 
 bool
@@ -281,3 +359,5 @@ CliNodeIPv4Address::cli_match(string *input)
 
   return false;
 }
+
+

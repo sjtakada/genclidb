@@ -53,6 +53,14 @@ Cli::init()
   // Read CLI definitions.
   cli_read((char *)"cli.json/ospf_vty.cli.json");
 
+  // Sort CLI trees.
+  for (ModeTreeMap::iterator it = tree_.begin(); it != tree_.end(); ++it)
+    {
+      CliTree *tree = it->second;
+      if (tree)
+        tree->top_->sort_recursive();
+    }
+
   // readline init
   rl_.init(this);
 
@@ -106,7 +114,7 @@ Cli::parse_defun(Json::Value& tokens, Json::Value& command)
 
         CliTree *tree = tree_[mode.asCString()];
         if (tree)
-          tree->parse_defun(defun, tokens);
+          tree->build_command(defun, tokens);
       }
 }
 
@@ -116,9 +124,7 @@ Cli::parse_defun_all(Json::Value& tokens, Json::Value& commands)
   if (!tokens.isNull() && !commands.isNull())
     for (Json::Value::iterator it = commands.begin();
          it != commands.end(); ++it)
-      {
-        parse_defun(tokens, (*it));
-      }
+      parse_defun(tokens, (*it));
 }
 
 void

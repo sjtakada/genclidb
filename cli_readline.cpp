@@ -108,11 +108,12 @@ int
 CliReadline::describe()
 {
   // current mode.
-  CliTree *current = cli_->current_tree();
-  CliNode *node = current->node_;
+  CliTree *tree = cli_->current_tree();
+  CliNode *node = tree->top_;
   CliNode *candidate;
   CliNodeVector matched;
   int ret;
+  bool is_cmd_ = false;
 
   cout << "?" << endl;
 
@@ -125,7 +126,7 @@ CliReadline::describe()
     }
   else
     {
-      ret = parse(current->node_, matched);
+      ret = parse(tree->top_, matched);
       if (ret == CliReadline::match_unrecognized)
         {
           cout << "% Unrecognized command" << endl;
@@ -145,6 +146,9 @@ CliReadline::describe()
           for (CliNodeVector::iterator it = node->next_.begin();
                it != node->next_.end(); ++it)
             matched.push_back(*it);
+
+          if (node->cmd_)
+            is_cmd_ = true;
         }
     }
 
@@ -165,6 +169,10 @@ CliReadline::describe()
       cout << "  " << left << setw(max_len + 2)
            << candidate->cli_token() << candidate->help() << endl;
     }
+
+  // TODO: need to consider more.
+  if (is_cmd_)
+    cout << "  <cr>" << endl;
 
   cout << prompt();
   cout << rl_line_buffer;
@@ -187,7 +195,7 @@ readline_completion_dummy(const char *, int)
 char *
 CliReadline::completion_matches(const char *text, int state)
 {
-  CliTree *current = cli_->current_tree();
+  CliTree *tree = cli_->current_tree();
   CliNodeVector matched;
   int ret;
 
@@ -202,7 +210,7 @@ CliReadline::completion_matches(const char *text, int state)
     {
       matched_index_ = 0;
 
-      ret = parse(current->node_, matched);
+      ret = parse(tree->top_, matched);
       if (matched.size() > 0)
         {
           if (matched.size() == 1 &&
@@ -226,7 +234,7 @@ CliReadline::completion_matches(const char *text, int state)
                it != matched.end(); ++it)
             {
               CliNode *node = (*it);
-              if (node->type_ == CliTree::Keyword)
+              if (node->type_ == CliTree::keyword)
                 matched_strvec_[i++] = strdup(node->cli_token());
             }
         }

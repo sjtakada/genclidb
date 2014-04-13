@@ -43,12 +43,17 @@ public:
   virtual bool cli_match(string *input) { return true; }
   string& help() { return help_; }
 
+  void sort_recursive();
+
   friend class CliTree;
   friend class CliReadline;
 
 private:
   // Node type.
   int type_;
+
+  // Node vector is sorted.
+  bool sorted_;
 
 protected:
   // Node ID.
@@ -65,6 +70,9 @@ protected:
 
   // Next candidates.
   CliNodeVector next_;
+
+  // Command
+  bool cmd_;
 };
 
 // Keyword.
@@ -167,13 +175,16 @@ class CliTree
 public:
   CliTree(const char *mode, CliTree *parent)
     : mode_(mode), parent_(parent)
-  { node_ = new CliNode; }
+  { top_ = new CliNode; }
   ~CliTree() { }
+
+  // CLI top node.
+  CliNode *top_;
 
   enum {
     undef,
     white_space,
-    pipe,
+    vertical_bar,
     left_paren,
     right_paren,
     left_bracket,
@@ -190,22 +201,20 @@ public:
     keyword,
   } token;
 
-  void parse_defun(Json::Value& defun, Json::Value& tokens);
-  void build(CliNode *current, string& str, Json::Value& tokens);
-  int get_token(string& str, string& token);
-
-  CliNode *find_by_def_token(CliNode *current, string& token);
+  void build_command(Json::Value& defun, Json::Value& tokens);
 
   friend class CliReadline;
 
 private:
   static const boost::regex re_keyword;
-  static const boost::regex re_whitespace;
-  static const boost::regex re_pipe;
-  static const boost::regex re_leftparen;
-  static const boost::regex re_rightparen;
+  static const boost::regex re_white_space;
+  static const boost::regex re_vertical_bar;
+  static const boost::regex re_left_paren;
+  static const boost::regex re_right_paren;
   static const boost::regex re_left_bracket;
   static const boost::regex re_right_bracket;
+  static const boost::regex re_left_brace;
+  static const boost::regex re_right_brace;
   static const boost::regex re_ipv4_prefix;
   static const boost::regex re_ipv4_address;
   static const boost::regex re_ipv6_prefix;
@@ -220,8 +229,13 @@ private:
   // Parent CLI tree.
   CliTree *parent_;
 
-  // Dummy top CLI node.
-  CliNode *node_;
+  // Member functions.
+  int get_token(string& str, string& token);
+  int build_recursive(CliNodeVector& curr, CliNodeVector& head,
+                      CliNodeVector& tail, string& str, Json::Value& tokens);
+  void vector_add_node_each(CliNodeVector& curr, CliNode *node);
+  CliNode *new_node_by_type(int type, Json::Value& tokens, string& def_token);
+  CliNode *find_next_by_def_token(CliNodeVector& v, string& token);
 };
 
 #endif /* _CLI_NODE_HPP_ */
