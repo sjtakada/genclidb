@@ -238,7 +238,8 @@ CliReadline::completion_matches(const char *text, int state)
   // No input. 
   if (rl_end == 0)
     {
-      cout << endl;
+      cout << endl << endl;
+      cout << prompt();
       return NULL;
     }
 
@@ -250,7 +251,10 @@ CliReadline::completion_matches(const char *text, int state)
       parse(line, tree->top_, matched_vec);
       if (matched_vec.size() == 0)
         {
+          cout << endl;
           cout << "% Unrecognized command" << endl << endl;
+          cout << prompt();
+          cout << rl_line_buffer;
         }
       else
         {
@@ -258,7 +262,6 @@ CliReadline::completion_matches(const char *text, int state)
 
           matched_strvec_ =
             (char **)calloc(matched_vec.size() + 1, sizeof(char *));
-
 
           for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
                it != matched_vec.end(); ++it)
