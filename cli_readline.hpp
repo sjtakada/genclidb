@@ -27,6 +27,9 @@
 
 class Cli;
 
+typedef pair<CliNode *, MatchState> CliNodeMatchStatePair;
+typedef vector<CliNodeMatchStatePair> CliNodeMatchStateVector;
+
 class CliReadline
 {
 public:
@@ -44,12 +47,9 @@ public:
   char *completion_matches(const char *text, int state);
 
 private:
-  // Match return code.
-  enum {
-    match_ambiguous,
-    match_unrecognized,
-    match_success,
-  };
+  static const boost::regex re_white_space;
+  static const boost::regex re_white_space_only;
+  static const boost::regex re_command_string;
 
   // Parent CLI object.
   Cli *cli_;
@@ -64,10 +64,14 @@ private:
   // Private member functions.
   char *prompt();
 
-  void split_token(char *line, vector<string *>& tokens);
-  int match_token(string *input, CliNode *node, CliNodeVector& matched);
-  int parse(CliNode *node, CliNodeVector& matched);
-
+  bool get_token(string&str, string& token);
+  bool skip_spaces(string& str);
+  void fill_matched_vec(CliNode *node,
+                        CliNodeMatchStateVector& matched_vec);
+  void filter_matched(CliNodeMatchStateVector& matched_vec);
+  int match_token(string& input, CliNode *node,
+                  CliNodeMatchStateVector& matched_vec);
+  int parse(string& line, CliNode *curr, CliNodeMatchStateVector& matched_vec);
 };
 
 #endif /* _CLI_READLINE_HPP_ */

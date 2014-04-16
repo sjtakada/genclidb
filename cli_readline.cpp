@@ -30,78 +30,138 @@
 #include "cli_readline.hpp"
 #include "cli.hpp"
 
-void
-CliReadline::split_token(char *line, vector<string *>& tokens)
+const boost::regex CliReadline::re_white_space("^([[:space:]]+)");
+const boost::regex CliReadline::re_white_space_only("^([[:space:]]+)$");
+const boost::regex CliReadline::re_command_string("^[^[:space:]]+");
+
+bool
+CliNodeMatchStateCriterion(CliNodeMatchStatePair n, CliNodeMatchStatePair m)
 {
-  char *p = line;
-  char *q;
-
-  while (*p != '\0')
-    {
-      // Skip whitespaces.
-      while (isspace(*p))
-        p++;
-
-      if (*p == '\0')
-        return;
-
-      q = p;
-      while (!isspace(*q) && *q != '\0')
-        q++;
-
-      if (q != p)
-        tokens.push_back(new string(p, q - p));
-      // TODO have to delete string
-
-      p = q;
-    }
+  return n.second < m.second;
 }
 
 int
-CliReadline::match_token(string *input, CliNode *node, CliNodeVector& matched)
+CliReadline::match_token(string& input, CliNode *curr,
+                         CliNodeMatchStateVector& state_vec)
 {
-  CliNode *current;
+  CliNode *next;
+  CliNodeMatchStateVector matched_vec;
 
+  for (CliNodeVector::iterator it = curr->next_.begin();
+       it != curr->next_.end(); ++it)
+    {
+      next = (*it);
+
+      MatchState state;
+
+      state = next->cli_match(input);
+      if (state != match_none)
+        {
+          CliNodeMatchStatePair p = make_pair(next, state);
+          matched_vec.push_back(p);
+        }
+    }
+
+  // Sort by type of match.
+  if (matched_vec.size() > 1)
+    sort(matched_vec.begin(), matched_vec.end(), CliNodeMatchStateCriterion);
+
+  state_vec = matched_vec;
+
+  return matched_vec.size();
+}
+
+bool
+CliReadline::get_token(string& str, string& token)
+{
+  boost::smatch m;
+
+  if (boost::regex_search(str, m, re_command_string))
+    {
+      token = m[0];
+      str = m.suffix();
+
+      return true;
+    }
+
+  return false;
+}
+
+bool
+CliReadline::skip_spaces(string& str)
+{
+  boost::smatch m;
+
+  if (boost::regex_search(str, m, re_white_space))
+    {
+      str = m.suffix();
+      return true;
+    }
+
+  return false;
+}
+
+void
+CliReadline::fill_matched_vec(CliNode *node,
+                              CliNodeMatchStateVector& matched_vec)
+{
   for (CliNodeVector::iterator it = node->next_.begin();
        it != node->next_.end(); ++it)
     {
-      current = (*it);
-
-      if (current->cli_match(input))
-        matched.push_back(current);
+      MatchState state = match_partial;
+      CliNodeMatchStatePair p = make_pair(*it, state);
+      matched_vec.push_back(p);
     }
+}
 
-  return matched.size();
+void
+CliReadline::filter_matched(CliNodeMatchStateVector& matched_vec)
+{
+  CliNodeMatchStateVector vec;
+  MatchState state;
+
+  if (matched_vec.size() <= 1)
+    return;
+
+  state = matched_vec[0].second;
+
+  for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
+       it != matched_vec.end(); )
+    {
+      if (it->second != state)
+        it = matched_vec.erase(it);
+      else
+        ++it;
+    }
 }
 
 int
-CliReadline::parse(CliNode *node, CliNodeVector& matched)
+CliReadline::parse(string& line, CliNode *curr,
+                   CliNodeMatchStateVector& matched_vec)
 {
-  vector<string *> input_tokens;
+  boost::smatch m;
+  string token;
 
-  split_token(rl_line_buffer, input_tokens);
+  if (!skip_spaces(line))
+    return 1;
 
-  for (vector<string *>::size_type i = 0; i < input_tokens.size(); ++i)
+  matched_vec.clear();
+  fill_matched_vec(curr, matched_vec);
+
+  if (!get_token(line, token))
+    return 1;
+
+  match_token(token, curr, matched_vec);
+
+  if (line.begin() != line.end())
     {
-      string *input = input_tokens[i];
-      size_t count;
+      filter_matched(matched_vec);
 
-      matched.clear();
-
-      count = match_token(input, node, matched);
-      if (count == 0)
-        return CliReadline::match_unrecognized;
-      // If this ambiguity is not the last token, we'll give an error.
-      else if (count > 1 && input_tokens.size() - 1 != i)
-        return CliReadline::match_ambiguous;
-
-      // Continue next node.
-      node = matched[0];
+      if (matched_vec.size() == 1)
+        parse(line, matched_vec[0].first, matched_vec);
     }
 
-  // Cleanup input tokens.
-
-  return CliReadline::match_success;
+  return match_full;
 }
 
 int
@@ -109,70 +169,44 @@ CliReadline::describe()
 {
   // current mode.
   CliTree *tree = cli_->current_tree();
-  CliNode *node = tree->top_;
   CliNode *candidate;
-  CliNodeVector matched;
-  int ret;
+  CliNodeMatchStateVector matched_vec;
+  string line(" ");
   bool is_cmd_ = false;
+
+  line += rl_line_buffer;
 
   cout << "?" << endl;
 
-  // No input.
-  if (rl_end == 0 || strspn(rl_line_buffer, " \t\n") == rl_end)
+  parse(line, tree->top_, matched_vec);
+  if (matched_vec.size() == 0)
     {
-      for (CliNodeVector::iterator it = node->next_.begin();
-           it != node->next_.end(); ++it)
-          matched.push_back(*it);
+      cout << "% Unrecognized command" << endl << endl;
     }
   else
     {
-      ret = parse(tree->top_, matched);
-      if (ret == CliReadline::match_unrecognized)
+      size_t max_len = 0;
+      for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
+           it != matched_vec.end(); ++it)
         {
-          cout << "% Unrecognized command" << endl;
-          return 0;
-        }
-      else if (ret == CliReadline::match_ambiguous)
-        {
-          cout << "% Ambiguous command" << endl;
-          return 0;
+          candidate = it->first;
+          size_t len = strlen(candidate->cli_token());
+          if (max_len < len)
+            max_len = len;
         }
 
-      if (isspace(rl_line_buffer[rl_end - 1]))
+      for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
+           it != matched_vec.end(); ++it)
         {
-          node = matched[0];
-          matched.clear();
-
-          for (CliNodeVector::iterator it = node->next_.begin();
-               it != node->next_.end(); ++it)
-            matched.push_back(*it);
-
-          if (node->cmd_)
-            is_cmd_ = true;
+          candidate = it->first;
+          cout << "  " << left << setw(max_len + 2)
+               << candidate->cli_token() << candidate->help() << endl;
         }
-    }
 
-  size_t max_len = 0;
-  for (CliNodeVector::iterator it = matched.begin();
-       it != matched.end(); ++it)
-    {
-      candidate = (*it);
-      size_t len = strlen(candidate->cli_token());
-      if (max_len < len)
-        max_len = len;
+      // TODO: need to consider more.
+      if (is_cmd_)
+        cout << "  <cr>" << endl;
     }
-
-  for (CliNodeVector::iterator it = matched.begin();
-       it != matched.end(); ++it)
-    {
-      candidate = (*it);
-      cout << "  " << left << setw(max_len + 2)
-           << candidate->cli_token() << candidate->help() << endl;
-    }
-
-  // TODO: need to consider more.
-  if (is_cmd_)
-    cout << "  <cr>" << endl;
 
   cout << prompt();
   cout << rl_line_buffer;
@@ -196,8 +230,10 @@ char *
 CliReadline::completion_matches(const char *text, int state)
 {
   CliTree *tree = cli_->current_tree();
-  CliNodeVector matched;
-  int ret;
+  CliNodeMatchStateVector matched_vec;
+  string line(" ");
+
+  line += rl_line_buffer;
 
   // No input. 
   if (rl_end == 0)
@@ -208,32 +244,26 @@ CliReadline::completion_matches(const char *text, int state)
 
   if (state == 0)
     {
+      matched_strvec_ = NULL;
       matched_index_ = 0;
 
-      ret = parse(tree->top_, matched);
-      if (matched.size() > 0)
+      parse(line, tree->top_, matched_vec);
+      if (matched_vec.size() == 0)
         {
-          if (matched.size() == 1 &&
-              isspace(rl_line_buffer[rl_end - 1]))
-            {
-              CliNode *node = matched[0];
-              matched.clear();
-
-              for (CliNodeVector::iterator it = node->next_.begin();
-                   it != node->next_.end(); ++it)
-                {
-                  matched.push_back(*it);
-                }
-            }
-
+          cout << "% Unrecognized command" << endl << endl;
+        }
+      else
+        {
           int i = 0;
 
           matched_strvec_ =
-            (char **)calloc(matched.size() + 1, sizeof(char *));
-          for (CliNodeVector::iterator it = matched.begin();
-               it != matched.end(); ++it)
+            (char **)calloc(matched_vec.size() + 1, sizeof(char *));
+
+
+          for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
+               it != matched_vec.end(); ++it)
             {
-              CliNode *node = (*it);
+              CliNode *node = it->first;
               if (node->type_ == CliTree::keyword)
                 matched_strvec_[i++] = strdup(node->cli_token());
             }

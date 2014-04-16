@@ -49,7 +49,7 @@ int
 CliTree::get_token(string& str, string& token)
 {
   boost::smatch m;
-  int type = 0;
+  int type = CliTree::undef;
 
   // First skip whitespace.
   if (boost::regex_search(str, m, re_white_space))
@@ -161,6 +161,7 @@ CliTree::new_node_by_type(int type, Json::Value& tokens, string& def_token)
   return node;
 }
 
+// Link given node to each next node in current vector.
 void
 CliTree::vector_add_node_each(CliNodeVector& curr, CliNode *node)
 {
@@ -211,10 +212,7 @@ CliTree::build_recursive(CliNodeVector& curr,
         case CliTree::right_paren:
         case CliTree::right_bracket:
         case CliTree::right_brace:
-          for (CliNodeVector::iterator it = curr.begin();
-               it != curr.end(); ++it)
-            tail.push_back(*it);
-
+          copy(curr.begin(), curr.end(), back_inserter(tail));
           return type;
 
         default:
@@ -273,51 +271,51 @@ CliNode::sort_recursive()
       (*it)->sort_recursive();
 }
 
-bool
-CliNodeRange::cli_match(string *input)
+MatchState
+CliNodeRange::cli_match(string& input)
 {
   u_int64_t val;
   char *endptr = NULL;
 
-  val = strtoull(input->c_str(), &endptr, 10);
+  val = strtoull(input.c_str(), &endptr, 10);
   if (*endptr != '\0' || val < min_ || val > max_)
-    return false;
+    return match_none;
 
-  return true;
+  return match_full;
 }
 
-bool
-CliNodeIPv4Prefix::cli_match(string *input)
+MatchState
+CliNodeIPv4Prefix::cli_match(string& input)
 {
   size_t s = 0;
   size_t pos;
-  size_t length = input->size();
+  size_t length = input.size();
 
   for (int i = 0; i < 4; i++)
     {
       u_int16_t val;
       char *endptr = NULL;
 
-      pos = input->find('.', s);
+      pos = input.find('.', s);
       if (pos == string::npos)
         pos = length;
 
-      string sub = input->substr(s, pos);
+      string sub = input.substr(s, pos);
       val = strtoul(sub.c_str(), &endptr, 10);
       if (*endptr != '\0' || val > 255)
-        return false;
+        return match_none;
 
       if (pos == length)
         break;
     }
 
-  return true;
+  return match_full;
 }
 
-bool
-CliNodeIPv4Address::cli_match(string *input)
+MatchState
+CliNodeIPv4Address::cli_match(string& input)
 {
-  const char *str = input->c_str();
+  const char *str = input.c_str();
   const char *p = str;
 
   for (int i = 0; i < 4; i++)
@@ -326,7 +324,7 @@ CliNodeIPv4Address::cli_match(string *input)
 
       // Not a number.
       if (*p < '0' || *p > '9')
-        return false;
+        return match_none;
 
       val = *p - '0';
       p++;
@@ -336,7 +334,7 @@ CliNodeIPv4Address::cli_match(string *input)
           if (*p == '.')
             {
               if (i == 3)
-                return false;
+                return match_none;
 
               p++;
               break;
@@ -344,20 +342,25 @@ CliNodeIPv4Address::cli_match(string *input)
 
           // Not a number.
           if (*p < '0' || *p > '9')
-            return false;
+            return match_none;
 
           val = val * 10 + (*p - '0');
           if (val > 255)
-            return false;
+            return match_none;
 
           p++;
         }
 
       if (*p == '\0')
-        return true;
+        {
+          if (i == 3)
+            return match_full;
+          else
+            return match_incomplete;
+        }
     }
 
-  return false;
+  return match_none;
 }
 
 

@@ -29,6 +29,16 @@
 class CliNode;
 typedef vector<CliNode *> CliNodeVector;
 
+// Match return code.
+enum MatchState {
+  match_full,
+  match_partial,
+  match_incomplete,
+  //    match_ambiguous,
+  match_none,
+  //    match_success,
+};
+
 // Base virtual class for CLI Node.
 class CliNode
 {
@@ -40,7 +50,7 @@ public:
   ~CliNode() { }
 
   virtual const char *cli_token() { return cli_token_.c_str(); }
-  virtual bool cli_match(string *input) { return true; }
+  virtual MatchState cli_match(string& input) { return match_none; }
   string& help() { return help_; }
 
   void sort_recursive();
@@ -83,9 +93,15 @@ public:
     : CliNode(type, id, def_token, help)
   { cli_token_ = def_token; }
 
-  bool cli_match(string *input)
+  MatchState cli_match(string& input)
   {
-    return !input->compare(0, input->size(), cli_token(), input->size());
+    if (input == cli_token())
+      return match_full;
+
+    if (!input.compare(0, input.size(), cli_token(), input.size()))
+      return match_partial;
+
+    return match_none;
   }
 };
 
@@ -103,7 +119,7 @@ public:
     cli_token_ = ss.str();
   }
 
-  bool cli_match(string *input);
+  MatchState cli_match(string& input);
 
 private:
   u_int64_t min_;
@@ -120,7 +136,7 @@ public:
 
   const char *cli_token() { return "A.B.C.D/M"; }
 
-  bool cli_match(string *input);
+  MatchState cli_match(string& input);
 };
 
 // IPv4 Address.
@@ -133,7 +149,7 @@ public:
 
   const char *cli_token() { return "A.B.C.D"; }
 
-  bool cli_match(string *input);
+  MatchState cli_match(string& input);
 };
 
 // IPv6 Prefix.
