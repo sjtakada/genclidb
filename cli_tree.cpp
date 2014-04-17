@@ -363,4 +363,3 @@ CliNodeIPv4Address::cli_match(string& input)
   return match_none;
 }
 
-

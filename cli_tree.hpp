@@ -136,7 +136,6 @@ public:
   { }
 
   const char *cli_token() { return "A.B.C.D/M"; }
-
   MatchState cli_match(string& input);
 };
 
@@ -149,7 +148,6 @@ public:
   { }
 
   const char *cli_token() { return "A.B.C.D"; }
-
   MatchState cli_match(string& input);
 };
 
@@ -184,6 +182,7 @@ public:
   { }
 
   const char *cli_token() { return "WORD"; }
+  MatchState cli_match(string& input) { return match_partial; }
 };
 
 // Per mode CLI Tree.
