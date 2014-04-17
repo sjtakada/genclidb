@@ -31,7 +31,6 @@
 #include "cli.hpp"
 
 const boost::regex CliReadline::re_white_space("^([[:space:]]+)");
-const boost::regex CliReadline::re_white_space_only("^([[:space:]]+)$");
 const boost::regex CliReadline::re_command_string("^[^[:space:]]+");
 
 bool
@@ -40,7 +39,7 @@ CliNodeMatchStateCriterion(CliNodeMatchStatePair n, CliNodeMatchStatePair m)
   return n.second < m.second;
 }
 
-int
+size_t
 CliReadline::match_token(string& input, CliNode *curr,
                          CliNodeMatchStateVector& state_vec)
 {
@@ -135,21 +134,23 @@ CliReadline::filter_matched(CliNodeMatchStateVector& matched_vec)
     }
 }
 
-int
+// Return true if command can be completed.
+bool
 CliReadline::parse(string& line, CliNode *curr,
                    CliNodeMatchStateVector& matched_vec)
 {
   boost::smatch m;
   string token;
+  bool is_cmd = false;
 
   if (!skip_spaces(line))
-    return 1;
+    return curr->cmd_;
 
   matched_vec.clear();
   fill_matched_vec(curr, matched_vec);
 
   if (!get_token(line, token))
-    return 1;
+    return curr->cmd_;
 
   match_token(token, curr, matched_vec);
 
@@ -158,10 +159,10 @@ CliReadline::parse(string& line, CliNode *curr,
       filter_matched(matched_vec);
 
       if (matched_vec.size() == 1)
-        parse(line, matched_vec[0].first, matched_vec);
+        is_cmd = parse(line, matched_vec[0].first, matched_vec);
     }
 
-  return 0;
+  return is_cmd;
 }
 
 void
@@ -201,7 +202,7 @@ CliReadline::describe_line(CliNode *node, size_t max_len_token)
 
       help = help.substr(length + 1);
 
-      cli_token = (char *)" ";
+      cli_token = " ";
     }
 
   cout << "  " << left << setw(max_len_token + 2)
@@ -216,14 +217,14 @@ CliReadline::describe()
   CliNode *candidate;
   CliNodeMatchStateVector matched_vec;
   string line(" ");
-  bool is_cmd_ = false;
+  bool is_cmd = false;
 
   line += rl_line_buffer;
 
   cout << "?" << endl;
 
-  parse(line, tree->top_, matched_vec);
-  if (matched_vec.size() == 0)
+  is_cmd = parse(line, tree->top_, matched_vec);
+  if (!is_cmd && matched_vec.size() == 0)
     {
       cout << "% Unrecognized command" << endl << endl;
     }
@@ -243,8 +244,7 @@ CliReadline::describe()
            it != matched_vec.end(); ++it)
         describe_line(it->first, max_len);
 
-      // TODO: need to consider more.
-      if (is_cmd_)
+      if (is_cmd)
         cout << "  <cr>" << endl;
     }
 

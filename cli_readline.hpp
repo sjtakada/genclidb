@@ -42,14 +42,12 @@ public:
   char *gets();
   void execute() { }
 
-  void describe_line(CliNode *node, size_t max_len_token);
   int describe();
   char **completion(const char *text, int start, int end);
   char *completion_matches(const char *text, int state);
 
 private:
   static const boost::regex re_white_space;
-  static const boost::regex re_white_space_only;
   static const boost::regex re_command_string;
 
   // Parent CLI object.
@@ -70,9 +68,11 @@ private:
   void fill_matched_vec(CliNode *node,
                         CliNodeMatchStateVector& matched_vec);
   void filter_matched(CliNodeMatchStateVector& matched_vec);
-  int match_token(string& input, CliNode *node,
-                  CliNodeMatchStateVector& matched_vec);
-  int parse(string& line, CliNode *curr, CliNodeMatchStateVector& matched_vec);
+  size_t match_token(string& input, CliNode *node,
+                     CliNodeMatchStateVector& matched_vec);
+  bool parse(string& line, CliNode *curr,
+             CliNodeMatchStateVector& matched_vec);
+  void describe_line(CliNode *node, size_t max_len_token);
 };
 
 #endif /* _CLI_READLINE_HPP_ */

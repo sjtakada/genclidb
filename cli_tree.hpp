@@ -45,7 +45,8 @@ class CliNode
 public:
   CliNode() { }
   CliNode(int type, string& id, string& def_token, string& help)
-    : type_(type), id_(id), def_token_(def_token), help_(help)
+    : type_(type), id_(id), def_token_(def_token), help_(help),
+      cmd_(false)
   { }
   ~CliNode() { }
 
@@ -81,7 +82,7 @@ protected:
   // Next candidates.
   CliNodeVector next_;
 
-  // Command
+  // Command.
   bool cmd_;
 };
 
