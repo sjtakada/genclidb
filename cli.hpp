@@ -37,6 +37,7 @@ public:
   static CliReadline& readline() { return Cli::instance()->rl_; }
   CliTree *current_tree() { return tree_[mode_]; }
 
+  void terminal_init();
   void init();
   void loop();
   int json_read(char *filename, Json::Value& root);
@@ -67,7 +68,7 @@ private:
   ModeTreeMap tree_;
 
   // Member functions.
-  void terminal_init();
+  void signal_init();
   void parse_defun_all(Json::Value& tokens, Json::Value& commands);
   void parse_defun(Json::Value& tokens, Json::Value& command);
 };

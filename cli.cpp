@@ -19,6 +19,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 // 
+#include <signal.h>
+
 #include <iostream>
 #include <fstream>
 #include <streambuf>
@@ -43,6 +45,18 @@ Cli::instance()
 }
 
 void
+cli_handle_sigwinch(int sig)
+{
+  Cli::instance()->terminal_init();
+}
+
+void
+Cli::signal_init()
+{
+  signal(SIGWINCH, &cli_handle_sigwinch);
+}
+
+void
 Cli::terminal_init()
 {
   ioctl(0, TIOCGWINSZ, &ws_);
@@ -52,6 +66,7 @@ void
 Cli::init()
 {
   // signal init
+  signal_init();
 
   // Terminal init.
   terminal_init();
