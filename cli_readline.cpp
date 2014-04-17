@@ -182,13 +182,8 @@ CliReadline::describe_line(CliNode *node, size_t max_len_token)
 
   max_len_help = cli_->ws_.ws_col - (max_len_token + 5);
 
-  int count = 0;
-
   while (help.size() > max_len_help)
     {
-      if (count++ > 10)
-        assert(0);
-
       const char *s = help.c_str();
       const char *p = s + max_len_help;
 
