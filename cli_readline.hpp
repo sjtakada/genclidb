@@ -42,6 +42,7 @@ public:
   char *gets();
   void execute() { }
 
+  void describe_line(CliNode *node, size_t max_len_token);
   int describe();
   char **completion(const char *text, int start, int end);
   char *completion_matches(const char *text, int state);

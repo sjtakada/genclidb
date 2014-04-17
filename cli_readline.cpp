@@ -161,7 +161,56 @@ CliReadline::parse(string& line, CliNode *curr,
         parse(line, matched_vec[0].first, matched_vec);
     }
 
-  return match_full;
+  return 0;
+}
+
+void
+CliReadline::describe_line(CliNode *node, size_t max_len_token)
+{
+  size_t max_len_help;
+  const char *cli_token = node->cli_token();
+  string help(node->help());
+  string substr;
+
+  // No enough space to show help, just print without folding.
+  if (cli_->ws_.ws_col < max_len_token + 5)
+    {
+      cout << "  " << left << setw(max_len_token + 2)
+           << cli_token << node->help() << endl;
+      return;
+    }
+
+  max_len_help = cli_->ws_.ws_col - (max_len_token + 5);
+
+  int count = 0;
+
+  while (help.size() > max_len_help)
+    {
+      if (count++ > 10)
+        assert(0);
+
+      const char *s = help.c_str();
+      const char *p = s + max_len_help;
+
+      while (*p != ' ' && p != s)
+        p--;
+
+      if (p == s)
+        break;
+
+      size_t length = (size_t)(p - s);
+      substr = help.substr(0, length);
+
+      cout << "  " << left << setw(max_len_token + 2)
+           << cli_token << substr << endl;
+
+      help = help.substr(length + 1);
+
+      cli_token = (char *)" ";
+    }
+
+  cout << "  " << left << setw(max_len_token + 2)
+       << cli_token << help << endl;
 }
 
 int
@@ -197,11 +246,7 @@ CliReadline::describe()
 
       for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
            it != matched_vec.end(); ++it)
-        {
-          candidate = it->first;
-          cout << "  " << left << setw(max_len + 2)
-               << candidate->cli_token() << candidate->help() << endl;
-        }
+        describe_line(it->first, max_len);
 
       // TODO: need to consider more.
       if (is_cmd_)

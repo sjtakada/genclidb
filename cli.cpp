@@ -43,9 +43,18 @@ Cli::instance()
 }
 
 void
+Cli::terminal_init()
+{
+  ioctl(0, TIOCGWINSZ, &ws_);
+}
+
+void
 Cli::init()
 {
   // signal init
+
+  // Terminal init.
+  terminal_init();
 
   // CLI mode init.
   mode_read((char *)"cli.json/quagga.cli_mode.json");

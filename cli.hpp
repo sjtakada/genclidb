@@ -24,6 +24,9 @@
 
 using namespace std;
 
+#include <sys/ioctl.h>
+#include <stdio.h>
+
 #include "cli_readline.hpp"
 #include "cli_tree.hpp"
 
@@ -41,6 +44,9 @@ public:
   void cli_read(char *filename);
   void mode_read(char *filename);
   void mode_traverse(Json::Value& current, CliTree *parent);
+
+  // Terminal width, height.
+  struct winsize ws_;
 
 private:
   // For singleton instance.
@@ -60,6 +66,8 @@ private:
   typedef map<string, CliTree *> ModeTreeMap;
   ModeTreeMap tree_;
 
+  // Member functions.
+  void terminal_init();
   void parse_defun_all(Json::Value& tokens, Json::Value& commands);
   void parse_defun(Json::Value& tokens, Json::Value& command);
 };
