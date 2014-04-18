@@ -35,7 +35,7 @@ class Cli
 public:
   static Cli *instance();
   static CliReadline& readline() { return Cli::instance()->rl_; }
-  CliTree *current_tree() { return tree_[mode_]; }
+  CliTree *current_mode() { return mode_; }
 
   void terminal_init();
   void init();
@@ -44,21 +44,21 @@ public:
 
   void cli_read(char *filename);
   void mode_read(char *filename);
-  void mode_traverse(Json::Value& current, CliTree *parent);
+  CliTree *mode_traverse(Json::Value& current, CliTree *parent);
 
   // Terminal width, height.
   struct winsize ws_;
 
 private:
   // For singleton instance.
-  Cli() { }
+  Cli() : mode_(NULL) { }
   Cli(Cli const&) { }
 
   // Singleton instance.
   static Cli *instance_;
 
   // Current mode string.
-  string mode_;
+  CliTree *mode_;
 
   // Readline parser.
   CliReadline rl_;

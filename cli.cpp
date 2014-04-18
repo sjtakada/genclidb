@@ -89,9 +89,6 @@ Cli::init()
   rl_.init(this);
 
   // banner
-
-  // TODO: currently set OSPF NODE.
-  mode_ = "OSPF-NODE";
 }
 
 void
@@ -169,21 +166,26 @@ Cli::cli_read(char *filename)
     }
 }
 
-void
+// Return root mode.
+CliTree *
 Cli::mode_traverse(Json::Value& current, CliTree *parent)
 {
+  CliTree *tree = NULL;
+
   for (Json::Value::iterator it = current.begin(); it != current.end(); ++it)
     {
       Json::Value key = it.key();
       Json::Value value = (*it);
       const char *mode = key.asCString();
 
-      CliTree *tree = new CliTree(mode, parent);
+      tree = new CliTree(mode, parent);
       tree_[mode] = tree;
 
       if (!value["children"].isNull())
         mode_traverse(value["children"], tree);
     }
+
+  return tree;
 }
 
 void
@@ -192,7 +194,6 @@ Cli::mode_read(char *filename)
   Json::Value root;
 
   json_read(filename, root);
-
-  mode_traverse(root, NULL);
+  mode_ = mode_traverse(root, NULL);
 }
 

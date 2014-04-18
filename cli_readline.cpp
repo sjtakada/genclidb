@@ -213,7 +213,7 @@ int
 CliReadline::describe()
 {
   // current mode.
-  CliTree *tree = cli_->current_tree();
+  CliTree *tree = cli_->current_mode();
   CliNode *candidate;
   CliNodeMatchStateVector matched_vec;
   string line(" ");
@@ -269,7 +269,7 @@ readline_completion_dummy(const char *, int)
 char *
 CliReadline::completion_matches(const char *text, int state)
 {
-  CliTree *tree = cli_->current_tree();
+  CliTree *tree = cli_->current_mode();
   CliNodeMatchStateVector matched_vec;
   string line(" ");
 
