@@ -13,4 +13,4 @@ all: cli
 	$(CPP) $(CPPFLAGS) -c $<
 
 cli: $(OBJS)
-	g++ $(LDFLAGS) -o cli $(OBJS) $(LDLIBS)
+	$(CPP) $(LDFLAGS) -o cli $(OBJS) $(LDLIBS)

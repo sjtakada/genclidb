@@ -37,11 +37,16 @@ def cli_parse_defun(defun_all, line, f)
 
   defun_str.gsub!(/\n/, " ")
 
-  matched = /(DEFUN|ALIAS) \(\w+,\s*(\w+),\s*\"(.*)\",\s*(\".*\")\)/.match(defun_str)
+  matched = /(DEFUN|ALIAS) \(\w+,\s*(\w+),\s*\"(.*)\",\s*(\".*\")\s*\)/.match(defun_str)
+  if matched == nil
+    puts "Error: couldn't parse defun: " + defun_str
+    exit
+  end
 
   id = matched[2]
   cmdstr = matched[3]
   cmdstr.gsub!(/\"\s+\"/, "")
+  cmdstr.gsub!(/\"\"/, "")
 
   helpstr = matched[4]
 
@@ -68,6 +73,10 @@ def cli_parse_install(install_all, line, f)
   install_str.gsub!(/\n/, " ")
 
   matched = /install_element\s*\((\w+),\s*\&(\w+)\);/.match(install_str)
+  if matched == nil
+    puts "Error: couldn't parse install_element " + install_str
+    return
+  end
   
   mode = matched[1]
   id = matched[2]
@@ -103,10 +112,16 @@ def cli_get_token(str)
     type = :ipv6address
   elsif str =~ /^\<[[:digit:]]+-[[:digit:]]+\>/
     type = :integer
+# TODO: <+/-metric>
+  elsif str =~ /^\<.*\>/
+    type = :string
   elsif str =~ /^HH:MM:SS/
     type = :time
   elsif str =~ /^MONTH/
     type = :month
+# TODO: special case for ospf6d
+  elsif str =~ /^[A-Z][A-Za-z_0-9:\.\-\/]*/
+    type = :string
   elsif str =~ /^[A-Z][A-Z_0-9:\.\-]*/
     type = :string
   elsif str =~ /^\.[A-Z][A-Z_0-9:\.\-]*/
@@ -115,7 +130,7 @@ def cli_get_token(str)
     type = :keyword
   else
     puts "Error: unknown token '#{str}', abort!"
-    exit
+    exit 1
   end
 
   token = $~.to_s
@@ -197,25 +212,35 @@ def cli_str2token(defun)
   [h, cmdout]
 end
 
+pwd = Dir.pwd
 # Iterate all *.c files
 ARGV.each do |filename|
+  path = Pathname.new(filename)
+  dir = path.dirname.to_s
+  basename = path.basename.to_s
+
+  # Goto source directory.
+  Dir.chdir(dir);
 
   defun_all = Hash.new
   install_all = Hash.new
   cli_json = Hash.new
 
   # Parse *.c to retrieve (DEFUN|ALIAS) and install_element.
-  f = IO.popen("gcc -E -DHAVE_CONFIG_H -DVTYSH_EXTRACT_PL -DHAVE_IPV6 -I.. -I./ -I./.. -I../lib -I../lib -I../isisd/topology #{filename}")
+  f = IO.popen("gcc -E -DHAVE_CONFIG_H -DVTYSH_EXTRACT_PL -DHAVE_IPV6 -I.. -I./ -I./.. -I../lib -I../lib -I../isisd/topology #{basename}")
   while line = f.gets
     line.chomp!
 
     if line =~ /^DEFUN / or line =~ /^ALIAS /
       cli_parse_defun(defun_all, line, f)
-    elsif line =~ /^\s*install_element/
+    elsif line =~ /^\s+install_element[^_]/
       cli_parse_install(install_all, line, f)
     end
   end
   f.close
+
+  # Go back to CLIJSON directory
+  Dir.chdir(pwd);
 
   if defun_all.count > 0
     # Generate CLI JSON.
@@ -236,7 +261,7 @@ ARGV.each do |filename|
     end
 
     # Write JSON file with same basename.
-    out_file = Pathname.new(filename).basename.to_s
+    out_file = basename #Pathname.new(filename).basename.to_s
     out_file.sub!(/\.c$/, ".cli.json")
     File.open(out_file, "w") do |f|
       f.write(JSON.pretty_generate(cli_json))
