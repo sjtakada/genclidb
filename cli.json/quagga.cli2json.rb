@@ -126,7 +126,9 @@ def cli_get_token(str)
     type = :string
   elsif str =~ /^\.[A-Z][A-Z_0-9:\.\-]*/
     type = :string_array
-  elsif str =~ /^[a-z_0-9:\.\-\*]+/
+  elsif str =~ /^\.\<[[:digit:]]+-[[:digit:]]+\>/
+    type = :string_array
+  elsif str =~ /^[a-z0-9\*][a-zA-Z_0-9:\.\-\*]*/
     type = :keyword
   else
     puts "Error: unknown token '#{str}', abort!"

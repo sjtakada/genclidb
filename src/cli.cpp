@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 // 
 #include <signal.h>
+#include <dirent.h>
 
 #include <iostream>
 #include <fstream>
@@ -72,10 +73,10 @@ Cli::init()
   terminal_init();
 
   // CLI mode init.
-  mode_read((char *)"cli.json/quagga.cli_mode.json");
+  mode_read((char *)"../cli.json/quagga.cli_mode.json");
 
   // Read CLI definitions.
-  cli_read((char *)"cli.json/ospf_vty.cli.json");
+  load_cli_json_all((char *)"../cli.json");
 
   // Sort CLI trees.
   for (ModeTreeMap::iterator it = tree_.begin(); it != tree_.end(); ++it)
@@ -117,7 +118,7 @@ Cli::json_read(char *filename, Json::Value& root)
 
   ret = reader.parse(str, root);
   if (!ret)
-    cout << "Failed to read cli.json";
+    cout << "Failed to read cli.json" << endl;
 
   return ret;
 }
@@ -148,8 +149,48 @@ Cli::parse_defun_all(Json::Value& tokens, Json::Value& commands)
       parse_defun(tokens, (*it));
 }
 
+bool
+Cli::load_cli_json_all(char *dirname)
+{
+  DIR *dirp;
+  struct dirent entry;
+  struct dirent *result;
+  const char *suffix = ".cli.json";
+  size_t suffix_len = strlen(suffix);
+
+  dirp = opendir(dirname);
+  if (dirp == NULL)
+    {
+      cout << "Error: cannot read directory " << dirname << endl;
+      return false;
+    }
+
+  while (!readdir_r(dirp, &entry, &result))
+    {
+      if (result == NULL)
+        break;
+
+      size_t len = strlen(entry.d_name);
+      if (len > suffix_len)
+        if ((strncmp((const char *)&entry.d_name[len - suffix_len],
+                     suffix, suffix_len)) == 0)
+          {
+            string file(dirname);
+            file += "/";
+            file += entry.d_name;
+
+            load_cli_json((char *)file.c_str());
+            cout << "Loading CLI JSON " << file << endl;
+          }
+    }
+
+  closedir(dirp);
+
+  return true;
+}
+
 void
-Cli::cli_read(char *filename)
+Cli::load_cli_json(char *filename)
 {
   Json::Value root;
 

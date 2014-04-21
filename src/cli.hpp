@@ -42,7 +42,8 @@ public:
   void loop();
   int json_read(char *filename, Json::Value& root);
 
-  void cli_read(char *filename);
+  void load_cli_json(char *filename);
+  bool load_cli_json_all(char *dirname);
   void mode_read(char *filename);
   CliTree *mode_traverse(Json::Value& current, CliTree *parent);
 
