@@ -114,9 +114,8 @@ def cli_get_token(str)
     type = :ipv6address
   elsif str =~ /^\<[[:digit:]]+-[[:digit:]]+\>/
     type = :integer
-# TODO: <+/-metric>
-  elsif str =~ /^\<.*\>/
-    type = :string
+  elsif str =~ /^\<\+\/-metric>/
+    type = :metric_offset
   elsif str =~ /^AA:NN/
     type = :community_new
   elsif str =~ /^HH:MM:SS/
@@ -128,10 +127,6 @@ def cli_get_token(str)
     type = :string
   elsif str =~ /^[A-Z][A-Z_0-9:\.\-]*/
     type = :string
-  elsif str =~ /^\.[A-Z][A-Z_0-9:\.\-]*/
-    type = :string_array
-  elsif str =~ /^\.\<[[:digit:]]+-[[:digit:]]+\>/
-    type = :string_array
   elsif str =~ /^[a-z0-9\*][a-zA-Z_0-9:\.\-\*]*/
     type = :keyword
   else
@@ -193,6 +188,8 @@ def cli_str2token(defun)
       key = "RANGE:" + id_str
       matched = /^\<([[:digit:]]+)-([[:digit:]]+)\>/.match(token)
       range = [ matched[1].to_i, matched[2].to_i ]
+    when :metric_offset
+      key = "METRIC-OFFSET:" + id_str
     when :community_new
       key = "COMMNITY:" + id_str
     when :string
