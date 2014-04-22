@@ -251,13 +251,22 @@ ARGV.each do |filename|
       idx = id.gsub(/_/, "-")
       h['token'], cmdout = cli_str2token(v)
       h['command'] = Array.new
-      h['command'] << Hash.new
-      h['command'][0]['defun'] = cmdout
+
+      command = Hash.new
+      command['defun'] = cmdout
+
       if install_all[id] != nil
-        h['command'][0]['mode'] = install_all[id].map {|s| s.gsub(/_/, "-") }
+        command['mode'] = install_all[id].map {|s| s.gsub(/_/, "-") }
       end
-      h['command'][0]['method'] = "NONE"
-      h['command'][0]['path'] = ""
+
+      action = Hash.new
+      action['method'] = "NONE"
+      action['path'] = ""
+
+      command['action'] = Hash.new
+      command['action']['http'] = action;
+
+      h['command'] << command
 
       cli_json[idx] = h
     end

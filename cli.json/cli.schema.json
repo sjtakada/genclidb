@@ -75,19 +75,34 @@
                   }
                 }
               },
-              "method": {
-                "enum": [ "GET", "POST", "PUT", "DELETE", "NONE" ]
-              },
-              "path": {
-                "type": "string"
-              },
-              "params": {
+              "action": {
                 "type": "object",
-                "patternProperties": {
-                  "^[a-zA-Z0-9\-]+$": {
-                    "type": "string"
+                "properties": {
+                  "http": {
+                    "type": "object",
+                    "properties": {
+                      "method": {
+                        "enum": [ "GET", "POST", "PUT", "DELETE", "NONE" ]
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "params": {
+                        "type": "object",
+                        "patternProperties": {
+                          "^[a-zA-Z0-9\-]+$": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "builtin": {
+                    "type": "object"
                   }
-                }
+                },
+                "additionalProperties": false
               },
               "update": {
                 "type": "object"

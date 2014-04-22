@@ -1,13 +1,17 @@
 {
-  "ENABLE-NODE": {
+  "VIEW-NODE": {
     "children": {
-      "CONFIG-NODE": {
+      "ENABLE-NODE": {
         "children": {
-          "OSPF-NODE": null,
-          "BGP-NODE": null,
-          "RIP-NODE": null,
-          "OSPF6-NODE": null,
-          "RIPNG-NODE": null
+          "CONFIG-NODE": {
+            "children": {
+              "OSPF-NODE": null,
+              "BGP-NODE": null,
+              "RIP-NODE": null,
+              "OSPF6-NODE": null,
+              "RIPNG-NODE": null
+            }
+          }
         }
       }
     }
