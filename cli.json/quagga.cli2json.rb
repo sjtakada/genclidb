@@ -102,6 +102,8 @@ def cli_get_token(str)
     type = :rightparen
   elsif str =~ /^\]/
     type = :rightbracket
+  elsif str =~ /^\./
+    type = :dot
   elsif str =~ /^A\.B\.C\.D\/M/
     type = :ipv4prefix
   elsif str =~ /^A\.B\.C\.D/
@@ -115,6 +117,8 @@ def cli_get_token(str)
 # TODO: <+/-metric>
   elsif str =~ /^\<.*\>/
     type = :string
+  elsif str =~ /^AA:NN/
+    type = :community_new
   elsif str =~ /^HH:MM:SS/
     type = :time
   elsif str =~ /^MONTH/
@@ -149,6 +153,7 @@ def cli_str2token(defun)
   id.push(0)
   token_all = Array.new
 
+  dot = false
   while cmdstr != ""
     key = nil
     type = nil
@@ -161,11 +166,21 @@ def cli_str2token(defun)
     case type
     when :whitespace, :pipe
       ;
-    when :leftparen, :leftbracket
+    when :leftparen
       id.push(0)
-    when :rightparen, :rightbracket
+    when :rightparen
       id.pop
       id[-1] += 1
+    when :leftbracket
+      id.push(0)
+      token = "("
+    when :rightbracket
+      id.pop
+      id[-1] += 1
+      token = "|)"
+    when :dot
+      dot = true;
+      token = "[";
     when :ipv4prefix
       key = "IPV4-PREFIX:" + id_str
     when :ipv4address
@@ -178,8 +193,14 @@ def cli_str2token(defun)
       key = "RANGE:" + id_str
       matched = /^\<([[:digit:]]+)-([[:digit:]]+)\>/.match(token)
       range = [ matched[1].to_i, matched[2].to_i ]
-    when :string, :time, :month
+    when :community_new
+      key = "COMMNITY:" + id_str
+    when :string
       key = "WORD:" + id_str
+    when :time
+      key = "TIME:" + id_str
+    when :month
+      key = "MONTH:" + id_str
     when :string_array
       key = "ARRAY:" + id_str
     when :keyword
@@ -188,6 +209,10 @@ def cli_str2token(defun)
 
     if key != nil
       token_all << key
+      if dot == true
+        token_all << "]" 
+        dot = false
+      end
     else
       token_all << token
       next
