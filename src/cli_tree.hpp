@@ -236,7 +236,11 @@ private:
   static const boost::regex re_ipv6_prefix;
   static const boost::regex re_ipv6_address;
   static const boost::regex re_range;
+  static const boost::regex re_metric_offset;
+  static const boost::regex re_community_new;
   static const boost::regex re_word;
+  static const boost::regex re_time;
+  static const boost::regex re_month;
   static const boost::regex re_array;
 
   // Mode name.

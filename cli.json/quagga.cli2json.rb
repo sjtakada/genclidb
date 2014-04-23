@@ -191,7 +191,7 @@ def cli_str2token(defun)
     when :metric_offset
       key = "METRIC-OFFSET:" + id_str
     when :community_new
-      key = "COMMNITY:" + id_str
+      key = "COMMUNITY:" + id_str
     when :string
       key = "WORD:" + id_str
     when :time

@@ -179,8 +179,8 @@ Cli::load_cli_json_all(char *dirname)
             file += "/";
             file += entry.d_name;
 
-            load_cli_json((char *)file.c_str());
             cout << "Loading CLI JSON " << file << endl;
+            load_cli_json((char *)file.c_str());
           }
     }
 

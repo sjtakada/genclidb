@@ -38,12 +38,16 @@ const boost::regex CliTree::re_right_brace("^(\\})");
 const boost::regex CliTree::re_left_bracket("^(\\[)");
 const boost::regex CliTree::re_right_bracket("^(\\])");
 const boost::regex CliTree::re_ipv4_prefix("^(IPV4-PREFIX:[0-9\\.]+)");
-const boost::regex CliTree::re_ipv4_address("(^IPV4-ADDR:[0-9\\.]+)");
+const boost::regex CliTree::re_ipv4_address("^(IPV4-ADDR:[0-9\\.]+)");
 const boost::regex CliTree::re_ipv6_prefix("(^IPV6-PREFIX:[0-9\\.]+)");
-const boost::regex CliTree::re_ipv6_address("(^IPV6-ADDR:[0-9\\.]+)");
-const boost::regex CliTree::re_range("(^RANGE:[0-9\\.]+)");
-const boost::regex CliTree::re_word("(^WORD:[0-9\\.]+)");
-const boost::regex CliTree::re_array("(^ARRAY:[0-9\\.]+)");
+const boost::regex CliTree::re_ipv6_address("^(IPV6-ADDR:[0-9\\.]+)");
+const boost::regex CliTree::re_range("^(RANGE:[0-9\\.]+)");
+const boost::regex CliTree::re_metric_offset("^(METRIC-OFFSET:[0-9\\.]+)");
+const boost::regex CliTree::re_community_new("^(COMMUNITY:[0-9\\.]+)");
+const boost::regex CliTree::re_word("^(WORD:[0-9\\.]+)");
+const boost::regex CliTree::re_time("^(TIME:[0-9\\.]+)");
+const boost::regex CliTree::re_month("^(MONTH:[0-9\\.]+)");
+const boost::regex CliTree::re_array("^(ARRAY:[0-9\\.]+)");
 
 int
 CliTree::get_token(string& str, string& token)
@@ -79,8 +83,16 @@ CliTree::get_token(string& str, string& token)
     type = CliTree::ipv6_address;
   else if (boost::regex_search(str, m, re_range))
     type = CliTree::range;
+  else if (boost::regex_search(str, m, re_metric_offset))
+    type = CliTree::word; // TODO
+  else if (boost::regex_search(str, m, re_community_new))
+    type = CliTree::word; // TODO
   else if (boost::regex_search(str, m, re_word))
     type = CliTree::word;
+  else if (boost::regex_search(str, m, re_time))
+    type = CliTree::word; // TODO
+  else if (boost::regex_search(str, m, re_month))
+    type = CliTree::word; // TODO
   else if (boost::regex_search(str, m, re_array))
     type = CliTree::array;
   else if (boost::regex_search(str, m, re_keyword))
