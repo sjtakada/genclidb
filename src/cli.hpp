@@ -46,6 +46,7 @@ public:
   bool load_cli_json_all(char *dirname);
   void mode_read(char *filename);
   CliTree *mode_traverse(Json::Value& current, CliTree *parent);
+  bool mode_set(string& mode_str);
 
   // Terminal width, height.
   struct winsize ws_;
@@ -58,7 +59,7 @@ private:
   // Singleton instance.
   static Cli *instance_;
 
-  // Current mode string.
+  // Current mode.
   CliTree *mode_;
 
   // Readline parser.

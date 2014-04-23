@@ -185,7 +185,8 @@ int
 CliTree::build_recursive(CliNodeVector& curr,
                          CliNodeVector& head,
                          CliNodeVector& tail,
-                         string& str, Json::Value& tokens)
+                         string& str, Json::Value& tokens,
+                         Json::Value& action)
 {
   CliNode *next;
   string def_token;
@@ -206,7 +207,7 @@ CliTree::build_recursive(CliNodeVector& curr,
             do
               {
                 CliNodeVector cv(curr);
-                type = build_recursive(cv, hv, tv, str, tokens);
+                type = build_recursive(cv, hv, tv, str, tokens, action);
               }
             while (type == CliTree::vertical_bar);
 
@@ -250,19 +251,29 @@ CliTree::build_recursive(CliNodeVector& curr,
 
   // TODO
   for (CliNodeVector::iterator it = curr.begin(); it != curr.end(); ++it)
-    (*it)->cmd_ = true;
+    {
+      (*it)->cmd_ = true;
+
+      if (!action.isNull())
+        {
+          Json::Value mode = action["mode"];
+          if (!mode.isNull())
+            (*it)->next_mode_ = mode.asString();
+        }
+    }
 
   return CliTree::undef;
 }
 
 void
-CliTree::build_command(Json::Value& defun, Json::Value& tokens)
+CliTree::build_command(Json::Value& defun, Json::Value& tokens,
+                       Json::Value& action)
 {
   string str(defun.asString());
   CliNodeVector cv, hv, tv;
   cv.push_back(top_);
 
-  build_recursive(cv, hv, tv, str, tokens);
+  build_recursive(cv, hv, tv, str, tokens, action);
 }
 
 

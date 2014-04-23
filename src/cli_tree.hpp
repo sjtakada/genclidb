@@ -34,9 +34,7 @@ enum MatchState {
   match_full,
   match_partial,
   match_incomplete,
-  //    match_ambiguous,
   match_none,
-  //    match_success,
 };
 
 // Base virtual class for CLI Node.
@@ -84,6 +82,9 @@ protected:
 
   // Command.
   bool cmd_;
+
+  // XXX/ next mode.
+  string next_mode_;
 };
 
 // Keyword.
@@ -217,7 +218,8 @@ public:
     keyword,
   } token;
 
-  void build_command(Json::Value& defun, Json::Value& tokens);
+  void build_command(Json::Value& defun, Json::Value& tokens,
+                     Json::Value& action);
 
   friend class CliReadline;
 
@@ -252,7 +254,8 @@ private:
   // Member functions.
   int get_token(string& str, string& token);
   int build_recursive(CliNodeVector& curr, CliNodeVector& head,
-                      CliNodeVector& tail, string& str, Json::Value& tokens);
+                      CliNodeVector& tail, string& str, Json::Value& tokens,
+                      Json::Value& action);
   void vector_add_node_each(CliNodeVector& curr, CliNode *node);
   CliNode *new_node_by_type(int type, Json::Value& tokens, string& def_token);
   CliNode *find_next_by_def_token(CliNodeVector& v, string& token);

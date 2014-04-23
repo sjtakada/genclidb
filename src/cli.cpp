@@ -128,6 +128,7 @@ Cli::parse_defun(Json::Value& tokens, Json::Value& command)
 {
   Json::Value defun = command["defun"];
   Json::Value modes = command["mode"];
+  Json::Value action = command["action"];
 
   if (!defun.isNull() && !modes.isNull())
     for (Json::Value::iterator it = modes.begin(); it != modes.end(); ++it)
@@ -136,7 +137,7 @@ Cli::parse_defun(Json::Value& tokens, Json::Value& command)
 
         CliTree *tree = tree_[mode.asCString()];
         if (tree)
-          tree->build_command(defun, tokens);
+          tree->build_command(defun, tokens, action);
       }
 }
 
@@ -227,6 +228,20 @@ Cli::mode_traverse(Json::Value& current, CliTree *parent)
     }
 
   return tree;
+}
+
+bool
+Cli::mode_set(string& mode_str)
+{
+  CliTree *mode = tree_[mode_str];
+
+  if (mode)
+    {
+      mode_ = mode;
+      return true;
+    }
+
+  return false;
 }
 
 void

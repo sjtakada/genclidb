@@ -40,14 +40,14 @@ public:
   // Public member functions, Cli will call.
   void init(Cli *cli);
   char *gets();
-  void execute() { }
-
+  bool execute();
   int describe();
   char **completion(const char *text, int start, int end);
   char *completion_matches(const char *text, int state);
 
 private:
   static const boost::regex re_white_space;
+  static const boost::regex re_white_space_only;
   static const boost::regex re_command_string;
 
   // Parent CLI object.

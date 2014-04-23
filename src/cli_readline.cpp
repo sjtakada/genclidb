@@ -31,6 +31,7 @@
 #include "cli.hpp"
 
 const boost::regex CliReadline::re_white_space("^([[:space:]]+)");
+const boost::regex CliReadline::re_white_space_only("^([[:space:]]*)$");
 const boost::regex CliReadline::re_command_string("^[^[:space:]]+");
 
 bool
@@ -366,6 +367,47 @@ CliReadline::gets()
     add_history(buf_);
 
   return buf_;
+}
+
+bool
+CliReadline::execute()
+{
+  // current mode.
+  CliTree *tree = cli_->current_mode();
+  CliNodeMatchStateVector matched_vec;
+  string line(" ");
+  bool is_cmd = false;
+  boost::smatch m;
+
+  line += rl_line_buffer;
+
+  if (!boost::regex_search(line, m, re_white_space_only))
+    {
+      is_cmd = parse(line, tree->top_, matched_vec);
+      if (!is_cmd)
+        {
+          if (matched_vec.size() == 0)
+            cout << "% Unrecognized command" << endl << endl;
+          else
+            cout << "% Incomplete command" << endl << endl;
+        }
+      else if (matched_vec.size() > 1)
+        cout << "% Ambiguous command" << endl << endl;
+      else
+        {
+          CliNode *node = matched_vec[0].first;
+          if (node->next_mode_.size() != 0)
+            {
+              cli_->mode_set(node->next_mode_);
+
+              cout << "next mode " << node->next_mode_ << endl;
+            }
+
+          cout << "command: " << node->def_token_ << endl;
+        }
+    }
+
+  return true;
 }
 
 char *

@@ -98,6 +98,9 @@
                     },
                     "additionalProperties": false
                   },
+                  "mode": {
+                    "type": "string"
+                  },
                   "builtin": {
                     "type": "object"
                   }
