@@ -30,7 +30,7 @@
 #include "cli_readline.hpp"
 #include "cli.hpp"
 
-const boost::regex CliReadline::re_white_space("^([[:space:]]+)");
+const boost::regex CliReadline::re_white_space("^([[:space:]]*)");
 const boost::regex CliReadline::re_white_space_only("^([[:space:]]*)$");
 const boost::regex CliReadline::re_command_string("^[^[:space:]]+");
 
@@ -142,12 +142,12 @@ CliReadline::parse(string& line, CliNode *curr,
 {
   boost::smatch m;
   string token;
-  bool is_cmd = false;
+  //  bool is_cmd = false;
 
+  matched_vec.clear();
   if (!skip_spaces(line))
     return curr->cmd_;
 
-  matched_vec.clear();
   fill_matched_vec(curr, matched_vec);
 
   if (!get_token(line, token))
@@ -160,10 +160,13 @@ CliReadline::parse(string& line, CliNode *curr,
       filter_matched(matched_vec);
 
       if (matched_vec.size() == 1)
-        is_cmd = parse(line, matched_vec[0].first, matched_vec);
+        return parse(line, matched_vec[0].first, matched_vec);
     }
 
-  return is_cmd;
+  if (matched_vec.size() == 1)
+    curr = matched_vec[0].first;
+
+  return curr->cmd_;
 }
 
 void
@@ -388,11 +391,11 @@ CliReadline::execute()
         {
           if (matched_vec.size() == 0)
             cout << "% Unrecognized command" << endl << endl;
+          else if (matched_vec.size() > 1)
+            cout << "% Ambiguous command" << endl << endl;
           else
             cout << "% Incomplete command" << endl << endl;
         }
-      else if (matched_vec.size() > 1)
-        cout << "% Ambiguous command" << endl << endl;
       else
         {
           CliNode *node = matched_vec[0].first;
@@ -410,9 +413,4 @@ CliReadline::execute()
   return true;
 }
 
-//char *
-//CliReadline::prompt()
-//{
-//  return (char *)"Router> ";
-//}
 

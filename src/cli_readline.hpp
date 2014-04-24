@@ -61,8 +61,6 @@ private:
   int matched_index_;
 
   // Private member functions.
-  //  char *prompt();
-
   bool get_token(string&str, string& token);
   bool skip_spaces(string& str);
   void fill_matched_vec(CliNode *node,
