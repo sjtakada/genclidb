@@ -47,13 +47,14 @@ public:
   void mode_read(char *filename);
   CliTree *mode_traverse(Json::Value& current, CliTree *parent);
   bool mode_set(string& mode_str);
+  const char *prompt();
 
   // Terminal width, height.
   struct winsize ws_;
 
 private:
   // For singleton instance.
-  Cli() : mode_(NULL) { }
+  Cli() : mode_(NULL), hostname_("Router") { }
   Cli(Cli const&) { }
 
   // Singleton instance.
@@ -68,6 +69,9 @@ private:
   // CLI mode to tree map.
   typedef map<string, CliTree *> ModeTreeMap;
   ModeTreeMap tree_;
+
+  // Hostname.
+  string hostname_;
 
   // Member functions.
   void signal_init();

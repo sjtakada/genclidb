@@ -249,7 +249,7 @@ CliReadline::describe()
         cout << "  <cr>" << endl;
     }
 
-  cout << prompt();
+  cout << cli_->prompt();
   cout << rl_line_buffer;
 
   return 0;
@@ -280,7 +280,7 @@ CliReadline::completion_matches(const char *text, int state)
   if (rl_end == 0)
     {
       cout << endl << endl;
-      cout << prompt();
+      cout << cli_->prompt();
       return NULL;
     }
 
@@ -294,7 +294,7 @@ CliReadline::completion_matches(const char *text, int state)
         {
           cout << endl;
           cout << "% Unrecognized command" << endl << endl;
-          cout << prompt();
+          cout << cli_->prompt();
           cout << rl_line_buffer;
         }
       else
@@ -360,7 +360,7 @@ CliReadline::gets()
     }
 
   // Read a line.
-  buf_ = readline(prompt());
+  buf_ = readline(cli_->prompt());
 
   // Add history.
   if (buf_ && buf_[0] != '\0')
@@ -410,9 +410,9 @@ CliReadline::execute()
   return true;
 }
 
-char *
-CliReadline::prompt()
-{
-  return (char *)"Router> ";
-}
+//char *
+//CliReadline::prompt()
+//{
+//  return (char *)"Router> ";
+//}
 

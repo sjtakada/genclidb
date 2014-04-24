@@ -1,15 +1,31 @@
 {
   "VIEW-NODE": {
+    "prompt": ">",
     "children": {
       "ENABLE-NODE": {
+        "prompt": "#",
         "children": {
           "CONFIG-NODE": {
+            "prompt": "(config)#",
             "children": {
-              "OSPF-NODE": null,
-              "BGP-NODE": null,
-              "RIP-NODE": null,
-              "OSPF6-NODE": null,
-              "RIPNG-NODE": null
+              "INTERFACE_NODE": {
+                "prompt": "(config-if)#",
+              },
+              "OSPF-NODE": {
+                "prompt": "(config-router)#",
+              },
+              "BGP-NODE": {
+                "prompt": "(config-router)#",
+              },
+              "RIP-NODE": {
+                "prompt": "(config-router)#",
+              },
+              "OSPF6-NODE": {
+                "prompt": "(config-router)#",
+              },
+              "RIPNG-NODE": {
+                "prompt": "(config-router)#",
+              }
             }
           }
         }

@@ -218,9 +218,14 @@ Cli::mode_traverse(Json::Value& current, CliTree *parent)
     {
       Json::Value key = it.key();
       Json::Value value = (*it);
+      string prompt;
       const char *mode = key.asCString();
 
-      tree = new CliTree(mode, parent);
+      if (!value.isNull())
+        if (!value["prompt"].isNull())
+          prompt = value["prompt"].asString();
+
+      tree = new CliTree(mode, prompt, parent);
       tree_[mode] = tree;
 
       if (!value["children"].isNull())
@@ -253,3 +258,14 @@ Cli::mode_read(char *filename)
   mode_ = mode_traverse(root, NULL);
 }
 
+const char *
+Cli::prompt()
+{
+  string str(hostname_);
+  CliTree *tree = current_mode();
+
+  str += tree->prompt();
+  str += " ";
+
+  return str.c_str();
+}

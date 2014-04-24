@@ -61,7 +61,7 @@ private:
   int matched_index_;
 
   // Private member functions.
-  char *prompt();
+  //  char *prompt();
 
   bool get_token(string&str, string& token);
   bool skip_spaces(string& str);

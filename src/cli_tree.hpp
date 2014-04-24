@@ -190,8 +190,8 @@ public:
 class CliTree
 {
 public:
-  CliTree(const char *mode, CliTree *parent)
-    : mode_(mode), parent_(parent)
+  CliTree(const char *mode, string& prompt, CliTree *parent)
+    : mode_(mode), prompt_(prompt), parent_(parent)
   { top_ = new CliNode; }
   ~CliTree() { }
 
@@ -221,6 +221,8 @@ public:
   void build_command(Json::Value& defun, Json::Value& tokens,
                      Json::Value& action);
 
+  string& prompt() { return prompt_; }
+
   friend class CliReadline;
 
 private:
@@ -247,6 +249,9 @@ private:
 
   // Mode name.
   string mode_;
+
+  // Prompt.
+  string prompt_;
 
   // Parent CLI tree.
   CliTree *parent_;
