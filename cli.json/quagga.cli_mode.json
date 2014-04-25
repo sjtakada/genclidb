@@ -9,22 +9,22 @@
             "prompt": "(config)#",
             "children": {
               "INTERFACE_NODE": {
-                "prompt": "(config-if)#",
+                "prompt": "(config-if)#"
               },
               "OSPF-NODE": {
-                "prompt": "(config-router)#",
+                "prompt": "(config-router)#"
               },
               "BGP-NODE": {
-                "prompt": "(config-router)#",
+                "prompt": "(config-router)#"
               },
               "RIP-NODE": {
-                "prompt": "(config-router)#",
+                "prompt": "(config-router)#"
               },
               "OSPF6-NODE": {
-                "prompt": "(config-router)#",
+                "prompt": "(config-router)#"
               },
               "RIPNG-NODE": {
-                "prompt": "(config-router)#",
+                "prompt": "(config-router)#"
               }
             }
           }

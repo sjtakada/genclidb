@@ -118,7 +118,7 @@ Cli::json_read(char *filename, Json::Value& root)
 
   ret = reader.parse(str, root);
   if (!ret)
-    cout << "Failed to read cli.json" << endl;
+    cout << "Failed to read CLI JSON file: " << filename << endl;
 
   return ret;
 }
