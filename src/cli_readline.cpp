@@ -154,7 +154,6 @@ CliReadline::parse(string& line, CliNode *curr,
     return curr->cmd_;
 
   match_token(token, curr, matched_vec);
-
   if (line.begin() != line.end())
     {
       filter_matched(matched_vec);
@@ -276,6 +275,7 @@ CliReadline::completion_matches(const char *text, int state)
   CliTree *tree = cli_->current_mode();
   CliNodeMatchStateVector matched_vec;
   string line(" ");
+  bool is_cmd = false;
 
   line += rl_line_buffer;
 
@@ -292,11 +292,12 @@ CliReadline::completion_matches(const char *text, int state)
       matched_strvec_ = NULL;
       matched_index_ = 0;
 
-      parse(line, tree->top_, matched_vec);
+      is_cmd = parse(line, tree->top_, matched_vec);
       if (matched_vec.size() == 0)
         {
           cout << endl;
-          cout << "% Unrecognized command" << endl << endl;
+          if (!is_cmd)
+            cout << "% Unrecognized command" << endl << endl;
           cout << cli_->prompt();
           cout << rl_line_buffer;
         }
@@ -387,6 +388,10 @@ CliReadline::execute()
   if (!boost::regex_search(line, m, re_white_space_only))
     {
       is_cmd = parse(line, tree->top_, matched_vec);
+      filter_matched(matched_vec);
+      if (matched_vec.size() == 1)
+        is_cmd = matched_vec[0].first->cmd_;
+
       if (!is_cmd)
         {
           if (matched_vec.size() == 0)
