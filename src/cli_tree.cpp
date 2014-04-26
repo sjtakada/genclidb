@@ -49,6 +49,12 @@ const boost::regex CliTree::re_time("^(TIME:[0-9\\.]+)");
 const boost::regex CliTree::re_month("^(MONTH:[0-9\\.]+)");
 const boost::regex CliTree::re_array("^(ARRAY:[0-9\\.]+)");
 
+string CliNodeIPv4Prefix::cli_token_default_ = "A.B.C.D/M";
+string CliNodeIPv4Address::cli_token_default_ = "A.B.C.D";
+string CliNodeIPv6Prefix::cli_token_default_ = "X:X::X:X/M";
+string CliNodeIPv6Address::cli_token_default_ = "X:X::X:X";
+string CliNodeWord::cli_token_default_ = "WORD";
+
 int
 CliTree::get_token(string& str, string& token)
 {
@@ -110,7 +116,7 @@ CliTree::get_token(string& str, string& token)
 }
 
 CliNode *
-CliTree::find_next_by_def_token(CliNodeVector& v, string& token)
+CliTree::find_next_by_node(CliNodeVector& v, CliNode *new_node)
 {
   CliNode *node;
 
@@ -119,7 +125,8 @@ CliTree::find_next_by_def_token(CliNodeVector& v, string& token)
       node = (*it);
       for (CliNodeVector::iterator is = node->next_.begin();
          is != node->next_.end(); ++is)
-        if ((*is)->def_token_ == token)
+        if ((*is)->cli_token() == new_node->cli_token())
+//        if ((*is)->def_token_ == node->def_token_)
           return (*is);
     }
 
@@ -188,7 +195,7 @@ CliTree::build_recursive(CliNodeVector& curr,
                          string& str, Json::Value& tokens,
                          Json::Value& action)
 {
-  CliNode *next;
+  CliNode *next, *node;
   string def_token;
   int type;
   bool is_head = true;
@@ -229,12 +236,16 @@ CliTree::build_recursive(CliNodeVector& curr,
           return type;
 
         default:
-          next = find_next_by_def_token(curr, def_token);
+          node = new_node_by_type(type, tokens, def_token);
+          next = find_next_by_node(curr, node);
+//        next = find_next_by_def_token(curr, next);
           if (next == NULL)
             {
-              next = new_node_by_type(type, tokens, def_token);
-              vector_add_node_each(curr, next);
+              vector_add_node_each(curr, node);
+              next = node;
             }
+          else
+            delete node;
 
           // Moving forward.
           curr.clear();
@@ -280,7 +291,7 @@ CliTree::build_command(Json::Value& defun, Json::Value& tokens,
 bool
 CliNodeCriterion(CliNode *n, CliNode *m)
 {
-  return strcmp(n->cli_token(), m->cli_token()) < 0;
+  return strcmp(n->cli_token().c_str(), m->cli_token().c_str()) < 0;
 }
 
 void

@@ -218,7 +218,8 @@ void
 CliReadline::describe_line(CliNode *node, size_t max_len_token)
 {
   size_t max_len_help;
-  const char *cli_token = node->cli_token();
+  //  const char *cli_token = node->cli_token();
+  string& cli_token = node->cli_token();
   string help(node->help());
   string substr;
 
@@ -284,7 +285,7 @@ CliReadline::describe()
            it != matched_vec.end(); ++it)
         {
           candidate = it->first;
-          size_t len = strlen(candidate->cli_token());
+          size_t len = candidate->cli_token().size();
           if (max_len < len)
             max_len = len;
         }
@@ -359,7 +360,7 @@ CliReadline::completion_matches(const char *text, int state)
             {
               CliNode *node = it->first;
               if (node->type_ == CliTree::keyword)
-                matched_strvec_[i++] = strdup(node->cli_token());
+                matched_strvec_[i++] = strdup(node->cli_token().c_str());
             }
         }
     }

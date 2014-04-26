@@ -45,10 +45,11 @@ public:
   CliNode(int type, string& id, string& def_token, string& help)
     : type_(type), id_(id), def_token_(def_token), help_(help),
       cmd_(false)
-  { }
+  { cli_token_ = ""; }
   ~CliNode() { }
 
-  virtual const char *cli_token() { return cli_token_.c_str(); }
+  //  virtual const char *cli_token() { return cli_token_.c_str(); }
+  virtual string& cli_token() { return cli_token_; }
   virtual MatchState cli_match(string& input) { return match_none; }
   string& help() { return help_; }
 
@@ -83,7 +84,7 @@ protected:
   // Command.
   bool cmd_;
 
-  // XXX/ next mode.
+  // TODO/ next mode.
   string next_mode_;
 };
 
@@ -100,7 +101,7 @@ public:
     if (input == cli_token())
       return match_full;
 
-    if (!input.compare(0, input.size(), cli_token(), input.size()))
+    if (!input.compare(0, input.size(), cli_token().c_str(), input.size()))
       return match_partial;
 
     return match_none;
@@ -136,8 +137,11 @@ public:
     : CliNode(type, id, def_token, help)
   { }
 
-  const char *cli_token() { return "A.B.C.D/M"; }
+  string& cli_token() { return CliNodeIPv4Prefix::cli_token_default_; } 
   MatchState cli_match(string& input);
+
+private:
+  static string cli_token_default_;
 };
 
 // IPv4 Address.
@@ -148,8 +152,11 @@ public:
     : CliNode(type, id, def_token, help)
   { }
 
-  const char *cli_token() { return "A.B.C.D"; }
+  string& cli_token() { return CliNodeIPv4Address::cli_token_default_; } 
   MatchState cli_match(string& input);
+
+private:
+  static string cli_token_default_;
 };
 
 // IPv6 Prefix.
@@ -158,9 +165,12 @@ class CliNodeIPv6Prefix: public CliNode
 public:
   CliNodeIPv6Prefix(int type, string& id, string& def_token, string& help)
     : CliNode(type, id, def_token, help)
-  { }
+  { cli_token_ = "X:X::X:X/M"; }
 
-  const char *cli_token() { return "X:X::X:X/M"; }
+  string& cli_token() { return CliNodeIPv6Prefix::cli_token_default_; } 
+
+private:
+  static string cli_token_default_;
 };
 
 // IPv6 Address.
@@ -171,7 +181,10 @@ public:
     : CliNode(type, id, def_token, help)
   { }
 
-  const char *cli_token() { return "X:X::X:X"; }
+  string& cli_token() { return CliNodeIPv6Address::cli_token_default_; } 
+
+private:
+  static string cli_token_default_;
 };
 
 // Word.
@@ -180,10 +193,13 @@ class CliNodeWord: public CliNode
 public:
   CliNodeWord(int type, string& id, string& def_token, string& help)
     : CliNode(type, id, def_token, help)
-  { }
+  { cli_token_ = "WORD"; }
 
-  const char *cli_token() { return "WORD"; }
+  string& cli_token() { return CliNodeWord::cli_token_default_; }
   MatchState cli_match(string& input) { return match_partial; }
+
+private:
+  static string cli_token_default_;
 };
 
 // Per mode CLI Tree.
@@ -263,7 +279,7 @@ private:
                       Json::Value& action);
   void vector_add_node_each(CliNodeVector& curr, CliNode *node);
   CliNode *new_node_by_type(int type, Json::Value& tokens, string& def_token);
-  CliNode *find_next_by_def_token(CliNodeVector& v, string& token);
+  CliNode *find_next_by_node(CliNodeVector& v, CliNode *node);
 };
 
 #endif /* _CLI_NODE_HPP_ */
