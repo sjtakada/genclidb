@@ -438,13 +438,18 @@ CliReadline::execute()
       switch (result)
         {
         case exec_complete:
-          for (CliNodeTokenVector::iterator it = node_token_vec.begin();
-               it != node_token_vec.end(); ++it)
-            {
-              cout << "token: " << (it->first)->cli_token() << " "
-                   << "input: " << *it->second << endl;
-            }
+          {
+            for (CliNodeTokenVector::iterator it = node_token_vec.begin();
+                 it != node_token_vec.end(); ++it)
+              {
+                cout << "token: " << (it->first)->cli_token() << " "
+                     << "input: " << *it->second << endl;
+              }
 
+            CliNode *node = node_token_vec.back().first;
+            if (!node->next_mode_.empty())
+              cli_->mode_set(node->next_mode_);
+          }
           break;
         case exec_incomplete:
           cout << "% Incomplete command" << endl << endl;
