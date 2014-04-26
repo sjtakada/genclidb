@@ -461,6 +461,11 @@ CliReadline::execute()
           cout << "% Unrecognized command" << endl << endl;
           break;
         }
+
+      // Cleanup input token strings.
+      for (CliNodeTokenVector::iterator it = node_token_vec.begin();
+           it != node_token_vec.end(); ++it)
+        delete it->second;
     }
 
   return true;

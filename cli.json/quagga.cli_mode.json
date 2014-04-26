@@ -8,7 +8,7 @@
           "CONFIG-NODE": {
             "prompt": "(config)#",
             "children": {
-              "INTERFACE_NODE": {
+              "INTERFACE-NODE": {
                 "prompt": "(config-if)#"
               },
               "OSPF-NODE": {
