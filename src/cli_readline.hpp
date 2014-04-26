@@ -30,6 +30,16 @@ class Cli;
 typedef pair<CliNode *, MatchState> CliNodeMatchStatePair;
 typedef vector<CliNodeMatchStatePair> CliNodeMatchStateVector;
 
+typedef pair<CliNode *, string *> CliNodeTokenPair;
+typedef vector<CliNodeTokenPair> CliNodeTokenVector;
+
+enum ExecResult {
+  exec_complete = 0,
+  exec_incomplete,
+  exec_ambiguous,
+  exec_unrecognized,
+};
+
 class CliReadline
 {
 public:
@@ -70,6 +80,8 @@ private:
                      CliNodeMatchStateVector& matched_vec);
   bool parse(string& line, CliNode *curr,
              CliNodeMatchStateVector& matched_vec);
+  enum ExecResult parse_execute(string& line, CliNode *curr,
+                                 CliNodeTokenVector& node_token_vec);
   void describe_line(CliNode *node, size_t max_len_token);
 };
 

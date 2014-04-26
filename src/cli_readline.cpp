@@ -142,7 +142,6 @@ CliReadline::parse(string& line, CliNode *curr,
 {
   boost::smatch m;
   string token;
-  //  bool is_cmd = false;
 
   matched_vec.clear();
   if (!skip_spaces(line))
@@ -166,6 +165,53 @@ CliReadline::parse(string& line, CliNode *curr,
     curr = matched_vec[0].first;
 
   return curr->cmd_;
+}
+
+enum ExecResult
+CliReadline::parse_execute(string& line, CliNode *curr,
+                           CliNodeTokenVector& node_token_vec)
+{
+  boost::smatch m;
+  string token;
+  CliNodeMatchStateVector matched_vec;
+
+  do {
+    if (!skip_spaces(line))
+      break;
+
+    if (!get_token(line, token))
+      break;
+
+    fill_matched_vec(curr, matched_vec);
+    match_token(token, curr, matched_vec);
+    filter_matched(matched_vec);
+
+    if (matched_vec.size() == 0)
+      return exec_unrecognized;
+    else if (matched_vec.size() > 1)
+      return exec_ambiguous;
+
+    CliNodeTokenPair p = make_pair(matched_vec[0].first, new string(token));
+    node_token_vec.push_back(p);
+
+    // Candidate is only one at this point.
+    if (line.begin() != line.end())
+      return parse_execute(line, matched_vec[0].first, node_token_vec);
+
+    if (matched_vec[0].second == match_incomplete)
+      return exec_incomplete;
+
+    if (!matched_vec[0].first->cmd_)
+      return exec_incomplete;
+
+    curr = matched_vec[0].first;
+
+  } while (0);
+
+  if (curr->cmd_)
+    return exec_complete;
+
+  return exec_unrecognized;
 }
 
 void
@@ -378,40 +424,37 @@ CliReadline::execute()
 {
   // current mode.
   CliTree *tree = cli_->current_mode();
-  CliNodeMatchStateVector matched_vec;
+  CliNodeTokenVector node_token_vec;
   string line(" ");
-  bool is_cmd = false;
   boost::smatch m;
 
   line += rl_line_buffer;
 
   if (!boost::regex_search(line, m, re_white_space_only))
     {
-      is_cmd = parse(line, tree->top_, matched_vec);
-      filter_matched(matched_vec);
-      if (matched_vec.size() == 1)
-        is_cmd = matched_vec[0].first->cmd_;
+      enum ExecResult
+        result = parse_execute(line, tree->top_, node_token_vec);
 
-      if (!is_cmd)
+      switch (result)
         {
-          if (matched_vec.size() == 0)
-            cout << "% Unrecognized command" << endl << endl;
-          else if (matched_vec.size() > 1)
-            cout << "% Ambiguous command" << endl << endl;
-          else
-            cout << "% Incomplete command" << endl << endl;
-        }
-      else
-        {
-          CliNode *node = matched_vec[0].first;
-          if (node->next_mode_.size() != 0)
+        case exec_complete:
+          for (CliNodeTokenVector::iterator it = node_token_vec.begin();
+               it != node_token_vec.end(); ++it)
             {
-              cli_->mode_set(node->next_mode_);
-
-              cout << "next mode " << node->next_mode_ << endl;
+              cout << "token: " << (it->first)->cli_token() << " "
+                   << "input: " << *it->second << endl;
             }
 
-          cout << "command: " << node->def_token_ << endl;
+          break;
+        case exec_incomplete:
+          cout << "% Incomplete command" << endl << endl;
+          break;
+        case exec_ambiguous:
+          cout << "% Ambiguous command" << endl << endl;
+          break;
+        case exec_unrecognized:
+          cout << "% Unrecognized command" << endl << endl;
+          break;
         }
     }
 
