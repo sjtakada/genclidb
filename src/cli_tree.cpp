@@ -319,26 +319,58 @@ CliNodeRange::cli_match(string& input)
 MatchState
 CliNodeIPv4Prefix::cli_match(string& input)
 {
-  size_t s = 0;
-  size_t pos;
-  size_t length = input.size();
+  const char *str = input.c_str();
+  const char *p = str;
 
   for (int i = 0; i < 4; i++)
     {
-      u_int16_t val;
-      char *endptr = NULL;
+      u_int16_t val = 0;
 
-      pos = input.find('.', s);
-      if (pos == string::npos)
-        pos = length;
-
-      string sub = input.substr(s, pos);
-      val = strtoul(sub.c_str(), &endptr, 10);
-      if (*endptr != '\0' || val > 255)
+      // Not a number.
+      if (*p < '0' || *p > '9')
         return match_none;
 
-      if (pos == length)
-        break;
+      val = *p - '0';
+      p++;
+
+      while (*p != '\0')
+        {
+          if (*p == '.')
+            {
+              if (i == 3)
+                return match_none;
+
+              p++;
+              break;
+            }
+
+          // Not a number.
+          if (*p < '0' || *p > '9')
+            return match_none;
+
+          val = val * 10 + (*p - '0');
+          if (val > 255)
+            return match_none;
+
+          p++;
+        }
+
+      if (*p == '\0')
+        return match_incomplete;
+    }
+
+  if (*p != '/')
+    return match_none;
+  p++;
+
+  u_char plen = 0;
+  while (*p != '\0')
+    {
+      plen = plen * 10 + *p;
+      if (plen > 32)
+        return match_none;
+
+      p++;
     }
 
   return match_full;
