@@ -218,8 +218,7 @@ void
 CliReadline::describe_line(CliNode *node, size_t max_len_token)
 {
   size_t max_len_help;
-  //  const char *cli_token = node->cli_token();
-  string& cli_token = node->cli_token();
+  string cli_token(node->cli_token());
   string help(node->help());
   string substr;
 
@@ -443,7 +442,7 @@ CliReadline::execute()
             for (CliNodeTokenVector::iterator it = node_token_vec.begin();
                  it != node_token_vec.end(); ++it)
               {
-                cout << "token: " << (it->first)->cli_token() << " "
+                cout << "token: " << it->first->cli_token() << " "
                      << "input: " << *it->second << endl;
               }
 

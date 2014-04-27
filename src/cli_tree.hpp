@@ -44,12 +44,11 @@ public:
   CliNode() { }
   CliNode(int type, string& id, string& def_token, string& help)
     : type_(type), id_(id), def_token_(def_token), help_(help),
-      cmd_(false)
-  { cli_token_ = ""; }
+      cli_token_(""), cmd_(false)
+  { }
   ~CliNode() { }
 
-  //  virtual const char *cli_token() { return cli_token_.c_str(); }
-  virtual string& cli_token() { return cli_token_; }
+  virtual const string& cli_token() { return cli_token_; }
   virtual MatchState cli_match(string& input) { return match_none; }
   string& help() { return help_; }
 
@@ -137,11 +136,11 @@ public:
     : CliNode(type, id, def_token, help)
   { }
 
-  string& cli_token() { return CliNodeIPv4Prefix::cli_token_default_; } 
+  const string& cli_token() { return CliNodeIPv4Prefix::cli_token_default_; } 
   MatchState cli_match(string& input);
 
 private:
-  static string cli_token_default_;
+  const static string cli_token_default_;
 };
 
 // IPv4 Address.
@@ -152,11 +151,11 @@ public:
     : CliNode(type, id, def_token, help)
   { }
 
-  string& cli_token() { return CliNodeIPv4Address::cli_token_default_; } 
+  const string& cli_token() { return CliNodeIPv4Address::cli_token_default_; } 
   MatchState cli_match(string& input);
 
 private:
-  static string cli_token_default_;
+  const static string cli_token_default_;
 };
 
 // IPv6 Prefix.
@@ -167,10 +166,10 @@ public:
     : CliNode(type, id, def_token, help)
   { cli_token_ = "X:X::X:X/M"; }
 
-  string& cli_token() { return CliNodeIPv6Prefix::cli_token_default_; } 
+  const string& cli_token() { return CliNodeIPv6Prefix::cli_token_default_; } 
 
 private:
-  static string cli_token_default_;
+  const static string cli_token_default_;
 };
 
 // IPv6 Address.
@@ -181,10 +180,10 @@ public:
     : CliNode(type, id, def_token, help)
   { }
 
-  string& cli_token() { return CliNodeIPv6Address::cli_token_default_; } 
+  const string& cli_token() { return CliNodeIPv6Address::cli_token_default_; } 
 
 private:
-  static string cli_token_default_;
+  const static string cli_token_default_;
 };
 
 // Word.
@@ -195,11 +194,11 @@ public:
     : CliNode(type, id, def_token, help)
   { cli_token_ = "WORD"; }
 
-  string& cli_token() { return CliNodeWord::cli_token_default_; }
+  const string& cli_token() { return CliNodeWord::cli_token_default_; }
   MatchState cli_match(string& input) { return match_partial; }
 
 private:
-  static string cli_token_default_;
+  const static string cli_token_default_;
 };
 
 // Per mode CLI Tree.
