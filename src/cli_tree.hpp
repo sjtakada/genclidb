@@ -164,9 +164,10 @@ class CliNodeIPv6Prefix: public CliNode
 public:
   CliNodeIPv6Prefix(int type, string& id, string& def_token, string& help)
     : CliNode(type, id, def_token, help)
-  { cli_token_ = "X:X::X:X/M"; }
+  { }
 
   const string& cli_token() { return CliNodeIPv6Prefix::cli_token_default_; } 
+  MatchState cli_match(string& input);
 
 private:
   const static string cli_token_default_;
@@ -181,6 +182,7 @@ public:
   { }
 
   const string& cli_token() { return CliNodeIPv6Address::cli_token_default_; } 
+  MatchState cli_match(string& input);
 
 private:
   const static string cli_token_default_;

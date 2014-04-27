@@ -19,6 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 // 
+#include <arpa/inet.h>
 #include <algorithm>
 
 #include "boost/regex.hpp"
@@ -322,6 +323,11 @@ CliNodeIPv4Prefix::cli_match(string& input)
   const char *str = input.c_str();
   const char *p = str;
 
+  enum {
+    state_num,
+    state_dot
+  };
+
   for (int i = 0; i < 4; i++)
     {
       u_int16_t val = 0;
@@ -381,49 +387,88 @@ CliNodeIPv4Address::cli_match(string& input)
 {
   const char *str = input.c_str();
   const char *p = str;
+  int val;
+  int dots = 0;
+  int octets = 0;
 
-  for (int i = 0; i < 4; i++)
+  enum {
+    state_init,
+    state_digit,
+    state_dot
+  };
+
+  int state = state_init;
+
+  while (*p != '\0')
     {
-      u_int16_t val = 0;
-
-      // Not a number.
-      if (*p < '0' || *p > '9')
+      if (!isdigit((int)*p) && *p != '.')
         return match_none;
 
-      val = *p - '0';
-      p++;
-
-      while (*p != '\0')
+      switch (state)
         {
+        case state_init:
+          if (!isdigit((int)*p))
+            return match_none;
+
+          state = state_digit;
+          octets++;
+          val = (int)(*p - '0');
+          break;
+        case state_digit:
           if (*p == '.')
             {
-              if (i == 3)
+              state = state_dot;
+              dots++;
+              if (dots > 3)
                 return match_none;
-
-              p++;
-              break;
             }
-
-          // Not a number.
-          if (*p < '0' || *p > '9')
-            return match_none;
-
-          val = val * 10 + (*p - '0');
-          if (val > 255)
-            return match_none;
-
-          p++;
-        }
-
-      if (*p == '\0')
-        {
-          if (i == 3)
-            return match_full;
           else
-            return match_incomplete;
+            {
+              val = val * 10 + (int)(*p - '0');
+              if (val > 255)
+                return match_none;
+            }
+          break;
+        case state_dot:
+          if (!isdigit((int)*p))
+            return match_none;
+          val = (int)(*p - '0');
+          octets++;
+          state = state_digit;
+          break;
         }
+
+      p++;
     }
 
-  return match_none;
+  if (dots != 3 || octets != 4)
+    return match_partial;
+
+  return match_full;
 }
 
+MatchState
+CliNodeIPv6Prefix::cli_match(string& input)
+{
+  struct in6_addr addr;
+  int ret;
+
+  ret = inet_pton(AF_INET6, input.c_str(), &addr);
+  if (ret == 0)
+    return match_none;
+
+  return match_full;
+}
+
+MatchState
+CliNodeIPv6Address::cli_match(string& input)
+{
+  struct in6_addr addr;
+  int ret;
+
+  ret = inet_pton(AF_INET6, input.c_str(), &addr);
+  if (ret == 0)
+    return match_none;
+
+  return match_full;
+}
