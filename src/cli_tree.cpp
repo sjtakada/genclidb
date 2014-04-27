@@ -322,62 +322,84 @@ CliNodeIPv4Prefix::cli_match(string& input)
 {
   const char *str = input.c_str();
   const char *p = str;
+  int val;
+  int dots = 0;
+  int octets = 0;
+  int plen;
 
   enum {
-    state_num,
-    state_dot
+    state_init,
+    state_digit,
+    state_dot,
+    state_slash,
+    state_plen
   };
 
-  for (int i = 0; i < 4; i++)
-    {
-      u_int16_t val = 0;
+  int state = state_init;
 
-      // Not a number.
-      if (*p < '0' || *p > '9')
-        return match_none;
-
-      val = *p - '0';
-      p++;
-
-      while (*p != '\0')
-        {
-          if (*p == '.')
-            {
-              if (i == 3)
-                return match_none;
-
-              p++;
-              break;
-            }
-
-          // Not a number.
-          if (*p < '0' || *p > '9')
-            return match_none;
-
-          val = val * 10 + (*p - '0');
-          if (val > 255)
-            return match_none;
-
-          p++;
-        }
-
-      if (*p == '\0')
-        return match_incomplete;
-    }
-
-  if (*p != '/')
-    return match_none;
-  p++;
-
-  u_char plen = 0;
   while (*p != '\0')
     {
-      plen = plen * 10 + *p;
-      if (plen > 32)
+      if (!isdigit((int)*p) && *p != '.' && *p != '/')
         return match_none;
+
+      switch (state)
+        {
+        case state_init:
+          if (!isdigit((int)*p))
+            return match_none;
+
+          state = state_digit;
+          octets++;
+          val = (int)(*p - '0');
+          break;
+        case state_digit:
+          if (*p == '.')
+            {
+              state = state_dot;
+              dots++;
+              if (dots > 3)
+                return match_none;
+            }
+          else if (*p == '/')
+            state = state_slash;
+          else
+            {
+              val = val * 10 + (int)(*p - '0');
+              if (val > 255)
+                return match_none;
+            }
+          break;
+        case state_dot:
+          if (!isdigit((int)*p))
+            return match_none;
+
+          val = (int)(*p - '0');
+          octets++;
+          state = state_digit;
+          break;
+        case state_slash:
+          if (!isdigit((int)*p))
+            return match_none;
+
+          plen = (int)(*p - '0');
+          state = state_plen;
+          break;
+        case state_plen:
+          if (!isdigit((int)*p))
+            return match_none;
+
+          plen = plen * 10 + (int)(*p - '0');
+          if (plen > 32)
+            return match_none;
+
+          break;
+        }
 
       p++;
     }
+
+  if (state != state_plen)
+    return match_partial;
 
   return match_full;
 }
@@ -432,6 +454,7 @@ CliNodeIPv4Address::cli_match(string& input)
         case state_dot:
           if (!isdigit((int)*p))
             return match_none;
+
           val = (int)(*p - '0');
           octets++;
           state = state_digit;

@@ -198,8 +198,16 @@ CliReadline::parse_execute(string& line, CliNode *curr,
     if (line.begin() != line.end())
       return parse_execute(line, matched_vec[0].first, node_token_vec);
 
-    if (matched_vec[0].second == match_incomplete)
-      return exec_incomplete;
+    if (matched_vec[0].first->type_ == CliTree::keyword)
+      {
+        if (matched_vec[0].second == match_incomplete)
+          return exec_incomplete;
+      }
+    else
+      {
+        if (matched_vec[0].second != match_full)
+          return exec_incomplete;
+      }
 
     if (!matched_vec[0].first->cmd_)
       return exec_incomplete;
