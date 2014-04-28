@@ -37,7 +37,7 @@ const boost::regex CliReadline::re_command_string("^[^[:space:]]+");
 bool
 CliNodeMatchStateCriterion(CliNodeMatchStatePair n, CliNodeMatchStatePair m)
 {
-  return n.second < m.second;
+  return (n.second).second < (m.second).second;
 }
 
 size_t
@@ -55,7 +55,7 @@ CliReadline::match_token(string& input, CliNode *curr,
       MatchState state;
 
       state = next->cli_match(input);
-      if (state != match_none)
+      if (state.first == match_success)
         {
           CliNodeMatchStatePair p = make_pair(next, state);
           matched_vec.push_back(p);
@@ -108,7 +108,7 @@ CliReadline::fill_matched_vec(CliNode *node,
   for (CliNodeVector::iterator it = node->next_.begin();
        it != node->next_.end(); ++it)
     {
-      MatchState state = match_partial;
+      MatchState state = make_pair(match_success, match_partial);
       CliNodeMatchStatePair p = make_pair(*it, state);
       matched_vec.push_back(p);
     }
@@ -128,7 +128,7 @@ CliReadline::filter_matched(CliNodeMatchStateVector& matched_vec)
   for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
        it != matched_vec.end(); )
     {
-      if (it->second != state)
+      if (it->second.second != state.second)
         it = matched_vec.erase(it);
       else
         ++it;
@@ -198,16 +198,8 @@ CliReadline::parse_execute(string& line, CliNode *curr,
     if (line.begin() != line.end())
       return parse_execute(line, matched_vec[0].first, node_token_vec);
 
-    if (matched_vec[0].first->type_ == CliTree::keyword)
-      {
-        if (matched_vec[0].second == match_incomplete)
-          return exec_incomplete;
-      }
-    else
-      {
-        if (matched_vec[0].second != match_full)
-          return exec_incomplete;
-      }
+    if (matched_vec[0].second.second == match_incomplete)
+      return exec_incomplete;
 
     if (!matched_vec[0].first->cmd_)
       return exec_incomplete;

@@ -312,9 +312,9 @@ CliNodeRange::cli_match(string& input)
 
   val = strtoull(input.c_str(), &endptr, 10);
   if (*endptr != '\0' || val < min_ || val > max_)
-    return match_none;
+    return make_pair(match_failure, match_none);
 
-  return match_full;
+  return make_pair(match_success, match_full);
 }
 
 MatchState
@@ -339,14 +339,14 @@ CliNodeIPv4Prefix::cli_match(string& input)
 
   while (*p != '\0')
     {
-      if (!isdigit((int)*p) && *p != '.' && *p != '/')
-        return match_none;
+      //      if (!isdigit((int)*p) && *p != '.' && *p != '/')
+      //        return match_none;
 
       switch (state)
         {
         case state_init:
           if (!isdigit((int)*p))
-            return match_none;
+            return make_pair(match_failure, match_none);;
 
           state = state_digit;
           octets++;
@@ -358,7 +358,7 @@ CliNodeIPv4Prefix::cli_match(string& input)
               state = state_dot;
               dots++;
               if (dots > 3)
-                return match_none;
+                return make_pair(match_failure, match_none);;
             }
           else if (*p == '/')
             state = state_slash;
@@ -366,12 +366,12 @@ CliNodeIPv4Prefix::cli_match(string& input)
             {
               val = val * 10 + (int)(*p - '0');
               if (val > 255)
-                return match_none;
+                return make_pair(match_failure, match_none);;
             }
           break;
         case state_dot:
           if (!isdigit((int)*p))
-            return match_none;
+            return make_pair(match_failure, match_none);;
 
           val = (int)(*p - '0');
           octets++;
@@ -379,18 +379,18 @@ CliNodeIPv4Prefix::cli_match(string& input)
           break;
         case state_slash:
           if (!isdigit((int)*p))
-            return match_none;
+            return make_pair(match_failure, match_none);;
 
           plen = (int)(*p - '0');
           state = state_plen;
           break;
         case state_plen:
           if (!isdigit((int)*p))
-            return match_none;
+            return make_pair(match_failure, match_none);;
 
           plen = plen * 10 + (int)(*p - '0');
           if (plen > 32)
-            return match_none;
+            return make_pair(match_failure, match_none);;
 
           break;
         }
@@ -399,9 +399,9 @@ CliNodeIPv4Prefix::cli_match(string& input)
     }
 
   if (state != state_plen)
-    return match_partial;
+    return make_pair(match_success, match_incomplete);
 
-  return match_full;
+  return make_pair(match_success, match_full);
 }
 
 MatchState
@@ -423,14 +423,14 @@ CliNodeIPv4Address::cli_match(string& input)
 
   while (*p != '\0')
     {
-      if (!isdigit((int)*p) && *p != '.')
-        return match_none;
+      //      if (!isdigit((int)*p) && *p != '.')
+      //        return match_none;
 
       switch (state)
         {
         case state_init:
           if (!isdigit((int)*p))
-            return match_none;
+            return make_pair(match_failure, match_none);;
 
           state = state_digit;
           octets++;
@@ -442,18 +442,18 @@ CliNodeIPv4Address::cli_match(string& input)
               state = state_dot;
               dots++;
               if (dots > 3)
-                return match_none;
+                return make_pair(match_failure, match_none);;
             }
           else
             {
               val = val * 10 + (int)(*p - '0');
               if (val > 255)
-                return match_none;
+                return make_pair(match_failure, match_none);;
             }
           break;
         case state_dot:
           if (!isdigit((int)*p))
-            return match_none;
+            return make_pair(match_failure, match_none);;
 
           val = (int)(*p - '0');
           octets++;
@@ -465,9 +465,9 @@ CliNodeIPv4Address::cli_match(string& input)
     }
 
   if (dots != 3 || octets != 4)
-    return match_partial;
+    return make_pair(match_success, match_incomplete);
 
-  return match_full;
+  return make_pair(match_success, match_full);
 }
 
 MatchState
@@ -478,9 +478,9 @@ CliNodeIPv6Prefix::cli_match(string& input)
 
   ret = inet_pton(AF_INET6, input.c_str(), &addr);
   if (ret == 0)
-    return match_none;
+    return make_pair(match_failure, match_none);;
 
-  return match_full;
+  return make_pair(match_success, match_full);
 }
 
 MatchState
@@ -491,7 +491,7 @@ CliNodeIPv6Address::cli_match(string& input)
 
   ret = inet_pton(AF_INET6, input.c_str(), &addr);
   if (ret == 0)
-    return match_none;
+    return make_pair(match_failure, match_none);;
 
-  return match_full;
+  return make_pair(match_success, match_full);
 }

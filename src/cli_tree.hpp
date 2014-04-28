@@ -30,12 +30,28 @@ class CliNode;
 typedef vector<CliNode *> CliNodeVector;
 
 // Match return code.
-enum MatchState {
-  match_full,
-  match_partial,
-  match_incomplete,
-  match_none,
+//enum MatchState {
+//  match_full,
+//  match_partial,
+//  match_incomplete,
+//  match_none,
+//};
+
+// Simply whether match or not.
+enum MatchResult {
+  match_failure = 0,
+  match_success = 1,
 };
+
+// Flag if matched.
+enum MatchFlag {
+  match_none = 0,
+  match_full = 1,	// Fully matched.
+  match_partial = 2,	// Partially matched, still valid.
+  match_incomplete = 3,	// String incomplete, not valid for execution.
+};
+
+typedef pair<enum MatchResult, enum MatchFlag> MatchState;
 
 // Base virtual class for CLI Node.
 class CliNode
@@ -44,12 +60,13 @@ public:
   CliNode() { }
   CliNode(int type, string& id, string& def_token, string& help)
     : type_(type), id_(id), def_token_(def_token), help_(help),
-      cli_token_(""), cmd_(false)
+      cli_token_(""), completable_(false), cmd_(false)
   { }
   ~CliNode() { }
 
   virtual const string& cli_token() { return cli_token_; }
-  virtual MatchState cli_match(string& input) { return match_none; }
+  virtual MatchState cli_match(string& input)
+  { return make_pair(match_failure, match_none); }
   string& help() { return help_; }
 
   void sort_recursive();
@@ -80,6 +97,9 @@ protected:
   // Next candidates.
   CliNodeVector next_;
 
+  // It can complete.
+  bool completable_;
+
   // Command.
   bool cmd_;
 
@@ -93,17 +113,18 @@ class CliNodeKeyword: public CliNode
 public:
   CliNodeKeyword(int type, string& id, string& def_token, string& help)
     : CliNode(type, id, def_token, help)
-  { cli_token_ = def_token; }
+  { cli_token_ = def_token;
+    completable_ = true; }
 
   MatchState cli_match(string& input)
   {
     if (input == cli_token())
-      return match_full;
+      return make_pair(match_success, match_full);
 
-    if (!input.compare(0, input.size(), cli_token().c_str(), input.size()))
-      return match_partial;
+    if (!input.compare(0, input.size(), cli_token()))
+      return make_pair(match_success, match_partial);
 
-    return match_none;
+    return make_pair(match_failure, match_none);
   }
 };
 
@@ -197,7 +218,8 @@ public:
   { cli_token_ = "WORD"; }
 
   const string& cli_token() { return CliNodeWord::cli_token_default_; }
-  MatchState cli_match(string& input) { return match_partial; }
+  MatchState cli_match(string& input)
+  { return make_pair(match_success, match_partial); }
 
 private:
   const static string cli_token_default_;
