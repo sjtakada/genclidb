@@ -108,9 +108,6 @@ CliReadline::filter_matched(CliNodeMatchStateVector& matched_vec,
 {
   CliNodeMatchStateVector vec;
 
-  if (matched_vec.size() <= 1)
-    return;
-
   for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
        it != matched_vec.end(); ++it)
     {
@@ -149,7 +146,7 @@ CliReadline::parse(string& line, CliNode *curr,
   match_token(token, curr, matched_vec);
   if (line.begin() != line.end())
     {
-      filter_matched(matched_vec, match_none);
+      filter_matched(matched_vec, match_partial);
 
       if (matched_vec.size() == 1)
         return parse(line, matched_vec[0].first, matched_vec);
@@ -178,7 +175,7 @@ CliReadline::parse_execute(string& line, CliNode *curr,
 
     fill_matched_vec(curr, matched_vec);
     match_token(token, curr, matched_vec);
-    filter_matched(matched_vec, match_incomplete);
+    filter_matched(matched_vec, match_partial);
 
     if (matched_vec.size() == 0)
       return exec_unrecognized;

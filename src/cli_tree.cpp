@@ -339,9 +339,6 @@ CliNodeIPv4Prefix::cli_match(string& input)
 
   while (*p != '\0')
     {
-      //      if (!isdigit((int)*p) && *p != '.' && *p != '/')
-      //        return match_none;
-
       switch (state)
         {
         case state_init:
@@ -423,9 +420,6 @@ CliNodeIPv4Address::cli_match(string& input)
 
   while (*p != '\0')
     {
-      //      if (!isdigit((int)*p) && *p != '.')
-      //        return match_none;
-
       switch (state)
         {
         case state_init:
