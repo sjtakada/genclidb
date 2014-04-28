@@ -75,7 +75,7 @@ private:
   bool skip_spaces(string& str);
   void fill_matched_vec(CliNode *node,
                         CliNodeMatchStateVector& matched_vec);
-  void filter_matched(CliNodeMatchStateVector& matched_vec);
+  void filter_matched(CliNodeMatchStateVector& matched_vec, MatchFlag limit);
   size_t match_token(string& input, CliNode *node,
                      CliNodeMatchStateVector& matched_vec);
   bool parse(string& line, CliNode *curr,

@@ -34,12 +34,6 @@ const boost::regex CliReadline::re_white_space("^([[:space:]]*)");
 const boost::regex CliReadline::re_white_space_only("^([[:space:]]*)$");
 const boost::regex CliReadline::re_command_string("^[^[:space:]]+");
 
-bool
-CliNodeMatchStateCriterion(CliNodeMatchStatePair n, CliNodeMatchStatePair m)
-{
-  return (n.second).second < (m.second).second;
-}
-
 size_t
 CliReadline::match_token(string& input, CliNode *curr,
                          CliNodeMatchStateVector& state_vec)
@@ -52,19 +46,13 @@ CliReadline::match_token(string& input, CliNode *curr,
     {
       next = (*it);
 
-      MatchState state;
-
-      state = next->cli_match(input);
+      MatchState state = next->cli_match(input);
       if (state.first == match_success)
         {
           CliNodeMatchStatePair p = make_pair(next, state);
           matched_vec.push_back(p);
         }
     }
-
-  // Sort by type of match.
-  if (matched_vec.size() > 1)
-    sort(matched_vec.begin(), matched_vec.end(), CliNodeMatchStateCriterion);
 
   state_vec = matched_vec;
 
@@ -115,24 +103,30 @@ CliReadline::fill_matched_vec(CliNode *node,
 }
 
 void
-CliReadline::filter_matched(CliNodeMatchStateVector& matched_vec)
+CliReadline::filter_matched(CliNodeMatchStateVector& matched_vec,
+                            MatchFlag limit)
 {
   CliNodeMatchStateVector vec;
-  MatchState state;
 
   if (matched_vec.size() <= 1)
     return;
 
-  state = matched_vec[0].second;
-
   for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
-       it != matched_vec.end(); )
+       it != matched_vec.end(); ++it)
     {
-      if (it->second.second != state.second)
-        it = matched_vec.erase(it);
-      else
-        ++it;
+      if (it->second.second > limit)
+        continue;
+
+      if (it->second.second < limit)
+        {
+          vec.clear();
+          limit = it->second.second;
+        }
+
+      vec.push_back(*it);
     }
+
+  matched_vec = vec;
 }
 
 // Return true if command can be completed.
@@ -155,7 +149,7 @@ CliReadline::parse(string& line, CliNode *curr,
   match_token(token, curr, matched_vec);
   if (line.begin() != line.end())
     {
-      filter_matched(matched_vec);
+      filter_matched(matched_vec, match_none);
 
       if (matched_vec.size() == 1)
         return parse(line, matched_vec[0].first, matched_vec);
@@ -184,7 +178,7 @@ CliReadline::parse_execute(string& line, CliNode *curr,
 
     fill_matched_vec(curr, matched_vec);
     match_token(token, curr, matched_vec);
-    filter_matched(matched_vec);
+    filter_matched(matched_vec, match_incomplete);
 
     if (matched_vec.size() == 0)
       return exec_unrecognized;

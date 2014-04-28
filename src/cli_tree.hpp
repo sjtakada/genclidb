@@ -29,14 +29,6 @@
 class CliNode;
 typedef vector<CliNode *> CliNodeVector;
 
-// Match return code.
-//enum MatchState {
-//  match_full,
-//  match_partial,
-//  match_incomplete,
-//  match_none,
-//};
-
 // Simply whether match or not.
 enum MatchResult {
   match_failure = 0,
@@ -45,10 +37,10 @@ enum MatchResult {
 
 // Flag if matched.
 enum MatchFlag {
-  match_none = 0,
-  match_full = 1,	// Fully matched.
-  match_partial = 2,	// Partially matched, still valid.
-  match_incomplete = 3,	// String incomplete, not valid for execution.
+  match_full = 0,	// Fully matched.
+  match_partial = 1,	// Partially matched, still valid.
+  match_incomplete = 2,	// String incomplete, not valid for execution.
+  match_none = 3,
 };
 
 typedef pair<enum MatchResult, enum MatchFlag> MatchState;
@@ -121,7 +113,7 @@ public:
     if (input == cli_token())
       return make_pair(match_success, match_full);
 
-    if (!input.compare(0, input.size(), cli_token()))
+    if (!input.compare(0, input.size(), cli_token(), 0, input.size()))
       return make_pair(match_success, match_partial);
 
     return make_pair(match_failure, match_none);

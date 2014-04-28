@@ -464,7 +464,7 @@ CliNodeIPv4Address::cli_match(string& input)
       p++;
     }
 
-  if (dots != 3 || octets != 4)
+  if (octets != 4)
     return make_pair(match_success, match_incomplete);
 
   return make_pair(match_success, match_full);
