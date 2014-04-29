@@ -248,7 +248,6 @@ ARGV.each do |filename|
 
   defun_all = Hash.new
   install_all = Hash.new
-  cli_json = Hash.new
 
   # Parse *.c to retrieve (DEFUN|ALIAS) and install_element.
   f = IO.popen("gcc -E -DHAVE_CONFIG_H -DVTYSH_EXTRACT_PL -DHAVE_IPV6 -I.. -I./ -I./.. -I../lib -I../lib -I../isisd/topology #{basename}")
@@ -266,37 +265,70 @@ ARGV.each do |filename|
   # Go back to CLIJSON directory
   Dir.chdir(pwd);
 
+  # Read JSON file if it exists.
+  cli_json_file = basename
+  cli_json_file.sub!(/\.c$/, ".cli.json")
+
+  cli_json = nil
+  if File.exists?(cli_json_file)
+    string = File.read(cli_json_file)
+    cli_json = JSON.parse(string);
+  else
+    cli_json = Hash.new
+  end
+
   if defun_all.count > 0
     # Generate CLI JSON.
     defun_all.each do |id, v|
-      h = Hash.new
       idx = id.gsub(/_/, "-")
-      h['token'], cmdout = cli_str2token(v)
-      h['command'] = Array.new
 
-      command = Hash.new
-      command['defun'] = cmdout
-
-      if install_all[id] != nil
-        command['mode'] = install_all[id].map {|s| s.gsub(/_/, "-") }
+      # Find if command already exists.
+      h = nil
+      if cli_json[idx] != nil
+        h = cli_json[idx]
+      else
+        h = Hash.new
+        cli_json[idx] = h
       end
 
-      action = Hash.new
-      action['method'] = "NONE"
-      action['path'] = ""
+      # Overwrite token and command defun.
+      h['token'], cmdout = cli_str2token(v)
 
-      command['action'] = Hash.new
-      command['action']['http'] = action;
+      # Preserve array.
+      if h['command'] == nil
+        h['command'] = Array.new
+        command = Hash.new
+        h['command'] << command
+      else
+        command = h['command'][0]
+      end
 
-      h['command'] << command
+      command['defun'] = cmdout
 
-      cli_json[idx] = h
+      modes = nil
+      if install_all[id] != nil
+        modes =  install_all[id].map {|s| s.gsub(/_/, "-") }
+      else
+        modes = Array.new
+      end
+
+      if command['mode'] != nil
+        modes += command['mode']
+      end
+
+      command['mode'] = modes.uniq
+      command.delete('mode') if modes.size == 0
+
+#      action = Hash.new
+#      action['method'] = "NONE"
+#      action['path'] = ""
+
+#      command['action'] = Hash.new
+#      command['action']['http'] = action;
     end
 
     # Write JSON file with same basename.
-    out_file = basename #Pathname.new(filename).basename.to_s
-    out_file.sub!(/\.c$/, ".cli.json")
-    File.open(out_file, "w") do |f|
+    File.open(cli_json_file, "w") do |f|
       f.write(JSON.pretty_generate(cli_json))
     end
   end
