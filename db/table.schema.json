@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "TABLE JSON schema",
+  "description": "Define Database Table structure",
+  "type": "object",
+  "properties": {
+    "table": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9\-]+$": {
+          "type": "object",
+          "properties": {
+            "singular": {
+              "type": "boolean"
+            },
+            "children": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "keys": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-z_A-Z0-9\-]+$": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": {
+                        "enum": [
+                          "string", "integer", "boolean", "ipv4", "ipv6"
+                        ]
+                      }
+                    },
+                    "range": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "default": {
+                    },
+                    "desc": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "attributes": {
+              "type": "object",
+              "patternProperties" : {
+                "^[a-z_A-Z0-9\-]+$": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": {
+                        "enum": [
+                          "string", "integer", "boolean", "ipv4", "ipv6",
+                          "enum"
+                        ]
+                      }
+                    },
+                    "range": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "default": {
+                    },
+                    "values": {
+                      "type": "array"
+                    },
+                    "desc": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

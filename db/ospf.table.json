@@ -1,0 +1,108 @@
+{
+  "table": {
+    "ospfv2": {
+      "singular": false,
+      "children": [
+        "ospfv2-host",
+        "ospfv2-neighbor",
+        "ospfv2-network",
+        "ospfv2-summary-address",
+        "ospfv2-redistribute",
+        "ospfv2-overflow",
+        "ospfv2-passive-if",
+        "ospfv2-passive-if-address"
+      ],
+      "keys": {
+        "process-id" : {
+          "type": "integer",
+          "range": [1, 65535]
+        }
+      },
+      "attributes": {
+        "auto-cost": {
+          "desc": "auto-cost reference bandwidth",
+          "type": "integer",
+          "range": [1, 4294967]
+        },
+        "bfd": {
+          "desc": "bfd all-interfaces",
+          "type": "boolean",
+          "default": false
+        },
+        "compatible-rfc1583": {
+          "type": "boolean",
+          "default": false
+        },
+        "default-metric": {
+          "type": "integer",
+          "range": [1, 16777214]
+        },
+        "distance": {
+          "desc": "distance <1-255>",
+          "type": "integer",
+          "range": [1, 255],
+          "default": 110
+        },
+        "distance-external": {
+          "desc": "distance ospf external",
+          "type": "integer",
+          "range": [1, 255],
+          "default": 110
+        },
+        "distance-inter-area": {
+          "desc": "distance ospf inter-area",
+          "type": "integer",
+          "range": [1, 255],
+          "default": 110
+        },
+        "distance-intra-area": {
+          "desc": "distance ospf intra-area",
+          "type": "integer",
+          "range": [1, 255],
+          "default": 110
+        },
+        "distribute-list-in": {
+          "desc": "distribute-list in",
+          "type": "boolean",
+          "default": false
+        },
+        "ha-standby-extra-cost": {
+          "type": "integer",
+          "range": [1, 65535]
+        },
+        "log-adjacency-changes": {
+          "desc": "log-adacency-changes (detail|)",
+          "type": "enum",
+          "values": [ "", "detail" ]
+        },
+        "max-concurrent-dd": {
+          "type": "integer",
+          "range": [1, 65535],
+          "default": 5
+        },
+        "maximum-area": {
+          "type": "integer",
+          "range": [1, 4294967294]
+        },
+        "abr-type": {
+          "desc": "ospf abr-type",
+          "type": "enum",
+          "values": ["cisco", "ibm", "shortcut", "standard"]
+        },
+        "router-id": {
+          "type": "ipv4"
+        },
+        "timers-exp-min-delay": {
+          "desc": "timers exp",
+          "type": "integer",
+          "range": [0, 2147483647]
+        },
+        "timers-exp-max-delay": {
+          "desc": "timers exp",
+          "type": "integer",
+          "range": [0, 2147483647]
+        }
+      }
+    }
+  }
+}

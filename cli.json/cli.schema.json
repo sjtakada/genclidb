@@ -24,7 +24,8 @@
                   "enum": [
                     "keyword", "integer", "string", "ipv4address",
                     "ipv4inversemask", "ipv4prefix",
-                    "ipv6addr", "ipv6prefix" ]
+                    "ipv6addr", "ipv6prefix", "time", "month",
+                    "word", "community_new", "metric_offset" ]
                 },
                 "range": {
                   "type": "array",
