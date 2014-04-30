@@ -29,26 +29,7 @@
 #include "cli_tree.hpp"
 
 // Regexp to parse CLI JSON defun.
-const boost::regex CliTree::re_keyword("^([a-z0-9\\*][a-z_A-Z0-9\\-]*)");
 const boost::regex CliTree::re_white_space("^( +)");
-const boost::regex CliTree::re_vertical_bar("^(\\|)");
-const boost::regex CliTree::re_left_paren("^(\\()");
-const boost::regex CliTree::re_right_paren("^(\\))");
-const boost::regex CliTree::re_left_brace("^(\\{)");
-const boost::regex CliTree::re_right_brace("^(\\})");
-const boost::regex CliTree::re_left_bracket("^(\\[)");
-const boost::regex CliTree::re_right_bracket("^(\\])");
-const boost::regex CliTree::re_ipv4_prefix("^(IPV4-PREFIX:[0-9\\.]+)");
-const boost::regex CliTree::re_ipv4_address("^(IPV4-ADDR:[0-9\\.]+)");
-const boost::regex CliTree::re_ipv6_prefix("(^IPV6-PREFIX:[0-9\\.]+)");
-const boost::regex CliTree::re_ipv6_address("^(IPV6-ADDR:[0-9\\.]+)");
-const boost::regex CliTree::re_range("^(RANGE:[0-9\\.]+)");
-const boost::regex CliTree::re_metric_offset("^(METRIC-OFFSET:[0-9\\.]+)");
-const boost::regex CliTree::re_community_new("^(COMMUNITY:[0-9\\.]+)");
-const boost::regex CliTree::re_word("^(WORD:[0-9\\.]+)");
-const boost::regex CliTree::re_time("^(TIME:[0-9\\.]+)");
-const boost::regex CliTree::re_month("^(MONTH:[0-9\\.]+)");
-const boost::regex CliTree::re_array("^(ARRAY:[0-9\\.]+)");
 
 const string CliNodeIPv4Prefix::cli_token_default_("A.B.C.D/M");
 const string CliNodeIPv4Address::cli_token_default_("A.B.C.D");
@@ -59,59 +40,89 @@ const string CliNodeWord::cli_token_default_("WORD");
 int
 CliTree::get_token(string& str, string& token)
 {
+  const char *reject = "()[]{}| ";
   boost::smatch m;
   int type = CliTree::undef;
+  const char *p;
+  size_t offset = 0;
 
   // First skip whitespace.
   if (boost::regex_search(str, m, re_white_space))
     str = m.suffix();
 
-  if (boost::regex_search(str, m, re_vertical_bar))
-    type = CliTree::vertical_bar;
-  else if (boost::regex_search(str, m, re_left_paren))
-    type = CliTree::left_paren;
-  else if (boost::regex_search(str, m, re_right_paren))
-    type = CliTree::right_paren;
-  else if (boost::regex_search(str, m, re_left_brace))
-    type = CliTree::left_brace;
-  else if (boost::regex_search(str, m, re_right_brace))
-    type = CliTree::right_brace;
-  else if (boost::regex_search(str, m, re_left_bracket))
-    type = CliTree::left_bracket;
-  else if (boost::regex_search(str, m, re_right_bracket))
-    type = CliTree::right_bracket;
-  else if (boost::regex_search(str, m, re_ipv4_prefix))
-    type = CliTree::ipv4_prefix;
-  else if (boost::regex_search(str, m, re_ipv4_address))
-    type = CliTree::ipv4_address;
-  else if (boost::regex_search(str, m, re_ipv6_prefix))
-    type = CliTree::ipv6_prefix;
-  else if (boost::regex_search(str, m, re_ipv6_address))
-    type = CliTree::ipv6_address;
-  else if (boost::regex_search(str, m, re_range))
-    type = CliTree::range;
-  else if (boost::regex_search(str, m, re_metric_offset))
-    type = CliTree::word; // TODO
-  else if (boost::regex_search(str, m, re_community_new))
-    type = CliTree::word; // TODO
-  else if (boost::regex_search(str, m, re_word))
-    type = CliTree::word;
-  else if (boost::regex_search(str, m, re_time))
-    type = CliTree::word; // TODO
-  else if (boost::regex_search(str, m, re_month))
-    type = CliTree::word; // TODO
-  else if (boost::regex_search(str, m, re_array))
-    type = CliTree::array;
-  else if (boost::regex_search(str, m, re_keyword))
-    type = CliTree::keyword;
+  p = str.c_str();
+  if (*p == '|')
+    {
+      offset = 1;
+      type = CliTree::vertical_bar;
+    }
+  else if (*p == '(')
+    {
+      offset = 1;
+      type = CliTree::left_paren;
+    }
+  else if (*p == ')')
+    {
+      offset = 1;
+      type = CliTree::right_paren;
+    }
+  else if (*p == '{')
+    {
+      offset = 1;
+      type = CliTree::left_brace;
+    }
+  else if (*p == '}')
+    {
+      offset = 1;
+      type = CliTree::right_brace;
+    }
+  else if (*p == '[')
+    {
+      offset = 1;
+      type = CliTree::left_bracket;
+    }
+  else if (*p == ']')
+    {
+      offset = 1;
+      type = CliTree::right_bracket;
+    }
   else
     {
-      cout << "no match" << endl;
-      assert(0);
-    }
+      offset = strcspn(p, reject);
 
-  token = m[0];
-  str = m.suffix();
+      if (*p < 'A' || *p > 'Z')
+        type = CliTree::keyword;
+      else if (strncmp(p, "IPV4-PREFIX", 11) == 0)
+        type = CliTree::ipv4_prefix;
+      else if (strncmp(p, "IPV4-ADDR", 9) == 0)
+        type = CliTree::ipv4_address;
+      else if (strncmp(p, "IPV6-PREFIX", 11) == 0)
+        type = CliTree::ipv6_prefix;
+      else if (strncmp(p, "IPV6-ADDR", 9) == 0)
+        type = CliTree::ipv6_address;
+      else if (strncmp(p, "RANGE", 5) == 0)
+        type = CliTree::range;
+      else if (strncmp(p, "METRIC-OFFSET", 13) == 0)
+        type = CliTree::word;
+      else if (strncmp(p, "COMMUNITY", 9) == 0)
+        type = CliTree::word;
+      else if (strncmp(p, "WORD", 4) == 0)
+        type = CliTree::word;
+      else if (strncmp(p, "TIME", 4) == 0)
+        type = CliTree::word;
+      else if (strncmp(p, "MONTH", 5) == 0)
+        type = CliTree::word;
+      else if (strncmp(p, "ARRAY", 5) == 0)
+        type = CliTree::word;
+      else
+        {
+          cout << "Error: unknown token " << p << endl;
+          assert(0);
+        }
+    }  
+
+  token = str.substr(0, offset);
+  str = str.substr(offset, string::npos);
 
   return type;
 }

@@ -257,26 +257,7 @@ public:
   friend class CliReadline;
 
 private:
-  static const boost::regex re_keyword;
   static const boost::regex re_white_space;
-  static const boost::regex re_vertical_bar;
-  static const boost::regex re_left_paren;
-  static const boost::regex re_right_paren;
-  static const boost::regex re_left_bracket;
-  static const boost::regex re_right_bracket;
-  static const boost::regex re_left_brace;
-  static const boost::regex re_right_brace;
-  static const boost::regex re_ipv4_prefix;
-  static const boost::regex re_ipv4_address;
-  static const boost::regex re_ipv6_prefix;
-  static const boost::regex re_ipv6_address;
-  static const boost::regex re_range;
-  static const boost::regex re_metric_offset;
-  static const boost::regex re_community_new;
-  static const boost::regex re_word;
-  static const boost::regex re_time;
-  static const boost::regex re_month;
-  static const boost::regex re_array;
 
   // Mode name.
   string mode_;

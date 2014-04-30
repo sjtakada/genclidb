@@ -77,7 +77,7 @@ Cli::init()
 
   // Read CLI definitions.
   load_cli_json_all((char *)"../cli.json");
-
+  // exit(0);
   // Sort CLI trees.
   for (ModeTreeMap::iterator it = tree_.begin(); it != tree_.end(); ++it)
     {
@@ -180,7 +180,7 @@ Cli::load_cli_json_all(char *dirname)
             file += "/";
             file += entry.d_name;
 
-            cout << "Loading CLI JSON " << file << endl;
+            cout << "Loading CLI JSON " << file << endl; // debug
             load_cli_json((char *)file.c_str());
           }
     }
