@@ -1,0 +1,57 @@
+{
+  "table": {
+    "ospfv2-area": {
+      "singular": false,
+      "parent": "ospfv2",
+      "children": [
+        "ospfv2-multi-area-adjacency",
+        "ospfv2-area-nssa",
+        "ospfv2-area-range",
+        "ospfv2-area-virtual-link"
+      ],
+      "keys": {
+        "area_id": {
+          "type": "integer",
+          "range": [0, 4294967295]
+        }
+      },
+      "attributes": {
+        "authentication": {
+          "desc": "area authentication",
+          "type": "enum",
+          "values": ["standard", "md5"]
+        },
+        "default-cost": {
+          "desc": "area default-cost",
+          "type": "integer",
+          "range": [0, 16777215]
+        },
+        "filter-list-access-in": {
+          "type": "string"
+        },
+        "filter-list-access-out": {
+          "type": "string"
+        },
+        "filter-list-prefix-in": {
+          "type": "string"
+        },
+        "filter-list-prefix-out": {
+          "type": "string"
+        },
+        "shortcut": {
+          "type": "enum",
+          "values": ["default", "disable", "enable"],
+          "default": "disable"
+        },
+        "stub": {
+          "type": "boolean",
+          "default": false
+        },
+        "stub-no-summary": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  }
+}

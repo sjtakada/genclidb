@@ -13,6 +13,9 @@
             "singular": {
               "type": "boolean"
             },
+            "parent": {
+              "type": "string"
+            },
             "children": {
               "type": "array",
               "items": {

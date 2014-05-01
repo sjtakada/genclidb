@@ -3,6 +3,7 @@
     "ospfv2": {
       "singular": false,
       "children": [
+        "ospfv2-area",
         "ospfv2-host",
         "ospfv2-neighbor",
         "ospfv2-network",
