@@ -4,7 +4,6 @@
       "singular": false,
       "parent": "ospfv2",
       "children": [
-        "ospfv2-multi-area-adjacency",
         "ospfv2-area-nssa",
         "ospfv2-area-range",
         "ospfv2-area-virtual-link"
