@@ -60,12 +60,16 @@ end
 #  table_name.split("-").map(&:capitalize).join("")
 #end
 
-def keyword(t)
-  t.gsub(/\-/, "_")
+def keyword(k)
+  k.gsub(/\-/, "_")
 end
 
-def keyword_plural(t)
-  keyword(t) + "s"
+def rkeyword(k)
+  k.gsub(/_/, "-")
+end
+
+def keyword_plural(k)
+  keyword(k) + "s"
 end
 
 def rails_add_index(table_name, keys)
@@ -102,6 +106,60 @@ def rails_add_index(table_name, keys)
 
   else
     puts "Couldn't find migration file: " + migration
+  end
+
+  Dir.chdir("../..")
+end
+
+def rails_attr_get_default(attributes, key)
+  default_value = nil
+
+  if attributes[key] != nil
+    attr = attributes[key]
+    if attr["default"] != nil
+      if attr["type"] == "boolean" or attr["type"] == "integer"
+        return attr["default"].to_s
+      else
+        return '"' + attr["default"] + '"'
+      end
+    end
+  end
+
+  default_value
+end
+
+def rails_set_default(table_name, table_def)
+  name = keyword_plural(table_name)
+  migration = "create_" + name
+
+  Dir.chdir("db/migrate")
+  m = Dir.entries(".").select {|f| f =~ /#{migration}\.rb$/}
+
+  if m.size == 1
+    migration_file = m[0]
+
+    lines = Array.new
+    File.open(migration_file, "r") do |f|
+      while line = f.gets
+        m = /^\s+t\.\w+ :(\w+)/.match(line)
+        if m != nil
+          key = rkeyword(m[1])
+          default_value = rails_attr_get_default(table_def["attributes"], key)
+          if default_value != nil
+            line.chomp!
+            line += ", :null => false, :default => " + default_value.to_s
+          end
+        end
+
+        lines << line
+      end
+    end
+
+    File.open(migration_file, "w") do |f|
+      lines.each do |line|
+        f.puts line
+      end
+    end
   end
 
   Dir.chdir("../..")
@@ -171,6 +229,9 @@ def rails_scaffolding(json)
 
     # Generate indexes
     rails_add_index(table_name, table_def["keys"].keys)
+
+    # Set default value
+    rails_set_default(table_name, table_def)
 
     # Add Association to models
     rails_add_association(table_name, table_def)
