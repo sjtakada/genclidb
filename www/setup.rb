@@ -20,14 +20,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-# Setup Rails DB environment.
+# Setup Rails App and DB environment.
 #
 
+require 'pathname'
 require 'json'
 
+# Parameters
+if ARGV[0] != nil
+  rails_project = ARGV[0]
+else
+  rails_project = "railsapp"
+end  
+
+if ARGV[1] != nil
+  dir = ARGV[1]
+else
+  dir = "../db"
+end
+
 #
-rails_project = "zebra"
-db_dir = "../db"
+#
 
 def rails_data_type(obj)
   type = obj["type"]
@@ -119,22 +132,44 @@ def rails_scaffolding(json)
   end
 end
 
-def main(rails_project, db_dir)
+# Main
+def main(rails_project, dir)
+  # Get directory where Table JSON located.
+  table_json_dir = File.expand_path(Dir.getwd + "/" + dir)
+  if !Dir.exists?(table_json_dir)
+    puts "Directory " + dir + " does not exist!"
+    abort
+  end
+
+  # Move to top directory to start.
+  script_file = File.expand_path $0
+  top_dir = Pathname.new(script_file).dirname
+  Dir.chdir(top_dir)
+
+#  puts "rails_project: " + rails_project
+#  puts "table_json_dir: " + table_json_dir
+#  puts "script_file: " + script_file
+#  puts "top_dir: " + top_dir.to_s
+
   # Create rails project
-  # system("rails new #{rails_project}")
+  if !File.exists?(rails_project)
+    system("rails new #{rails_project}")
+  end
   Dir.chdir(rails_project)
 
-  dir = "../" + db_dir
-
   # Iterate table.json files
-  Dir.entries(dir).each do |f|
+  Dir.entries(table_json_dir).each do |f|
     /\.table\.json$/.match(f) do
-      str = File.read(dir + "/" + f)
+      str = File.read(table_json_dir + "/" + f)
       json = JSON.parse(str)
 
       rails_scaffolding(json)
     end
   end
+
+  # rake db:migrate
+#  system("rake db:migrate");
 end
 
-main(rails_project, db_dir)
+# Start from here
+main(rails_project, dir)
