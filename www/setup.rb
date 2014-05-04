@@ -55,11 +55,6 @@ def rails_data_type(obj)
   type
 end
 
-# obsoleted
-#def rails_camel_case(table_name)
-#  table_name.split("-").map(&:capitalize).join("")
-#end
-
 def keyword(k)
   k.gsub(/\-/, "_")
 end
@@ -165,7 +160,7 @@ def rails_set_default(table_name, table_def)
   Dir.chdir("../..")
 end
 
-def rails_add_association(table_name, table_def)
+def rails_modify_model(table_name, table_def)
   name = keyword(table_name)
 
   model = "app/models/" + name + ".rb"
@@ -180,6 +175,9 @@ def rails_add_association(table_name, table_def)
       end
     end
 
+    # last line must be "end"
+    lines.pop
+
     File.open(model, "w") do |f|
       f.puts lines[0]
 
@@ -193,7 +191,24 @@ def rails_add_association(table_name, table_def)
         end
       end
 
-      f.puts lines[1]
+      # integer range validation
+      table_def["keys"].each do |k, v|
+        if v["type"] == "integer" and v["range"] != nil
+          f.puts "  validates :" + keyword(k) + ", :numericality => {" +
+            ":greater_than_or_equal_to => " + v["range"][0].to_s + ", " +
+            ":less_than_or_equal_to => " +v["range"][1].to_s + "}"
+        end
+      end
+
+      table_def["attributes"].each do |k, v|
+        if v["type"] == "integer" and v["range"] != nil
+          f.puts "  validates :" + keyword(k) + ", :numericality => {" +
+            ":greater_than_or_equal_to => " + v["range"][0].to_s + ", " +
+            ":less_than_or_equal_to => " +v["range"][1].to_s + "}"
+        end
+      end
+
+      f.puts "end"
     end
   end
 end
@@ -234,7 +249,7 @@ def rails_scaffolding(json)
     rails_set_default(table_name, table_def)
 
     # Add Association to models
-    rails_add_association(table_name, table_def)
+    rails_modify_model(table_name, table_def)
   end
 end
 
