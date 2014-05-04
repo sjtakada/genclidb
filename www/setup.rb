@@ -55,13 +55,21 @@ def rails_data_type(obj)
   type
 end
 
-def rails_table_name(table_name)
-  table_name.split("-").map(&:capitalize).join("")
+# obsoleted
+#def rails_camel_case(table_name)
+#  table_name.split("-").map(&:capitalize).join("")
+#end
+
+def keyword(t)
+  t.gsub(/\-/, "_")
+end
+
+def keyword_plural(t)
+  keyword(t) + "s"
 end
 
 def rails_add_index(table_name, keys)
-  name = table_name.gsub(/\-/, "_") + "s"
-
+  name = keyword_plural(table_name)
   migration = "add_index_to_" + name
 
   rails_cmd = "rails generate migration " + migration
@@ -76,11 +84,13 @@ def rails_add_index(table_name, keys)
     lines = Array.new
     File.open(migration_file, "r") do |f|
       while line = f.gets
+        next if line =~ /add_index/
+
         lines << line
       end
     end
 
-    keys_str = keys.map {|k| '"' + k.gsub(/\-/, "_") + '"'}.join(", ")
+    keys_str = keys.map {|k| '"' + keyword(k) + '"'}.join(", ")
     File.open(migration_file, "w") do |f|
       f.puts lines[0]
       f.puts lines[1]
@@ -97,6 +107,39 @@ def rails_add_index(table_name, keys)
   Dir.chdir("../..")
 end
 
+def rails_add_association(table_name, table_def)
+  name = keyword(table_name)
+
+  model = "app/models/" + name + ".rb"
+  if File.exists?(model)
+    lines = Array.new
+    File.open(model, "r") do |f|
+      while line = f.gets
+        next if line =~ /belongs_to/
+        next if line =~ /has_many/
+
+        lines << line
+      end
+    end
+
+    File.open(model, "w") do |f|
+      f.puts lines[0]
+
+      if table_def["parent"] != nil
+        f.puts "  belongs_to :" + keyword_plural(table_def["parent"])
+      end
+
+      if table_def["children"] != nil
+        table_def["children"].each do |k, v|
+          f.puts "  has_many :" + keyword(k) + ", dependent: :destroy"
+        end
+      end
+
+      f.puts lines[1]
+    end
+  end
+end
+
 def rails_scaffolding(json)
   json["table"].each do |table_name, table_def|
     children = table_def["children"]
@@ -105,30 +148,32 @@ def rails_scaffolding(json)
 
     # Association
     if table_def["parent"] != nil
-      fields << table_def["parent"].gsub(/\-/, "_") + "_id:integer"
+      fields << keyword(table_def["parent"]) + "_id:integer"
     end
 
     # Table keys
     table_def["keys"].each do |k, obj|
-      key = k.gsub(/\-/, "_");
+      key = keyword(k)
       fields << key + ":" + rails_data_type(obj)
     end
 
     # Other fields
     table_def["attributes"].each do |k, obj|
-      key = k.gsub(/\-/, "_");
+      key = keyword(k)
       fields << key + ":" + rails_data_type(obj)
     end
 
     # Scaffolding
     rails_cmd = "rails generate scaffold " +
-      rails_table_name(table_name) + " " +
-      fields.join(" ")
+      keyword(table_name) + " " + fields.join(" ")
     puts rails_cmd
     system(rails_cmd)
 
-    # Generate index
+    # Generate indexes
     rails_add_index(table_name, table_def["keys"].keys)
+
+    # Add Association to models
+    rails_add_association(table_name, table_def)
   end
 end
 
@@ -168,7 +213,7 @@ def main(rails_project, dir)
   end
 
   # rake db:migrate
-#  system("rake db:migrate");
+  system("rake db:migrate")
 end
 
 # Start from here
