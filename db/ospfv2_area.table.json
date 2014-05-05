@@ -18,17 +18,16 @@
         "authentication": {
           "desc": "area authentication",
           "type": "enum",
-          "values": ["standard", "md5"]
+          "values": ["standard", "md5", "null"],
+          "default": "null"
         },
         "default-cost": {
           "desc": "area default-cost",
           "type": "integer",
-          "range": [0, 16777215]
+          "range": [0, 16777215],
+          "default": 1
         },
-        "filter-list-access-in": {
-          "type": "string"
-        },
-        "filter-list-access-out": {
+        "export-list": {
           "type": "string"
         },
         "filter-list-prefix-in": {
@@ -37,10 +36,13 @@
         "filter-list-prefix-out": {
           "type": "string"
         },
+        "import-list": {
+          "type": "string"
+        },
         "shortcut": {
           "type": "enum",
           "values": ["default", "disable", "enable"],
-          "default": "disable"
+          "default": "default"
         },
         "stub": {
           "type": "boolean",

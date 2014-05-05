@@ -44,6 +44,9 @@
                       "minItems": 2,
                       "maxItems": 2
                     },
+                    "null": {
+                      "type": "boolean"
+                    },
                     "default": {
                     },
                     "desc": {
@@ -75,6 +78,9 @@
                       },
                       "minItems": 2,
                       "maxItems": 2
+                    },
+                    "null": {
+                      "type": "boolean"
                     },
                     "default": {
                     },
