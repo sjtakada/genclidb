@@ -213,6 +213,48 @@ def rails_modify_model(table_name, table_def)
   end
 end
 
+def key_value_pairs(name, obj)
+  obj.map {|k, v| keyword(k) + " <%= " + name + "." + keyword(k) + " %>"}.join(" ")
+end  
+
+def rails_generate_cli_erb(table_name, table_def)
+  name = keyword(table_name)
+  namep = keyword_plural(table_name)
+  view = "app/views/" + namep + "/index.cli.erb"
+
+  keys = table_def["keys"]
+  attrs = table_def["attributes"]
+
+  if !File.exists?(view)
+    File.open(view, "w") do |f|
+      f.puts "! " + name + " config"
+      f.puts "<% @#{namep}.each do |#{name}| %>"
+      f.puts "!"
+
+      # Placeholder of config container, keys must be present.
+      f.puts name + " " + key_value_pairs(name, keys)
+
+      # Iterate each columns
+      attrs.each do |k, v|
+        key = keyword(k)
+
+        if v["default"] != nil
+          f.puts "<% if #{name}.#{key} != " +
+            rails_attr_get_default(attrs, k) + " %>"
+        else
+          f.puts "<% if #{name}.#{key} != nil %>"
+        end
+
+        f.puts " #{k} <%= #{name}.#{key} %>"
+        f.puts "<% end %>"
+      end
+
+      f.puts "!"
+      f.puts "<% end %>"
+    end
+  end
+end
+
 def rails_scaffolding(dir, name, table_keys)
   f = dir + "/" + name + ".table.json"
   if File.exists?(f)
@@ -258,6 +300,9 @@ def rails_scaffolding(dir, name, table_keys)
 
       # Add Association to models
       rails_modify_model(table_name, table_def)
+
+      # Generate view CLI.ERBs
+      rails_generate_cli_erb(table_name, table_def)
 
       # Iterate children recursively
       if children != nil
