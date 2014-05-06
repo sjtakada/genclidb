@@ -67,7 +67,9 @@ def keyword_plural(k)
   keyword(k) + "s"
 end
 
-def rails_add_index(table_name, keys)
+def rails_add_index(table_name, table_def)
+  keys = table_def["keys"].keys
+
   name = keyword_plural(table_name)
   migration = "add_index_to_" + name
 
@@ -213,6 +215,88 @@ def rails_modify_model(table_name, table_def)
   end
 end
 
+def gen_keys_str(keys)
+  keys.map {|k| keyword(k)}.join("_and_")
+end
+
+def gen_params_str(keys)
+  keys.map {|k| "params[:" + keyword(k) + "]"}.join(", ")
+end
+
+def rails_update_by_keys_str(table_name, table_def, table_keys)
+  parent = table_def["parent"]
+  keys = table_def["keys"].keys
+
+  name = keyword(table_name)
+  namec = name.split(/_/).map(&:capitalize).join("")
+
+  keys_str = gen_keys_str(keys)
+  params_str = gen_params_str(keys)
+
+  if parent != nil
+    parent = keyword(table_def["parent"])
+    parent_keys = table_keys[parent].keys
+    parent_keys_str = gen_keys_str(parent_keys)
+    parent_params_str = gen_params_str(parent_keys)
+    parentc = parent.split(/_/).map(&:capitalize).join("")
+  end
+
+  str = ""
+  str += "  # POST\n"
+  str += "  def update_by_keys\n"
+  if parent != nil
+    str += "    @#{parent} = #{parentc}.find_by_#{parent_keys_str}(#{parent_params_str})\n"
+  end
+
+  str += "    @#{name} = #{namec}.find_by_#{keys_str}(#{params_str})\n"
+  str += "    if @#{name} == nil\n"
+  str += "      @#{name} = #{namec}.new\n"
+  if parent != nil
+    str += "      @#{name}.#{parent}_id = @#{parent}.id\n"
+  end
+  table_def["keys"].keys.each do |k|
+    key = keyword(k)
+    str += "      @#{name}.#{key} = params[:#{key}]\n"
+  end
+  str += "      @#{name}.save\n"
+  str += "    end\n"
+  str += "\n"
+  str += "    respond_to do |format|\n"
+  str += "      if @#{name}.update(#{name}_params)\n"
+  str += "        format.json { render action: 'show', status: :updated, location: @#{name} }\n"
+  str += "      else\n"
+  str += "        format.json { render json: @#{name}.errors, status: :unprocessable_entity } \n"
+  str += "      end\n"
+  str += "    end\n"
+  str += "  end\n"
+  str
+end
+
+def rails_modify_controller(table_name, table_def, table_keys)
+  namep = keyword_plural(table_name)
+  controller = "app/controllers/#{namep}_controller.rb"
+
+  if File.exists?(controller)
+    lines = Array.new
+    File.open(controller, "r") do |f|
+      while line = f.gets
+        lines << line
+      end
+    end
+
+    File.open(controller, "w") do |f|
+      f.puts lines[0]
+      f.puts lines[1]
+      f.puts "  skip_before_filter :verify_authenticity_token, :if => Proc.new {|c| c.request.format == 'application/json' }"
+
+      f.puts
+      f.puts rails_update_by_keys_str(table_name, table_def, table_keys)
+#
+      f.puts lines[2, lines.size - 2]
+    end
+  end
+end  
+
 def key_value_pairs(name, obj)
   obj.map {|k, v| keyword(k) + " <%= " + name + "." + keyword(k) + " %>"}.join(" ")
 end  
@@ -292,16 +376,19 @@ def rails_scaffolding(dir, name, table_keys)
       puts rails_cmd
       system(rails_cmd)
 
-      # Generate indexes
-      rails_add_index(table_name, table_def["keys"].keys)
+      # Migration: generate index's
+      rails_add_index(table_name, table_def)
 
-      # Set default value
+      # Migration: set default value
       rails_set_default(table_name, table_def)
 
-      # Add Association to models
+      # Model: add association
       rails_modify_model(table_name, table_def)
 
-      # Generate view CLI.ERBs
+      # Controller: add custome update/destroy methods
+      rails_modify_controller(table_name, table_def, table_keys)
+
+      # View: generate cli.erb
       rails_generate_cli_erb(table_name, table_def)
 
       # Iterate children recursively
