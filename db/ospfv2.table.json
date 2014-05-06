@@ -4,6 +4,9 @@
       "singular": false,
       "children": [
         "ospfv2-area",
+        "ospfv2-area-nssa",
+        "ospfv2-area-range",
+        "ospfv2-area-virtual-link",
         "ospfv2-host",
         "ospfv2-neighbor",
         "ospfv2-network",

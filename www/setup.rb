@@ -25,6 +25,7 @@
 
 require 'pathname'
 require 'json'
+require 'erb'
 
 # Parameters
 if ARGV[0] != nil
@@ -59,17 +60,19 @@ def keyword(k)
   k.gsub(/\-/, "_")
 end
 
-def rkeyword(k)
+def keyword_dashed(k)
   k.gsub(/_/, "-")
+end
+
+def keyword_camel(k)
+  k.split(/[\-_]/).map(&:capitalize).join("")
 end
 
 def keyword_plural(k)
   keyword(k) + "s"
 end
 
-def rails_add_index(table_name, table_def)
-  keys = table_def["keys"].keys
-
+def rails_add_index(table_name, table_def, table_keys)
   name = keyword_plural(table_name)
   migration = "add_index_to_" + name
 
@@ -90,13 +93,20 @@ def rails_add_index(table_name, table_def)
         lines << line
       end
     end
+    
+    # All index keys
+    keys = Array.new
+    table_keys.each do |v|
+      keys += v[1].keys
+    end
 
     keys_str = keys.map {|k| '"' + keyword(k) + '"'}.join(", ")
+    index_name = name + "_index"
     File.open(migration_file, "w") do |f|
       f.puts lines[0]
       f.puts lines[1]
       f.puts '    add_index "' + name +
-        '", [' + keys_str + '], :unique => true'
+        '", [' + keys_str + "], :unique => true, :name => '#{index_name}'"
       f.puts lines[2]
       f.puts lines[3]
     end
@@ -140,7 +150,7 @@ def rails_set_default(table_name, table_def)
       while line = f.gets
         m = /^\s+t\.\w+ :(\w+)/.match(line)
         if m != nil
-          key = rkeyword(m[1])
+          key = keyword_dashed(m[1])
           default_value = rails_attr_get_default(table_def["attributes"], key)
           if default_value != nil
             line.chomp!
@@ -162,56 +172,33 @@ def rails_set_default(table_name, table_def)
   Dir.chdir("../..")
 end
 
-def rails_modify_model(table_name, table_def)
-  name = keyword(table_name)
+def find_by_keys_statement_str(keys)
+  "find_by_" +
+    keys.map {|k| keyword(k)}.join("_and_") + "(" +
+    keys.map {|k| "params[:" + keyword(k) + "]"}.join(", ") +
+    ")"
+end
 
-  model = "app/models/" + name + ".rb"
-  if File.exists?(model)
-    lines = Array.new
-    File.open(model, "r") do |f|
-      while line = f.gets
-        next if line =~ /belongs_to/
-        next if line =~ /has_many/
+def rails_modify_model(table_name, table_def, table_keys)
+  @model_name = keyword(table_name)
+  model = "app/models/" + @model_name + ".rb"
+  template = File.read("../model.erb")
 
-        lines << line
-      end
+  File.open(model, "w") do |f|
+    @class_name = keyword_camel(table_name)
+    @parent_name = nil
+    @parent_class_name = nil
+    if table_def["parent"] != nil
+      @parent_name = table_def["parent"];
+      @parent_class_name = keyword_camel(@parent_name)
     end
+    @children = table_def["children"]
+    @keys_def = table_def["keys"]
+    @attrs_def = table_def["attributes"]
+    @all_keys = table_all_keys(table_keys)
 
-    # last line must be "end"
-    lines.pop
-
-    File.open(model, "w") do |f|
-      f.puts lines[0]
-
-      if table_def["parent"] != nil
-        f.puts "  belongs_to :" + keyword_plural(table_def["parent"])
-      end
-
-      if table_def["children"] != nil
-        table_def["children"].each do |k, v|
-          f.puts "  has_many :" + keyword(k) + ", dependent: :destroy"
-        end
-      end
-
-      # integer range validation
-      table_def["keys"].each do |k, v|
-        if v["type"] == "integer" and v["range"] != nil
-          f.puts "  validates :" + keyword(k) + ", :numericality => {" +
-            ":greater_than_or_equal_to => " + v["range"][0].to_s + ", " +
-            ":less_than_or_equal_to => " +v["range"][1].to_s + "}"
-        end
-      end
-
-      table_def["attributes"].each do |k, v|
-        if v["type"] == "integer" and v["range"] != nil
-          f.puts "  validates :" + keyword(k) + ", :numericality => {" +
-            ":greater_than_or_equal_to => " + v["range"][0].to_s + ", " +
-            ":less_than_or_equal_to => " +v["range"][1].to_s + "}"
-        end
-      end
-
-      f.puts "end"
-    end
+    renderer = ERB.new(template, nil, '<>')
+    f.puts renderer.result()
   end
 end
 
@@ -224,7 +211,8 @@ def gen_params_str(keys)
 end
 
 def rails_update_by_keys_str(table_name, table_def, table_keys)
-  parent = table_def["parent"]
+#  parent = table_def["parent"]
+  parent = nil
   keys = table_def["keys"].keys
 
   name = keyword(table_name)
@@ -233,13 +221,13 @@ def rails_update_by_keys_str(table_name, table_def, table_keys)
   keys_str = gen_keys_str(keys)
   params_str = gen_params_str(keys)
 
-  if parent != nil
-    parent = keyword(table_def["parent"])
-    parent_keys = table_keys[parent].keys
-    parent_keys_str = gen_keys_str(parent_keys)
-    parent_params_str = gen_params_str(parent_keys)
-    parentc = parent.split(/_/).map(&:capitalize).join("")
-  end
+#  if parent != nil
+#    parent = keyword(table_def["parent"])
+#    parent_keys = table_keys[parent].keys
+#    parent_keys_str = gen_keys_str(parent_keys)
+#    parent_params_str = gen_params_str(parent_keys)
+#    parentc = parent.split(/_/).map(&:capitalize).join("")
+#  end
 
   str = ""
   str += "  # POST\n"
@@ -339,7 +327,19 @@ def rails_generate_cli_erb(table_name, table_def)
   end
 end
 
-def rails_scaffolding(dir, name, table_keys)
+def table_all_keys(table_keys)
+  keys = Array.new
+  table_keys.each do |a|
+    keys += a[1].keys
+  end
+
+  keys
+end
+
+def rails_scaffolding(dir, name, parent_keys)
+  table_keys = Array.new
+  table_keys += parent_keys if parent_keys != nil
+
   f = dir + "/" + name + ".table.json"
   if File.exists?(f)
     str = File.read(f)
@@ -355,14 +355,16 @@ def rails_scaffolding(dir, name, table_keys)
         fields << keyword(table_def["parent"]) + "_id:integer"
       end
 
-      # Table keys
-      table_def["keys"].each do |k, obj|
-        key = keyword(k)
-        fields << key + ":" + rails_data_type(obj)
-      end
+      # Push keys
+      table_keys << [table_name, table_def["keys"]]
 
-      # Save keys
-      table_keys[name] = table_def["keys"]
+      # Table keys
+      table_keys.each do |tk|
+        tk[1].each do |k, obj|
+          key = keyword(k)
+          fields << key + ":" + rails_data_type(obj)
+        end
+      end
 
       # Other columns
       table_def["attributes"].each do |k, obj|
@@ -377,13 +379,13 @@ def rails_scaffolding(dir, name, table_keys)
       system(rails_cmd)
 
       # Migration: generate index's
-      rails_add_index(table_name, table_def)
+      rails_add_index(table_name, table_def, table_keys)
 
       # Migration: set default value
       rails_set_default(table_name, table_def)
 
       # Model: add association
-      rails_modify_model(table_name, table_def)
+      rails_modify_model(table_name, table_def, table_keys)
 
       # Controller: add custome update/destroy methods
       rails_modify_controller(table_name, table_def, table_keys)
@@ -441,18 +443,10 @@ def main(rails_project, dir)
   # Read tables.json to get list of parents.
   parents = rails_get_parents(table_json_dir + "/tables.json")
 
-  # Prepare parent keys hash, in order to complete controller.
-  table_keys = Hash.new
-
   # Iterate from parents, and then iterate children recursively.
   parents.each do |p|
-    rails_scaffolding(table_json_dir, keyword(p), table_keys)
+    rails_scaffolding(table_json_dir, keyword(p), nil)
   end
-
-#  table_keys.each do |k, v|
-#    puts "name:" + k
-#    puts "keys:" + v.keys.to_s
-#  end
 
   # rake db:migrate
   system("rake db:migrate")
