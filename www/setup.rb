@@ -213,44 +213,77 @@ def rails_modify_model(table_name, table_def)
   end
 end
 
-def rails_scaffolding(json)
-  json["table"].each do |table_name, table_def|
-    children = table_def["children"]
+def rails_scaffolding(dir, name, table_keys)
+  f = dir + "/" + name + ".table.json"
+  if File.exists?(f)
+    str = File.read(f)
+    json = JSON.parse(str)
 
-    fields = Array.new
+    json["table"].each do |table_name, table_def|
+      children = table_def["children"]
 
-    # Association
-    if table_def["parent"] != nil
-      fields << keyword(table_def["parent"]) + "_id:integer"
+      fields = Array.new
+
+      # Association
+      if table_def["parent"] != nil
+        fields << keyword(table_def["parent"]) + "_id:integer"
+      end
+
+      # Table keys
+      table_def["keys"].each do |k, obj|
+        key = keyword(k)
+        fields << key + ":" + rails_data_type(obj)
+      end
+
+      # Save keys
+      table_keys[name] = table_def["keys"]
+
+      # Other columns
+      table_def["attributes"].each do |k, obj|
+        key = keyword(k)
+        fields << key + ":" + rails_data_type(obj)
+      end
+
+      # Scaffolding
+      rails_cmd = "rails generate scaffold " +
+        keyword(table_name) + " " + fields.join(" ")
+      puts rails_cmd
+      system(rails_cmd)
+
+      # Generate indexes
+      rails_add_index(table_name, table_def["keys"].keys)
+
+      # Set default value
+      rails_set_default(table_name, table_def)
+
+      # Add Association to models
+      rails_modify_model(table_name, table_def)
+
+      # Iterate children recursively
+      if children != nil
+        children.each do |c|
+          rails_scaffolding(dir, keyword(c), table_keys)
+        end
+      end
     end
-
-    # Table keys
-    table_def["keys"].each do |k, obj|
-      key = keyword(k)
-      fields << key + ":" + rails_data_type(obj)
-    end
-
-    # Other fields
-    table_def["attributes"].each do |k, obj|
-      key = keyword(k)
-      fields << key + ":" + rails_data_type(obj)
-    end
-
-    # Scaffolding
-    rails_cmd = "rails generate scaffold " +
-      keyword(table_name) + " " + fields.join(" ")
-    puts rails_cmd
-    system(rails_cmd)
-
-    # Generate indexes
-    rails_add_index(table_name, table_def["keys"].keys)
-
-    # Set default value
-    rails_set_default(table_name, table_def)
-
-    # Add Association to models
-    rails_modify_model(table_name, table_def)
   end
+end
+
+def rails_get_parents(tables_json)
+  parents = Array.new
+
+  if File.exists?(tables_json)
+    str = File.read(tables_json)
+    json = JSON.parse(str)
+
+    if json["tables"] != nil
+      json["tables"].each do |p|
+        parents << p
+      end
+    end
+  end
+
+  parents
 end
 
 # Main
@@ -267,26 +300,27 @@ def main(rails_project, dir)
   top_dir = Pathname.new(script_file).dirname
   Dir.chdir(top_dir)
 
-#  puts "rails_project: " + rails_project
-#  puts "table_json_dir: " + table_json_dir
-#  puts "script_file: " + script_file
-#  puts "top_dir: " + top_dir.to_s
-
   # Create rails project
   if !File.exists?(rails_project)
     system("rails new #{rails_project}")
   end
   Dir.chdir(rails_project)
 
-  # Iterate table.json files
-  Dir.entries(table_json_dir).each do |f|
-    /\.table\.json$/.match(f) do
-      str = File.read(table_json_dir + "/" + f)
-      json = JSON.parse(str)
+  # Read tables.json to get list of parents.
+  parents = rails_get_parents(table_json_dir + "/tables.json")
 
-      rails_scaffolding(json)
-    end
+  # Prepare parent keys hash, in order to complete controller.
+  table_keys = Hash.new
+
+  # Iterate from parents, and then iterate children recursively.
+  parents.each do |p|
+    rails_scaffolding(table_json_dir, keyword(p), table_keys)
   end
+
+#  table_keys.each do |k, v|
+#    puts "name:" + k
+#    puts "keys:" + v.keys.to_s
+#  end
 
   # rake db:migrate
   system("rake db:migrate")
