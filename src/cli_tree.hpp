@@ -95,6 +95,10 @@ protected:
   // Command.
   bool cmd_;
 
+  // Action
+  string method_;
+  string path_;
+
   // TODO/ next mode.
   string next_mode_;
 };

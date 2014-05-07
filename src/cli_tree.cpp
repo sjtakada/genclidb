@@ -280,6 +280,13 @@ CliTree::build_recursive(CliNodeVector& curr,
           Json::Value mode = action["mode"];
           if (!mode.isNull())
             (*it)->next_mode_ = mode.asString();
+
+          Json::Value http = action["http"];
+          if (!http.isNull())
+            {
+              (*it)->method_ = http["method"].asString();
+              (*it)->path_ = http["path"].asString();
+            }
         }
     }
 

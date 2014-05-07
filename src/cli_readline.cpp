@@ -440,6 +440,11 @@ CliReadline::execute()
             CliNode *node = node_token_vec.back().first;
             if (!node->next_mode_.empty())
               cli_->mode_set(node->next_mode_);
+
+            if (!node->method_.empty())
+              cout << "method: " << node->method_ << endl;
+            if (!node->path_.empty())
+              cout << "path: " << node->path_ << endl;
           }
           break;
         case exec_incomplete:
