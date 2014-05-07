@@ -1,0 +1,9 @@
+{
+  "tables": [
+    "ospfv2",
+    "ospfv3",
+    "bgp",
+    "rip",
+    "ripng"
+  ]
+}
