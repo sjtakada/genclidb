@@ -1,0 +1,26 @@
+  skip_before_filter :verify_authenticity_token, :if => Proc.new {|c| c.request.format == 'application/json' }
+
+  # POST
+  def update_by_keys
+    @<%= @model_name %> = <%= @class_name %>.get_by_params(params)
+
+    respond_to do |format|
+      if @<%= @model_name %>.update(<%= @model_name %>_params)
+        format.json { render action: 'show', status: :updated, location: @<%= @model_name %>}
+      else
+        format.json { render json: @<%= @model_name %>.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE
+  def delete_by_keys
+    @<%= @model_name %> = <%= @class_name %>.find_by_params(params)
+    if @<%= @model_name %> != nil
+      @<%= @model_name %>.destroy
+    end
+
+    respond_to do |format|
+      format.json { head :no_content }
+    end
+  end
