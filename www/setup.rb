@@ -174,8 +174,16 @@ end
 def find_by_keys_statement_str(keys)
   "find_by_" +
     keys.map {|k| keyword(k)}.join("_and_") + "(" +
-    keys.map {|k| "params[:" + keyword(k) + "]"}.join(", ") +
-    ")"
+    keys.map {|k| "params[:" + keyword(k) + "]"}.join(", ") + ")"
+end
+
+def table_all_keys(table_keys)
+  keys = Array.new
+  table_keys.each do |a|
+    keys += a[1].keys
+  end
+
+  keys
 end
 
 def rails_modify_model(table_name, table_def, table_keys)
@@ -201,13 +209,17 @@ def rails_modify_model(table_name, table_def, table_keys)
   end
 end
 
-#def gen_keys_str(keys)
-#  keys.map {|k| keyword(k)}.join("_and_")
-#end
+def rails_api_path(table_name, table_keys)
+  path = Array.new
+  path << keyword_plural(table_name)
+  path << "keys"
 
-#def gen_params_str(keys)
-#  keys.map {|k| "params[:" + keyword(k) + "]"}.join(", ")
-#end
+  table_keys.each do |a|
+    path << a[1].keys.map {|k| ":" + keyword(k)}
+  end
+
+  path.join("/")
+end
 
 def rails_modify_controller(table_name, table_def, table_keys)
   controller_name = keyword_plural(table_name)
@@ -225,6 +237,7 @@ def rails_modify_controller(table_name, table_def, table_keys)
     File.open(controller, "w") do |f|
       @model_name = keyword(table_name)
       @class_name = keyword_camel(table_name)
+      @api_path = rails_api_path(table_name, table_keys)
       renderer = ERB.new(template, nil, '<>')
 
       f.puts lines[0]
@@ -277,13 +290,25 @@ def rails_generate_cli_erb(table_name, table_def)
   end
 end
 
-def table_all_keys(table_keys)
-  keys = Array.new
-  table_keys.each do |a|
-    keys += a[1].keys
+def rails_add_routes(table_name, table_keys)
+  name = keyword_plural(table_name)
+  routes = "config/routes.rb"
+  
+  lines = Array.new
+  File.open(routes, "r") do |f|
+    while line = f.gets
+      lines << line
+    end
   end
 
-  keys
+  lines.pop
+  File.open(routes, "w") do |f|
+    f.puts lines
+    f.puts
+    f.puts '  post "' + rails_api_path(table_name, table_keys) + '", to: "' + name + '#update_by_keys"'
+    f.puts '  delete "' + rails_api_path(table_name, table_keys) + '", to: "' + name + '#destroy_by_keys"'
+    f.puts "end"
+  end
 end
 
 def rails_scaffolding(dir, name, parent_keys)
@@ -342,6 +367,9 @@ def rails_scaffolding(dir, name, parent_keys)
 
       # View: generate cli.erb
       rails_generate_cli_erb(table_name, table_def)
+
+      # Routes: add routes
+      rails_add_routes(table_name, table_keys)
 
       # Iterate children recursively
       if children != nil

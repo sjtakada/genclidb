@@ -1,6 +1,6 @@
   skip_before_filter :verify_authenticity_token, :if => Proc.new {|c| c.request.format == 'application/json' }
 
-  # POST
+  # POST /<%= @api_path %>.json
   def update_by_keys
     @<%= @model_name %> = <%= @class_name %>.get_by_params(params)
 
@@ -13,8 +13,8 @@
     end
   end
 
-  # DELETE
-  def delete_by_keys
+  # DELETE /<%= @api_path %>.json
+  def destroy_by_keys
     @<%= @model_name %> = <%= @class_name %>.find_by_params(params)
     if @<%= @model_name %> != nil
       @<%= @model_name %>.destroy
