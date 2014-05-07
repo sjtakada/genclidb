@@ -1,0 +1,52 @@
+class <%= @class_name %> < ActiveRecord::Base
+<% if @parent_name != nil %>
+  belongs_to :<%= @parent_name %>
+<% end %>
+
+<% if @children != nil %>
+<%   @children.each do |k, v| %>
+  has_many :<%= keyword(k) %>, dependent: :destroy
+<%   end %>
+<% end %>
+
+<% if @keys_def != nil %>
+<%   @keys_def.each do |k, v| %>
+<%     if v["type"] == "integer" and v["range"] != nil %>
+  validates :<%= keyword(k) %>, :numericality => {:greater_than_or_equal_to => <%= v["range"][0].to_s %>, :less_than_or_equal_to => <%= v["range"][1].to_s %>}
+<%     end %>
+<%   end %>
+<% end %>
+
+<% if @attrs_def != nil %>
+<%   @attrs_def.each do |k, v| %>
+<%     if v["type"] == "integer" and v["range"] != nil %>
+  validates :<%= keyword(k) %>, :numericality => {:greater_than_or_equal_to => <%= v["range"][0].to_s %>, :less_than_or_equal_to => <%= v["range"][1].to_s %>}
+<%     end %>
+<%   end %>
+<% end %>
+
+  def self.find_by_params(params)
+    <%= find_by_keys_statement_str(@all_keys) %>
+  end
+
+  def self.get_by_params(params)
+<% if @parent_name != nil %>
+    <%= @parent_name %> = <%= @parent_class_name %>.find_by_params(params)
+<% end %>
+    <%= @model_name %> = find_by_params(params)
+    if <%= @model_name %> == nil
+      <%= @model_name %> = <%= @class_name %>.new
+<% if @parent_name != nil %>
+      <%= @model_name %>.<%= @parent_name %>_id = <%= @parent_name %>.id
+<% end %>
+<% if @all_keys != nil %>
+<%   @all_keys.each do |k, v| %>
+      <%= @model_name %>.<%= keyword(k) %> = params[:<%= keyword(k) %>]
+<%   end %>
+<% end %>
+      <%= @model_name %>.save
+    end
+
+    <%= @model_name %>
+  end
+end
