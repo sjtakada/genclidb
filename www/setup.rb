@@ -398,6 +398,17 @@ def rails_get_parents(tables_json)
   parents
 end
 
+def rails_update_mime_types
+  mime_types = "config/initializers/mime_types.rb"
+
+  str = File.read(mime_types)
+  File.open(mime_types, "w") do |f|
+    f.write str
+    f.puts
+    f.puts 'Mime::Type.register_alias "text/plain", :cli'
+  end
+end
+
 # Main
 def main(rails_project, dir)
   # Get directory where Table JSON located.
@@ -425,6 +436,9 @@ def main(rails_project, dir)
   parents.each do |p|
     rails_scaffolding(table_json_dir, keyword(p), nil)
   end
+
+  # Update mime.types
+  rails_update_mime_types
 
   # rake db:migrate
   system("rake db:migrate")
