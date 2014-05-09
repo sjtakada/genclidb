@@ -27,6 +27,7 @@
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
+#include "json/json.h"
 
 #include "project.hpp"
 #include "cli_tree.hpp"
@@ -416,10 +417,9 @@ CliReadline::gets()
 }
 
 void
-CliReadline::http_request(string& method, string& path)
+CliReadline::http_request(string& method, string& path, string& json)
 {
   string url("http://localhost");
-  string data("");
   url += path;
 
   try
@@ -435,8 +435,8 @@ CliReadline::http_request(string& method, string& path)
 
       request.setOpt(new options::HttpHeader(header));
       request.setOpt(new options::CustomRequest(method));
-      request.setOpt(new options::PostFields(data));
-      request.setOpt(new options::PostFieldSize(data.size()));
+      request.setOpt(new options::PostFields(json));
+      request.setOpt(new options::PostFieldSize(json.size()));
 
       request.perform();
     }
@@ -456,6 +456,8 @@ CliReadline::execute()
   // current mode.
   CliTree *tree = cli_->current_mode();
   CliNodeTokenVector node_token_vec;
+  map<string, string> params;
+  map<string, bool> keywords;
   string line(" ");
   boost::smatch m;
 
@@ -475,6 +477,16 @@ CliReadline::execute()
               {
                 cout << "token: " << it->first->cli_token() << " "
                      << "input: " << *it->second << endl;
+                
+                if (it->first->type_ == CliTree::keyword)
+                  keywords[it->first->def_token()] = true;
+                else
+                  {
+                    params[it->first->def_token()] = *it->second;
+
+                    cout << "params[" << it->first->def_token() 
+                         << "] = " << *it->second << endl;
+                  }
               }
 
             CliNode *node = node_token_vec.back().first;
@@ -485,9 +497,35 @@ CliReadline::execute()
               {
                 cout << "method: " << node->method_ << endl;
                 cout << "path: " << node->path_ << endl;
-
-                http_request(node->method_, node->path_);
               }
+            else
+              return true;
+
+            Json::Value json_params;
+            if (!node->params_.empty())
+              {
+                cout << "params: " << endl;
+
+                if (!node->params_.empty())
+                  {
+                    for (Json::Value::iterator it = node->params_.begin();
+                         it != node->params_.end(); ++it)
+                      {
+                        cout << "key: " << it.key() << ", ";
+                        cout << "id: " << (*it) << ", ";
+                        cout << "value: " << params[(*it).asString()] << endl;
+
+                        json_params[it.key().asString()] = params[(*it).asString()];
+                      }
+                  }
+              }
+
+            cout << "json: " << json_params << endl;
+            Json::FastWriter writer;
+            string json_str = writer.write(json_params);
+            replace(json_str.begin(), json_str.end(), '-', '_');
+
+            http_request(node->method_, node->path_, json_str);
           }
           break;
         case exec_incomplete:

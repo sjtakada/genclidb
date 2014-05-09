@@ -62,6 +62,7 @@ public:
   string& help() { return help_; }
 
   void sort_recursive();
+  string& def_token() { return def_token_; }
 
   friend class CliTree;
   friend class CliReadline;
@@ -98,6 +99,7 @@ protected:
   // Action
   string method_;
   string path_;
+  Json::Value params_;
 
   // TODO/ next mode.
   string next_mode_;

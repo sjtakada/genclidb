@@ -286,6 +286,7 @@ CliTree::build_recursive(CliNodeVector& curr,
             {
               (*it)->method_ = http["method"].asString();
               (*it)->path_ = http["path"].asString();
+              (*it)->params_ = http["params"];
             }
         }
     }
