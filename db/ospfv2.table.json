@@ -4,16 +4,7 @@
       "singular": false,
       "children": [
         "ospfv2-area",
-        "ospfv2-area-nssa",
-        "ospfv2-area-range",
-        "ospfv2-area-virtual-link",
-        "ospfv2-host",
-        "ospfv2-neighbor",
-        "ospfv2-network",
-        "ospfv2-summary-address",
-        "ospfv2-redistribute",
-        "ospfv2-passive-if",
-        "ospfv2-passive-if-address"
+        "ospfv2-network"
       ],
       "keys": {
         "process-id" : {

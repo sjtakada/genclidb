@@ -120,13 +120,15 @@ end
 def rails_attr_get_default(attributes, key)
   default_value = nil
 
-  if attributes[key] != nil
-    attr = attributes[key]
-    if attr["default"] != nil
-      if attr["type"] == "boolean" or attr["type"] == "integer"
-        return attr["default"].to_s
-      else
-        return '"' + attr["default"] + '"'
+  if attributes != nil
+    if attributes[key] != nil
+      attr = attributes[key]
+      if attr["default"] != nil
+        if attr["type"] == "boolean" or attr["type"] == "integer"
+          return attr["default"].to_s
+        else
+          return '"' + attr["default"] + '"'
+        end
       end
     end
   end
@@ -269,21 +271,25 @@ def rails_generate_cli_erb(table_name, table_def)
       f.puts "!"
 
       # Placeholder of config container, keys must be present.
-      f.puts name + " " + key_value_pairs(name, keys)
+      if keys != nil
+        f.puts name + " " + key_value_pairs(name, keys)
+      end
 
       # Iterate each columns
-      attrs.each do |k, v|
-        key = keyword(k)
+      if attrs != nil
+        attrs.each do |k, v|
+          key = keyword(k)
 
-        if v["default"] != nil
-          f.puts "<% if #{name}.#{key} != " +
-            rails_attr_get_default(attrs, k) + " %>"
-        else
-          f.puts "<% if #{name}.#{key} != nil %>"
+          if v["default"] != nil
+            f.puts "<% if #{name}.#{key} != " +
+              rails_attr_get_default(attrs, k) + " %>"
+          else
+            f.puts "<% if #{name}.#{key} != nil %>"
+          end
+
+          f.puts " #{k} <%= #{name}.#{key} %>"
+          f.puts "<% end %>"
         end
-
-        f.puts " #{k} <%= #{name}.#{key} %>"
-        f.puts "<% end %>"
       end
 
       f.puts "!"
@@ -334,7 +340,9 @@ def rails_scaffolding(dir, name, parent_keys)
       end
 
       # Push keys
-      table_keys << [table_name, table_def["keys"]]
+      if table_def["keys"] != nil
+        table_keys << [table_name, table_def["keys"]]
+      end
 
       # Table keys
       table_keys.each do |tk|
@@ -345,9 +353,11 @@ def rails_scaffolding(dir, name, parent_keys)
       end
 
       # Other columns
-      table_def["attributes"].each do |k, obj|
-        key = keyword(k)
-        fields << key + ":" + rails_data_type(obj)
+      if table_def["attributes"] != nil
+        table_def["attributes"].each do |k, obj|
+          key = keyword(k)
+          fields << key + ":" + rails_data_type(obj)
+        end
       end
 
       # Scaffolding

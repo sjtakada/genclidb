@@ -1,0 +1,16 @@
+{
+  "table": {
+    "acl-ipv4-std": {
+      "singular": false,
+      "children": [
+        "acl-ipv4-std-rule"
+      ],
+      "keys": {
+        "number": {
+          "type": "integer",
+          "range": [1, 1999]
+        }
+      }
+    }
+  }
+}

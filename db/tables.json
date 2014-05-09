@@ -4,6 +4,7 @@
     "ospfv3",
     "bgp",
     "rip",
-    "ripng"
+    "ripng",
+    "acl-ipv4-std"
   ]
 }
