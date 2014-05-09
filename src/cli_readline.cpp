@@ -24,11 +24,16 @@
 
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <curlpp/cURLpp.hpp>
+#include <curlpp/Easy.hpp>
+#include <curlpp/Options.hpp>
 
 #include "project.hpp"
 #include "cli_tree.hpp"
 #include "cli_readline.hpp"
 #include "cli.hpp"
+
+using namespace curlpp;
 
 const boost::regex CliReadline::re_white_space("^([[:space:]]*)");
 const boost::regex CliReadline::re_white_space_only("^([[:space:]]*)$");
@@ -410,6 +415,41 @@ CliReadline::gets()
   return buf_;
 }
 
+void
+CliReadline::http_request(string& method, string& path)
+{
+  string url("http://localhost");
+  string data("");
+  url += path;
+
+  try
+    {
+      Cleanup myCleanup;
+      Easy request;
+
+      request.setOpt(new options::Url(url));
+      request.setOpt(new options::Verbose(true));
+
+      list<string> header;
+      header.push_back("Content-type: application/json");
+
+      request.setOpt(new options::HttpHeader(header));
+      request.setOpt(new options::CustomRequest(method));
+      request.setOpt(new options::PostFields(data));
+      request.setOpt(new options::PostFieldSize(data.size()));
+
+      request.perform();
+    }
+  catch(curlpp::RuntimeError& e)
+    {
+      cout << e.what() << std::endl;
+    }
+  catch(curlpp::LogicError& e)
+    {
+      cout << e.what() << std::endl;
+    }
+}
+
 bool
 CliReadline::execute()
 {
@@ -441,10 +481,13 @@ CliReadline::execute()
             if (!node->next_mode_.empty())
               cli_->mode_set(node->next_mode_);
 
-            if (!node->method_.empty())
-              cout << "method: " << node->method_ << endl;
-            if (!node->path_.empty())
-              cout << "path: " << node->path_ << endl;
+            if (!node->method_.empty() && !node->path_.empty())
+              {
+                cout << "method: " << node->method_ << endl;
+                cout << "path: " << node->path_ << endl;
+
+                http_request(node->method_, node->path_);
+              }
           }
           break;
         case exec_incomplete:

@@ -1,5 +1,18 @@
   skip_before_filter :verify_authenticity_token, :if => Proc.new {|c| c.request.format == 'application/json' }
 
+  # PUT /<%= @api_path %>.json
+  def create_by_keys
+    @<%= @model_name %> = <%= @class_name %>.get_by_params(params)
+
+    respond_to do |format|
+      if @<%= @model_name %> != nil
+        format.json { render action: 'show', status: :created, location: @<%= @model_name %>}
+      else
+        format.json { render json: @<%= @model_name %>.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # POST /<%= @api_path %>.json
   def update_by_keys
     @<%= @model_name %> = <%= @class_name %>.get_by_params(params)

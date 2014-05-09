@@ -7,7 +7,7 @@ Requirement
 - json-cpp (https://jsoncpp.sourceforge.net/)
 - Ruby
 - Ruby on Rails (TBD)
-- curlpp-devel
+- curlpp
 
 Build
 -----

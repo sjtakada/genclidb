@@ -151,9 +151,11 @@ def rails_set_default(table_name, table_def)
         if m != nil
           key = keyword_dashed(m[1])
           default_value = rails_attr_get_default(table_def["attributes"], key)
+          line.chomp!
           if default_value != nil
-            line.chomp!
             line += ", :null => false, :default => " + default_value.to_s
+          else
+            line += ", :null => true"
           end
         end
 
@@ -211,8 +213,8 @@ end
 
 def rails_api_path(table_name, table_keys)
   path = Array.new
+  path << "api"
   path << keyword_plural(table_name)
-  path << "keys"
 
   table_keys.each do |a|
     path << a[1].keys.map {|k| ":" + keyword(k)}
@@ -305,6 +307,7 @@ def rails_add_routes(table_name, table_keys)
   File.open(routes, "w") do |f|
     f.puts lines
     f.puts
+    f.puts '  put "' + rails_api_path(table_name, table_keys) + '", to: "' + name + '#create_by_keys"'
     f.puts '  post "' + rails_api_path(table_name, table_keys) + '", to: "' + name + '#update_by_keys"'
     f.puts '  delete "' + rails_api_path(table_name, table_keys) + '", to: "' + name + '#destroy_by_keys"'
     f.puts "end"

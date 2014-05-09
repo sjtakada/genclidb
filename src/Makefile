@@ -1,7 +1,7 @@
 CPP = g++
 CPPFLAGS = -g -Wall -I..
 LDFLAGS = -g
-LDLIBS = -lreadline -lboost_regex ../libjson_linux-gcc-4.4.7_libmt.a
+LDLIBS = -lreadline -lcurlpp -lboost_regex ../libjson_linux-gcc-4.4.7_libmt.a
 #LDLIBS = -lreadline -lboost_regex -L. -ljson_linux-gcc-4.4.7_libmt
 
 SRCS = main.cpp cli.cpp cli_tree.cpp cli_readline.cpp

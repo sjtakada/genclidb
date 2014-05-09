@@ -12,7 +12,7 @@ class <%= @class_name %> < ActiveRecord::Base
 <% if @keys_def != nil %>
 <%   @keys_def.each do |k, v| %>
 <%     if v["type"] == "integer" and v["range"] != nil %>
-  validates :<%= keyword(k) %>, :numericality => {:greater_than_or_equal_to => <%= v["range"][0].to_s %>, :less_than_or_equal_to => <%= v["range"][1].to_s %>}
+  validates :<%= keyword(k) %>, :numericality => {:greater_than_or_equal_to => <%= v["range"][0].to_s %>, :less_than_or_equal_to => <%= v["range"][1].to_s %>}<% if v["default"] == nil %>, allow_nil: true <% end %>
 <%     end %>
 <%   end %>
 <% end %>
@@ -20,7 +20,7 @@ class <%= @class_name %> < ActiveRecord::Base
 <% if @attrs_def != nil %>
 <%   @attrs_def.each do |k, v| %>
 <%     if v["type"] == "integer" and v["range"] != nil %>
-  validates :<%= keyword(k) %>, :numericality => {:greater_than_or_equal_to => <%= v["range"][0].to_s %>, :less_than_or_equal_to => <%= v["range"][1].to_s %>}
+  validates :<%= keyword(k) %>, :numericality => {:greater_than_or_equal_to => <%= v["range"][0].to_s %>, :less_than_or_equal_to => <%= v["range"][1].to_s %>}<% if v["default"] == nil %>, allow_nil: true <% end %>
 <%     end %>
 <%   end %>
 <% end %>
@@ -44,7 +44,7 @@ class <%= @class_name %> < ActiveRecord::Base
       <%= @model_name %>.<%= keyword(k) %> = params[:<%= keyword(k) %>]
 <%   end %>
 <% end %>
-      <%= @model_name %>.save
+      <%= @model_name %>.save!
     end
 
     <%= @model_name %>
