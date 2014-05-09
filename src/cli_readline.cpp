@@ -420,7 +420,7 @@ void
 CliReadline::http_request(string& method, string& path, string& json)
 {
   string url("http://localhost");
-  url += path;
+  url += path + ".json";
 
   try
     {
@@ -511,19 +511,19 @@ CliReadline::execute()
                     for (Json::Value::iterator it = node->params_.begin();
                          it != node->params_.end(); ++it)
                       {
-                        cout << "key: " << it.key() << ", ";
-                        cout << "id: " << (*it) << ", ";
-                        cout << "value: " << params[(*it).asString()] << endl;
-
+//                      cout << "key: " << it.key() << ", ";
+//                      cout << "id: " << (*it) << ", ";
+//                      cout << "value: " << params[(*it).asString()] << endl;
                         json_params[it.key().asString()] = params[(*it).asString()];
                       }
                   }
               }
 
-            cout << "json: " << json_params << endl;
             Json::FastWriter writer;
             string json_str = writer.write(json_params);
             replace(json_str.begin(), json_str.end(), '-', '_');
+
+            cout << "json: " << json_str << endl;
 
             http_request(node->method_, node->path_, json_str);
           }
