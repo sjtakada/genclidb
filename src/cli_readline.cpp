@@ -419,8 +419,19 @@ CliReadline::gets()
 void
 CliReadline::http_request(string& method, string& path, string& json)
 {
+  if (method == "NONE")
+    return;
+
   string url("http://localhost");
-  url += path + ".json";
+  string api_prefix("/zebra/api/");
+
+  url += api_prefix;
+  if (cli_->path() != "")
+    url += cli_->path();
+  if (path != "")
+    url += "/" + path;
+
+  url += ".json";
 
   try
     {
@@ -490,10 +501,11 @@ CliReadline::execute()
               }
 
             CliNode *node = node_token_vec.back().first;
+
             if (!node->next_mode_.empty())
               cli_->mode_set(node->next_mode_);
 
-            if (!node->method_.empty() && !node->path_.empty())
+            if (!node->method_.empty())
               {
                 cout << "method: " << node->method_ << endl;
                 cout << "path: " << node->path_ << endl;
@@ -511,9 +523,6 @@ CliReadline::execute()
                     for (Json::Value::iterator it = node->params_.begin();
                          it != node->params_.end(); ++it)
                       {
-//                      cout << "key: " << it.key() << ", ";
-//                      cout << "id: " << (*it) << ", ";
-//                      cout << "value: " << params[(*it).asString()] << endl;
                         json_params[it.key().asString()] = params[(*it).asString()];
                       }
                   }
@@ -525,7 +534,13 @@ CliReadline::execute()
 
             cout << "json: " << json_str << endl;
 
+            string& path(node->path_);
             http_request(node->method_, node->path_, json_str);
+
+            // Remember path if mode has changed.
+            if (!node->next_mode_.empty())
+              if (!path.empty())
+                cli_->path_set(path);
           }
           break;
         case exec_incomplete:
