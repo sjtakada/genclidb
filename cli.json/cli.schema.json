@@ -99,11 +99,23 @@
                     },
                     "additionalProperties": false
                   },
+                  "built-in": {
+                    "type": "object",
+                    "properties": {
+                      "func": {
+                        "type": "string"
+                      },
+                      "params": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "additionalProperties": false
+                  },
                   "mode": {
                     "type": "string"
-                  },
-                  "builtin": {
-                    "type": "object"
                   }
                 },
                 "additionalProperties": false

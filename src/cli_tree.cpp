@@ -288,6 +288,10 @@ CliTree::build_recursive(CliNodeVector& curr,
               (*it)->path_ = http["path"].asString();
               (*it)->params_ = http["params"];
             }
+
+          Json::Value built_in = action["built-in"];
+          if (!built_in.isNull())
+            (*it)->built_in_ = built_in["func"].asString();
         }
     }
 

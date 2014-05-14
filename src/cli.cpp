@@ -75,6 +75,9 @@ Cli::init()
   // CLI mode init.
   mode_read((char *)"../cli.json/quagga.cli_mode.json");
 
+  // Built-in functions init.
+  cli_builtins_init(this);
+
   // Read CLI definitions.
   load_cli_json_all((char *)"../cli.json");
   // exit(0);

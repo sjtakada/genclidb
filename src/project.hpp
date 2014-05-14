@@ -12,4 +12,6 @@
 
 using namespace std;
 
+typedef vector<string> StringVector;
+
 #endif /* _PROJECT_HPP_ */

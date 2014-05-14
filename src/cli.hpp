@@ -29,6 +29,7 @@ using namespace std;
 
 #include "cli_readline.hpp"
 #include "cli_tree.hpp"
+#include "cli_builtins.hpp"
 
 class Cli
 {
@@ -36,6 +37,8 @@ public:
   static Cli *instance();
   static CliReadline& readline() { return Cli::instance()->rl_; }
   CliTree *current_mode() { return mode_; }
+  void set_debug(bool debug) { debug_ = debug; }
+  bool is_debug() { return debug_; }
 
   void terminal_init();
   void init();
@@ -47,23 +50,29 @@ public:
   void mode_read(char *filename);
   CliTree *mode_traverse(Json::Value& current, CliTree *parent);
   bool mode_set(string& mode_str);
-  void path_set(string& path) { path_ = path; }
-  string& path() { return path_; }
+  void path_set(string& path) { path_ = path; } //XXX
+  string& path() { return path_; } //XXX
   const char *prompt();
 
   // Terminal width, height.
   struct winsize ws_;
 
+  map<string, cli_builtin_func> built_in_func_;
+
 private:
   // For singleton instance.
-  Cli() : mode_(NULL), path_(""), hostname_("Router") { }
+  Cli() : debug_(true), mode_(NULL), path_(""), hostname_("Router") { }
   Cli(Cli const&) { }
 
   // Singleton instance.
   static Cli *instance_;
 
+  // Debug mode.
+  bool debug_;
+
   // Current mode.
   CliTree *mode_;
+  map<string, string> params_;
 
   // Current path.
   string path_;

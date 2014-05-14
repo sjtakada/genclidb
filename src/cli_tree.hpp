@@ -100,6 +100,7 @@ protected:
   string method_;
   string path_;
   Json::Value params_;
+  string built_in_;
 
   // TODO/ next mode.
   string next_mode_;

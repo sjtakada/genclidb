@@ -486,8 +486,9 @@ CliReadline::execute()
             for (CliNodeTokenVector::iterator it = node_token_vec.begin();
                  it != node_token_vec.end(); ++it)
               {
-                cout << "token: " << it->first->cli_token() << " "
-                     << "input: " << *it->second << endl;
+                if (cli_->is_debug())
+                  cout << "token: " << it->first->cli_token() << " "
+                       << "input: " << *it->second << endl;
                 
                 if (it->first->type_ == CliTree::keyword)
                   keywords[it->first->def_token()] = true;
@@ -495,8 +496,9 @@ CliReadline::execute()
                   {
                     params[it->first->def_token()] = *it->second;
 
-                    cout << "params[" << it->first->def_token() 
-                         << "] = " << *it->second << endl;
+                    if (cli_->is_debug())
+                      cout << "params[" << it->first->def_token() 
+                           << "] = " << *it->second << endl;
                   }
               }
 
@@ -507,8 +509,20 @@ CliReadline::execute()
 
             if (!node->method_.empty())
               {
-                cout << "method: " << node->method_ << endl;
-                cout << "path: " << node->path_ << endl;
+                if (cli_->is_debug())
+                  {
+                    cout << "method: " << node->method_ << endl;
+                    cout << "path: " << node->path_ << endl;
+                  }
+              }
+            else if (!node->built_in_.empty())
+              {
+                if (cli_->built_in_func_[node->built_in_])
+                  {
+                    StringVector vec;
+                    cli_->built_in_func_[node->built_in_](cli_, vec);
+                  }
+                return true;
               }
             else
               return true;
@@ -516,7 +530,8 @@ CliReadline::execute()
             Json::Value json_params;
             if (!node->params_.empty())
               {
-                cout << "params: " << endl;
+                if (cli_->is_debug())
+                  cout << "params: " << endl;
 
                 if (!node->params_.empty())
                   {
@@ -532,7 +547,8 @@ CliReadline::execute()
             string json_str = writer.write(json_params);
             replace(json_str.begin(), json_str.end(), '-', '_');
 
-            cout << "json: " << json_str << endl;
+            if (cli_->is_debug())
+              cout << "json: " << json_str << endl;
 
             string& path(node->path_);
             http_request(node->method_, node->path_, json_str);
