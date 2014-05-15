@@ -129,18 +129,16 @@ Cli::json_read(char *filename, Json::Value& root)
 void
 Cli::parse_defun(Json::Value& tokens, Json::Value& command)
 {
-  Json::Value defun = command["defun"];
   Json::Value modes = command["mode"];
-  Json::Value action = command["action"];
 
-  if (!defun.isNull() && !modes.isNull())
+  if (!modes.isNull())
     for (Json::Value::iterator it = modes.begin(); it != modes.end(); ++it)
       {
         Json::Value mode = (*it);
 
         CliTree *tree = tree_[mode.asCString()];
         if (tree)
-          tree->build_command(defun, tokens, action);
+          tree->build_command(tokens, command);
       }
 }
 

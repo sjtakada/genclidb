@@ -260,8 +260,7 @@ public:
     keyword,
   } token;
 
-  void build_command(Json::Value& defun, Json::Value& tokens,
-                     Json::Value& action);
+  void build_command(Json::Value& tokens, Json::Value& command);
 
   string& prompt() { return prompt_; }
 
@@ -283,7 +282,7 @@ private:
   int get_token(string& str, string& token);
   int build_recursive(CliNodeVector& curr, CliNodeVector& head,
                       CliNodeVector& tail, string& str, Json::Value& tokens,
-                      Json::Value& action);
+                      Json::Value& command);
   void vector_add_node_each(CliNodeVector& curr, CliNode *node);
   CliNode *new_node_by_type(int type, Json::Value& tokens, string& def_token);
   CliNode *find_next_by_node(CliNodeVector& v, CliNode *node);

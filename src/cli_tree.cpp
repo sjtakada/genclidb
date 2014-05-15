@@ -202,11 +202,9 @@ CliTree::vector_add_node_each(CliNodeVector& curr, CliNode *node)
 }
 
 int
-CliTree::build_recursive(CliNodeVector& curr,
-                         CliNodeVector& head,
-                         CliNodeVector& tail,
-                         string& str, Json::Value& tokens,
-                         Json::Value& action)
+CliTree::build_recursive(CliNodeVector& curr, CliNodeVector& head,
+                         CliNodeVector& tail, string& str,
+                         Json::Value& tokens, Json::Value& command)
 {
   CliNode *next, *node;
   string def_token;
@@ -227,7 +225,7 @@ CliTree::build_recursive(CliNodeVector& curr,
             do
               {
                 CliNodeVector cv(curr);
-                type = build_recursive(cv, hv, tv, str, tokens, action);
+                type = build_recursive(cv, hv, tv, str, tokens, command);
               }
             while (type == CliTree::vertical_bar);
 
@@ -276,6 +274,7 @@ CliTree::build_recursive(CliNodeVector& curr,
     {
       (*it)->cmd_ = true;
 
+      Json::Value action = command["action"];
       if (!action.isNull())
         {
           Json::Value http = action["http"];
@@ -297,14 +296,17 @@ CliTree::build_recursive(CliNodeVector& curr,
 }
 
 void
-CliTree::build_command(Json::Value& defun, Json::Value& tokens,
-                       Json::Value& action)
+CliTree::build_command(Json::Value& tokens, Json::Value& command)
 {
-  string str(defun.asString());
-  CliNodeVector cv, hv, tv;
-  cv.push_back(top_);
+  Json::Value defun = command["defun"];
+  if (!defun.isNull())
+    {
+      string str(defun.asString());
+      CliNodeVector cv, hv, tv;
+      cv.push_back(top_);
 
-  build_recursive(cv, hv, tv, str, tokens, action);
+      build_recursive(cv, hv, tv, str, tokens, command);
+    }
 }
 
 
