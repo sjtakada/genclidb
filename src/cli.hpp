@@ -57,7 +57,7 @@ public:
   // Terminal width, height.
   struct winsize ws_;
 
-  map<string, cli_builtin_func> built_in_func_;
+  map<string, cli_builtin_func> built_in_;
 
 private:
   // For singleton instance.

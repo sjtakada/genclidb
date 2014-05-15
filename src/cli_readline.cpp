@@ -24,17 +24,13 @@
 
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <curlpp/cURLpp.hpp>
-#include <curlpp/Easy.hpp>
-#include <curlpp/Options.hpp>
 #include "json/json.h"
 
 #include "project.hpp"
 #include "cli_tree.hpp"
+#include "cli_action.hpp"
 #include "cli_readline.hpp"
 #include "cli.hpp"
-
-using namespace curlpp;
 
 const boost::regex CliReadline::re_white_space("^([[:space:]]*)");
 const boost::regex CliReadline::re_white_space_only("^([[:space:]]*)$");
@@ -416,50 +412,6 @@ CliReadline::gets()
   return buf_;
 }
 
-void
-CliReadline::http_request(string& method, string& path, string& json)
-{
-  if (method == "NONE")
-    return;
-
-  string url("http://localhost");
-  string api_prefix("/zebra/api/");
-
-  url += api_prefix;
-  if (cli_->path() != "")
-    url += cli_->path();
-  if (path != "")
-    url += "/" + path;
-
-  url += ".json";
-
-  try
-    {
-      Cleanup myCleanup;
-      Easy request;
-
-      request.setOpt(new options::Url(url));
-      request.setOpt(new options::Verbose(true));
-
-      list<string> header;
-      header.push_back("Content-type: application/json");
-
-      request.setOpt(new options::HttpHeader(header));
-      request.setOpt(new options::CustomRequest(method));
-      request.setOpt(new options::PostFields(json));
-      request.setOpt(new options::PostFieldSize(json.size()));
-
-      request.perform();
-    }
-  catch(curlpp::RuntimeError& e)
-    {
-      cout << e.what() << std::endl;
-    }
-  catch(curlpp::LogicError& e)
-    {
-      cout << e.what() << std::endl;
-    }
-}
 
 bool
 CliReadline::execute()
@@ -467,7 +419,7 @@ CliReadline::execute()
   // current mode.
   CliTree *tree = cli_->current_mode();
   CliNodeTokenVector node_token_vec;
-  map<string, string> params;
+  TokenInputMap input;
   map<string, bool> keywords;
   string line(" ");
   boost::smatch m;
@@ -494,7 +446,7 @@ CliReadline::execute()
                   keywords[it->first->def_token()] = true;
                 else
                   {
-                    params[it->first->def_token()] = *it->second;
+                    input[it->first->def_token()] = *it->second;
 
                     if (cli_->is_debug())
                       cout << "params[" << it->first->def_token() 
@@ -502,61 +454,12 @@ CliReadline::execute()
                   }
               }
 
+            // Command matched last node.
             CliNode *node = node_token_vec.back().first;
 
-            if (!node->next_mode_.empty())
-              cli_->mode_set(node->next_mode_);
-
-            if (!node->method_.empty())
-              {
-                if (cli_->is_debug())
-                  {
-                    cout << "method: " << node->method_ << endl;
-                    cout << "path: " << node->path_ << endl;
-                  }
-              }
-            else if (!node->built_in_.empty())
-              {
-                if (cli_->built_in_func_[node->built_in_])
-                  {
-                    StringVector vec;
-                    cli_->built_in_func_[node->built_in_](cli_, vec);
-                  }
-                return true;
-              }
-            else
-              return true;
-
-            Json::Value json_params;
-            if (!node->params_.empty())
-              {
-                if (cli_->is_debug())
-                  cout << "params: " << endl;
-
-                if (!node->params_.empty())
-                  {
-                    for (Json::Value::iterator it = node->params_.begin();
-                         it != node->params_.end(); ++it)
-                      {
-                        json_params[it.key().asString()] = params[(*it).asString()];
-                      }
-                  }
-              }
-
-            Json::FastWriter writer;
-            string json_str = writer.write(json_params);
-            replace(json_str.begin(), json_str.end(), '-', '_');
-
-            if (cli_->is_debug())
-              cout << "json: " << json_str << endl;
-
-            string& path(node->path_);
-            http_request(node->method_, node->path_, json_str);
-
-            // Remember path if mode has changed.
-            if (!node->next_mode_.empty())
-              if (!path.empty())
-                cli_->path_set(path);
+            // Dispatch action to appropriate handler.
+            if (node->action_)
+              node->action_->handle(cli_, input);
           }
           break;
         case exec_incomplete:

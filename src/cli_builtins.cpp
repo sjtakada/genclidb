@@ -43,6 +43,6 @@ cli_builtins_debug_cli_unset(Cli *cli, StringVector& vec)
 void
 cli_builtins_init(Cli *cli)
 {
-  cli->built_in_func_["debug-cli-set"] = cli_builtins_debug_cli_set;
-  cli->built_in_func_["debug-cli-unset"] = cli_builtins_debug_cli_unset;
+  cli->built_in_["debug-cli-set"] = cli_builtins_debug_cli_set;
+  cli->built_in_["debug-cli-unset"] = cli_builtins_debug_cli_unset;
 }

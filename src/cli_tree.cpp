@@ -26,7 +26,9 @@
 #include "json/json.h"
 
 #include "project.hpp"
+#include "cli.hpp"
 #include "cli_tree.hpp"
+#include "cli_action.hpp"
 
 // Regexp to parse CLI JSON defun.
 const boost::regex CliTree::re_white_space("^( +)");
@@ -270,28 +272,24 @@ CliTree::build_recursive(CliNodeVector& curr,
         }
     }
 
-  // TODO
   for (CliNodeVector::iterator it = curr.begin(); it != curr.end(); ++it)
     {
       (*it)->cmd_ = true;
 
       if (!action.isNull())
         {
-          Json::Value mode = action["mode"];
-          if (!mode.isNull())
-            (*it)->next_mode_ = mode.asString();
-
           Json::Value http = action["http"];
-          if (!http.isNull())
-            {
-              (*it)->method_ = http["method"].asString();
-              (*it)->path_ = http["path"].asString();
-              (*it)->params_ = http["params"];
-            }
-
+          Json::Value mode = action["mode"];
           Json::Value built_in = action["built-in"];
+
+          if (!http.isNull())
+            (*it)->action_ = new CliActionHttp(http);
+
+          if (!mode.isNull())
+            (*it)->action_ = new CliActionMode(mode);
+
           if (!built_in.isNull())
-            (*it)->built_in_ = built_in["func"].asString();
+            (*it)->action_ = new CliActionBuiltIn(built_in);
         }
     }
 

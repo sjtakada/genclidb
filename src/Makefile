@@ -4,7 +4,8 @@ LDFLAGS = -g
 LDLIBS = -lreadline -lcurlpp -lboost_regex ../libjson_linux-gcc-4.4.7_libmt.a
 #LDLIBS = -lreadline -lboost_regex -L. -ljson_linux-gcc-4.4.7_libmt
 
-SRCS = main.cpp cli.cpp cli_tree.cpp cli_readline.cpp cli_builtins.cpp
+SRCS = main.cpp cli.cpp cli_tree.cpp cli_readline.cpp cli_action.cpp \
+       cli_builtins.cpp
 OBJS = $(subst .cpp,.o,$(SRCS))
 
 all: cli
