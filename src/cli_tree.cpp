@@ -272,7 +272,27 @@ CliTree::build_recursive(CliNodeVector& curr, CliNodeVector& head,
 
   for (CliNodeVector::iterator it = curr.begin(); it != curr.end(); ++it)
     {
-      (*it)->cmd_ = true;
+      node = *it;
+      node->cmd_ = true;
+
+      Json::Value bind_if = command["bind-if"];
+      if (!bind_if.isNull())
+        {
+          for (Json::Value::iterator is = bind_if.begin();
+               is != bind_if.end(); ++is)
+            {
+              Json::Value obj = *is;
+              for (Json::Value::iterator ir = obj.begin();
+                   ir != obj.end(); ++ir)
+                {
+                  Json::Value cond = ir.key();
+                  Json::Value exp = *ir;
+
+                  CondBindPair p = make_pair(cond.asString(), exp.asString());
+                  node->bind_if_.push_back(p);
+                }
+            }
+        }
 
       Json::Value action = command["action"];
       if (!action.isNull())
@@ -282,13 +302,13 @@ CliTree::build_recursive(CliNodeVector& curr, CliNodeVector& head,
           Json::Value built_in = action["built-in"];
 
           if (!http.isNull())
-            (*it)->action_ = new CliActionHttp(http);
+            node->action_ = new CliActionHttp(http);
 
           if (!mode.isNull())
-            (*it)->action_ = new CliActionMode(mode);
+            node->action_ = new CliActionMode(mode);
 
           if (!built_in.isNull())
-            (*it)->action_ = new CliActionBuiltIn(built_in);
+            node->action_ = new CliActionBuiltIn(built_in);
         }
     }
 
