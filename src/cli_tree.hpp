@@ -47,6 +47,7 @@ enum MatchFlag {
 };
 
 typedef pair<enum MatchResult, enum MatchFlag> MatchState;
+typedef vector<CliAction *> CliActionVector;
 
 // Base virtual class for CLI Node.
 class CliNode
@@ -103,7 +104,7 @@ protected:
   bool cmd_;
 
   // Action.
-  CliAction *action_;
+  CliActionVector actions_;
 };
 
 // Keyword.

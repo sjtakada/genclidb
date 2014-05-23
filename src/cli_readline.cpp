@@ -458,18 +458,35 @@ CliReadline::execute()
             // Command matched last node.
             CliNode *node = node_token_vec.back().first;
 
-            // Pre-process binding.
+            // Pre-process parameter binding.
             for (CondBindPairVector::iterator it = node->bind_if_.begin();
                  it != node->bind_if_.end(); ++it)
               {
-                TokenInputMap::iterator is = input.find(it->first);
-                if (is != input.end())
+                const char *cond = it->first.c_str();
+
+                // Always bind if it is TRUE.
+                if (strcasecmp(cond, "true") == 0)
                   utils_.bind_if_interpreter(it->second, input);
+                // If the parameter is NOT present.
+                else if (cond[0] == '!')
+                  {
+                    TokenInputMap::iterator is = input.find(&cond[1]);
+                    if (is == input.end())
+                      utils_.bind_if_interpreter(it->second, input);
+                  }
+                // If the parameter is present.
+                else
+                  {
+                    TokenInputMap::iterator is = input.find(cond);
+                    if (is != input.end())
+                      utils_.bind_if_interpreter(it->second, input);
+                  }
               }
 
             // Dispatch action to appropriate handler.
-            if (node->action_)
-              node->action_->handle(cli_, input);
+            for (CliActionVector::iterator it = node->actions_.begin();
+                 it != node->actions_.end(); ++it)
+              (*it)->handle(cli_, input);
           }
           break;
         case exec_incomplete:

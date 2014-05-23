@@ -50,8 +50,19 @@ public:
   void mode_read(char *filename);
   CliTree *mode_traverse(Json::Value& current, CliTree *parent);
   bool mode_set(string& mode_str);
-  void path_set(string& path) { path_ = path; } //XXX
-  string& path() { return path_; } //XXX
+  void path_push(string& path) { paths_.push_back(path); }
+  string& current_path(string& path)
+  {
+    const char *delim = "";
+
+    for (StringVector::iterator it = paths_.begin(); it != paths_.end(); ++it)
+      {
+        path += delim + *it;
+        delim = "/";
+      }
+
+    return path;
+  }
   const char *prompt();
 
   // Terminal width, height.
@@ -61,7 +72,7 @@ public:
 
 private:
   // For singleton instance.
-  Cli() : debug_(true), mode_(NULL), path_(""), hostname_("Router") { }
+  Cli() : debug_(true), mode_(NULL), hostname_("Router") { }
   Cli(Cli const&) { }
 
   // Singleton instance.
@@ -75,7 +86,7 @@ private:
   map<string, string> params_;
 
   // Current path.
-  string path_;
+  StringVector paths_;
 
   // Readline parser.
   CliReadline rl_;

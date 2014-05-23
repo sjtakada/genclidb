@@ -117,12 +117,6 @@ CliActionHttp::handle(Cli *cli, TokenInputMap& input)
 
   request(cli, method_, path, json_str);
 
-  // TODO
-  // Remember path if mode has changed.
-  //  if (!node->next_mode_.empty())
-  //    if (!path.empty())
-  //      cli->path_set(path);
-
   return true;
 }
 
@@ -133,12 +127,14 @@ CliActionHttp::request(Cli *cli, string& method, string& path, string& json)
     return;
 
   string url("http://localhost");
-  string api_prefix("/zebra/api/");
+  string api_prefix("/zebra/api");
+  string current_path;
+  cli->current_path(current_path);
 
   url += api_prefix;
-  if (cli->path() != "")
-    url += cli->path();
-  if (path != "")
+  if (!current_path.empty())
+    url += "/" + current_path;
+  if (!path.empty())
     url += "/" + path;
 
   url += ".json";

@@ -302,13 +302,13 @@ CliTree::build_recursive(CliNodeVector& curr, CliNodeVector& head,
           Json::Value built_in = action["built-in"];
 
           if (!http.isNull())
-            node->action_ = new CliActionHttp(http);
+            node->actions_.push_back(new CliActionHttp(http));
 
           if (!mode.isNull())
-            node->action_ = new CliActionMode(mode);
+            node->actions_.push_back(new CliActionMode(mode));
 
           if (!built_in.isNull())
-            node->action_ = new CliActionBuiltIn(built_in);
+            node->actions_.push_back(new CliActionBuiltIn(built_in));
         }
     }
 
