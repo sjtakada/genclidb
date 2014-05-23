@@ -24,6 +24,7 @@
 
 #include <vector>
 #include "cli_tree.hpp"
+#include "cli_utils.hpp"
 
 class Cli;
 
@@ -62,6 +63,9 @@ private:
 
   // Parent CLI object.
   Cli *cli_;
+
+  // Cli Utils.
+  CliUtils utils_;
 
   // Readline buffer.
   char *buf_;

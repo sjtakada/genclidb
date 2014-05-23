@@ -19,64 +19,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 // 
-#ifndef _CLI_ACTION_HPP_
-#define _CLI_ACTION_HPP_
+#ifndef _CLI_UTILS_HPP_
+#define _CLI_UTILS_HPP_
 
-#include <map>
+#include <vector>
 #include <string>
 
-#include "project.hpp"
+typedef map<string, string> ParamsMap;
 
-class Cli;
+typedef StringVector& (*CliParamsFilter)(StringVector&);
+typedef map<string, CliParamsFilter> CliFilterFuncMap;
 
-// e.g., "ipv4_addr" => "IPV4-ADDR:1.0" -- HTTP param to CLI def token
-typedef map<string, string> ParamTokenMap;
-
-class CliAction
+class CliUtils
 {
 public:
-  virtual bool handle(Cli *cli, TokenInputMap& input) = 0;
-};
+  CliUtils() { }
 
-class CliActionHttp: public CliAction
-{
-public:
-  CliActionHttp(Json::Value& http);
-  bool handle(Cli *cli, TokenInputMap& input);
+  void init();
+  bool bind_if_interpreter(string& statement, TokenInputMap& input);
 
 private:
-  string method_;
-  string path_;
-  ParamTokenMap param_token_;
+  CliFilterFuncMap filter_map_;
 
-  void request(Cli *cli, string& method, string& path, string& json);
-  bool get_token(string& str, string& token);
+  bool bind_if_get_token(string& str, string& token);
 };
 
-class CliActionMode: public CliAction
-{
-public:
-  CliActionMode(Json::Value& mode)
-    : CliAction(), mode_(mode.asString()) { }
-  bool handle(Cli *cli, TokenInputMap& input);
-
-private:
-  string mode_;
-};
-
-class CliActionBuiltIn: public CliAction
-{
-public:
-  CliActionBuiltIn(Json::Value& built_in)
-    : CliAction()
-  {
-    if (!built_in["func"].isNull())
-      func_ = built_in["func"].asString();
-  }
-  bool handle(Cli *cli, TokenInputMap& params);
-
-private:
-  string func_;
-};
-
-#endif /* _CLI_ACTION_HPP_ */
+#endif /* _CLI_UTILS_HPP_ */

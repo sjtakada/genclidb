@@ -385,6 +385,7 @@ void
 CliReadline::init(Cli *cli)
 {
   cli_ = cli;
+  utils_.init();
 
   rl_bind_key('?', readline_describe);
   rl_completion_entry_function = readline_completion_dummy;
@@ -456,6 +457,15 @@ CliReadline::execute()
 
             // Command matched last node.
             CliNode *node = node_token_vec.back().first;
+
+            // Pre-process binding.
+            for (CondBindPairVector::iterator it = node->bind_if_.begin();
+                 it != node->bind_if_.end(); ++it)
+              {
+                TokenInputMap::iterator is = input.find(it->first);
+                if (is != input.end())
+                  utils_.bind_if_interpreter(it->second, input);
+              }
 
             // Dispatch action to appropriate handler.
             if (node->action_)
