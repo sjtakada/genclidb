@@ -153,7 +153,7 @@ CliUtils::bind_if_get_token(string& str, string& token)
 }
 
 bool
-CliUtils::bind_if_interpreter(string& statement, TokenInputMap& input)
+CliUtils::bind_if_interpreter(string& statement, ParamsMap& input)
 {
   string str(statement);
   string lvalues;

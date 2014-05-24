@@ -35,18 +35,19 @@ typedef map<string, string> ParamTokenMap;
 class CliAction
 {
 public:
-  virtual bool handle(Cli *cli, TokenInputMap& input) = 0;
+  virtual bool handle(Cli *cli, ParamsMap& input) = 0;
 };
 
 class CliActionHttp: public CliAction
 {
 public:
   CliActionHttp(Json::Value& http);
-  bool handle(Cli *cli, TokenInputMap& input);
+  bool handle(Cli *cli, ParamsMap& input);
 
 private:
   string method_;
   string path_;
+  string format_;
   ParamTokenMap param_token_;
 
   void request(Cli *cli, string& method, string& path, string& json);
@@ -56,24 +57,8 @@ private:
 class CliActionMode: public CliAction
 {
 public:
-  CliActionMode(Json::Value& mode)
-    : CliAction()
-  {
-    Json::Value name = mode["name"];
-    Json::Value params = mode["params"];
-
-    name_ = name.asString();
-
-    if (params.isArray())
-      {
-        for (Json::Value::iterator it = params.begin();
-             it != params.end(); ++it)
-          {
-            params_.push_back((*it).asString());
-          }
-      }
-  }
-  bool handle(Cli *cli, TokenInputMap& input);
+  CliActionMode(Json::Value& mode);
+  bool handle(Cli *cli, ParamsMap& input);
 
 private:
   string name_;
@@ -89,7 +74,7 @@ public:
     if (!built_in["func"].isNull())
       func_ = built_in["func"].asString();
   }
-  bool handle(Cli *cli, TokenInputMap& params);
+  bool handle(Cli *cli, ParamsMap& params);
 
 private:
   string func_;

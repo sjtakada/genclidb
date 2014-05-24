@@ -21,8 +21,7 @@ using namespace std;
 // Generic string vector.
 typedef vector<string> StringVector;
 
-// e.g., "IPV4-ADDR:1.0" => "1.2.3.4" -- CLI def token to input.
-typedef map<string, string> TokenInputMap;
+// e.g., "IPV4-ADDR:1.0" => "1.2.3.4" -- CLI def token/param to input.
 typedef map<string, string> ParamsMap;
 
 #endif /* _PROJECT_HPP_ */

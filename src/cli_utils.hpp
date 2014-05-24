@@ -34,7 +34,7 @@ public:
   CliUtils() { }
 
   void init();
-  bool bind_if_interpreter(string& statement, TokenInputMap& input);
+  bool bind_if_interpreter(string& statement, ParamsMap& input);
 
 private:
   CliFilterFuncMap filter_map_;

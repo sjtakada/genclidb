@@ -38,6 +38,7 @@ CliActionHttp::CliActionHttp(Json::Value& http)
 {
   method_ = http["method"].asString();
   path_ = http["path"].asString();
+  format_ = http["format"].asString();
 
   Json::Value params = http["params"];
 
@@ -74,7 +75,7 @@ CliActionHttp::get_token(string& str, string& token)
 }
 
 bool
-CliActionHttp::handle(Cli *cli, TokenInputMap& input)
+CliActionHttp::handle(Cli *cli, ParamsMap& input)
 {
   Json::Value json_params;
   Json::FastWriter writer;
@@ -128,16 +129,15 @@ CliActionHttp::request(Cli *cli, string& method, string& path, string& json)
 
   string url("http://localhost");
   string api_prefix("/zebra/api");
-  //  string current_path;
-  //  cli->current_path(current_path);
 
   url += api_prefix;
-  //  if (!current_path.empty())
-  //    url += "/" + current_path;
   if (!path.empty())
     url += "/" + path;
 
-  url += ".json";
+  if (format_.empty())
+    url += ".json";
+  else
+    url += "." + format_;
 
   try
     {
@@ -145,15 +145,20 @@ CliActionHttp::request(Cli *cli, string& method, string& path, string& json)
       Easy req;
 
       req.setOpt(new options::Url(url));
-      req.setOpt(new options::Verbose(true));
+      if (cli->is_debug())
+        req.setOpt(new options::Verbose(true));
 
       list<string> header;
       header.push_back("Content-type: application/json");
 
       req.setOpt(new options::HttpHeader(header));
       req.setOpt(new options::CustomRequest(method));
-      req.setOpt(new options::PostFields(json));
-      req.setOpt(new options::PostFieldSize(json.size()));
+
+      if (method != "GET")
+        {
+          req.setOpt(new options::PostFields(json));
+          req.setOpt(new options::PostFieldSize(json.size()));
+        }
 
       req.perform();
     }
@@ -165,10 +170,27 @@ CliActionHttp::request(Cli *cli, string& method, string& path, string& json)
     {
       cout << e.what() << std::endl;
     }
+
+  cout << endl;
+}
+
+
+CliActionMode::CliActionMode(Json::Value& mode)
+  : CliAction()
+{
+  Json::Value name = mode["name"];
+  Json::Value params = mode["params"];
+
+  name_ = name.asString();
+
+  if (!params.isNull())
+    for (Json::Value::iterator it = params.begin();
+         it != params.end(); ++it)
+      params_.push_back((*it).asString());
 }
 
 bool
-CliActionMode::handle(Cli *cli, TokenInputMap& input)
+CliActionMode::handle(Cli *cli, ParamsMap& input)
 {
   cli->mode_set(name_);
 
@@ -177,7 +199,7 @@ CliActionMode::handle(Cli *cli, TokenInputMap& input)
 
   for (StringVector::iterator it = params_.begin(); it != params_.end(); ++it)
     {
-      TokenInputMap::iterator is = input.find(*it);
+      ParamsMap::iterator is = input.find(*it);
 
       if (is != input.end())
         cli->params_[*it] = is->second;
@@ -186,8 +208,9 @@ CliActionMode::handle(Cli *cli, TokenInputMap& input)
   return true;
 }
 
+
 bool
-CliActionBuiltIn::handle(Cli *cli, TokenInputMap& input)
+CliActionBuiltIn::handle(Cli *cli, ParamsMap& input)
 {
   (void)input;
 

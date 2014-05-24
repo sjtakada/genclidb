@@ -83,6 +83,9 @@
                       "path": {
                         "type": "string"
                       },
+                      "format": {
+                        "type": "string"
+                      },
                       "params": {
                         "type": "object",
                         "patternProperties": {

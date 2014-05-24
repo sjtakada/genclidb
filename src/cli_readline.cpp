@@ -420,7 +420,7 @@ CliReadline::execute()
   // current mode.
   CliTree *tree = cli_->current_mode();
   CliNodeTokenVector node_token_vec;
-  TokenInputMap input;
+  ParamsMap input;
   map<string, bool> keywords;
   string line(" ");
   boost::smatch m;
@@ -476,14 +476,14 @@ CliReadline::execute()
                 // If the parameter is NOT present.
                 else if (cond[0] == '!')
                   {
-                    TokenInputMap::iterator is = input.find(&cond[1]);
+                    ParamsMap::iterator is = input.find(&cond[1]);
                     if (is == input.end())
                       utils_.bind_if_interpreter(it->second, input);
                   }
                 // If the parameter is present.
                 else
                   {
-                    TokenInputMap::iterator is = input.find(cond);
+                    ParamsMap::iterator is = input.find(cond);
                     if (is != input.end())
                       utils_.bind_if_interpreter(it->second, input);
                   }
@@ -491,7 +491,7 @@ CliReadline::execute()
 
             // Dump all inputs.
             if (cli_->is_debug())
-              for (TokenInputMap::iterator it = input.begin();
+              for (ParamsMap::iterator it = input.begin();
                    it != input.end(); ++it)
                 cout << "input[" << it->first << "] = " << it->second << endl;
 
