@@ -445,18 +445,20 @@ CliReadline::execute()
             for (CliNodeTokenVector::iterator it = node_token_vec.begin();
                  it != node_token_vec.end(); ++it)
               {
+                CliNode *node = it->first;
+
                 if (cli_->is_debug())
-                  cout << "token: " << it->first->cli_token() << " "
+                  cout << "token: " << node->cli_token() << " "
                        << "input: " << *it->second << endl;
                 
-                if (it->first->type_ == CliTree::keyword)
-                  keywords[it->first->def_token()] = true;
+                if (node->type_ == CliTree::keyword)
+                  keywords[node->def_token()] = true;
                 else
                   {
-                    input[it->first->def_token()] = *it->second;
+                    input[node->def_token()] = node->format_param(*it->second);
 
                     if (cli_->is_debug())
-                      cout << "params[" << it->first->def_token() 
+                      cout << "params[" << node->def_token() 
                            << "] = " << *it->second << endl;
                   }
               }

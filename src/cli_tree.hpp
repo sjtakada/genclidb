@@ -64,6 +64,7 @@ public:
   virtual MatchState cli_match(string& input)
   { return make_pair(match_failure, match_none); }
   string& help() { return help_; }
+  virtual string& format_param(string& input) { return input; }
 
   void sort_recursive();
   string& def_token() { return def_token_; }
@@ -159,6 +160,7 @@ public:
 
   const string& cli_token() { return CliNodeIPv4Prefix::cli_token_default_; } 
   MatchState cli_match(string& input);
+  string& format_param(string& input);
 
 private:
   const static string cli_token_default_;
