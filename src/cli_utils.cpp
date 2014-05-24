@@ -204,7 +204,12 @@ CliUtils::bind_if_interpreter(string& statement, TokenInputMap& input)
         {
           if (!in_params)
             if (!tmp_token.empty())
-              values.push_back(input[tmp_token]);
+              {
+                if (input.find(tmp_token) != input.end())
+                  values.push_back(input[tmp_token]);
+                else
+                  values.push_back(tmp_token);
+              }
         }
       else // Regular token.
         {
@@ -214,6 +219,14 @@ CliUtils::bind_if_interpreter(string& statement, TokenInputMap& input)
           else
             tmp_token = token;              
         }
+    }
+
+  if (!tmp_token.empty())
+    {
+      if (input.find(tmp_token) != input.end())
+        values.push_back(input[tmp_token]);
+      else
+        values.push_back(tmp_token);
     }
 
   unsigned int i = 0;

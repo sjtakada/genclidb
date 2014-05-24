@@ -489,6 +489,12 @@ CliReadline::execute()
                   }
               }
 
+            // Dump all inputs.
+            if (cli_->is_debug())
+              for (TokenInputMap::iterator it = input.begin();
+                   it != input.end(); ++it)
+                cout << "input[" << it->first << "] = " << it->second << endl;
+
             // Dispatch action to appropriate handler.
             for (CliActionVector::iterator it = node->actions_.begin();
                  it != node->actions_.end(); ++it)
