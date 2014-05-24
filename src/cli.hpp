@@ -31,6 +31,8 @@ using namespace std;
 #include "cli_tree.hpp"
 #include "cli_builtins.hpp"
 
+
+
 class Cli
 {
 public:
@@ -50,25 +52,29 @@ public:
   void mode_read(char *filename);
   CliTree *mode_traverse(Json::Value& current, CliTree *parent);
   bool mode_set(string& mode_str);
-  void path_push(string& path) { paths_.push_back(path); }
-  string& current_path(string& path)
-  {
-    const char *delim = "";
+  //  void path_push(string& path) { paths_.push_back(path); }
+  //  string& current_path(string& path)
+  //  {
+  //    const char *delim = "";
+  //
+  //    for (StringVector::iterator it = paths_.begin(); it != paths_.end(); ++it)
+  //      {
+  //        path += delim + *it;
+  //        delim = "/";
+  //      }
+  //
+  //    return path;
+  //  }
 
-    for (StringVector::iterator it = paths_.begin(); it != paths_.end(); ++it)
-      {
-        path += delim + *it;
-        delim = "/";
-      }
-
-    return path;
-  }
   const char *prompt();
 
   // Terminal width, height.
   struct winsize ws_;
 
   map<string, cli_builtin_func> built_in_;
+
+  // Mode parameters.
+  ParamsMap params_;
 
 private:
   // For singleton instance.
@@ -83,10 +89,9 @@ private:
 
   // Current mode.
   CliTree *mode_;
-  map<string, string> params_;
 
   // Current path.
-  StringVector paths_;
+  //  StringVector paths_;
 
   // Readline parser.
   CliReadline rl_;

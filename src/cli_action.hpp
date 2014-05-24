@@ -57,11 +57,27 @@ class CliActionMode: public CliAction
 {
 public:
   CliActionMode(Json::Value& mode)
-    : CliAction(), mode_(mode.asString()) { }
+    : CliAction()
+  {
+    Json::Value name = mode["name"];
+    Json::Value params = mode["params"];
+
+    name_ = name.asString();
+
+    if (params.isArray())
+      {
+        for (Json::Value::iterator it = params.begin();
+             it != params.end(); ++it)
+          {
+            params_.push_back((*it).asString());
+          }
+      }
+  }
   bool handle(Cli *cli, TokenInputMap& input);
 
 private:
-  string mode_;
+  string name_;
+  StringVector params_;
 };
 
 class CliActionBuiltIn: public CliAction

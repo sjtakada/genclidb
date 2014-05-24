@@ -436,6 +436,12 @@ CliReadline::execute()
         {
         case exec_complete:
           {
+            // Populate mode params first.
+            for (ParamsMap::iterator it = cli_->params_.begin();
+                 it != cli_->params_.end(); ++it)
+              input[it->first] = it->second;
+
+            //
             for (CliNodeTokenVector::iterator it = node_token_vec.begin();
                  it != node_token_vec.end(); ++it)
               {

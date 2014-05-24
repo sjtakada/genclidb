@@ -216,7 +216,7 @@ CliUtils::bind_if_interpreter(string& statement, TokenInputMap& input)
         }
     }
 
-  int i = 0;
+  unsigned int i = 0;
 
   // Bind rvalues to lvalues.
   while (bind_if_get_token(lvalues, token))

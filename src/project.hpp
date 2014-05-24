@@ -24,5 +24,8 @@ typedef vector<string> StringVector;
 // e.g., "IPV4-ADDR:1.0" => "1.2.3.4" -- CLI def token to input.
 typedef map<string, string> TokenInputMap;
 
+// Params to value map.
+typedef map<string, string> ParamsMap;
+
 
 #endif /* _PROJECT_HPP_ */

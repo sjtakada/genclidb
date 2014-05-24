@@ -128,12 +128,12 @@ CliActionHttp::request(Cli *cli, string& method, string& path, string& json)
 
   string url("http://localhost");
   string api_prefix("/zebra/api");
-  string current_path;
-  cli->current_path(current_path);
+  //  string current_path;
+  //  cli->current_path(current_path);
 
   url += api_prefix;
-  if (!current_path.empty())
-    url += "/" + current_path;
+  //  if (!current_path.empty())
+  //    url += "/" + current_path;
   if (!path.empty())
     url += "/" + path;
 
@@ -170,9 +170,18 @@ CliActionHttp::request(Cli *cli, string& method, string& path, string& json)
 bool
 CliActionMode::handle(Cli *cli, TokenInputMap& input)
 {
-  (void)input;
+  cli->mode_set(name_);
 
-  cli->mode_set(mode_);
+  // Derive parameters.
+  cli->params_.clear();
+
+  for (StringVector::iterator it = params_.begin(); it != params_.end(); ++it)
+    {
+      TokenInputMap::iterator is = input.find(*it);
+
+      if (is != input.end())
+        cli->params_[*it] = is->second;
+    }
 
   return true;
 }

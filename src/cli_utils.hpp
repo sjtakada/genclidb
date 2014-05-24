@@ -25,8 +25,6 @@
 #include <vector>
 #include <string>
 
-typedef map<string, string> ParamsMap;
-
 typedef StringVector& (*CliParamsFilter)(StringVector&);
 typedef map<string, CliParamsFilter> CliFilterFuncMap;
 
