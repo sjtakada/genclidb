@@ -222,6 +222,29 @@ def rails_modify_model(table_name, table_def, table_keys)
   end
 end
 
+def rails_modify_helper(table_name, table_def)
+  @helper_name = keyword_plural(table_name)
+  helper = "app/helpers/" + @helper_name + "_helper.rb"
+  template = File.read("../helper.erb")
+
+  File.open(helper, "w") do |f|
+    @class_name = keyword_camel(@helper_name)
+    @attrs_def = table_def["attributes"]
+
+    @default_def = Hash.new
+    if @attrs_def != nil
+      @attrs_def.each do |k, v|
+        if v["default"] != nil
+          @default_def[keyword(k)] = rails_attr_get_default(@attrs_def, k)
+        end
+      end
+    end
+
+    renderer = ERB.new(template, nil, '<>')
+    f.puts renderer.result()
+  end
+end
+
 def rails_api_path(table_name, table_keys)
   path = Array.new
   path << "api"
@@ -265,6 +288,8 @@ def key_value_pairs(name, obj)
   obj.map {|k, v| keyword(k) + " <%= " + name + "." + keyword(k) + " %>"}.join(" ")
 end  
 
+# It is a little bit cumbersome to genearete ERB from ERB...
+#
 def rails_generate_view(table_name, table_def)
   name = keyword(table_name)
   namep = keyword_plural(table_name)
@@ -273,6 +298,7 @@ def rails_generate_view(table_name, table_def)
   keys = table_def["keys"]
   attrs = table_def["attributes"]
 
+  # Generate only if it doesn't exist
   if !File.exists?(view)
     File.open(view, "w") do |f|
       f.puts "! " + name + " config"
@@ -289,12 +315,7 @@ def rails_generate_view(table_name, table_def)
         attrs.each do |k, v|
           key = keyword(k)
 
-          if v["default"] != nil
-            f.puts "<% if #{name}.#{key} != @@#{key}_default %>"
-          else
-            f.puts "<% if #{name}.#{key} != nil %>"
-          end
-
+          f.puts "<% if #{name}.#{key} != get_default(:#{key}) %>"
           f.puts " #{k} <%= #{name}.#{key} %>"
           f.puts "<% end %>"
         end
@@ -390,6 +411,9 @@ def rails_scaffolding(dir, name, parent_keys)
 
       # Controller: add custom update/destroy methods
       rails_modify_controller(table_name, table_def, table_keys)
+
+      # Helper: add get_default
+      rails_modify_helper(table_name, table_def)
 
       # View: generate cli.erb
       rails_generate_view(table_name, table_def)
