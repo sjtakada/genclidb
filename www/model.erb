@@ -25,6 +25,12 @@ class <%= @class_name %> < ActiveRecord::Base
 <%   end %>
 <% end %>
 
+<% if @default_def != nil %>
+<%   @default_def.each do |k, v| %>
+  @@<%= k %>_default = <%= v %>
+<%   end %>
+<% end %>
+
   def self.find_by_params(params)
     <%= find_by_keys_statement_str(@all_keys) %>
   end

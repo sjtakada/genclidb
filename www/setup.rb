@@ -63,15 +63,15 @@ def rails_data_type(obj)
   if type == "enum"
     type = "string"
   elsif type == "ipv4"
-    type = "string{11}"
+    type = "binary{4}"
   elsif type == "ipv6"
-    type = "string{39}"
+    type = "binary{16}"
   end
 
   type
 end
 
-def rails_add_index(table_name, table_def, table_keys)
+def rails_db_add_index(table_name, table_def, table_keys)
   name = keyword_plural(table_name)
   migration = "add_index_to_" + name
 
@@ -136,7 +136,7 @@ def rails_attr_get_default(attributes, key)
   default_value
 end
 
-def rails_set_default(table_name, table_def)
+def rails_db_set_default(table_name, table_def)
   name = keyword_plural(table_name)
   migration = "create_" + name
 
@@ -208,6 +208,15 @@ def rails_modify_model(table_name, table_def, table_keys)
     @attrs_def = table_def["attributes"]
     @all_keys = table_all_keys(table_keys)
 
+    @default_def = Hash.new
+    if @attrs_def != nil
+      @attrs_def.each do |k, v|
+        if v["default"] != nil
+          @default_def[keyword(k)] = rails_attr_get_default(@attrs_def, k)
+        end
+      end
+    end
+
     renderer = ERB.new(template, nil, '<>')
     f.puts renderer.result()
   end
@@ -256,7 +265,7 @@ def key_value_pairs(name, obj)
   obj.map {|k, v| keyword(k) + " <%= " + name + "." + keyword(k) + " %>"}.join(" ")
 end  
 
-def rails_generate_cli_erb(table_name, table_def)
+def rails_generate_view(table_name, table_def)
   name = keyword(table_name)
   namep = keyword_plural(table_name)
   view = "app/views/" + namep + "/index.cli.erb"
@@ -281,8 +290,7 @@ def rails_generate_cli_erb(table_name, table_def)
           key = keyword(k)
 
           if v["default"] != nil
-            f.puts "<% if #{name}.#{key} != " +
-              rails_attr_get_default(attrs, k) + " %>"
+            f.puts "<% if #{name}.#{key} != @@#{key}_default %>"
           else
             f.puts "<% if #{name}.#{key} != nil %>"
           end
@@ -305,7 +313,12 @@ def rails_add_routes(table_name, table_keys)
   lines = Array.new
   File.open(routes, "r") do |f|
     while line = f.gets
-      lines << line
+#      if /create_by_keys/.match(line) or
+#         /update_by_keys/.match(line) or
+#         /destroy_by_keys/.match(line)
+#      else
+        lines << line
+#      end
     end
   end
 
@@ -367,19 +380,19 @@ def rails_scaffolding(dir, name, parent_keys)
       system(rails_cmd)
 
       # Migration: generate index's
-      rails_add_index(table_name, table_def, table_keys)
+      rails_db_add_index(table_name, table_def, table_keys)
 
       # Migration: set default value
-      rails_set_default(table_name, table_def)
+      rails_db_set_default(table_name, table_def)
 
       # Model: add association
       rails_modify_model(table_name, table_def, table_keys)
 
-      # Controller: add custome update/destroy methods
+      # Controller: add custom update/destroy methods
       rails_modify_controller(table_name, table_def, table_keys)
 
       # View: generate cli.erb
-      rails_generate_cli_erb(table_name, table_def)
+      rails_generate_view(table_name, table_def)
 
       # Routes: add routes
       rails_add_routes(table_name, table_keys)
@@ -413,12 +426,15 @@ end
 
 def rails_update_mime_types
   mime_types = "config/initializers/mime_types.rb"
+  line = 'Mime::Type.register_alias "text/plain", :cli'
 
   str = File.read(mime_types)
-  File.open(mime_types, "w") do |f|
-    f.write str
-    f.puts
-    f.puts 'Mime::Type.register_alias "text/plain", :cli'
+  if !/#{line}/.match(str)
+    File.open(mime_types, "w") do |f|
+      f.write str
+      f.puts
+      f.puts line
+    end
   end
 end
 
