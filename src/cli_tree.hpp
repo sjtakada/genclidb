@@ -176,6 +176,7 @@ public:
 
   const string& cli_token() { return CliNodeIPv4Address::cli_token_default_; } 
   MatchState cli_match(string& input);
+  string& format_param(string& input);
 
 private:
   const static string cli_token_default_;

@@ -289,7 +289,7 @@ def key_value_pairs(name, obj)
 end  
 
 # It is a little bit cumbersome to genearete ERB from ERB...
-#
+# So we do this way.
 def rails_generate_view(table_name, table_def)
   name = keyword(table_name)
   namep = keyword_plural(table_name)
@@ -334,12 +334,7 @@ def rails_add_routes(table_name, table_keys)
   lines = Array.new
   File.open(routes, "r") do |f|
     while line = f.gets
-#      if /create_by_keys/.match(line) or
-#         /update_by_keys/.match(line) or
-#         /destroy_by_keys/.match(line)
-#      else
-        lines << line
-#      end
+      lines << line
     end
   end
 
@@ -394,37 +389,42 @@ def rails_scaffolding(dir, name, parent_keys)
         end
       end
 
-      # Scaffolding
-      rails_cmd = "rails generate scaffold " +
-        keyword(table_name) + " " + fields.join(" ")
-      puts rails_cmd
-      system(rails_cmd)
+      # We do scaffolding only if model doesn't exist.
+      # We should have better granularity.
+      model = "app/models/" + keyword(table_name) + ".rb"
+      if !File.exists?(model)
+        # Scaffolding
+        rails_cmd = "rails generate scaffold " +
+          keyword(table_name) + " " + fields.join(" ")
+        puts rails_cmd
+        system(rails_cmd)
 
-      # Migration: generate index's
-      rails_db_add_index(table_name, table_def, table_keys)
+        # Migration: generate index's
+        rails_db_add_index(table_name, table_def, table_keys)
 
-      # Migration: set default value
-      rails_db_set_default(table_name, table_def)
+        # Migration: set default value
+        rails_db_set_default(table_name, table_def)
 
-      # Model: add association
-      rails_modify_model(table_name, table_def, table_keys)
+        # Model: add association
+        rails_modify_model(table_name, table_def, table_keys)
 
-      # Controller: add custom update/destroy methods
-      rails_modify_controller(table_name, table_def, table_keys)
+        # Controller: add custom update/destroy methods
+        rails_modify_controller(table_name, table_def, table_keys)
 
-      # Helper: add get_default
-      rails_modify_helper(table_name, table_def)
+        # Helper: add get_default
+        rails_modify_helper(table_name, table_def)
 
-      # View: generate cli.erb
-      rails_generate_view(table_name, table_def)
+        # View: generate cli.erb
+        rails_generate_view(table_name, table_def)
 
-      # Routes: add routes
-      rails_add_routes(table_name, table_keys)
+        # Routes: add routes
+        rails_add_routes(table_name, table_keys)
 
-      # Iterate children recursively
-      if children != nil
-        children.each do |c|
-          rails_scaffolding(dir, keyword(c), table_keys)
+        # Iterate children recursively
+        if children != nil
+          children.each do |c|
+            rails_scaffolding(dir, keyword(c), table_keys)
+          end
         end
       end
     end

@@ -515,6 +515,14 @@ CliNodeIPv4Address::cli_match(string& input)
   return make_pair(match_success, match_full);
 }
 
+string&
+CliNodeIPv4Address::format_param(string& input)
+{
+  replace(input.begin(), input.end(), '.', '_');
+
+  return input;
+}
+
 MatchState
 CliNodeIPv6Prefix::cli_match(string& input)
 {

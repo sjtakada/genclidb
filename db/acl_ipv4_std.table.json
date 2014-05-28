@@ -2,13 +2,28 @@
   "table": {
     "acl-ipv4-std": {
       "singular": false,
-      "children": [
-        "acl-ipv4-std-rule"
-      ],
       "keys": {
         "number": {
           "type": "integer",
           "range": [1, 1999]
+        },
+        "rule-type": {
+          "type": "enum",
+          "values": ["rule", "remark"]
+        },
+        "address": {
+          "type": "ipv4"
+        },
+        "wildcard-bits": {
+          "type": "ipv4"
+        }
+      },
+      "attributes": {
+        "permit-deny": {
+          "type": "boolean"
+        },
+        "remark": {
+          "type": "string"
         }
       }
     }
