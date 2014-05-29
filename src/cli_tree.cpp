@@ -444,14 +444,6 @@ CliNodeIPv4Prefix::cli_match(string& input)
   return make_pair(match_success, match_full);
 }
 
-string&
-CliNodeIPv4Prefix::format_param(string& input)
-{
-  replace(input.begin(), input.end(), '.', '_');
-
-  return input;
-}
-
 MatchState
 CliNodeIPv4Address::cli_match(string& input)
 {
@@ -513,14 +505,6 @@ CliNodeIPv4Address::cli_match(string& input)
     return make_pair(match_success, match_incomplete);
 
   return make_pair(match_success, match_full);
-}
-
-string&
-CliNodeIPv4Address::format_param(string& input)
-{
-  replace(input.begin(), input.end(), '.', '_');
-
-  return input;
 }
 
 MatchState

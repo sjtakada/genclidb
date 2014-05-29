@@ -94,11 +94,7 @@ def rails_db_add_index(table_name, table_def, table_keys)
     end
     
     # All index keys
-    keys = Array.new
-    table_keys.each do |v|
-      keys += v[1].keys
-    end
-
+    keys = table_keys.keys
     keys_str = keys.map {|k| '"' + keyword(k) + '"'}.join(", ")
     index_name = name + "_index"
     File.open(migration_file, "w") do |f|
@@ -181,15 +177,6 @@ def find_by_keys_statement_str(keys)
     keys.map {|k| "params[:" + keyword(k) + "]"}.join(", ") + ")"
 end
 
-def table_all_keys(table_keys)
-  keys = Array.new
-  table_keys.each do |a|
-    keys += a[1].keys
-  end
-
-  keys
-end
-
 def rails_modify_model(table_name, table_def, table_keys)
   @model_name = keyword(table_name)
   model = "app/models/" + @model_name + ".rb"
@@ -206,7 +193,7 @@ def rails_modify_model(table_name, table_def, table_keys)
     @children = table_def["children"]
     @keys_def = table_def["keys"]
     @attrs_def = table_def["attributes"]
-    @all_keys = table_all_keys(table_keys)
+    @all_keys = table_keys.keys
 
     @default_def = Hash.new
     if @attrs_def != nil
@@ -249,11 +236,7 @@ def rails_api_path(table_name, table_keys)
   path = Array.new
   path << "api"
   path << keyword_plural(table_name)
-
-  table_keys.each do |a|
-    path << a[1].keys.map {|k| ":" + keyword(k)}
-  end
-
+  path << table_keys.keys.map {|k| ":" + keyword(k)}
   path.join("/")
 end
 
@@ -327,6 +310,20 @@ def rails_generate_view(table_name, table_def)
   end
 end
 
+def rails_keys_constraints(table_keys)
+  cons = ""
+
+  if table_keys != nil
+    keys = table_keys.select {|k, v| v["type"] == "ipv4"}
+    if keys.size > 0
+      cons = ", constraints: {" +
+        keys.map {|k, v| keyword(k) + ': /[\d\.]+/'}.join(', ') + "}"
+    end
+  end
+  
+  cons
+end
+
 def rails_add_routes(table_name, table_keys)
   name = keyword_plural(table_name)
   routes = "config/routes.rb"
@@ -340,18 +337,21 @@ def rails_add_routes(table_name, table_keys)
 
   lines.pop
   File.open(routes, "w") do |f|
+    path = rails_api_path(table_name, table_keys)
+    cons = rails_keys_constraints(table_keys)
+
     f.puts lines
     f.puts
-    f.puts '  put "' + rails_api_path(table_name, table_keys) + '", to: "' + name + '#create_by_keys"'
-    f.puts '  post "' + rails_api_path(table_name, table_keys) + '", to: "' + name + '#update_by_keys"'
-    f.puts '  delete "' + rails_api_path(table_name, table_keys) + '", to: "' + name + '#destroy_by_keys"'
+    f.puts '  put "' + path + '", to: "' + name + '#create_by_keys"' + cons
+    f.puts '  post "' + path + '", to: "' + name + '#update_by_keys"' + cons
+    f.puts '  delete "' + path + '", to: "' + name + '#destroy_by_keys"' + cons
     f.puts "end"
   end
 end
 
-def rails_scaffolding(dir, name, parent_keys)
-  table_keys = Array.new
-  table_keys += parent_keys if parent_keys != nil
+def rails_scaffolding(dir, name, parent_keys_def)
+  table_keys = Hash.new
+  table_keys.merge!(parent_keys_def) if parent_keys_def != nil
 
   f = dir + "/" + name + ".table.json"
   if File.exists?(f)
@@ -370,15 +370,13 @@ def rails_scaffolding(dir, name, parent_keys)
 
       # Push keys
       if table_def["keys"] != nil
-        table_keys << [table_name, table_def["keys"]]
+        table_keys.merge!(table_def["keys"])
       end
 
       # Table keys
-      table_keys.each do |tk|
-        tk[1].each do |k, obj|
-          key = keyword(k)
-          fields << key + ":" + rails_data_type(obj)
-        end
+      table_keys.each do |k, obj|
+        key = keyword(k)
+        fields << key + ":" + rails_data_type(obj)
       end
 
       # Other columns
@@ -423,7 +421,7 @@ def rails_scaffolding(dir, name, parent_keys)
         # Iterate children recursively
         if children != nil
           children.each do |c|
-            rails_scaffolding(dir, keyword(c), table_keys)
+            rails_scaffolding(dir, keyword(c), table_def["keys"])
           end
         end
       end
