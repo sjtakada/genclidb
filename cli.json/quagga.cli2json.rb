@@ -227,6 +227,11 @@ def cli_str2token(defun)
       h[key]['range'] = range
     end
 
+    if type == :keyword and /\./.match(id_str)
+      id_enum = id_str.gsub(/\.\d+/, '')
+      h[key]['enum'] = 'ENUM:' + id_enum
+    end
+
     id[-1] += 1
     i += 1
   end

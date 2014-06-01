@@ -112,21 +112,17 @@ protected:
 class CliNodeKeyword: public CliNode
 {
 public:
-  CliNodeKeyword(int type, string& id, string& def_token, string& help)
-    : CliNode(type, id, def_token, help)
+  CliNodeKeyword(int type, string& id, string& def_token, string& help,
+                 string& key)
+    : CliNode(type, id, def_token, help), enum_key_(key)
   { cli_token_ = def_token;
     completable_ = true; }
 
-  MatchState cli_match(string& input)
-  {
-    if (input == cli_token())
-      return make_pair(match_success, match_full);
+  MatchState cli_match(string& input);
+  virtual string& enum_key() { return enum_key_; }
 
-    if (!input.compare(0, input.size(), cli_token(), 0, input.size()))
-      return make_pair(match_success, match_partial);
-
-    return make_pair(match_failure, match_none);
-  }
+private:
+  string enum_key_;  // Enum key.
 };
 
 // Integer Range.

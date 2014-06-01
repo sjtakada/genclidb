@@ -183,8 +183,14 @@ CliTree::new_node_by_type(int type, Json::Value& tokens, string& def_token)
       node = new CliNodeWord(type, id, def_token, help);
       break;
     case CliTree::keyword:
-      node = new CliNodeKeyword(type, id, def_token, help);
-      break;
+      {
+        string enum_key;
+        if (!tokens[def_token]["enum"].isNull())
+          enum_key = tokens[def_token]["enum"].asString();
+
+        node = new CliNodeKeyword(type, id, def_token, help, enum_key);
+        break;
+      }
     default:
       cout << "Unknown type" << endl;
       assert(0);
@@ -358,6 +364,18 @@ CliNodeRange::cli_match(string& input)
     return make_pair(match_failure, match_none);
 
   return make_pair(match_success, match_full);
+}
+
+MatchState
+CliNodeKeyword::cli_match(string& input)
+{
+  if (input == cli_token())
+    return make_pair(match_success, match_full);
+
+  if (!input.compare(0, input.size(), cli_token(), 0, input.size()))
+    return make_pair(match_success, match_partial);
+
+  return make_pair(match_failure, match_none);
 }
 
 MatchState
