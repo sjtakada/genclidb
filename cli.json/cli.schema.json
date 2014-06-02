@@ -35,6 +35,9 @@
                 },
                 "help": {
                   "type": "string"
+                },
+                "enum": {
+                  "type": "string"
                 }
               },
               "additionalProperties": false
