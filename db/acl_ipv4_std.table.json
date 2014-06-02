@@ -20,7 +20,8 @@
       },
       "attributes": {
         "permit-deny": {
-          "type": "boolean"
+          "type": "enum",
+          "values": ["permit", "deny"]
         },
         "remark": {
           "type": "string"
