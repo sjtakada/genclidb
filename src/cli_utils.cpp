@@ -62,7 +62,7 @@ area_id_and_format(StringVector& vec)
     }
   else
     {
-      snprintf(area_id_str, 11, "%s", addr.c_str());
+      snprintf(area_id_str, 11, "%s", num.c_str());
       format_str = "1";
     }
 
@@ -214,7 +214,12 @@ CliUtils::bind_if_interpreter(string& statement, ParamsMap& input)
       else // Regular token.
         {
           if (in_params)
-            params.push_back(input[token]);
+            {
+              if (token == "NULL")
+                params.push_back("");
+              else
+                params.push_back(input[token]);
+            }
           // Save token.
           else
             tmp_token = token;              
