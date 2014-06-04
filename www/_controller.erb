@@ -18,7 +18,7 @@
     @<%= @model_name %> = <%= @class_name %>.get_by_params(params)
 
     respond_to do |format|
-      if @<%= @model_name %>.update(<%= @model_name %>_params)
+      if @<%= @model_name %>.update_by_params(params)
         format.json { render action: 'show', status: :updated, location: @<%= @model_name %>}
       else
         format.json { render json: @<%= @model_name %>.errors, status: :unprocessable_entity }
