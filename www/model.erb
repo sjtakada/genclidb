@@ -5,7 +5,7 @@ class <%= @class_name %> < ActiveRecord::Base
 
 <% if @children != nil %>
 <%   @children.each do |k, v| %>
-  has_many :<%= keyword(k) %>, dependent: :destroy
+  has_many :<%= keyword_plural(k) %>, dependent: :destroy
 <%   end %>
 <% end %>
 
