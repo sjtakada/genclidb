@@ -31,7 +31,7 @@ class <%= @class_name %> < ActiveRecord::Base
 
   def self.get_by_params(params)
 <% if @parent_name != nil %>
-    <%= @parent_name %> = <%= @parent_class_name %>.find_by_params(params)
+    <%= @parent_name %> = <%= @parent_class_name %>.get_by_params(params)
 <% end %>
     <%= @model_name %> = find_by_params(params)
     if <%= @model_name %> == nil

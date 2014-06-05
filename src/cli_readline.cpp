@@ -456,8 +456,7 @@ CliReadline::describe_line(CliNode *node, size_t max_len_token)
                      keywords[node->def_token()] = true;
                      CliNodeKeyword *knode = (CliNodeKeyword *)node;
                      if (!knode->enum_key().empty())
-                       input[knode->enum_key()] =
-                         knode->format_param(*it->second);
+                       input[knode->enum_key()] = knode->cli_token();
                   }
                 else
                   {

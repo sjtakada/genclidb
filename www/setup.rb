@@ -187,7 +187,7 @@ def rails_modify_model(table_name, table_def, table_keys)
     @parent_name = nil
     @parent_class_name = nil
     if table_def["parent"] != nil
-      @parent_name = table_def["parent"];
+      @parent_name = keyword(table_def["parent"]);
       @parent_class_name = keyword_camel(@parent_name)
     end
     @children = table_def["children"]
