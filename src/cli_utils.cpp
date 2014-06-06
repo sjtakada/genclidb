@@ -87,7 +87,7 @@ ipv4prefix2address_masklen(StringVector& vec)
   string prefix(vec[0]);
   string address;
   string masklen;
-  unsigned int pos;
+  size_t pos;
 
   vec.clear();
 
@@ -161,7 +161,7 @@ CliUtils::bind_if_interpreter(string& statement, ParamsMap& input)
   string tmp_token;
   string func_name;
   StringVector values;
-  unsigned int pos;
+  size_t pos;
   bool in_params = false;
   StringVector params;
 

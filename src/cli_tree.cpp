@@ -289,32 +289,37 @@ CliTree::build_recursive(CliNodeVector& curr, CliNodeVector& head,
             {
               Json::Value obj = *is;
               string exp = obj.asString();
-              unsigned int p, q;
+              size_t pos;
+              string lvalue, rvalue;
 
-              p = exp.find("do ");
-              if (p != string::npos)
+              pos = exp.find(" do ");
+              if (pos != string::npos)
                 {
-                  string lvalue, rvalue;
-                  lvalue = exp.substr(0, p);
-                  rvalue = exp.substr(p + 3);
-
-                  if (lvalue.size() > 0) 
-                    {
-                      q = lvalue.find("if ");
-                      if (q != string::npos)
-                        lvalue = lvalue.substr(q + 3);
-
-                      q = lvalue.find(" ");
-                      if (q != string::npos)
-                        lvalue = lvalue.substr(0, q);
-                    }
-                  
-//                  cout << "lvalue: '" << lvalue << "'" << endl;
-//                  cout << "rvalue: " << rvalue << endl;
-
-                  CondBindPair p = make_pair(lvalue, rvalue);
-                  node->bind_if_.push_back(p);
+                  lvalue = exp.substr(0, pos);
+                  rvalue = exp.substr(pos + 4);
                 }
+              else
+                {
+                  lvalue = "";
+                  rvalue = exp;
+                }
+
+              //              cout << "lvalue: '" << lvalue << "'" << endl;
+              //              cout << "rvalue: '" << rvalue << "'" << endl;
+
+              if (lvalue != "")
+                {
+                  pos = lvalue.find("if ");
+                  if (pos != string::npos)
+                    lvalue = lvalue.substr(pos + 3);
+
+                  pos = lvalue.find(" ");
+                  if (pos != string::npos)
+                    lvalue = lvalue.substr(0, pos);
+                }
+                  
+              CondBindPair p = make_pair(lvalue, rvalue);
+              node->bind_if_.push_back(p);
             }
         }
 
