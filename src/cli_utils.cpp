@@ -156,8 +156,7 @@ bool
 CliUtils::bind_if_interpreter(string& statement, ParamsMap& input)
 {
   string str(statement);
-  string lvalues;
-  string rvalues;
+  string lvalue, rvalue;
   string token;
   string tmp_token;
   string func_name;
@@ -171,11 +170,11 @@ CliUtils::bind_if_interpreter(string& statement, ParamsMap& input)
   if (pos == string::npos)
     return false;
 
-  lvalues = str.substr(0, pos);
-  rvalues = str.substr(pos + 1, string::npos);
+  lvalue = str.substr(0, pos);
+  rvalue = str.substr(pos + 1, string::npos);
 
   // Proces rvalues to get list of converted strings.
-  while (bind_if_get_token(rvalues, token))
+  while (bind_if_get_token(rvalue, token))
     {
       if (token == "(")
         {
@@ -237,7 +236,7 @@ CliUtils::bind_if_interpreter(string& statement, ParamsMap& input)
   unsigned int i = 0;
 
   // Bind rvalues to lvalues.
-  while (bind_if_get_token(lvalues, token))
+  while (bind_if_get_token(lvalue, token))
     {
       if (token == ",")
         continue;

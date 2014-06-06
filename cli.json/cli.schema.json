@@ -65,13 +65,7 @@
               "bind-if": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "patternProperties": {
-                    "^[a-zA-Z0-9:\.-]+$": {
-                      "type": "string"
-                    }
-                  },
-                  "additionalProperties": false
+                  "type": "string"
                 }
               },
               "action": {

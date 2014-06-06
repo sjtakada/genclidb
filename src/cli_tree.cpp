@@ -288,13 +288,31 @@ CliTree::build_recursive(CliNodeVector& curr, CliNodeVector& head,
                is != bind_if.end(); ++is)
             {
               Json::Value obj = *is;
-              for (Json::Value::iterator ir = obj.begin();
-                   ir != obj.end(); ++ir)
-                {
-                  Json::Value cond = ir.key();
-                  Json::Value exp = *ir;
+              string exp = obj.asString();
+              unsigned int p, q;
 
-                  CondBindPair p = make_pair(cond.asString(), exp.asString());
+              p = exp.find("do ");
+              if (p != string::npos)
+                {
+                  string lvalue, rvalue;
+                  lvalue = exp.substr(0, p);
+                  rvalue = exp.substr(p + 3);
+
+                  if (lvalue.size() > 0) 
+                    {
+                      q = lvalue.find("if ");
+                      if (q != string::npos)
+                        lvalue = lvalue.substr(q + 3);
+
+                      q = lvalue.find(" ");
+                      if (q != string::npos)
+                        lvalue = lvalue.substr(0, q);
+                    }
+                  
+//                  cout << "lvalue: '" << lvalue << "'" << endl;
+//                  cout << "rvalue: " << rvalue << endl;
+
+                  CondBindPair p = make_pair(lvalue, rvalue);
                   node->bind_if_.push_back(p);
                 }
             }

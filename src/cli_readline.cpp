@@ -477,7 +477,7 @@ CliReadline::describe_line(CliNode *node, size_t max_len_token)
                 const char *cond = it->first.c_str();
 
                 // Always bind if it is TRUE.
-                if (strcasecmp(cond, "true") == 0)
+                if (cond[0] == '\0')
                   utils_.bind_if_interpreter(it->second, input);
                 // If the parameter is NOT present.
                 else if (cond[0] == '!')
