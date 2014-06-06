@@ -42,4 +42,10 @@ private:
   bool bind_if_get_token(string& str, string& token);
 };
 
+static inline unsigned int
+masklen2mask(int masklen)
+{
+  return htonl(~((1 << (32 - masklen)) - 1));
+}
+
 #endif /* _CLI_UTILS_HPP_ */

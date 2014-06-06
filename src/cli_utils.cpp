@@ -101,12 +101,44 @@ ipv4prefix2address_masklen(StringVector& vec)
   return vec;
 }
 
+// For given network address and mask pair, apply mask and return address.
+//
+// Input:
+//   0: IPv4 Network Address (A.B.C.D)
+//   1: IPV4 Mask length(<0-32>)
+//
+// Output:
+//   0: IPv4 Network Address (A.B.C.D)
+//
+StringVector&
+apply_mask_ipv4(StringVector& vec)
+{
+  string addr(vec[0]);
+  string masklen(vec[1]);
+  unsigned int mask;
+  struct in_addr a;
+  struct in_addr am;
+
+  vec.clear();
+
+  mask = masklen2mask(atoi(masklen.c_str()));
+
+  inet_aton(addr.c_str(), &a);
+  am.s_addr = a.s_addr & mask;
+
+  string addr_masked(inet_ntoa(am));
+  vec.push_back(addr_masked);
+
+  return vec;
+}
+
 
 void
 CliUtils::init()
 {
   filter_map_["area_id_and_format"] = area_id_and_format;
   filter_map_["ipv4prefix2address_masklen"] = ipv4prefix2address_masklen;
+  filter_map_["apply_mask_ipv4"] = apply_mask_ipv4;
 }
 
 bool
