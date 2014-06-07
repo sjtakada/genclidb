@@ -327,35 +327,39 @@ CliTree::build_recursive(CliNodeVector& curr, CliNodeVector& head,
         for (Json::Value::iterator is = actions.begin();
              is != actions.end(); ++is)
           {
-            Json::Value cond = is.key();
-            Json::Value action = *is;
-
-            if (!action.isNull())
+            Json::Value obj = *is;
+            for (Json::Value::iterator ir = obj.begin(); ir != obj.end(); ++ir)
               {
-                Json::Value http = action["http"];
-                Json::Value mode = action["mode"];
-                Json::Value built_in = action["built-in"];
+                Json::Value cond = ir.key();
+                Json::Value action = *ir;
 
-                if (!http.isNull())
+                if (!action.isNull())
                   {
-                    CondCliActionPair p =
-                      make_pair(cond.asString(), new CliActionHttp(http));
-                    node->actions_.push_back(p);
-                  }
+                    Json::Value http = action["http"];
+                    Json::Value mode = action["mode"];
+                    Json::Value built_in = action["built-in"];
 
-                if (!mode.isNull())
-                  {
-                    CondCliActionPair p =
-                      make_pair(cond.asString(), new CliActionMode(mode));
-                    node->actions_.push_back(p);
-                  }
+                    if (!http.isNull())
+                      {
+                        CondCliActionPair p =
+                          make_pair(cond.asString(), new CliActionHttp(http));
+                        node->actions_.push_back(p);
+                      }
 
-                if (!built_in.isNull())
-                  {
-                    CondCliActionPair p =
-                      make_pair(cond.asString(),
-                                new CliActionBuiltIn(built_in));
-                    node->actions_.push_back(p);
+                    if (!mode.isNull())
+                      {
+                        CondCliActionPair p =
+                          make_pair(cond.asString(), new CliActionMode(mode));
+                        node->actions_.push_back(p);
+                      }
+
+                    if (!built_in.isNull())
+                      {
+                        CondCliActionPair p =
+                          make_pair(cond.asString(),
+                                    new CliActionBuiltIn(built_in));
+                        node->actions_.push_back(p);
+                      }
                   }
               }
           }

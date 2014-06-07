@@ -124,7 +124,10 @@ CliActionHttp::handle(Cli *cli, ParamsMap& input)
 void
 CliActionHttp::request(Cli *cli, string& method, string& path, string& json)
 {
-  if (method == "NONE")
+  if (method != "GET"
+      && method != "POST"
+      && method != "PUT"
+      && method != "DELETE")
     return;
 
   string url("http://localhost");
