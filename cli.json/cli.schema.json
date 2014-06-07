@@ -62,69 +62,78 @@
                   "pattern": "^[a-zA-Z0-9\-]+$"
                 }
               },
-              "bind-if": {
+              "bind": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 }
               },
               "action": {
-                "type": "object",
-                "properties": {
-                  "http": {
-                    "type": "object",
-                    "properties": {
-                      "method": {
-                        "enum": [ "GET", "POST", "PUT", "DELETE", "NONE" ]
-                      },
-                      "path": {
-                        "type": "string"
-                      },
-                      "format": {
-                        "type": "string"
-                      },
-                      "params": {
-                        "type": "object",
-                        "patternProperties": {
-                          "^[a-zA-Z0-9\-]+$": {
-                            "type": "string"
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "patternProperties": {
+                    "^[:\.a-z_A-Z0-9\*\-]+$": {
+                      "type": "object",
+                      "properties": {
+                        "http": {
+                          "type": "object",
+                          "properties": {
+                            "method": {
+                              "enum": [ "GET", "POST", "PUT", "DELETE", "NOP" ]
+                            },
+                            "path": {
+                              "type": "string"
+                            },
+                            "format": {
+                              "type": "string"
+                            },
+                            "params": {
+                              "type": "object",
+                              "patternProperties": {
+                                "^[a-zA-Z0-9\-]+$": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        "built-in": {
+                          "type": "object",
+                          "properties": {
+                            "func": {
+                              "type": "string"
+                            },
+                            "params": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        "mode": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "params": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
                           }
                         }
-                      }
-                    },
-                    "additionalProperties": false
-                  },
-                  "built-in": {
-                    "type": "object",
-                    "properties": {
-                      "func": {
-                        "type": "string"
                       },
-                      "params": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      }
-                    },
-                    "additionalProperties": false
-                  },
-                  "mode": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "params": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      }
+                      "additionalProperties": false
                     }
-                  }
-                },
-                "additionalProperties": false
+                  },
+                  "additionalProperties": false
+                }
               },
               "update": {
                 "type": "object"

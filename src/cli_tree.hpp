@@ -31,6 +31,8 @@ class CliNode;
 typedef vector<CliNode *> CliNodeVector;
 typedef pair<string, string> CondBindPair;
 typedef vector<CondBindPair> CondBindPairVector;
+typedef pair<string, CliAction *> CondCliActionPair;
+typedef vector<CondCliActionPair> CliActionVector;
 
 // Simply whether match or not.
 enum MatchResult {
@@ -47,7 +49,6 @@ enum MatchFlag {
 };
 
 typedef pair<enum MatchResult, enum MatchFlag> MatchState;
-typedef vector<CliAction *> CliActionVector;
 
 // Base virtual class for CLI Node.
 class CliNode
@@ -98,8 +99,8 @@ protected:
   // It can complete.
   bool completable_;
 
-  // Bind-if preprocess statement.
-  CondBindPairVector bind_if_;
+  // Bind preprocess statement.
+  CondBindPairVector bind_;
 
   // Command.
   bool cmd_;

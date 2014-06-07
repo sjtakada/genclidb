@@ -324,12 +324,16 @@ ARGV.each do |filename|
       command['mode'] = modes.uniq
       command.delete('mode') if modes.size == 0
 
-#      action = Hash.new
-#      action['method'] = "NONE"
-#      action['path'] = ""
+      action = Hash.new
+      action['http'] = Hash.new
+      action['http']['method'] = "NOP"
+      action['http']['path'] = ""
+      action['http']['params'] = Hash.new
+      cond = Hash.new
+      cond['*'] = action
 
-#      command['action'] = Hash.new
-#      command['action']['http'] = action;
+      command['action'] = Array.new
+      command['action'] << cond
     end
 
     # Write JSON file with same basename.

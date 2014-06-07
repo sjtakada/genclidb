@@ -142,7 +142,7 @@ CliUtils::init()
 }
 
 bool
-CliUtils::bind_if_get_token(string& str, string& token)
+CliUtils::bind_get_token(string& str, string& token)
 {
   const char *p = str.c_str();
   size_t pos;
@@ -185,7 +185,7 @@ CliUtils::bind_if_get_token(string& str, string& token)
 }
 
 bool
-CliUtils::bind_if_interpreter(string& statement, ParamsMap& input)
+CliUtils::bind_interpreter(string& statement, ParamsMap& input)
 {
   string str(statement);
   string lvalue, rvalue;
@@ -206,7 +206,7 @@ CliUtils::bind_if_interpreter(string& statement, ParamsMap& input)
   rvalue = str.substr(pos + 1, string::npos);
 
   // Proces rvalues to get list of converted strings.
-  while (bind_if_get_token(rvalue, token))
+  while (bind_get_token(rvalue, token))
     {
       if (token == "(")
         {
@@ -268,7 +268,7 @@ CliUtils::bind_if_interpreter(string& statement, ParamsMap& input)
   unsigned int i = 0;
 
   // Bind rvalues to lvalues.
-  while (bind_if_get_token(lvalue, token))
+  while (bind_get_token(lvalue, token))
     {
       if (token == ",")
         continue;

@@ -281,11 +281,10 @@ CliTree::build_recursive(CliNodeVector& curr, CliNodeVector& head,
       node = *it;
       node->cmd_ = true;
 
-      Json::Value bind_if = command["bind-if"];
-      if (!bind_if.isNull())
+      Json::Value bind = command["bind"];
+      if (!bind.isNull())
         {
-          for (Json::Value::iterator is = bind_if.begin();
-               is != bind_if.end(); ++is)
+          for (Json::Value::iterator is = bind.begin(); is != bind.end(); ++is)
             {
               Json::Value obj = *is;
               string exp = obj.asString();
@@ -319,26 +318,47 @@ CliTree::build_recursive(CliNodeVector& curr, CliNodeVector& head,
                 }
                   
               CondBindPair p = make_pair(lvalue, rvalue);
-              node->bind_if_.push_back(p);
+              node->bind_.push_back(p);
             }
         }
 
-      Json::Value action = command["action"];
-      if (!action.isNull())
-        {
-          Json::Value http = action["http"];
-          Json::Value mode = action["mode"];
-          Json::Value built_in = action["built-in"];
+      Json::Value actions = command["action"];
+      if (!actions.isNull())
+        for (Json::Value::iterator is = actions.begin();
+             is != actions.end(); ++is)
+          {
+            Json::Value cond = is.key();
+            Json::Value action = *is;
 
-          if (!http.isNull())
-            node->actions_.push_back(new CliActionHttp(http));
+            if (!action.isNull())
+              {
+                Json::Value http = action["http"];
+                Json::Value mode = action["mode"];
+                Json::Value built_in = action["built-in"];
 
-          if (!mode.isNull())
-            node->actions_.push_back(new CliActionMode(mode));
+                if (!http.isNull())
+                  {
+                    CondCliActionPair p =
+                      make_pair(cond.asString(), new CliActionHttp(http));
+                    node->actions_.push_back(p);
+                  }
 
-          if (!built_in.isNull())
-            node->actions_.push_back(new CliActionBuiltIn(built_in));
-        }
+                if (!mode.isNull())
+                  {
+                    CondCliActionPair p =
+                      make_pair(cond.asString(), new CliActionMode(mode));
+                    node->actions_.push_back(p);
+                  }
+
+                if (!built_in.isNull())
+                  {
+                    CondCliActionPair p =
+                      make_pair(cond.asString(),
+                                new CliActionBuiltIn(built_in));
+                    node->actions_.push_back(p);
+                  }
+              }
+          }
     }
 
   return CliTree::undef;

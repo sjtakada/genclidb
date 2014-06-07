@@ -471,27 +471,27 @@ CliReadline::describe_line(CliNode *node, size_t max_len_token)
             CliNode *node = node_token_vec.back().first;
 
             // Pre-process parameter binding.
-            for (CondBindPairVector::iterator it = node->bind_if_.begin();
-                 it != node->bind_if_.end(); ++it)
+            for (CondBindPairVector::iterator it = node->bind_.begin();
+                 it != node->bind_.end(); ++it)
               {
                 const char *cond = it->first.c_str();
 
                 // Always bind if it is TRUE.
                 if (cond[0] == '\0')
-                  utils_.bind_if_interpreter(it->second, input);
+                  utils_.bind_interpreter(it->second, input);
                 // If the parameter is NOT present.
                 else if (cond[0] == '!')
                   {
                     ParamsMap::iterator is = input.find(&cond[1]);
                     if (is == input.end())
-                      utils_.bind_if_interpreter(it->second, input);
+                      utils_.bind_interpreter(it->second, input);
                   }
                 // If the parameter is present.
                 else
                   {
                     ParamsMap::iterator is = input.find(cond);
                     if (is != input.end())
-                      utils_.bind_if_interpreter(it->second, input);
+                      utils_.bind_interpreter(it->second, input);
                   }
               }
 
@@ -504,7 +504,14 @@ CliReadline::describe_line(CliNode *node, size_t max_len_token)
             // Dispatch action to appropriate handler.
             for (CliActionVector::iterator it = node->actions_.begin();
                  it != node->actions_.end(); ++it)
-              (*it)->handle(cli_, input);
+              {
+                string cond = it->first;
+                CliAction *action = it->second;
+
+                // This is default action.
+                if (cond == "*")
+                  action->handle(cli_, input);
+              }
           }
           break;
         case exec_incomplete:

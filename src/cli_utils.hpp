@@ -34,12 +34,12 @@ public:
   CliUtils() { }
 
   void init();
-  bool bind_if_interpreter(string& statement, ParamsMap& input);
+  bool bind_interpreter(string& statement, ParamsMap& input);
 
 private:
   CliFilterFuncMap filter_map_;
 
-  bool bind_if_get_token(string& str, string& token);
+  bool bind_get_token(string& str, string& token);
 };
 
 static inline unsigned int
