@@ -120,6 +120,9 @@
                             "name": {
                               "type": "string"
                             },
+                            "up": {
+                              "type": "integer"
+                            },
                             "params": {
                               "type": "array",
                               "items": {

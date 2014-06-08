@@ -46,3 +46,15 @@ cli_builtins_init(Cli *cli)
   cli->built_in_["debug-cli-set"] = cli_builtins_debug_cli_set;
   cli->built_in_["debug-cli-unset"] = cli_builtins_debug_cli_unset;
 }
+
+void
+cli_mode_set(Cli *cli, string name)
+{
+  cli->mode_set(name);
+}
+
+void
+cli_mode_up(Cli *cli, unsigned int up)
+{
+  cli->mode_up(up);
+}

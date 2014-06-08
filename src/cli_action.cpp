@@ -182,9 +182,13 @@ CliActionMode::CliActionMode(Json::Value& mode)
   : CliAction()
 {
   Json::Value name = mode["name"];
+  Json::Value up = mode["up"];
   Json::Value params = mode["params"];
 
-  name_ = name.asString();
+  if (!name.isNull())
+    name_ = name.asString();
+  if (!up.isNull())
+    up_ = up.asUInt();
 
   if (!params.isNull())
     for (Json::Value::iterator it = params.begin();
@@ -195,18 +199,24 @@ CliActionMode::CliActionMode(Json::Value& mode)
 bool
 CliActionMode::handle(Cli *cli, ParamsMap& input)
 {
-  cli->mode_set(name_);
-
-  // Derive parameters.
-  cli->params_.clear();
-
-  for (StringVector::iterator it = params_.begin(); it != params_.end(); ++it)
+  if (!name_.empty())
     {
-      ParamsMap::iterator is = input.find(*it);
+      cli->mode_set(name_);
 
-      if (is != input.end())
-        cli->params_[*it] = is->second;
+      // Derive parameters.
+      cli->params_.clear();
+
+      for (StringVector::iterator it = params_.begin();
+           it != params_.end(); ++it)
+        {
+          ParamsMap::iterator is = input.find(*it);
+
+          if (is != input.end())
+            cli->params_[*it] = is->second;
+        }
     }
+  else if (up_)
+    cli->mode_up(up_);
 
   return true;
 }

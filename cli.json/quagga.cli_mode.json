@@ -1,34 +1,30 @@
 {
   "VIEW-NODE": {
-    "prompt": ">",
+    "prompt": ">"
+  },
+  "ENABLE-NODE": {
+    "prompt": "#"
+  },
+  "CONFIG-NODE": {
+    "prompt": "(config)#",
     "children": {
-      "ENABLE-NODE": {
-        "prompt": "#",
-        "children": {
-          "CONFIG-NODE": {
-            "prompt": "(config)#",
-            "children": {
-              "INTERFACE-NODE": {
-                "prompt": "(config-if)#"
-              },
-              "OSPF-NODE": {
-                "prompt": "(config-router)#"
-              },
-              "BGP-NODE": {
-                "prompt": "(config-router)#"
-              },
-              "RIP-NODE": {
-                "prompt": "(config-router)#"
-              },
-              "OSPF6-NODE": {
-                "prompt": "(config-router)#"
-              },
-              "RIPNG-NODE": {
-                "prompt": "(config-router)#"
-              }
-            }
-          }
-        }
+      "INTERFACE-NODE": {
+        "prompt": "(config-if)#"
+      },
+      "OSPF-NODE": {
+        "prompt": "(config-router)#"
+      },
+      "BGP-NODE": {
+        "prompt": "(config-router)#"
+      },
+      "RIP-NODE": {
+        "prompt": "(config-router)#"
+      },
+      "OSPF6-NODE": {
+        "prompt": "(config-router)#"
+      },
+      "RIPNG-NODE": {
+        "prompt": "(config-router)#"
       }
     }
   }

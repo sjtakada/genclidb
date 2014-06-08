@@ -52,19 +52,7 @@ public:
   void mode_read(char *filename);
   CliTree *mode_traverse(Json::Value& current, CliTree *parent);
   bool mode_set(string& mode_str);
-  //  void path_push(string& path) { paths_.push_back(path); }
-  //  string& current_path(string& path)
-  //  {
-  //    const char *delim = "";
-  //
-  //    for (StringVector::iterator it = paths_.begin(); it != paths_.end(); ++it)
-  //      {
-  //        path += delim + *it;
-  //        delim = "/";
-  //      }
-  //
-  //    return path;
-  //  }
+  bool mode_up(unsigned int up);
 
   const char *prompt();
 

@@ -62,6 +62,7 @@ public:
 
 private:
   string name_;
+  unsigned int up_;
   StringVector params_;
 };
 

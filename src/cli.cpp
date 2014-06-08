@@ -250,6 +250,22 @@ Cli::mode_set(string& mode_str)
   return false;
 }
 
+bool
+Cli::mode_up(unsigned int up)
+{
+  CliTree *mode = current_mode();
+
+  // XXX/ currently just go 1 up.
+  if (up)
+    if (mode->parent())
+      {
+        mode_ = mode->parent();
+        return true;
+      }
+
+  return false;
+}
+
 void
 Cli::mode_read(char *filename)
 {

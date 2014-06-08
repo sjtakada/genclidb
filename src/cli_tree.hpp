@@ -258,6 +258,7 @@ public:
   void build_command(Json::Value& tokens, Json::Value& command);
 
   string& prompt() { return prompt_; }
+  CliTree *parent() { return parent_; }
 
   friend class CliReadline;
 
