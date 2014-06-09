@@ -23,6 +23,9 @@
               },
               "minItems": 1
             },
+            "order": {
+              "type": "string"
+            },
             "keys": {
               "type": "object",
               "patternProperties": {

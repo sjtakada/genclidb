@@ -3,6 +3,7 @@
     "ospfv2-network": {
       "singular": false,
       "parent": "ospfv2",
+      "order": "address, masklen DESC",
       "keys": {
         "address": {
           "type": "ipv4"

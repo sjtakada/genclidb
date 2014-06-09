@@ -204,6 +204,15 @@ def rails_modify_model(table_name, table_def, table_keys)
       end
     end
 
+    fields = Hash.new
+    if table_keys != nil
+      fields.merge!(table_keys)
+    end
+    if table_def["attributes"] != nil
+      fields.merge!(table_def["attributes"])
+    end
+    @ipaddr_keys = fields.select {|k, v| v["type"] == "ipv4" || v["type"] == "ipv6"}
+
     renderer = ERB.new(template, nil, '<>')
     f.puts renderer.result()
   end
@@ -250,6 +259,11 @@ def rails_modify_controller(table_name, table_def, table_keys)
     @model_name = keyword(table_name)
     @class_name = keyword_camel(table_name)
     @api_path = rails_api_path(table_name, table_keys)
+
+    @order = nil
+    if table_def["order"] != nil
+      @order = table_def["order"]
+    end
 
     fields = Hash.new
     if table_keys != nil

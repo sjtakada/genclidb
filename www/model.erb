@@ -65,4 +65,12 @@ class <%= @class_name %> < ActiveRecord::Base
 <% end %>
     self.save!
   end
+
+  def binary_to_ipaddr
+<% @ipaddr_keys.each do |k, v| %>
+    if self.<%= keyword(k) %> != nil
+      self.<%= keyword(k) %> = IPAddr.new_ntoh(self.<%= keyword(k) %>).to_s
+    end
+<% end %>
+  end
 end

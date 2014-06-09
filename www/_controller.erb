@@ -9,6 +9,7 @@ class <%= @class_name %>sController < ApplicationController
 
     respond_to do |format|
       if @<%= @model_name %> != nil
+        @<%= @model_name %>.binary_to_ipaddr
         format.json { render action: 'show', status: :created, location: @<%= @model_name %>}
       else
         format.json { render json: @<%= @model_name %>.errors, status: :unprocessable_entity }
@@ -22,6 +23,7 @@ class <%= @class_name %>sController < ApplicationController
 
     respond_to do |format|
       if @<%= @model_name %>.update_by_params(params)
+        @<%= @model_name %>.binary_to_ipaddr
         format.json { render action: 'show', status: :created, location: @<%= @model_name %>}
       else
         format.json { render json: @<%= @model_name %>.errors, status: :unprocessable_entity }
@@ -44,7 +46,14 @@ class <%= @class_name %>sController < ApplicationController
   # GET /<%= @controller_name %>
   # GET /<%= @controller_name %>.json
   def index
+<% if @order == nil %>
     @<%= @controller_name %> = <%= @class_name %>.all
+<% else %>
+    @<%= @controller_name %> = <%= @class_name %>.find(:all, :order => '<%= @order %>')
+<% end %>
+    @<%= @controller_name %>.each do |<%= @model_name %>|
+      <%= @model_name %>.binary_to_ipaddr
+    end
   end
 
   # GET /<%= @controller_name %>/1
