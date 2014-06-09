@@ -53,7 +53,9 @@ public:
   CliTree *mode_traverse(Json::Value& current, CliTree *parent);
   bool mode_set(string& mode_str);
   bool mode_up(unsigned int up);
-
+  void exit();
+  void end();
+  void start_over();
   const char *prompt();
 
   // Terminal width, height.
@@ -66,7 +68,7 @@ public:
 
 private:
   // For singleton instance.
-  Cli() : debug_(true), mode_(NULL), hostname_("Router") { }
+  Cli() : debug_(true), exit_(false), mode_(NULL), hostname_("Router") { }
   Cli(Cli const&) { }
 
   // Singleton instance.
@@ -74,6 +76,7 @@ private:
 
   // Debug mode.
   bool debug_;
+  bool exit_;
 
   // Current mode.
   CliTree *mode_;
@@ -90,6 +93,9 @@ private:
 
   // Hostname.
   string hostname_;
+
+  // Privileged mode name.
+  string privileged_mode_;
 
   // Member functions.
   void signal_init();

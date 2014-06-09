@@ -52,8 +52,24 @@ cli_handle_sigwinch(int sig)
 }
 
 void
+cli_handle_sigint (int sig)
+{
+  Cli::instance()->end();
+  Cli::instance()->start_over();
+}
+
+void
+cli_handle_sigtstp (int sig)
+{
+  Cli::instance()->end();
+  Cli::instance()->start_over();
+}
+
+void
 Cli::signal_init()
 {
+  signal(SIGINT, &cli_handle_sigint);
+  signal(SIGTSTP, &cli_handle_sigtstp);
   signal(SIGWINCH, &cli_handle_sigwinch);
 }
 
@@ -80,7 +96,7 @@ Cli::init()
 
   // Read CLI definitions.
   load_cli_json_all((char *)"../cli.json");
-  // exit(0);
+
   // Sort CLI trees.
   for (ModeTreeMap::iterator it = tree_.begin(); it != tree_.end(); ++it)
     {
@@ -96,10 +112,50 @@ Cli::init()
 }
 
 void
+Cli::start_over()
+{
+  cout << endl;
+  cout << prompt();
+}
+
+void
+Cli::exit()
+{
+  if (mode_->exit_to_finish())
+    {
+      exit_ = true;
+      cout << endl << "CLI Session terminated" << endl;
+    }
+  else if (mode_->exit_to_end())
+    {
+      end();
+      cout << endl;
+    }
+  else
+    {
+      mode_up(1);
+      cout << endl;
+    }
+}
+
+// Supposed to fallback to privilege mode.
+void
+Cli::end()
+{
+  if (!privileged_mode_.empty())
+    mode_set(privileged_mode_);
+}
+
+void
 Cli::loop()
 {
-  while (rl_.gets())
-    rl_.execute();
+  while (!exit_)
+    {
+      if (rl_.gets())
+        rl_.execute();
+      else 
+        exit();
+    }
 }
 
 
@@ -220,14 +276,28 @@ Cli::mode_traverse(Json::Value& current, CliTree *parent)
       Json::Value key = it.key();
       Json::Value value = (*it);
       string prompt;
-      const char *mode = key.asCString();
+      bool exit_to_finish = false;
+      bool exit_to_end = false;
+      const char *mode_name = key.asCString();
 
       if (!value.isNull())
-        if (!value["prompt"].isNull())
-          prompt = value["prompt"].asString();
+        {
+          if (!value["prompt"].isNull())
+            prompt = value["prompt"].asString();
 
-      tree = new CliTree(mode, prompt, parent);
-      tree_[mode] = tree;
+          if (!value["exit-to-finish"].isNull())
+            exit_to_finish = value["exit-to-finish"].asBool();
+
+          if (!value["exit-to-end"].isNull())
+            exit_to_end = value["exit-to-end"].asBool();
+
+          if (!value["privileged-mode"].isNull())
+            privileged_mode_ = mode_name;
+        }
+
+      tree = new CliTree(mode_name, prompt, parent,
+                         exit_to_finish, exit_to_end);
+      tree_[mode_name] = tree;
 
       if (!value["children"].isNull())
         mode_traverse(value["children"], tree);

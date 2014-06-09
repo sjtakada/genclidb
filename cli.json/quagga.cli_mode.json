@@ -1,12 +1,16 @@
 {
   "VIEW-NODE": {
-    "prompt": ">"
+    "prompt": ">",
+    "exit-to-finish": true
   },
   "ENABLE-NODE": {
-    "prompt": "#"
+    "prompt": "#",
+    "exit-to-finish": true,
+    "privileged-mode": true
   },
   "CONFIG-NODE": {
     "prompt": "(config)#",
+    "exit-to-end": true,
     "children": {
       "INTERFACE-NODE": {
         "prompt": "(config-if)#"

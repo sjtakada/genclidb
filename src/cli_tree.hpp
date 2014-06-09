@@ -227,8 +227,10 @@ private:
 class CliTree
 {
 public:
-  CliTree(const char *mode, string& prompt, CliTree *parent)
-    : mode_(mode), prompt_(prompt), parent_(parent)
+  CliTree(const char *mode_name, string& prompt, CliTree *parent,
+          bool exit_to_finish, bool exit_to_end)
+    : mode_name_(mode_name), prompt_(prompt), parent_(parent),
+      exit_to_finish_(exit_to_finish), exit_to_end_(exit_to_end)
   { top_ = new CliNode; }
   ~CliTree() { }
 
@@ -259,6 +261,9 @@ public:
 
   string& prompt() { return prompt_; }
   CliTree *parent() { return parent_; }
+  string& mode_name() { return mode_name_; }
+  bool& exit_to_finish() { return exit_to_finish_; }
+  bool& exit_to_end() { return exit_to_end_; }
 
   friend class CliReadline;
 
@@ -266,13 +271,19 @@ private:
   static const boost::regex re_white_space;
 
   // Mode name.
-  string mode_;
+  string mode_name_;
 
   // Prompt.
   string prompt_;
 
   // Parent CLI tree.
   CliTree *parent_;
+
+  // Exit to finish flag.
+  bool exit_to_finish_;
+
+  // Exit to finish flag.
+  bool exit_to_end_;
 
   // Member functions.
   int get_token(string& str, string& token);
