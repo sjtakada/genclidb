@@ -1,3 +1,6 @@
+class <%= @class_name %>sController < ApplicationController
+  before_action :set_<%= @model_name %>, only: [:show, :edit, :update, :destroy]
+  before_action :ipaddr_to_binary, only: [:create_by_keys, :update_by_keys]
   skip_before_filter :verify_authenticity_token, :if => Proc.new {|c| c.request.format == 'application/json' }
 
   # PUT /<%= @api_path %>.json
@@ -37,3 +40,83 @@
       format.json { head :no_content }
     end
   end
+
+  # GET /<%= @controller_name %>
+  # GET /<%= @controller_name %>.json
+  def index
+    @<%= @controller_name %> = <%= @class_name %>.all
+  end
+
+  # GET /<%= @controller_name %>/1
+  # GET /<%= @controller_name %>/1.json
+  def show
+  end
+
+  # GET /<%= @controller_name %>/new
+  def new
+    @<%= @model_name %> = <%= @class_name %>.new
+  end
+
+  # GET /<%= @controller_name %>/1/edit
+  def edit
+  end
+
+  # POST /<%= @controller_name %>
+  # POST /<%= @controller_name %>.json
+  def create
+    @<%= @model_name %> = <%= @class_name %>.new(<%= @model_name %>_params)
+
+    respond_to do |format|
+      if @<%= @model_name %>.save
+        format.html { redirect_to @<%= @model_name %>, notice: '<%= @class_name %> was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @<%= @model_name %> }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @<%= @model_name %>.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /<%= @controller_name %>/1
+  # PATCH/PUT /<%= @controller_name %>/1.json
+  def update
+    respond_to do |format|
+      if @<%= @model_name %>.update(<%= @model_name %>_params)
+        format.html { redirect_to @<%= @model_name %>, notice: '<%= @class_name %> was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @<%= @model_name %>.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /<%= @controller_name %>/1
+  # DELETE /<%= @controller_name %>/1.json
+  def destroy
+    @<%= @model_name %>.destroy
+    respond_to do |format|
+      format.html { redirect_to <%= @controller_name %>_url }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_<%= @model_name %>
+      @<%= @model_name %> = <%= @class_name %>.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def <%= @model_name %>_params
+      params.require(:<%= @model_name %>).permit(<%= @keys_str %>)
+    end
+
+    def ipaddr_to_binary
+<% @ipaddr_keys.each do |k, v| %>
+      if params[:<%= keyword(k) %>] != nil
+        params[:<%= keyword(k) %>] = IPAddr.new(params[:<%= keyword(k) %>]).hton
+      end
+<% end %>
+    end
+end

@@ -245,25 +245,31 @@ def rails_modify_controller(table_name, table_def, table_keys)
   controller = "app/controllers/#{controller_name}_controller.rb"
   template = File.read("../_controller.erb")
 
-  if File.exists?(controller)
-    lines = Array.new
-    File.open(controller, "r") do |f|
-      while line = f.gets
-        lines << line
-      end
+  File.open(controller, "w") do |f|
+    @controller_name = keyword_plural(table_name)
+    @model_name = keyword(table_name)
+    @class_name = keyword_camel(table_name)
+    @api_path = rails_api_path(table_name, table_keys)
+
+    fields = Hash.new
+    if table_keys != nil
+      fields.merge!(table_keys)
+    end
+    if table_def["attributes"] != nil
+      fields.merge!(table_def["attributes"])
     end
 
-    File.open(controller, "w") do |f|
-      @model_name = keyword(table_name)
-      @class_name = keyword_camel(table_name)
-      @api_path = rails_api_path(table_name, table_keys)
-      renderer = ERB.new(template, nil, '<>')
-
-      f.puts lines[0]
-      f.puts lines[1]
-      f.puts renderer.result()
-      f.puts lines[2, lines.size - 2]
+    keys = Array.new
+    if table_def["parent"] != nil
+      keys << keyword(table_def["parent"]) + "_id"
     end
+    keys += fields.keys
+
+    @keys_str = keys.map {|k| ':' + keyword(k)}.join(", ")
+    @ipaddr_keys = fields.select {|k, v| v["type"] == "ipv4" || v["type"] == "ipv6"}
+
+    renderer = ERB.new(template, nil, '<>')
+    f.puts renderer.result()
   end
 end  
 
