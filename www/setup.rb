@@ -252,7 +252,7 @@ end
 def rails_modify_controller(table_name, table_def, table_keys)
   controller_name = keyword_plural(table_name)
   controller = "app/controllers/#{controller_name}_controller.rb"
-  template = File.read("../_controller.erb")
+  template = File.read("../controller.erb")
 
   File.open(controller, "w") do |f|
     @controller_name = keyword_plural(table_name)
