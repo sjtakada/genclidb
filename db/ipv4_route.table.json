@@ -1,0 +1,19 @@
+{
+  "table": {
+    "ipv4-route": {
+      "singular": false,
+      "children": [
+        "ipv4-nexthop"
+      ],
+      "keys": {
+        "address": {
+          "type": "ipv4"
+        },
+        "masklen": {
+          "type": "integer",
+          "range": [0, 32]
+        }
+      }
+    }
+  }
+}

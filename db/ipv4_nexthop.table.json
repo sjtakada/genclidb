@@ -1,0 +1,22 @@
+{
+  "table": {
+    "ipv4-nexthop": {
+      "singular": false,
+      "parent": "ipv4-route",
+      "keys": {
+        "nexthop-ip": {
+          "type": "ipv4"
+        },
+        "nexthop-if": {
+          "type": "string"
+        }
+      },
+      "attributes": {
+        "distance": {
+          "type": "integer",
+          "range": [1, 255]
+        }
+      }
+    }
+  }
+}

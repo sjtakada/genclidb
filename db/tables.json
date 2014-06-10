@@ -5,6 +5,7 @@
     "bgp",
     "rip",
     "ripng",
-    "acl-ipv4-std"
+    "acl-ipv4-std",
+    "ipv4-route"
   ]
 }
