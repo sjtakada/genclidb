@@ -413,6 +413,86 @@ CliReadline::gets()
   return buf_;
 }
 
+void
+CliReadline::handle_actions(CliNodeTokenVector& node_token_vec)
+{
+  ParamsMap input;
+  map<string, bool> keywords;
+
+  // Populate mode params first.
+  for (ParamsMap::iterator it = cli_->params_.begin();
+       it != cli_->params_.end(); ++it)
+    input[it->first] = it->second;
+
+  //
+  for (CliNodeTokenVector::iterator it = node_token_vec.begin();
+       it != node_token_vec.end(); ++it)
+    {
+      CliNode *node = it->first;
+
+      if (cli_->is_debug())
+        cout << "token: " << node->cli_token() << " "
+             << "input: " << *it->second << endl;
+
+      if (node->type_ == CliTree::keyword)
+        {
+          keywords[node->def_token()] = true;
+          CliNodeKeyword *knode = (CliNodeKeyword *)node;
+          if (!knode->enum_key().empty())
+            input[knode->enum_key()] = knode->cli_token();
+        }
+      else
+        {
+          input[node->def_token()] = node->format_param(*it->second);
+        }
+    }
+
+  // Command matched last node.
+  CliNode *node = node_token_vec.back().first;
+
+  // Pre-process parameter binding.
+  for (CondBindPairVector::iterator it = node->bind_.begin();
+       it != node->bind_.end(); ++it)
+    {
+      const char *cond = it->first.c_str();
+
+      // Always bind if it is TRUE.
+      if (cond[0] == '\0')
+        utils_.bind_interpreter(it->second, input);
+      // If the parameter is NOT present.
+      else if (cond[0] == '!')
+        {
+          ParamsMap::iterator is = input.find(&cond[1]);
+          if (is == input.end())
+            utils_.bind_interpreter(it->second, input);
+        }
+      // If the parameter is present.
+      else
+        {
+          ParamsMap::iterator is = input.find(cond);
+          if (is != input.end())
+            utils_.bind_interpreter(it->second, input);
+        }
+    }
+
+  // Dump all inputs.
+  if (cli_->is_debug())
+    for (ParamsMap::iterator it = input.begin();
+         it != input.end(); ++it)
+      cout << "input[" << it->first << "] = " << it->second << endl;
+
+  // Dispatch action to appropriate handler.
+  for (CliActionVector::iterator it = node->actions_.begin();
+       it != node->actions_.end(); ++it)
+    {
+      string cond = it->first;
+      CliAction *action = it->second;
+
+      // This is default action.
+      if (cond == "*")
+        action->handle(cli_, input);
+    }
+}
 
 bool
 CliReadline::execute()
@@ -420,8 +500,6 @@ CliReadline::execute()
   // current mode.
   CliTree *tree = cli_->current_mode();
   CliNodeTokenVector node_token_vec;
-  ParamsMap input;
-  map<string, bool> keywords;
   string line(" ");
   boost::smatch m;
 
@@ -435,81 +513,7 @@ CliReadline::execute()
       switch (result)
         {
         case exec_complete:
-          {
-            // Populate mode params first.
-            for (ParamsMap::iterator it = cli_->params_.begin();
-                 it != cli_->params_.end(); ++it)
-              input[it->first] = it->second;
-
-            //
-            for (CliNodeTokenVector::iterator it = node_token_vec.begin();
-                 it != node_token_vec.end(); ++it)
-              {
-                CliNode *node = it->first;
-
-                if (cli_->is_debug())
-                  cout << "token: " << node->cli_token() << " "
-                       << "input: " << *it->second << endl;
-
-                if (node->type_ == CliTree::keyword)
-                  {
-                    keywords[node->def_token()] = true;
-                    CliNodeKeyword *knode = (CliNodeKeyword *)node;
-                    if (!knode->enum_key().empty())
-                      input[knode->enum_key()] = knode->cli_token();
-                  }
-                else
-                  {
-                    input[node->def_token()] = node->format_param(*it->second);
-                  }
-              }
-
-            // Command matched last node.
-            CliNode *node = node_token_vec.back().first;
-
-            // Pre-process parameter binding.
-            for (CondBindPairVector::iterator it = node->bind_.begin();
-                 it != node->bind_.end(); ++it)
-              {
-                const char *cond = it->first.c_str();
-
-                // Always bind if it is TRUE.
-                if (cond[0] == '\0')
-                  utils_.bind_interpreter(it->second, input);
-                // If the parameter is NOT present.
-                else if (cond[0] == '!')
-                  {
-                    ParamsMap::iterator is = input.find(&cond[1]);
-                    if (is == input.end())
-                      utils_.bind_interpreter(it->second, input);
-                  }
-                // If the parameter is present.
-                else
-                  {
-                    ParamsMap::iterator is = input.find(cond);
-                    if (is != input.end())
-                      utils_.bind_interpreter(it->second, input);
-                  }
-              }
-
-            // Dump all inputs.
-            if (cli_->is_debug())
-              for (ParamsMap::iterator it = input.begin();
-                   it != input.end(); ++it)
-                cout << "input[" << it->first << "] = " << it->second << endl;
-
-            // Dispatch action to appropriate handler.
-            for (CliActionVector::iterator it = node->actions_.begin();
-                 it != node->actions_.end(); ++it)
-              {
-                string cond = it->first;
-                CliAction *action = it->second;
-
-                // This is default action.
-                if (cond == "*")
-                  action->handle(cli_, input);
-              }
-          }
+          handle_actions(node_token_vec);
           break;
         case exec_incomplete:
           cout << "% Incomplete command" << endl << endl;

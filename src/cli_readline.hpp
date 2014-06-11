@@ -87,6 +87,7 @@ private:
   enum ExecResult parse_execute(string& line, CliNode *curr,
                                  CliNodeTokenVector& node_token_vec);
   void describe_line(CliNode *node, size_t max_len_token);
+  void handle_actions(CliNodeTokenVector& node_token_vec);
 };
 
 #endif /* _CLI_READLINE_HPP_ */
