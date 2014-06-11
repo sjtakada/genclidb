@@ -230,240 +230,237 @@ CliReadline::describe_line(CliNode *node, size_t max_len_token)
       const char *s = help.c_str();
       const char *p = s + max_len_help;
 
-       while (*p != ' ' && p != s)
-         p--;
+      while (*p != ' ' && p != s)
+        p--;
 
-       if (p == s)
-         break;
+      if (p == s)
+        break;
 
-       size_t length = (size_t)(p - s);
-       substr = help.substr(0, length);
+      size_t length = (size_t)(p - s);
+      substr = help.substr(0, length);
 
-       cout << "  " << left << setw(max_len_token + 2)
-            << cli_token << substr << endl;
+      cout << "  " << left << setw(max_len_token + 2)
+           << cli_token << substr << endl;
 
-       help = help.substr(length + 1);
+      help = help.substr(length + 1);
 
-       cli_token = " ";
-     }
+      cli_token = " ";
+    }
 
-   cout << "  " << left << setw(max_len_token + 2)
-        << cli_token << help << endl;
- }
+  cout << "  " << left << setw(max_len_token + 2)
+       << cli_token << help << endl;
+}
 
- int
- CliReadline::describe()
- {
-   // current mode.
-   CliTree *tree = cli_->current_mode();
-   CliNode *candidate;
-   CliNodeMatchStateVector matched_vec;
-   string line(" ");
-   bool is_cmd = false;
+int
+CliReadline::describe()
+{
+  // current mode.
+  CliTree *tree = cli_->current_mode();
+  CliNode *candidate;
+  CliNodeMatchStateVector matched_vec;
+  string line(" ");
+  bool is_cmd = false;
 
-   line += rl_line_buffer;
+  line += rl_line_buffer;
 
-   cout << "?" << endl;
+  cout << "?" << endl;
 
-   is_cmd = parse(line, tree->top_, matched_vec);
-   if (!is_cmd && matched_vec.size() == 0)
-     {
-       cout << "% Unrecognized command" << endl << endl;
-     }
-   else
-     {
-       size_t max_len = 0;
-       for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
-            it != matched_vec.end(); ++it)
-         {
-           candidate = it->first;
-           size_t len = candidate->cli_token().size();
-           if (max_len < len)
-             max_len = len;
-         }
+  is_cmd = parse(line, tree->top_, matched_vec);
+  if (!is_cmd && matched_vec.size() == 0)
+    {
+      cout << "% Unrecognized command" << endl << endl;
+    }
+  else
+    {
+      size_t max_len = 0;
+      for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
+           it != matched_vec.end(); ++it)
+        {
+          candidate = it->first;
+          size_t len = candidate->cli_token().size();
+          if (max_len < len)
+            max_len = len;
+        }
 
-       for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
-            it != matched_vec.end(); ++it)
-         describe_line(it->first, max_len);
+      for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
+           it != matched_vec.end(); ++it)
+        describe_line(it->first, max_len);
 
-       if (is_cmd)
-         cout << "  <cr>" << endl;
-     }
+      if (is_cmd)
+        cout << "  <cr>" << endl;
+    }
 
-   cout << cli_->prompt();
-   cout << rl_line_buffer;
+  cout << cli_->prompt();
+  cout << rl_line_buffer;
 
-   return 0;
- }
+  return 0;
+}
 
- int
- readline_describe(int, int)
- {
-   return Cli::readline().describe();
- }
+int
+readline_describe(int, int)
+{
+  return Cli::readline().describe();
+}
 
- static char *
- readline_completion_dummy(const char *, int)
- {
-   return NULL;
- }
+static char *
+readline_completion_dummy(const char *, int)
+{
+  return NULL;
+}
 
- char *
- CliReadline::completion_matches(const char *text, int state)
- {
-   CliTree *tree = cli_->current_mode();
-   CliNodeMatchStateVector matched_vec;
-   string line(" ");
-   bool is_cmd = false;
+char *
+CliReadline::completion_matches(const char *text, int state)
+{
+  CliTree *tree = cli_->current_mode();
+  CliNodeMatchStateVector matched_vec;
+  string line(" ");
+  bool is_cmd = false;
 
-   line += rl_line_buffer;
+  line += rl_line_buffer;
 
-   // No input. 
-   if (rl_end == 0)
-     {
-       cout << endl << endl;
-       cout << cli_->prompt();
-       return NULL;
-     }
+  // No input. 
+  if (rl_end == 0)
+    {
+      cout << endl << endl;
+      cout << cli_->prompt();
+      return NULL;
+    }
 
-   if (state == 0)
-     {
-       matched_strvec_ = NULL;
-       matched_index_ = 0;
+  if (state == 0)
+    {
+      matched_strvec_ = NULL;
+      matched_index_ = 0;
 
-       is_cmd = parse(line, tree->top_, matched_vec);
-       if (matched_vec.size() == 0)
-         {
-           cout << endl;
-           if (!is_cmd)
-             cout << "% Unrecognized command" << endl << endl;
-           cout << cli_->prompt();
-           cout << rl_line_buffer;
-         }
-       else
-         {
-           int i = 0;
+      is_cmd = parse(line, tree->top_, matched_vec);
+      if (matched_vec.size() == 0)
+        {
+          cout << endl;
+          if (!is_cmd)
+            cout << "% Unrecognized command" << endl << endl;
+          cout << cli_->prompt();
+          cout << rl_line_buffer;
+        }
+      else
+        {
+          int i = 0;
 
-           matched_strvec_ =
-             (char **)calloc(matched_vec.size() + 1, sizeof(char *));
+          matched_strvec_ =
+            (char **)calloc(matched_vec.size() + 1, sizeof(char *));
 
-           for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
-                it != matched_vec.end(); ++it)
-             {
-               CliNode *node = it->first;
-               if (node->type_ == CliTree::keyword)
-                 matched_strvec_[i++] = strdup(node->cli_token().c_str());
-             }
-         }
-     }
+          for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
+               it != matched_vec.end(); ++it)
+            {
+              CliNode *node = it->first;
+              if (node->type_ == CliTree::keyword)
+                matched_strvec_[i++] = strdup(node->cli_token().c_str());
+            }
+        }
+    }
 
-   if (matched_strvec_ && matched_strvec_[matched_index_])
-     return matched_strvec_[matched_index_++];
+  if (matched_strvec_ && matched_strvec_[matched_index_])
+    return matched_strvec_[matched_index_++];
 
-   return NULL;
- }
+  return NULL;
+}
 
- char *
- readline_completion_matches(const char *text, int state)
- {
-   return Cli::readline().completion_matches(text, state);
- }
+char *
+readline_completion_matches(const char *text, int state)
+{
+  return Cli::readline().completion_matches(text, state);
+}
 
- char **
- CliReadline::completion(const char *text, int start, int end)
- {
-   return rl_completion_matches(text, readline_completion_matches);
- }
+char **
+CliReadline::completion(const char *text, int start, int end)
+{
+  return rl_completion_matches(text, readline_completion_matches);
+}
 
- char **
- readline_completion(const char *text, int start, int end)
- {
-   return Cli::readline().completion(text, start, end);
- }
+char **
+readline_completion(const char *text, int start, int end)
+{
+  return Cli::readline().completion(text, start, end);
+}
 
- void
- CliReadline::init(Cli *cli)
- {
-   cli_ = cli;
-   utils_.init();
+void
+CliReadline::init(Cli *cli)
+{
+  cli_ = cli;
+  utils_.init();
 
-   rl_bind_key('?', readline_describe);
-   rl_completion_entry_function = readline_completion_dummy;
-   rl_attempted_completion_function = readline_completion;
-   rl_completion_append_character = '\0';
- }
+  rl_bind_key('?', readline_describe);
+  rl_completion_entry_function = readline_completion_dummy;
+  rl_attempted_completion_function = readline_completion;
+  rl_completion_append_character = '\0';
+}
 
- char *
- CliReadline::gets()
- {
-   // Clear readline read buffer first.
-   if (buf_)
-     {
-       free(buf_);
-       buf_ = NULL;
-     }
+char *
+CliReadline::gets()
+{
+  // Clear readline read buffer first.
+  if (buf_)
+    {
+      free(buf_);
+      buf_ = NULL;
+    }
 
-   // Read a line.
-   buf_ = readline(cli_->prompt());
+  // Read a line.
+  buf_ = readline(cli_->prompt());
 
-   // Add history.
-   if (buf_ && buf_[0] != '\0')
-     add_history(buf_);
+  // Add history.
+  if (buf_ && buf_[0] != '\0')
+    add_history(buf_);
 
-   return buf_;
- }
+  return buf_;
+}
 
 
- bool
- CliReadline::execute()
- {
-   // current mode.
-   CliTree *tree = cli_->current_mode();
-   CliNodeTokenVector node_token_vec;
-   ParamsMap input;
-   map<string, bool> keywords;
-   string line(" ");
-   boost::smatch m;
+bool
+CliReadline::execute()
+{
+  // current mode.
+  CliTree *tree = cli_->current_mode();
+  CliNodeTokenVector node_token_vec;
+  ParamsMap input;
+  map<string, bool> keywords;
+  string line(" ");
+  boost::smatch m;
 
-   line += rl_line_buffer;
+  line += rl_line_buffer;
 
-   if (!boost::regex_search(line, m, re_white_space_only))
-     {
-       enum ExecResult
-         result = parse_execute(line, tree->top_, node_token_vec);
+  if (!boost::regex_search(line, m, re_white_space_only))
+    {
+      enum ExecResult
+        result = parse_execute(line, tree->top_, node_token_vec);
 
-       switch (result)
-         {
-         case exec_complete:
-           {
-             // Populate mode params first.
-             for (ParamsMap::iterator it = cli_->params_.begin();
-                  it != cli_->params_.end(); ++it)
-               input[it->first] = it->second;
+      switch (result)
+        {
+        case exec_complete:
+          {
+            // Populate mode params first.
+            for (ParamsMap::iterator it = cli_->params_.begin();
+                 it != cli_->params_.end(); ++it)
+              input[it->first] = it->second;
 
-             //
-             for (CliNodeTokenVector::iterator it = node_token_vec.begin();
-                  it != node_token_vec.end(); ++it)
-               {
-                 CliNode *node = it->first;
+            //
+            for (CliNodeTokenVector::iterator it = node_token_vec.begin();
+                 it != node_token_vec.end(); ++it)
+              {
+                CliNode *node = it->first;
 
-                 if (cli_->is_debug())
-                   cout << "token: " << node->cli_token() << " "
-                        << "input: " << *it->second << endl;
+                if (cli_->is_debug())
+                  cout << "token: " << node->cli_token() << " "
+                       << "input: " << *it->second << endl;
 
-                 if (node->type_ == CliTree::keyword)
-                   {
-                     keywords[node->def_token()] = true;
-                     CliNodeKeyword *knode = (CliNodeKeyword *)node;
-                     if (!knode->enum_key().empty())
-                       input[knode->enum_key()] = knode->cli_token();
+                if (node->type_ == CliTree::keyword)
+                  {
+                    keywords[node->def_token()] = true;
+                    CliNodeKeyword *knode = (CliNodeKeyword *)node;
+                    if (!knode->enum_key().empty())
+                      input[knode->enum_key()] = knode->cli_token();
                   }
                 else
                   {
                     input[node->def_token()] = node->format_param(*it->second);
-//                    if (cli_->is_debug())
-//                      cout << "params[" << node->def_token() 
-//                           << "] = " << *it->second << endl;
                   }
               }
 
