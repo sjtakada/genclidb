@@ -458,6 +458,9 @@ CliNodeIPv4Prefix::cli_match(string& input)
           val = (int)(*p - '0');
           break;
         case state_digit:
+          if (!isdigit((int)*p) && *p != '.' && *p != '/')
+            return make_pair(match_failure, match_none);
+
           if (*p == '.')
             {
               state = state_dot;
@@ -532,13 +535,16 @@ CliNodeIPv4Address::cli_match(string& input)
         {
         case state_init:
           if (!isdigit((int)*p))
-            return make_pair(match_failure, match_none);;
+            return make_pair(match_failure, match_none);
 
           state = state_digit;
           octets++;
           val = (int)(*p - '0');
           break;
         case state_digit:
+          if (!isdigit((int)*p) && *p != '.')
+            return make_pair(match_failure, match_none);
+
           if (*p == '.')
             {
               state = state_dot;
