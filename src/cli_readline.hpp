@@ -82,8 +82,8 @@ private:
   void filter_matched(CliNodeMatchStateVector& matched_vec, MatchFlag limit);
   size_t match_token(string& input, CliNode *node,
                      CliNodeMatchStateVector& matched_vec);
-  bool parse(string& line, CliNode *curr,
-             CliNodeMatchStateVector& matched_vec);
+  enum ExecResult parse(string& line, CliNode *curr,
+                        CliNodeMatchStateVector& matched_vec, bool& is_cmd);
   enum ExecResult parse_execute(string& line, CliNode *curr,
                                  CliNodeTokenVector& node_token_vec);
   void describe_line(CliNode *node, size_t max_len_token);

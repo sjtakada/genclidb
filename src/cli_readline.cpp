@@ -129,35 +129,50 @@ CliReadline::filter_matched(CliNodeMatchStateVector& matched_vec,
 }
 
 // Return true if command can be completed.
-bool
+enum ExecResult
 CliReadline::parse(string& line, CliNode *curr,
-                   CliNodeMatchStateVector& matched_vec)
+                   CliNodeMatchStateVector& matched_vec,
+                   bool& is_cmd)
 {
   boost::smatch m;
   string token;
 
-  matched_vec.clear();
-  if (!skip_spaces(line))
-    return curr->cmd_;
+  do {
+    matched_vec.clear();
+    if (!skip_spaces(line))
+      break;
 
-  fill_matched_vec(curr, matched_vec);
+    fill_matched_vec(curr, matched_vec);
 
-  if (!get_token(line, token))
-    return curr->cmd_;
+    if (!get_token(line, token))
+      break;
 
-  match_token(token, curr, matched_vec);
-  if (line.begin() != line.end())
-    {
-      filter_matched(matched_vec, match_partial);
+    match_token(token, curr, matched_vec);
+    if (line.begin() != line.end())
+      {
+        filter_matched(matched_vec, match_partial);
 
-      if (matched_vec.size() == 1)
-        return parse(line, matched_vec[0].first, matched_vec);
-    }
+        if (matched_vec.size() == 0)
+          return exec_unrecognized;
 
-  if (matched_vec.size() == 1)
-    curr = matched_vec[0].first;
+        if (matched_vec.size() > 1)
+          return exec_ambiguous;
 
-  return curr->cmd_;
+        return parse(line, matched_vec[0].first, matched_vec, is_cmd);
+      }
+
+    if (matched_vec.size() == 0)
+      return exec_unrecognized;
+
+    if (matched_vec.size() == 1)
+      curr = matched_vec[0].first;
+
+  } while (0);
+
+  if ((is_cmd = curr->cmd_))
+    return exec_complete;
+
+  return exec_incomplete;
 }
 
 enum ExecResult
@@ -260,16 +275,17 @@ CliReadline::describe()
   CliNodeMatchStateVector matched_vec;
   string line(" ");
   bool is_cmd = false;
+  enum ExecResult result = exec_complete;
 
   line += rl_line_buffer;
 
   cout << "?" << endl;
 
-  is_cmd = parse(line, tree->top_, matched_vec);
-  if (!is_cmd && matched_vec.size() == 0)
-    {
-      cout << "% Unrecognized command" << endl << endl;
-    }
+  result = parse(line, tree->top_, matched_vec, is_cmd);
+  if (result == exec_ambiguous)
+    cout << "% Ambigouos command" << endl << endl;
+  else if (result == exec_unrecognized)
+    cout << "% Unrecognized command" << endl << endl;
   else
     {
       size_t max_len = 0;
@@ -315,6 +331,7 @@ CliReadline::completion_matches(const char *text, int state)
   CliNodeMatchStateVector matched_vec;
   string line(" ");
   bool is_cmd = false;
+  enum ExecResult result = exec_complete;
 
   line += rl_line_buffer;
 
@@ -331,12 +348,19 @@ CliReadline::completion_matches(const char *text, int state)
       matched_strvec_ = NULL;
       matched_index_ = 0;
 
-      is_cmd = parse(line, tree->top_, matched_vec);
-      if (matched_vec.size() == 0)
+      result = parse(line, tree->top_, matched_vec, is_cmd);
+      if (result == exec_unrecognized)
         {
           cout << endl;
           if (!is_cmd)
             cout << "% Unrecognized command" << endl << endl;
+          cout << cli_->prompt();
+          cout << rl_line_buffer;
+        }
+      else if (result == exec_ambiguous)
+        {
+          cout << endl;
+          cout << "% Ambiguous command" << endl << endl;
           cout << cli_->prompt();
           cout << rl_line_buffer;
         }
