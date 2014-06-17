@@ -5,6 +5,7 @@
       "children": [
         "ipv4-nexthop"
       ],
+      "order": "address, masklen",
       "keys": {
         "address": {
           "type": "ipv4"

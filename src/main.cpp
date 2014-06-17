@@ -21,16 +21,84 @@
 // 
 
 #include <iostream>
+#include <getopt.h>
+#include <string.h>
 #include "cli.hpp"
+
+#define CLI_VERSION "1.0"
+
+static char copyright[] = "Copyright 2014 Toshiaki Takada";
+
+struct option longopts[] =
+{
+  { "debug",    no_argument,            NULL, 'd'},
+  { "help",     no_argument,            NULL, 'h'},
+  { "version",  no_argument,            NULL, 'v'},
+  { 0 }
+};
+
+static void
+print_help(char *progname)
+{
+  cout << "Usage: " << progname << " [OPTION...]" << endl << endl;
+  cout << "-d, --debug     Runs in debug mode" << endl;
+  cout << "-h, --help      Display this help and exit" << endl;
+  cout << "-v, --version   Print program version" << endl;
+  cout << endl;
+
+  exit(0);
+}
+
+static void
+print_version(char *progname)
+{
+  cout << progname << " version " << CLI_VERSION << endl;
+  cout << copyright << endl;
+  cout << endl;
+
+  exit(0);
+}
 
 int
 main(int argc, char **argv)
 {
-  Cli *cli = Cli::instance();
+  Cli *cli;
+  char *progname;
+  char *p;
+  bool debug = false;
+
+  progname = ((p = strrchr(argv[0], '/')) ? ++p : argv[0]);
 
   // Command line options
+  while (1)
+    {
+      int opt;
+
+      opt = getopt_long(argc, argv, "dhv", longopts, 0);
+      if (opt == EOF)
+        break;
+
+      switch (opt)
+        {
+        case 0:
+          break;
+        case 'd':
+          debug = true;
+          break;
+        case 'h':
+          print_help(progname);
+          break;
+        case 'v':
+          print_version(progname);
+          break;
+        default:
+          break;
+        }
+    }
 
   // Create Cli instance.
+  cli = Cli::instance();
+  cli->set_debug(debug);
   cli->init();
   cli->loop();
 
