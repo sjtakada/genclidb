@@ -31,7 +31,7 @@ using namespace std;
 #include "cli_tree.hpp"
 #include "cli_builtins.hpp"
 
-
+typedef map<string, cli_builtin_func> BuiltinFuncMap;
 
 class Cli
 {
@@ -42,14 +42,20 @@ public:
   void set_debug(bool debug) { debug_ = debug; }
   bool is_debug() { return debug_; }
 
+  void set_cli_mode_file(char *file) { cli_mode_file_ = file; }
+  string& cli_mode_file() { return cli_mode_file_; }
+
+  void set_cli_json_dir(char *dir) { cli_json_dir_ = dir; }
+  string& cli_json_dir() { return cli_json_dir_; }
+
   void terminal_init();
-  void init();
+  bool init();
   void loop();
   int json_read(char *filename, Json::Value& root);
 
   void load_cli_json(char *filename);
   bool load_cli_json_all(char *dirname);
-  void mode_read(char *filename);
+  int mode_read(char *filename);
   CliTree *mode_traverse(Json::Value& current, CliTree *parent);
   bool mode_set(string& mode_str);
   bool mode_up(unsigned int up);
@@ -61,14 +67,16 @@ public:
   // Terminal width, height.
   struct winsize ws_;
 
-  map<string, cli_builtin_func> built_in_;
+  // Built-in function map.
+  BuiltinFuncMap built_in_;
 
   // Mode parameters.
   ParamsMap params_;
 
 private:
   // For singleton instance.
-  Cli() : debug_(true), exit_(false), mode_(NULL), hostname_("Router") { }
+  Cli() : debug_(true), exit_(false), cli_mode_file_("cli_mode.json"),
+          cli_json_dir_("."), mode_(NULL), hostname_("Router") { }
   Cli(Cli const&) { }
 
   // Singleton instance.
@@ -76,13 +84,18 @@ private:
 
   // Debug mode.
   bool debug_;
+
+  // Exit flag.
   bool exit_;
+
+  // CLI mode file.
+  string cli_mode_file_;
+
+  // CLI JSON directory.
+  string cli_json_dir_;
 
   // Current mode.
   CliTree *mode_;
-
-  // Current path.
-  //  StringVector paths_;
 
   // Readline parser.
   CliReadline rl_;

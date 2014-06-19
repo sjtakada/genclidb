@@ -79,23 +79,25 @@ Cli::terminal_init()
   ioctl(0, TIOCGWINSZ, &ws_);
 }
 
-void
+bool
 Cli::init()
 {
-  // signal init
+  // Signal init
   signal_init();
 
   // Terminal init.
   terminal_init();
 
   // CLI mode init.
-  mode_read((char *)"../cli.json/quagga.cli_mode.json");
+  //  mode_read((char *)"../cli.json/quagga.cli_mode.json");
+  if (!mode_read((char *)cli_mode_file().c_str()))
+    return false;
 
   // Built-in functions init.
   cli_builtins_init(this);
 
   // Read CLI definitions.
-  load_cli_json_all((char *)"../cli.json");
+  load_cli_json_all((char *)cli_json_dir().c_str());
 
   // Sort CLI trees.
   for (ModeTreeMap::iterator it = tree_.begin(); it != tree_.end(); ++it)
@@ -109,6 +111,8 @@ Cli::init()
   rl_.init(this);
 
   // banner
+
+  return true;
 }
 
 void
@@ -164,9 +168,22 @@ int
 Cli::json_read(char *filename, Json::Value& root)
 {
   Json::Reader reader;
-  ifstream f(filename);
+  ifstream f;
   string str;
   bool ret;
+
+  f.exceptions(std::ifstream::failbit);
+  try
+    {
+      f.open(filename);
+    }
+  catch (std::ifstream::failure e)
+    {
+      if (is_debug())
+        cout << "File cannot open: " << filename << endl;
+
+      return 0;
+    }
 
   f.seekg(0, ios::end);
   str.reserve(f.tellg());
@@ -177,7 +194,7 @@ Cli::json_read(char *filename, Json::Value& root)
 
   ret = reader.parse(str, root);
   if (!ret)
-    cout << "Failed to read CLI JSON file: " << filename << endl;
+    cout << "Failed to parse JSON file: " << filename << endl;
 
   return ret;
 }
@@ -237,7 +254,8 @@ Cli::load_cli_json_all(char *dirname)
             file += "/";
             file += entry.d_name;
 
-            cout << "Loading CLI JSON " << file << endl; // debug
+            if (is_debug())
+              cout << "Loading CLI JSON " << file << endl; // debug
             load_cli_json((char *)file.c_str());
           }
     }
@@ -336,13 +354,17 @@ Cli::mode_up(unsigned int up)
   return false;
 }
 
-void
+int
 Cli::mode_read(char *filename)
 {
   Json::Value root;
+  int ret;
 
-  json_read(filename, root);
-  mode_ = mode_traverse(root, NULL);
+  ret = json_read(filename, root);
+  if (ret)
+    mode_ = mode_traverse(root, NULL);
+
+  return ret;
 }
 
 const char *

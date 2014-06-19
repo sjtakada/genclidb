@@ -31,9 +31,11 @@ static char copyright[] = "Copyright 2014 Toshiaki Takada";
 
 struct option longopts[] =
 {
-  { "debug",    no_argument,            NULL, 'd'},
-  { "help",     no_argument,            NULL, 'h'},
-  { "version",  no_argument,            NULL, 'v'},
+  { "cli_mode", required_argument, NULL, 'm'},
+  { "cli_json", required_argument, NULL, 'j'},
+  { "debug",    no_argument,       NULL, 'd'},
+  { "help",     no_argument,       NULL, 'h'},
+  { "version",  no_argument,       NULL, 'v'},
   { 0 }
 };
 
@@ -41,6 +43,8 @@ static void
 print_help(char *progname)
 {
   cout << "Usage: " << progname << " [OPTION...]" << endl << endl;
+  cout << "-m, --cli-mode  Set CLI mode file" << endl;
+  cout << "-j, --cli-json Set CLI JSON directory" << endl;
   cout << "-d, --debug     Runs in debug mode" << endl;
   cout << "-h, --help      Display this help and exit" << endl;
   cout << "-v, --version   Print program version" << endl;
@@ -66,6 +70,8 @@ main(int argc, char **argv)
   char *progname;
   char *p;
   bool debug = false;
+  char *cli_mode = NULL;
+  char *cli_json = NULL;
 
   progname = ((p = strrchr(argv[0], '/')) ? ++p : argv[0]);
 
@@ -74,13 +80,19 @@ main(int argc, char **argv)
     {
       int opt;
 
-      opt = getopt_long(argc, argv, "dhv", longopts, 0);
+      opt = getopt_long(argc, argv, "m:j:dhv", longopts, 0);
       if (opt == EOF)
         break;
 
       switch (opt)
         {
         case 0:
+          break;
+        case 'm':
+          cli_mode = optarg;
+          break;
+        case 'j':
+          cli_json = optarg;
           break;
         case 'd':
           debug = true;
@@ -99,8 +111,19 @@ main(int argc, char **argv)
   // Create Cli instance.
   cli = Cli::instance();
   cli->set_debug(debug);
-  cli->init();
-  cli->loop();
+  if (cli_mode)
+    cli->set_cli_mode_file(cli_mode);
+  if (cli_json)
+    cli->set_cli_json_dir(cli_json);
+
+  // Init CLI.
+  if (!cli->init())
+    {
+      cout << "CLI Init failure" << endl;
+      return 1;
+    }
+
+    cli->loop();
 
   return 0;
 }
