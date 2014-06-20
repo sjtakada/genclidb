@@ -515,6 +515,12 @@ CliReadline::handle_actions(CliNodeTokenVector& node_token_vec)
       // This is default action.
       if (cond == "*")
         action->handle(cli_, input);
+      else
+        {
+          ParamsMap::iterator is = input.find(cond);
+          if (is != input.end())
+            action->handle(cli_, input);
+        }
     }
 }
 

@@ -48,12 +48,21 @@ cli_exit(Cli *cli, StringVector& vec)
   return 1;
 }
 
+int
+cli_debug(Cli *cli, StringVector& vec)
+{
+  cout << "DEBUG" << endl;
+
+  return 1;
+}
+
 void
 cli_builtins_init(Cli *cli)
 {
   cli->built_in_["debug-cli-set"] = cli_builtins_debug_cli_set;
   cli->built_in_["debug-cli-unset"] = cli_builtins_debug_cli_unset;
   cli->built_in_["cli-exit"] = cli_exit;
+  cli->built_in_["cli-debug"] = cli_debug;
 }
 
 void
