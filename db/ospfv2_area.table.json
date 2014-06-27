@@ -1,8 +1,10 @@
 {
   "table": {
     "ospfv2-area": {
-      "singular": false,
-      "parent": "ospfv2",
+      "type": "slave",
+      "belongs-to": {
+        "ospfv2": null
+      },
       "keys": {
         "area-id": {
           "type": "integer",

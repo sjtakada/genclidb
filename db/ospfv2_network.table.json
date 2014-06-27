@@ -1,8 +1,10 @@
 {
   "table": {
     "ospfv2-network": {
-      "singular": false,
-      "parent": "ospfv2",
+      "type": "slave",
+      "belongs-to": {
+        "ospfv2": null
+      },
       "order": "address, masklen DESC",
       "keys": {
         "address": {

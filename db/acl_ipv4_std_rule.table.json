@@ -1,8 +1,10 @@
 {
   "table": {
     "acl-ipv4-std-rule": {
-      "singular": false,
-      "parent": "acl-ipv4-std",
+      "type": "slave",
+      "belongs-to": {
+        "acl-ipv4-std": null
+      },
       "keys": {
         "rule-type": {
           "type": "enum",

@@ -1,0 +1,19 @@
+{
+  "table": {
+    "ipv4-route-nexthop": {
+      "type": "association",
+      "belongs-to": {
+        "ipv4-route": null,
+        "ipv4-reachable": {
+          "polymorphic": true
+        }
+      },
+      "attributes": {
+        "distance": {
+          "type": "integer",
+          "range": [1, 255]
+        }
+      }
+    }
+  }
+}

@@ -505,21 +505,29 @@ CliReadline::handle_actions(CliNodeTokenVector& node_token_vec)
          it != input.end(); ++it)
       cout << "input[" << it->first << "] = " << it->second << endl;
 
-  // Dispatch action to appropriate handler.
-  for (CliActionVector::iterator it = node->actions_.begin();
-       it != node->actions_.end(); ++it)
+  if (node->actions_.size() == 0)
     {
-      string cond = it->first;
-      CliAction *action = it->second;
-
-      // This is default action.
-      if (cond == "*")
-        action->handle(cli_, input);
-      else
+      if (cli_->is_debug())
+        cout << "No action defined" << endl;
+    }
+  else
+    {
+      // Dispatch action to appropriate handler.
+      for (CliActionVector::iterator it = node->actions_.begin();
+           it != node->actions_.end(); ++it)
         {
-          ParamsMap::iterator is = input.find(cond);
-          if (is != input.end())
+          string cond = it->first;
+          CliAction *action = it->second;
+
+          // This is default action.
+          if (cond == "*")
             action->handle(cli_, input);
+          else
+            {
+              ParamsMap::iterator is = input.find(cond);
+              if (is != input.end())
+                action->handle(cli_, input);
+            }
         }
     }
 }

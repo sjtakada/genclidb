@@ -10,8 +10,59 @@
         "^[a-zA-Z0-9\-]+$": {
           "type": "object",
           "properties": {
-            "singular": {
-              "type": "boolean"
+            "type": {
+              "enum": ["master", "slave", "association"]
+            },
+            "has-one": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-z_A-Z0-9\-]+$": {
+                  "type": ["object", "null"],
+                  "properties": {
+                    "through": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "has-children": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "has-association": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-z_A-Z0-9\-]+$": {
+                  "type": ["object", "null"],
+                  "properties": {
+                    "through": {
+                      "type": "string"
+                    },
+                    "as": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "belongs-to": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-z_A-Z0-9\-]+$": {
+                  "type": ["object", "null"],
+                  "properties": {
+                    "polymorphic": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
             },
             "parent": {
               "type": "string"
@@ -33,11 +84,9 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "type": {
-                        "enum": [
-                          "string", "integer", "boolean", "ipv4", "ipv6"
-                        ]
-                      }
+                      "enum": [
+                        "string", "integer", "boolean", "ipv4", "ipv6", "enum"
+                      ]
                     },
                     "range": {
                       "type": "array",
@@ -51,6 +100,9 @@
                       "type": "boolean"
                     },
                     "default": {
+                    },
+                    "values": {
+                      "type": "array"
                     },
                     "desc": {
                       "type": "string"
@@ -67,12 +119,9 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "type": {
-                        "enum": [
-                          "string", "integer", "boolean", "ipv4", "ipv6",
-                          "enum"
-                        ]
-                      }
+                      "enum": [
+                        "string", "integer", "boolean", "ipv4", "ipv6", "enum"
+                      ]
                     },
                     "range": {
                       "type": "array",
@@ -104,5 +153,6 @@
       },
       "additionalProperties": false
     }
-  }
+  },
+  "additionalProperties": false
 }

@@ -1,10 +1,13 @@
 {
   "table": {
     "ipv4-route": {
-      "singular": false,
-      "children": [
-        "ipv4-nexthop"
-      ],
+      "type": "master",
+      "has-association": {
+        "ipv4-route-nexthop": null,
+        "ipv4-reachable": {
+          "through": "ipv4-route-nexthop"
+        }
+      },
       "order": "address, masklen",
       "keys": {
         "address": {

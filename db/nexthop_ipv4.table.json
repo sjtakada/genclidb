@@ -1,0 +1,20 @@
+{
+  "table": {
+    "nexthop-ipv4": {
+      "type": "master",
+      "has-association": {
+        "ipv4-route-nexthop": {
+          "as": "ipv4-reachable"
+        },
+        "ipv4-route": {
+          "through": "ipv4-route-nexthop"
+        }
+      },
+      "keys": {
+        "nexthop-ip": {
+          "type": "ipv4"
+        }
+      }
+    }
+  }
+}

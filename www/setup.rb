@@ -369,101 +369,145 @@ def rails_add_routes(table_name, table_keys)
   end
 end
 
-def rails_scaffolding(dir, name, parent_keys_def)
+def rails_get_table_def(file, name)
+  json = nil
+
+  if File.exists?(file)
+    str = File.read(file)
+    json = JSON.parse(str)
+    if json["table"] != nil
+      json = json["table"][name]
+    end
+  end
+
+  json
+end
+
+def rails_scaffolding(table2file, table_name, parent_keys_def)
   table_keys = Hash.new
   table_keys.merge!(parent_keys_def) if parent_keys_def != nil
 
-  f = dir + "/" + name + ".table.json"
-  if File.exists?(f)
-    str = File.read(f)
-    json = JSON.parse(str)
+  table_def = rails_get_table_def(table2file[table_name], table_name)
 
-    json["table"].each do |table_name, table_def|
-      children = table_def["children"]
+  if table_def != nil
+    children = table_def["has-childlen"]
 
-      fields = Array.new
+    fields = Array.new
 
-      # Association
-      if table_def["parent"] != nil
-        fields << keyword(table_def["parent"]) + "_id:integer"
+    # Association
+    if table_def["belongs-to"] != nil
+      table_def["belongs-to"].each do |k, obj|
+        fields << keyword(k) + "_id:integer"
       end
+    end
 
-      # Push keys
-      if table_def["keys"] != nil
-        table_keys.merge!(table_def["keys"])
-      end
+    # Push keys
+    if table_def["keys"] != nil
+      table_keys.merge!(table_def["keys"])
+    end
 
-      # Table keys
-      table_keys.each do |k, obj|
+    # Table keys
+    table_keys.each do |k, obj|
+      key = keyword(k)
+      fields << key + ":" + rails_data_type(obj)
+    end
+
+    # Other columns
+    if table_def["attributes"] != nil
+      table_def["attributes"].each do |k, obj|
         key = keyword(k)
         fields << key + ":" + rails_data_type(obj)
       end
+    end
 
-      # Other columns
-      if table_def["attributes"] != nil
-        table_def["attributes"].each do |k, obj|
-          key = keyword(k)
-          fields << key + ":" + rails_data_type(obj)
-        end
-      end
+    # We do scaffolding only if model doesn't exist.
+    # We should have better granularity.
+    model = "app/models/" + keyword(table_name) + ".rb"
+    if !File.exists?(model)
+      # Scaffolding
+      rails_cmd = "rails generate scaffold " +
+        keyword(table_name) + " " + fields.join(" ")
+      puts rails_cmd
+      system(rails_cmd)
 
-      # We do scaffolding only if model doesn't exist.
-      # We should have better granularity.
-      model = "app/models/" + keyword(table_name) + ".rb"
-      if !File.exists?(model)
-        # Scaffolding
-        rails_cmd = "rails generate scaffold " +
-          keyword(table_name) + " " + fields.join(" ")
-        puts rails_cmd
-        system(rails_cmd)
+      # Migration: generate index's
+      rails_db_add_index(table_name, table_def, table_keys)
 
-        # Migration: generate index's
-        rails_db_add_index(table_name, table_def, table_keys)
+      # Migration: set default value
+      rails_db_set_default(table_name, table_def)
 
-        # Migration: set default value
-        rails_db_set_default(table_name, table_def)
+      # Model: add association
+      rails_modify_model(table_name, table_def, table_keys)
 
-        # Model: add association
-        rails_modify_model(table_name, table_def, table_keys)
+      # Controller: add custom update/destroy methods
+      rails_modify_controller(table_name, table_def, table_keys)
 
-        # Controller: add custom update/destroy methods
-        rails_modify_controller(table_name, table_def, table_keys)
+      # Helper: add get_default
+      rails_modify_helper(table_name, table_def)
 
-        # Helper: add get_default
-        rails_modify_helper(table_name, table_def)
+      # View: generate cli.erb
+      rails_generate_view(table_name, table_def)
 
-        # View: generate cli.erb
-        rails_generate_view(table_name, table_def)
+      # Routes: add routes
+      rails_add_routes(table_name, table_keys)
 
-        # Routes: add routes
-        rails_add_routes(table_name, table_keys)
-
-        # Iterate children recursively
-        if children != nil
-          children.each do |c|
-            rails_scaffolding(dir, keyword(c), table_def["keys"])
-          end
+      # Iterate children recursively
+      if children != nil
+        children.each do |child|
+          rails_scaffolding(table2file, child, table_def["keys"])
         end
       end
     end
   end
 end
 
-def rails_get_parents(tables_json)
+def rails_get_parents(dir)
   parents = Array.new
+  associations = Array.new
+  table2file = Hash.new
 
-  if File.exists?(tables_json)
-    str = File.read(tables_json)
+  m = Dir.entries(dir).select {|f| f =~ /\.table\.json$/}
+  m.each do |f|
+    file = dir + "/" + f
+
+    str = File.read(file)
     json = JSON.parse(str)
 
-    if json["tables"] != nil
-      json["tables"].each do |p|
-        parents << p
+    if json["table"] != nil
+      json["table"].each do |t, obj|
+        if obj["type"] != nil
+          if obj["type"] == "master"
+            parents << t
+          elsif obj["type"] == "association"
+            associations << t
+          end
+        end
+
+        table2file[t] = file
       end
     end
   end
 
-  parents
+  puts "parents:"
+  parents.each do |p|
+    puts "- " + p
+  end
+
+  puts ""
+  puts "associations:"
+  associations.each do |a|
+    puts "- " + a
+  end
+
+  puts ""
+  puts "table2file:"
+  table2file.each do |t, f|
+    puts "- " + t + " => " + f
+  end
+
+  puts
+
+  [parents, associations, table2file]
 end
 
 def rails_update_mime_types
@@ -500,12 +544,12 @@ def main(rails_project, dir)
   end
   Dir.chdir(rails_project)
 
-  # Read tables.json to get list of parents.
-  parents = rails_get_parents(table_json_dir + "/tables.json")
+  # Read *.table.json to get list of parents, association and table2file.
+  parents, associations, table2file = rails_get_parents(table_json_dir)
 
   # Iterate from parents, and then iterate children recursively.
   parents.each do |p|
-    rails_scaffolding(table_json_dir, keyword(p), nil)
+    rails_scaffolding(table2file, p, nil)
   end
 
   # Update mime.types
