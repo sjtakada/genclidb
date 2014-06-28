@@ -1,6 +1,7 @@
 {
   "table": {
     "acl-ipv4-std": {
+      "type": "master",
       "has-children": [
         "acl-ipv4-std-rule"
       ],
@@ -8,6 +9,33 @@
         "number": {
           "type": "integer",
           "range": [1, 1999]
+        }
+      }
+    },
+    "acl-ipv4-std-rule": {
+      "type": "slave",
+      "belongs-to": {
+        "acl-ipv4-std": null
+      },
+      "keys": {
+        "rule-type": {
+          "type": "enum",
+          "values": ["rule", "remark"]
+        },
+        "address": {
+          "type": "ipv4"
+        },
+        "wildcard-bits": {
+          "type": "ipv4"
+        }
+      },
+      "attributes": {
+        "permit-deny": {
+          "type": "enum",
+          "values": ["permit", "deny"]
+        },
+        "remark": {
+          "type": "string"
         }
       }
     }

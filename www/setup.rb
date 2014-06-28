@@ -390,7 +390,7 @@ def rails_scaffolding(table2file, table_name, parent_keys_def)
   table_def = rails_get_table_def(table2file[table_name], table_name)
 
   if table_def != nil
-    children = table_def["has-childlen"]
+    children = table_def["has-children"]
 
     fields = Array.new
 
