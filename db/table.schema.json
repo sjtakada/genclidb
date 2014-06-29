@@ -51,28 +51,19 @@
               }
             },
             "belongs-to": {
-              "type": "object",
-              "patternProperties": {
-                "^[a-z_A-Z0-9\-]+$": {
-                  "type": ["object", "null"],
-                  "properties": {
-                    "polymorphic": {
-                      "type": "boolean"
-                    }
-                  },
-                  "additionalProperties": false
-                }
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "belongs-to-polymorphic": {
+              "type": "array",
+              "items": {
+                "type": "string"
               }
             },
             "parent": {
               "type": "string"
-            },
-            "children": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "minItems": 1
             },
             "order": {
               "type": "string"

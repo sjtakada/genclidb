@@ -71,7 +71,7 @@ def rails_data_type(obj)
   type
 end
 
-def rails_db_add_index(table_name, table_def, table_keys)
+def rails_db_add_index(table_name, table_def, index_keys)
   name = keyword_plural(table_name)
   migration = "add_index_to_" + name
 
@@ -92,10 +92,9 @@ def rails_db_add_index(table_name, table_def, table_keys)
         lines << line
       end
     end
-    
+
     # All index keys
-    keys = table_keys.keys
-    keys_str = keys.map {|k| '"' + keyword(k) + '"'}.join(", ")
+    keys_str = index_keys.map {|k| '"' + keyword(k) + '"'}.join(", ")
     index_name = name + "_index"
     File.open(migration_file, "w") do |f|
       f.puts lines[0]
@@ -186,11 +185,12 @@ def rails_modify_model(table_name, table_def, table_keys)
     @class_name = keyword_camel(table_name)
     @parent_name = nil
     @parent_class_name = nil
-    if table_def["parent"] != nil
-      @parent_name = keyword(table_def["parent"]);
+    if table_def["belongs-to"] != nil
+      # TODO: handle multiple parents?
+      @parent_name = keyword(table_def["belongs-to"][0]);
       @parent_class_name = keyword_camel(@parent_name)
     end
-    @children = table_def["children"]
+    @children = table_def["has-children"]
     @keys_def = table_def["keys"]
     @attrs_def = table_def["attributes"]
     @all_keys = table_keys.keys
@@ -274,8 +274,8 @@ def rails_modify_controller(table_name, table_def, table_keys)
     end
 
     keys = Array.new
-    if table_def["parent"] != nil
-      keys << keyword(table_def["parent"]) + "_id"
+    if table_def["belongs-to"] != nil
+      keys << keyword(table_def["belongs-to"][0]) + "_id"
     end
     keys += fields.keys
 
@@ -383,7 +383,7 @@ def rails_get_table_def(file, name)
   json
 end
 
-def rails_scaffolding(table2file, table_name, parent_keys_def)
+def rails_add_tables(table2file, table_name, parent_keys_def)
   table_keys = Hash.new
   table_keys.merge!(parent_keys_def) if parent_keys_def != nil
 
@@ -396,7 +396,7 @@ def rails_scaffolding(table2file, table_name, parent_keys_def)
 
     # Association
     if table_def["belongs-to"] != nil
-      table_def["belongs-to"].each do |k, obj|
+      table_def["belongs-to"].each do |k|
         fields << keyword(k) + "_id:integer"
       end
     end
@@ -431,7 +431,7 @@ def rails_scaffolding(table2file, table_name, parent_keys_def)
       system(rails_cmd)
 
       # Migration: generate index's
-      rails_db_add_index(table_name, table_def, table_keys)
+      rails_db_add_index(table_name, table_def, table_keys.keys)
 
       # Migration: set default value
       rails_db_set_default(table_name, table_def)
@@ -454,9 +454,79 @@ def rails_scaffolding(table2file, table_name, parent_keys_def)
       # Iterate children recursively
       if children != nil
         children.each do |child|
-          rails_scaffolding(table2file, child, table_def["keys"])
+          rails_add_tables(table2file, child, table_def["keys"])
         end
       end
+    end
+  end
+end
+
+def rails_add_associations(table2file, table_name)
+  table_keys = Hash.new
+  index_keys = Array.new
+
+  table_def = rails_get_table_def(table2file[table_name], table_name)
+
+  if table_def != nil
+    fields = Array.new
+
+    # Association, these are keys, too.
+    if table_def["belongs-to"] != nil
+      table_def["belongs-to"].each do |k|
+        fields << keyword(k) + "_id:integer"
+        index_keys << keyword(k) + "_id"
+      end
+    end
+
+    # Push keys
+    if table_def["keys"] != nil
+      table_keys.merge!(table_def["keys"])
+    end
+
+    # Table keys
+    table_keys.each do |k, obj|
+      key = keyword(k)
+      fields << key + ":" + rails_data_type(obj)
+    end
+
+    # Other columns
+    if table_def["attributes"] != nil
+      table_def["attributes"].each do |k, obj|
+        key = keyword(k)
+        fields << key + ":" + rails_data_type(obj)
+      end
+    end
+
+    # We do scaffolding only if model doesn't exist.
+    # We should have better granularity.
+    model = "app/models/" + keyword(table_name) + ".rb"
+    if !File.exists?(model)
+      # Scaffolding
+      rails_cmd = "rails generate scaffold " +
+        keyword(table_name) + " " + fields.join(" ")
+      puts rails_cmd
+      system(rails_cmd)
+
+      # Migration: generate index's
+      rails_db_add_index(table_name, table_def, index_keys)
+
+      # Migration: set default value
+      rails_db_set_default(table_name, table_def)
+
+      # Model: add association
+      rails_modify_model(table_name, table_def, table_keys)
+
+      # Controller: add custom update/destroy methods
+      rails_modify_controller(table_name, table_def, table_keys)
+
+      # Helper: add get_default
+      rails_modify_helper(table_name, table_def)
+
+      # View: generate cli.erb
+      rails_generate_view(table_name, table_def)
+
+      # Routes: add routes
+      rails_add_routes(table_name, table_keys)
     end
   end
 end
@@ -549,7 +619,12 @@ def main(rails_project, dir)
 
   # Iterate from parents, and then iterate children recursively.
   parents.each do |p|
-    rails_scaffolding(table2file, p, nil)
+    rails_add_tables(table2file, p, nil)
+  end
+
+  # Iterate from associations.
+  associations.each do |a|
+    rails_add_associations(table2file, a)
   end
 
   # Update mime.types

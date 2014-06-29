@@ -14,9 +14,9 @@
     },
     "acl-ipv4-std-rule": {
       "type": "slave",
-      "belongs-to": {
-        "acl-ipv4-std": null
-      },
+      "belongs-to": [
+        "acl-ipv4-std"
+      ],
       "keys": {
         "rule-type": {
           "type": "enum",

@@ -2,12 +2,13 @@
   "table": {
     "ipv4-route-nexthop": {
       "type": "association",
-      "belongs-to": {
-        "ipv4-route": null,
-        "ipv4-reachable": {
-          "polymorphic": true
-        }
-      },
+      "belongs-to": [
+        "ipv4-route",
+        "nexthop-ip"
+      ],
+      "belongs-to-polymorphic": [
+        "ipv4-reachable"
+      ],
       "attributes": {
         "distance": {
           "type": "integer",

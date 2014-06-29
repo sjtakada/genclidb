@@ -2,9 +2,9 @@
   "table": {
     "ospfv2-area": {
       "type": "slave",
-      "belongs-to": {
-        "ospfv2": null
-      },
+      "belongs-to": [
+        "ospfv2"
+      ],
       "keys": {
         "area-id": {
           "type": "integer",

@@ -2,9 +2,9 @@
   "table": {
     "ospfv2-network": {
       "type": "slave",
-      "belongs-to": {
-        "ospfv2": null
-      },
+      "belongs-to": [
+        "ospfv2"
+      ],
       "order": "address, masklen DESC",
       "keys": {
         "address": {
