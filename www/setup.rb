@@ -187,13 +187,14 @@ def rails_modify_model(table_name, table_def, table_keys)
     @parent_class_name = nil
     if table_def["belongs-to"] != nil
       # TODO: handle multiple parents?
-      @parent_name = keyword(table_def["belongs-to"][0]);
-      @parent_class_name = keyword_camel(@parent_name)
+      @parents = table_def["belongs-to"];
+#      @parent_class_name = keyword_camel(@parent_name)
     end
     @children = table_def["has-children"]
     @keys_def = table_def["keys"]
     @attrs_def = table_def["attributes"]
-    @all_keys = table_keys.keys
+    @all_keys = table_keys.keys if table_keys != nil
+    @associations = table_def["has-association"]
 
     @default_def = Hash.new
     if @attrs_def != nil
@@ -479,15 +480,15 @@ def rails_add_associations(table2file, table_name)
     end
 
     # Push keys
-    if table_def["keys"] != nil
-      table_keys.merge!(table_def["keys"])
-    end
+#    if table_def["keys"] != nil
+#      table_keys.merge!(table_def["keys"])
+#    end
 
     # Table keys
-    table_keys.each do |k, obj|
-      key = keyword(k)
-      fields << key + ":" + rails_data_type(obj)
-    end
+#    table_keys.each do |k, obj|
+#      key = keyword(k)
+#      fields << key + ":" + rails_data_type(obj)
+#    end
 
     # Other columns
     if table_def["attributes"] != nil

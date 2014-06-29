@@ -4,7 +4,7 @@
       "type": "master",
       "has-association": {
         "ipv4-route-nexthop": null,
-        "ipv4-reachable": {
+        "nexthop-ip": {
           "through": "ipv4-route-nexthop"
         }
       },

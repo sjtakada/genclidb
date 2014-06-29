@@ -1,11 +1,23 @@
 class <%= @class_name %> < ActiveRecord::Base
-<% if @parent_name != nil %>
-  belongs_to :<%= @parent_name %>
+<% if @parents != nil %>
+<%   @parents.each do |p| %>
+  belongs_to :<%= keyword(p) %>
+<%   end %>
 <% end %>
 
 <% if @children != nil %>
 <%   @children.each do |k, v| %>
   has_many :<%= keyword_plural(k) %>, dependent: :destroy
+<%   end %>
+<% end %>
+
+<% if @associations != nil %>
+<%   @associations.each do |k, v| %>
+<%     if v == nil %>
+  has_many :<%= keyword_plural(k) %>
+<%     elsif v["through"] != nil %>
+  has_many :<%= keyword_plural(k) %>, :through => :<%= keyword_plural(v["through"]) %>
+<%     end %>
 <%   end %>
 <% end %>
 
@@ -30,8 +42,10 @@ class <%= @class_name %> < ActiveRecord::Base
   end
 
   def self.get_by_params(params)
-<% if @parent_name != nil %>
-    <%= @parent_name %> = <%= @parent_class_name %>.get_by_params(params)
+<% if @parents != nil %>
+<%   @parents.each do |p| %>
+    <%= keyword(p) %> = <%= keyword_camel(p) %>.get_by_params(params)
+<%   end %>
 <% end %>
     <%= @model_name %> = find_by_params(params)
     if <%= @model_name %> == nil
