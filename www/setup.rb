@@ -71,7 +71,8 @@ def rails_data_type(obj)
   type
 end
 
-def rails_db_add_index(table_name, table_def, index_keys)
+def rails_db_add_index(table_name, table_def, table_keys)
+  index_keys = table_keys.keys
   name = keyword_plural(table_name)
   migration = "add_index_to_" + name
 
@@ -185,11 +186,7 @@ def rails_modify_model(table_name, table_def, table_keys)
     @class_name = keyword_camel(table_name)
     @parent_name = nil
     @parent_class_name = nil
-    if table_def["belongs-to"] != nil
-      # TODO: handle multiple parents?
-      @parents = table_def["belongs-to"];
-#      @parent_class_name = keyword_camel(@parent_name)
-    end
+    @parents = table_def["belongs-to"] if table_def["belongs-to"] != nil
     @children = table_def["has-children"]
     @keys_def = table_def["keys"]
     @attrs_def = table_def["attributes"]
@@ -432,7 +429,7 @@ def rails_add_tables(table2file, table_name, parent_keys_def)
       system(rails_cmd)
 
       # Migration: generate index's
-      rails_db_add_index(table_name, table_def, table_keys.keys)
+      rails_db_add_index(table_name, table_def, table_keys)
 
       # Migration: set default value
       rails_db_set_default(table_name, table_def)
@@ -464,8 +461,6 @@ end
 
 def rails_add_associations(table2file, table_name)
   table_keys = Hash.new
-  index_keys = Array.new
-
   table_def = rails_get_table_def(table2file[table_name], table_name)
 
   if table_def != nil
@@ -474,21 +469,13 @@ def rails_add_associations(table2file, table_name)
     # Association, these are keys, too.
     if table_def["belongs-to"] != nil
       table_def["belongs-to"].each do |k|
-        fields << keyword(k) + "_id:integer"
-        index_keys << keyword(k) + "_id"
+        key = keyword(k) + "_id"
+
+        fields << key + ":integer"
+        table_keys[key] = Hash.new
+        table_keys[key]["type"] = "integer"
       end
     end
-
-    # Push keys
-#    if table_def["keys"] != nil
-#      table_keys.merge!(table_def["keys"])
-#    end
-
-    # Table keys
-#    table_keys.each do |k, obj|
-#      key = keyword(k)
-#      fields << key + ":" + rails_data_type(obj)
-#    end
 
     # Other columns
     if table_def["attributes"] != nil
@@ -509,7 +496,7 @@ def rails_add_associations(table2file, table_name)
       system(rails_cmd)
 
       # Migration: generate index's
-      rails_db_add_index(table_name, table_def, index_keys)
+      rails_db_add_index(table_name, table_def, table_keys)
 
       # Migration: set default value
       rails_db_set_default(table_name, table_def)

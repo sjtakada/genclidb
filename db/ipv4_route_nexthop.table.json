@@ -4,7 +4,7 @@
       "type": "association",
       "belongs-to": [
         "ipv4-route",
-        "nexthop-ip"
+        "nexthop-ipv4"
       ],
       "belongs-to-polymorphic": [
         "ipv4-reachable"
