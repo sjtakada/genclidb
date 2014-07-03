@@ -177,6 +177,12 @@ def find_by_keys_statement_str(keys)
     keys.map {|k| "params[:" + keyword(k) + "]"}.join(", ") + ")"
 end
 
+def find_by_assoc_keys_statement_str(keys)
+  "find_by_" +
+    keys.map {|k| keyword(k) + "_id"}.join("_and_") + "(" +
+    keys.map {|k| keyword(k) + ".id"}.join(", ") + ")"
+end
+
 def rails_modify_model(table_name, table_def, table_keys)
   @model_name = keyword(table_name)
   model = "app/models/" + @model_name + ".rb"
@@ -184,14 +190,13 @@ def rails_modify_model(table_name, table_def, table_keys)
 
   File.open(model, "w") do |f|
     @class_name = keyword_camel(table_name)
-    @parent_name = nil
-    @parent_class_name = nil
     @parents = table_def["belongs-to"] if table_def["belongs-to"] != nil
     @children = table_def["has-children"]
     @keys_def = table_def["keys"]
     @attrs_def = table_def["attributes"]
     @all_keys = table_keys.keys if table_keys != nil
     @associations = table_def["has-association"]
+    @is_association = (table_def["type"] == "association") ? true : false
 
     @default_def = Hash.new
     if @attrs_def != nil
@@ -367,25 +372,10 @@ def rails_add_routes(table_name, table_keys)
   end
 end
 
-def rails_get_table_def(file, name)
-  json = nil
-
-  if File.exists?(file)
-    str = File.read(file)
-    json = JSON.parse(str)
-    if json["table"] != nil
-      json = json["table"][name]
-    end
-  end
-
-  json
-end
-
-def rails_add_tables(table2file, table_name, parent_keys_def)
+def rails_add_tables(table2json, table_name, parent_keys_def)
   table_keys = Hash.new
   table_keys.merge!(parent_keys_def) if parent_keys_def != nil
-
-  table_def = rails_get_table_def(table2file[table_name], table_name)
+  table_def = table2json[table_name]
 
   if table_def != nil
     children = table_def["has-children"]
@@ -452,16 +442,16 @@ def rails_add_tables(table2file, table_name, parent_keys_def)
       # Iterate children recursively
       if children != nil
         children.each do |child|
-          rails_add_tables(table2file, child, table_def["keys"])
+          rails_add_tables(table2json, child, table_def["keys"])
         end
       end
     end
   end
 end
 
-def rails_add_associations(table2file, table_name)
+def rails_add_associations(table2json, table_name)
   table_keys = Hash.new
-  table_def = rails_get_table_def(table2file[table_name], table_name)
+  table_def = table2json[table_name]
 
   if table_def != nil
     fields = Array.new
@@ -519,10 +509,10 @@ def rails_add_associations(table2file, table_name)
   end
 end
 
-def rails_get_parents(dir)
+def rails_load_tables(dir)
   parents = Array.new
   associations = Array.new
-  table2file = Hash.new
+  table2json = Hash.new
 
   m = Dir.entries(dir).select {|f| f =~ /\.table\.json$/}
   m.each do |f|
@@ -541,7 +531,7 @@ def rails_get_parents(dir)
           end
         end
 
-        table2file[t] = file
+        table2json[t] = obj
       end
     end
   end
@@ -557,15 +547,9 @@ def rails_get_parents(dir)
     puts "- " + a
   end
 
-  puts ""
-  puts "table2file:"
-  table2file.each do |t, f|
-    puts "- " + t + " => " + f
-  end
-
   puts
 
-  [parents, associations, table2file]
+  [parents, associations, table2json]
 end
 
 def rails_update_mime_types
@@ -602,17 +586,17 @@ def main(rails_project, dir)
   end
   Dir.chdir(rails_project)
 
-  # Read *.table.json to get list of parents, association and table2file.
-  parents, associations, table2file = rails_get_parents(table_json_dir)
+  # Load *.table.json to get list of parents, association and table2json.
+  parents, associations, table2json = rails_load_tables(table_json_dir)
 
   # Iterate from parents, and then iterate children recursively.
   parents.each do |p|
-    rails_add_tables(table2file, p, nil)
+    rails_add_tables(table2json, p, nil)
   end
 
   # Iterate from associations.
   associations.each do |a|
-    rails_add_associations(table2file, a)
+    rails_add_associations(table2json, a)
   end
 
   # Update mime.types

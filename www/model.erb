@@ -37,9 +37,11 @@ class <%= @class_name %> < ActiveRecord::Base
 <%   end %>
 <% end %>
 
+<% if @is_association == false %>
   def self.find_by_params(params)
     <%= find_by_keys_statement_str(@all_keys) %>
   end
+<% end %>
 
   def self.get_by_params(params)
 <% if @parents != nil %>
@@ -47,13 +49,19 @@ class <%= @class_name %> < ActiveRecord::Base
     <%= keyword(p) %> = <%= keyword_camel(p) %>.get_by_params(params)
 <%   end %>
 <% end %>
+<% if @is_association == false %>
     <%= @model_name %> = find_by_params(params)
+<% elsif @parents != nil %>
+    <%= @model_name %> = <%= find_by_assoc_keys_statement_str(@parents) %>
+<% end %>
     if <%= @model_name %> == nil
       <%= @model_name %> = <%= @class_name %>.new
-<% if @parent_name != nil %>
-      <%= @model_name %>.<%= @parent_name %>_id = <%= @parent_name %>.id
+<% if @parents != nil %>
+<%   @parents.each do |p| %>
+      <%= @model_name %>.<%= keyword(p) %>_id = <%= keyword(p) %>.id
+<%   end %>
 <% end %>
-<% if @all_keys != nil %>
+<% if @all_keys != nil and @is_association == false %>
 <%   @all_keys.each do |k, v| %>
       <%= @model_name %>.<%= keyword(k) %> = params[:<%= keyword(k) %>]
 <%   end %>
