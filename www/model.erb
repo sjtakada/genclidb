@@ -88,11 +88,15 @@ class <%= @class_name %> < ActiveRecord::Base
     self.save!
   end
 
-  def binary_to_ipaddr
 <% @ipaddr_keys.each do |k, v| %>
-    if self.<%= keyword(k) %> != nil
-      self.<%= keyword(k) %> = IPAddr.new_ntoh(self.<%= keyword(k) %>).to_s
-    end
-<% end %>
+  def <%= keyword(k) %>=(ipv4_str)
+    ipv4_blob = (ipv4_str != nil) ? IPAddr.new(ipv4_str).hton : nil
+    write_attribute(:<%= keyword(k) %>, ipv4_blob)
   end
+
+  def <%= keyword(k) %>
+    ipv4_blob = read_attribute(:<%= keyword(k) %>)
+    (ipv4_blob != nil) ? IPAddr.new_ntoh(ipv4_blob).to_s : nil
+  end
+<% end %>
 end

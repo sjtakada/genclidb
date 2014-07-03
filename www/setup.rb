@@ -190,11 +190,11 @@ def rails_modify_model(table_name, table_def, table_keys)
 
   File.open(model, "w") do |f|
     @class_name = keyword_camel(table_name)
-    @parents = table_def["belongs-to"] if table_def["belongs-to"] != nil
+    @parents = table_def["belongs-to"]
     @children = table_def["has-children"]
     @keys_def = table_def["keys"]
     @attrs_def = table_def["attributes"]
-    @all_keys = table_keys.keys if table_keys != nil
+    @all_keys = table_keys.keys
     @associations = table_def["has-association"]
     @is_association = (table_def["type"] == "association") ? true : false
 

@@ -1,6 +1,5 @@
 class <%= @class_name %>sController < ApplicationController
   before_action :set_<%= @model_name %>, only: [:show, :edit, :update, :destroy]
-  before_action :ipaddr_to_binary, only: [:create_by_keys, :update_by_keys]
   skip_before_filter :verify_authenticity_token, :if => Proc.new {|c| c.request.format == 'application/json' }
 
   # PUT /<%= @api_path %>.json
@@ -9,7 +8,6 @@ class <%= @class_name %>sController < ApplicationController
 
     respond_to do |format|
       if @<%= @model_name %> != nil
-        @<%= @model_name %>.binary_to_ipaddr
         format.json { render action: 'show', status: :created, location: @<%= @model_name %>}
       else
         format.json { render json: @<%= @model_name %>.errors, status: :unprocessable_entity }
@@ -23,7 +21,6 @@ class <%= @class_name %>sController < ApplicationController
 
     respond_to do |format|
       if @<%= @model_name %>.update_by_params(params)
-        @<%= @model_name %>.binary_to_ipaddr
         format.json { render action: 'show', status: :created, location: @<%= @model_name %>}
       else
         format.json { render json: @<%= @model_name %>.errors, status: :unprocessable_entity }
@@ -51,9 +48,6 @@ class <%= @class_name %>sController < ApplicationController
 <% else %>
     @<%= @controller_name %> = <%= @class_name %>.find(:all, :order => '<%= @order %>')
 <% end %>
-    @<%= @controller_name %>.each do |<%= @model_name %>|
-      <%= @model_name %>.binary_to_ipaddr
-    end
   end
 
   # GET /<%= @controller_name %>/1
@@ -119,13 +113,5 @@ class <%= @class_name %>sController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def <%= @model_name %>_params
       params.require(:<%= @model_name %>).permit(<%= @keys_str %>)
-    end
-
-    def ipaddr_to_binary
-<% @ipaddr_keys.each do |k, v| %>
-      if params[:<%= keyword(k) %>] != nil
-        params[:<%= keyword(k) %>] = IPAddr.new(params[:<%= keyword(k) %>]).hton
-      end
-<% end %>
     end
 end
