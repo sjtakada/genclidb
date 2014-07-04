@@ -183,7 +183,7 @@ def find_by_assoc_keys_statement_str(keys)
     keys.map {|k| keyword(k) + ".id"}.join(", ") + ")"
 end
 
-def rails_modify_model(table_name, table_def, table_keys)
+def rails_modify_model(table_name, table_def, table_keys, is_assoc)
   @model_name = keyword(table_name)
   model = "app/models/" + @model_name + ".rb"
   template = File.read("../model.erb")
@@ -196,7 +196,7 @@ def rails_modify_model(table_name, table_def, table_keys)
     @attrs_def = table_def["attributes"]
     @all_keys = table_keys.keys
     @associations = table_def["has-association"]
-    @is_association = (table_def["type"] == "association") ? true : false
+    @is_association = is_assoc
 
     @default_def = Hash.new
     if @attrs_def != nil
@@ -425,7 +425,7 @@ def rails_add_tables(table2json, table_name, parent_keys_def)
       rails_db_set_default(table_name, table_def)
 
       # Model: add association
-      rails_modify_model(table_name, table_def, table_keys)
+      rails_modify_model(table_name, table_def, table_keys, false)
 
       # Controller: add custom update/destroy methods
       rails_modify_controller(table_name, table_def, table_keys)
@@ -451,6 +451,7 @@ end
 
 def rails_add_associations(table2json, table_name)
   table_keys = Hash.new
+  index_keys = Hash.new
   table_def = table2json[table_name]
 
   if table_def != nil
@@ -464,6 +465,9 @@ def rails_add_associations(table2json, table_name)
         fields << key + ":integer"
         table_keys[key] = Hash.new
         table_keys[key]["type"] = "integer"
+        if table2json[k] != nil
+          index_keys.merge!(table2json[k]["keys"])
+        end
       end
     end
 
@@ -492,10 +496,10 @@ def rails_add_associations(table2json, table_name)
       rails_db_set_default(table_name, table_def)
 
       # Model: add association
-      rails_modify_model(table_name, table_def, table_keys)
+      rails_modify_model(table_name, table_def, table_keys, true)
 
       # Controller: add custom update/destroy methods
-      rails_modify_controller(table_name, table_def, table_keys)
+      rails_modify_controller(table_name, table_def, index_keys)
 
       # Helper: add get_default
       rails_modify_helper(table_name, table_def)
@@ -504,7 +508,7 @@ def rails_add_associations(table2json, table_name)
       rails_generate_view(table_name, table_def)
 
       # Routes: add routes
-      rails_add_routes(table_name, table_keys)
+      rails_add_routes(table_name, index_keys)
     end
   end
 end

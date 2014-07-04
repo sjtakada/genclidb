@@ -4,13 +4,13 @@ class <%= @class_name %> < ActiveRecord::Base
   belongs_to :<%= keyword(p) %>
 <%   end %>
 <% end %>
-
+<% ######################################################################### %>
 <% if @children != nil %>
 <%   @children.each do |k, v| %>
   has_many :<%= keyword_plural(k) %>, dependent: :destroy
 <%   end %>
 <% end %>
-
+<% ######################################################################### %>
 <% if @associations != nil %>
 <%   @associations.each do |k, v| %>
 <%     if v == nil %>
@@ -20,7 +20,7 @@ class <%= @class_name %> < ActiveRecord::Base
 <%     end %>
 <%   end %>
 <% end %>
-
+<% ######################################################################### %>
 <% if @keys_def != nil %>
 <%   @keys_def.each do |k, v| %>
 <%     if v["type"] == "integer" and v["range"] != nil %>
@@ -28,7 +28,7 @@ class <%= @class_name %> < ActiveRecord::Base
 <%     end %>
 <%   end %>
 <% end %>
-
+<% ######################################################################### %>
 <% if @attrs_def != nil %>
 <%   @attrs_def.each do |k, v| %>
 <%     if v["type"] == "integer" and v["range"] != nil %>
@@ -37,11 +37,25 @@ class <%= @class_name %> < ActiveRecord::Base
 <%   end %>
 <% end %>
 
-<% if @is_association == false %>
+<% ######################################################################### %>
   def self.find_by_params(params)
+<% if @is_association == true %>
+<%   if @parents != nil %>
+<%     @parents.each do |p| %>
+    <%= keyword(p) %> = <%= keyword_camel(p) %>.find_by_params(params)
+<%     end %>
+<%   end %>
+    <%= @model_name %> = nil
+    if <%= @parents.map {|p| keyword(p) + " != nil"}.join(" and ") %>
+      <%= @model_name %> = <%= find_by_assoc_keys_statement_str(@parents) %>
+    end
+
+    <%= @model_name %>
+<% else %>
     <%= find_by_keys_statement_str(@all_keys) %>
-  end
 <% end %>
+  end
+<% ######################################################################### %>
 
   def self.get_by_params(params)
 <% if @parents != nil %>
@@ -87,8 +101,9 @@ class <%= @class_name %> < ActiveRecord::Base
 <% end %>
     self.save!
   end
-
+<% ######################################################################### %>
 <% @ipaddr_keys.each do |k, v| %>
+
   def <%= keyword(k) %>=(ipv4_str)
     ipv4_blob = (ipv4_str != nil) ? IPAddr.new(ipv4_str).hton : nil
     write_attribute(:<%= keyword(k) %>, ipv4_blob)
