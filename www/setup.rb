@@ -522,7 +522,7 @@ def rails_load_tables(dir)
     if json["table"] != nil
       json["table"].each do |t, obj|
         if obj["type"] != nil
-          if obj["type"] == "master"
+          if obj["type"] == "parent"
             parents << t
           elsif obj["type"] == "association"
             associations << t
