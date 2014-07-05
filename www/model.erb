@@ -52,7 +52,18 @@ class <%= @class_name %> < ActiveRecord::Base
 
     <%= @model_name %>
 <% else %>
-    <%= find_by_keys_statement_str(@all_keys) %>
+<%   params = Array.new %>
+<%   @all_keys.each do |k, v| %>
+<%     if v["type"] == "ipv4" %>
+    <%= keyword(k) %> = IPAddr.new(params[:<%= keyword(k) %>]).hton
+<%       params << keyword(k) %>
+<%     else %>
+<%       params << "params[:" + keyword(k) + "]" %>
+<%     end %>
+<%   end %>
+<%  func_name_str = @all_keys.keys.map{|k| keyword(k)}.join("_and_") %>
+<%  params_str = params.join(", ") %>
+    find_by_<%= func_name_str %>(<%= params_str %>)
 <% end %>
   end
 <% ######################################################################### %>
@@ -76,7 +87,7 @@ class <%= @class_name %> < ActiveRecord::Base
 <%   end %>
 <% end %>
 <% if @all_keys != nil and @is_association == false %>
-<%   @all_keys.each do |k, v| %>
+<%   @all_keys.keys.each do |k, v| %>
       <%= @model_name %>.<%= keyword(k) %> = params[:<%= keyword(k) %>]
 <%   end %>
 <% end %>

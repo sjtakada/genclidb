@@ -171,12 +171,6 @@ def rails_db_set_default(table_name, table_def)
   Dir.chdir("../..")
 end
 
-def find_by_keys_statement_str(keys)
-  "find_by_" +
-    keys.map {|k| keyword(k)}.join("_and_") + "(" +
-    keys.map {|k| "params[:" + keyword(k) + "]"}.join(", ") + ")"
-end
-
 def find_by_assoc_keys_statement_str(keys)
   "find_by_" +
     keys.map {|k| keyword(k) + "_id"}.join("_and_") + "(" +
@@ -194,7 +188,7 @@ def rails_modify_model(table_name, table_def, table_keys, is_assoc)
     @children = table_def["has-children"]
     @keys_def = table_def["keys"]
     @attrs_def = table_def["attributes"]
-    @all_keys = table_keys.keys
+    @all_keys = table_keys
     @associations = table_def["has-association"]
     @is_association = is_assoc
 
