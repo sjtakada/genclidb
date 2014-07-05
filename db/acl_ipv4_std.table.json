@@ -1,7 +1,7 @@
 {
   "table": {
     "acl-ipv4-std": {
-      "type": "master",
+      "type": "parent",
       "has-children": [
         "acl-ipv4-std-rule"
       ],
@@ -13,7 +13,7 @@
       }
     },
     "acl-ipv4-std-rule": {
-      "type": "slave",
+      "type": "dependent",
       "belongs-to": [
         "acl-ipv4-std"
       ],

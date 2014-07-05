@@ -1,7 +1,7 @@
 {
   "table": {
     "ospfv2": {
-      "type": "master",
+      "type": "parent",
       "has-children": [
         "ospfv2-area",
         "ospfv2-network"

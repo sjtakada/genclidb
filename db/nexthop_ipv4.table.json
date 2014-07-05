@@ -1,7 +1,7 @@
 {
   "table": {
     "nexthop-ipv4": {
-      "type": "master",
+      "type": "parent",
       "has-association": {
         "ipv4-route-nexthop": null,
         "ipv4-route": {

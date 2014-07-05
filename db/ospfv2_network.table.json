@@ -1,7 +1,7 @@
 {
   "table": {
     "ospfv2-network": {
-      "type": "slave",
+      "type": "dependent",
       "belongs-to": [
         "ospfv2"
       ],
