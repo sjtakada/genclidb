@@ -56,6 +56,26 @@ cli_debug(Cli *cli, StringVector& vec)
   return 1;
 }
 
+int
+cli_show_result(Cli *cli, StringVector& vec)
+{
+  cout << cli->result().str() << endl;
+
+  return 1;
+}
+
+int
+cli_write_result(Cli *cli, StringVector& vec)
+{
+  ofstream file;
+
+  file.open("error.txt");
+  file << cli->result().str() << endl;
+  file.close();
+
+  return 1;
+}
+
 void
 cli_builtins_init(Cli *cli)
 {
@@ -63,6 +83,8 @@ cli_builtins_init(Cli *cli)
   cli->built_in_["debug-cli-unset"] = cli_builtins_debug_cli_unset;
   cli->built_in_["cli-exit"] = cli_exit;
   cli->built_in_["cli-debug"] = cli_debug;
+  cli->built_in_["show-result"] = cli_show_result;
+  cli->built_in_["write-result"] = cli_write_result;
 }
 
 void

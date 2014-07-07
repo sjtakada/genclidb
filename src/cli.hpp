@@ -63,6 +63,8 @@ public:
   void end();
   void start_over();
   const char *prompt();
+  stringstream& result() { return result_; }
+  void set_result(stringstream& result) { result_.str(result.str()); }
 
   // Terminal width, height.
   struct winsize ws_;
@@ -109,6 +111,9 @@ private:
 
   // Privileged mode name.
   string privileged_mode_;
+
+  // Result Buffer.
+  stringstream result_;
 
   // Member functions.
   void signal_init();

@@ -26,6 +26,8 @@
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
+#include <curlpp/Infos.hpp>
+#include <curlpp/Exception.hpp>
 #include "json/json.h"
 
 #include "cli.hpp"
@@ -146,6 +148,7 @@ CliActionHttp::request(Cli *cli, string& method, string& path, string& json)
     {
       Cleanup myCleanup;
       Easy req;
+      stringstream result;
 
       req.setOpt(new options::Url(url));
       if (cli->is_debug())
@@ -156,6 +159,7 @@ CliActionHttp::request(Cli *cli, string& method, string& path, string& json)
 
       req.setOpt(new options::HttpHeader(header));
       req.setOpt(new options::CustomRequest(method));
+      req.setOpt(new options::WriteStream(&result));
 
       if (method != "GET")
         {
@@ -164,17 +168,36 @@ CliActionHttp::request(Cli *cli, string& method, string& path, string& json)
         }
 
       req.perform();
+
+      int status = infos::ResponseCode::get(req);
+      switch (status / 100)
+        {
+        case 1:
+        case 2:
+          if (format_ == "cli")
+            cout << result << endl;
+          break;
+        case 3:
+        case 4:
+        case 5:
+          cout << "HTTP Error: " << status << endl;
+          break;
+        }
+
+      cli->set_result(result);
     }
-  catch(curlpp::RuntimeError& e)
+  catch (curlpp::RuntimeError& e)
     {
-      cout << e.what() << std::endl;
+      if (cli->is_debug())
+        cout << e.what() << std::endl;
     }
-  catch(curlpp::LogicError& e)
+  catch (curlpp::LogicError& e)
     {
-      cout << e.what() << std::endl;
+      if (cli->is_debug())
+        cout << e.what() << std::endl;
     }
 
-  cout << endl;
+  //  cout << endl;
 }
 
 
