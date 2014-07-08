@@ -1,5 +1,3 @@
-include <%= @class_name %>sHelper
-
 class <%= @class_name %> < ActiveRecord::Base
 <% if @parents != nil %>
 <%   @parents.each do |p| %>
@@ -38,8 +36,28 @@ class <%= @class_name %> < ActiveRecord::Base
 <%     end %>
 <%   end %>
 <% end %>
-
 <% ######################################################################### %>
+
+  def get_default(key)
+    <%= @class_name %>.get_default(key)
+  end
+
+  def self.get_default(key)
+    value = nil
+<% if @default_def.size > 0 %>
+
+    case key
+<%   @default_def.each do |k, v| %>
+    when :<%= k %>
+      value = <%= v %>
+<%   end %>
+    end
+
+<% end %>
+    value
+  end
+<% ######################################################################### %>
+
   def self.find_by_params(params)
 <% if @is_association == true %>
 <%   if @parents != nil %>

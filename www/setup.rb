@@ -147,12 +147,12 @@ def rails_db_add_index(table_name, table_def, table_keys)
 end
 
 def rails_attr_get_default(attributes, key)
-  default_value = nil
+  default_value = "nil"
 
   if attributes != nil
     if attributes[key] != nil
       attr = attributes[key]
-      if attr["default"] != nil
+      if attr.has_key?("default")
         if attr["type"] == "boolean" or attr["type"] == "integer"
           return attr["default"].to_s
         else
@@ -327,6 +327,7 @@ def rails_generate_view(table_name, table_def)
 
   name = keyword(table_name)
   namep = keyword_plural(table_name)
+  class_name = keyword_camel(table_name)
 
   keys = table_def["keys"]
   attrs = table_def["attributes"]
@@ -347,7 +348,7 @@ def rails_generate_view(table_name, table_def)
         attrs.each do |k, v|
           key = keyword(k)
 
-          f.puts "<%   if v.#{key} != get_default(:#{key}) %>"
+          f.puts "<%   if v.#{key} != #{class_name}.get_default(:#{key}) %>"
           f.puts " #{k} <%= v.#{key} %>"
           f.puts "<%   end %>"
         end
@@ -478,9 +479,9 @@ def rails_add_tables(options, table2json, table_name, parent_keys_def)
     end
 
     # Helper: add get_default
-    if options[:helper]
-      rails_modify_helper(table_name, table_def)
-    end
+#    if options[:helper]
+#      rails_modify_helper(table_name, table_def)
+#    end
 
     # View: generate cli.erb
     if options[:view]
@@ -561,9 +562,9 @@ def rails_add_associations(options, table2json, table_name)
     end
 
     # Helper: add get_default
-    if options[:helper]
-      rails_modify_helper(table_name, table_def)
-    end
+#    if options[:helper]
+#      rails_modify_helper(table_name, table_def)
+#    end
 
     # View: generate cli.erb
     if options[:view]
