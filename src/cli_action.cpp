@@ -35,6 +35,8 @@
 
 using namespace curlpp;
 
+string JsonNullValue("__JSON_NULL_VALUE__");
+
 CliActionHttp::CliActionHttp(Json::Value& http)
   : CliAction()
 {
@@ -48,7 +50,10 @@ CliActionHttp::CliActionHttp(Json::Value& http)
     for (Json::Value::iterator it = params.begin();
          it != params.end(); ++it)
       {
-        param_token_[it.key().asString()] = (*it).asString();
+        if ((*it).isNull())
+          param_token_[it.key().asString()] = JsonNullValue;
+        else
+          param_token_[it.key().asString()] = (*it).asString();
       }
 }
 
@@ -81,6 +86,7 @@ CliActionHttp::handle(Cli *cli, ParamsMap& input)
 {
   Json::Value json_params;
   Json::FastWriter writer;
+  Json::Value null_value;
   string str(path_);
   string path;
   string token;
@@ -95,7 +101,9 @@ CliActionHttp::handle(Cli *cli, ParamsMap& input)
   for (ParamTokenMap::iterator it = param_token_.begin();
        it != param_token_.end(); ++it)
     {
-      if (!input[it->second].empty())
+      if (it->second == JsonNullValue)
+        json_params[it->first] = null_value;
+      else if (!input[it->second].empty())
         json_params[it->first] = input[it->second];
     }
 
@@ -175,7 +183,7 @@ CliActionHttp::request(Cli *cli, string& method, string& path, string& json)
         case 1:
         case 2:
           if (format_ == "cli")
-            cout << result << endl;
+            cout << result.str() << endl;
           break;
         case 3:
         case 4:

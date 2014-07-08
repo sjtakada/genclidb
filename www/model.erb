@@ -1,3 +1,5 @@
+include <%= @class_name %>sHelper
+
 class <%= @class_name %> < ActiveRecord::Base
 <% if @parents != nil %>
 <%   @parents.each do |p| %>
@@ -100,12 +102,8 @@ class <%= @class_name %> < ActiveRecord::Base
   def update_by_params(params)
 <% if @attrs_def != nil %>
 <%   @attrs_def.each do |k, v| %>
-    if params[:<%= keyword(k) %>] != nil
-      if params[:<%= keyword(k) %>] == "NULL"
-        self.<%= keyword(k) %> = nil
-      else
-        self.<%= keyword(k) %> = params[:<%= keyword(k) %>]
-      end
+    if params.has_key?(:<%= keyword(k) %>)
+      self.<%= keyword(k) %> = params[:<%= keyword(k) %>]
     end
 
 <%   end %>
@@ -113,16 +111,36 @@ class <%= @class_name %> < ActiveRecord::Base
     self.save!
   end
 <% ######################################################################### %>
-<% @ipaddr_keys.each do |k, v| %>
+<% if @attrs_def != nil %>
+<%   @attrs_def.each do |k, v| %>
 
-  def <%= keyword(k) %>=(ipv4_str)
-    ipv4_blob = (ipv4_str != nil) ? IPAddr.new(ipv4_str).hton : nil
-    write_attribute(:<%= keyword(k) %>, ipv4_blob)
+<%     if v["type"] == "ipv4" or v["type"] == "ipv6" %>
+  def <%= keyword(k) %>=(v)
+    blob = v.nil? ? <%= @default_def[keyword(k)] %> : IPAddr.new(v).hton
+    write_attribute(:<%= keyword(k) %>, blob)
   end
 
   def <%= keyword(k) %>
-    ipv4_blob = read_attribute(:<%= keyword(k) %>)
-    (ipv4_blob != nil) ? IPAddr.new_ntoh(ipv4_blob).to_s : nil
+    blob = read_attribute(:<%= keyword(k) %>)
+    blob.nil? ? nil : IPAddr.new_ntoh(blob).to_s
+  end
+<%     else %>
+  def <%= keyword(k) %>=(v)
+    write_attribute(:<%= keyword(k) %>, v.nil? ? get_default(:<%= keyword(k) %>) : v)
+  end
+<%     end %>
+<%   end %>
+<% end %>
+<% @ipaddr_keys.each do |k, v| %>
+
+  def <%= keyword(k) %>=(v)
+    blob = v.nil? ? nil : IPAddr.new(v).hton
+    write_attribute(:<%= keyword(k) %>, blob)
+  end
+
+  def <%= keyword(k) %>
+    blob = read_attribute(:<%= keyword(k) %>)
+    blob.nil? ? nil : IPAddr.new_ntoh(blob).to_s
   end
 <% end %>
 end

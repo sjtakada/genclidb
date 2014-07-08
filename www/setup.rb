@@ -24,10 +24,14 @@
 #
 
 require 'pathname'
+require 'getoptlong'
 require 'json'
 require 'erb'
 
-# Parameters
+# Mandatory arguments
+#  [0] rails project
+#  [1] table.json directory
+#
 if ARGV[0] != nil
   rails_project = ARGV[0]
 else
@@ -38,6 +42,33 @@ if ARGV[1] != nil
   dir = ARGV[1]
 else
   dir = "../db"
+end
+
+def show_help
+  puts "Usage: this-script <rails-project> <table-def-dir> [options...]"
+  exit
+end
+
+def set_options_all(options)
+  options[:scaffold] = true
+  options[:migration] = true
+  options[:model] = true
+  options[:controller] = true
+  options[:view] = true
+  options[:helper] = true
+  options[:routes] = true
+  options[:mime] = true
+end
+
+def unset_options_all(options)
+  options[:scaffold] = false
+  options[:migration] = false
+  options[:model] = false
+  options[:controller] = false
+  options[:view] = false
+  options[:helper] = false
+  options[:routes] = false
+  options[:mime] = false
 end
 
 # Utilities
@@ -72,6 +103,8 @@ def rails_data_type(obj)
 end
 
 def rails_db_add_index(table_name, table_def, table_keys)
+  puts "=> Add index to '" + table_name + "' migrations..."
+
   index_keys = table_keys.keys
   name = keyword_plural(table_name)
   migration = "add_index_to_" + name
@@ -125,6 +158,8 @@ def rails_attr_get_default(attributes, key)
         else
           return '"' + attr["default"] + '"'
         end
+      else
+        default_value = "nil"
       end
     end
   end
@@ -133,6 +168,8 @@ def rails_attr_get_default(attributes, key)
 end
 
 def rails_db_set_default(table_name, table_def)
+  puts "=> Add default values to '" + table_name + "' migrations..."
+
   name = keyword_plural(table_name)
   migration = "create_" + name
 
@@ -150,7 +187,7 @@ def rails_db_set_default(table_name, table_def)
           key = keyword_dashed(m[1])
           default_value = rails_attr_get_default(table_def["attributes"], key)
           line.chomp!
-          if default_value != nil
+          if default_value != "nil"
             line += ", :null => false, :default => " + default_value.to_s
           else
             line += ", :null => true"
@@ -178,6 +215,8 @@ def find_by_assoc_keys_statement_str(keys)
 end
 
 def rails_modify_model(table_name, table_def, table_keys, is_assoc)
+  puts "=> Modify model '" + table_name + "' ..."
+
   @model_name = keyword(table_name)
   model = "app/models/" + @model_name + ".rb"
   template = File.read("../model.erb")
@@ -195,20 +234,11 @@ def rails_modify_model(table_name, table_def, table_keys, is_assoc)
     @default_def = Hash.new
     if @attrs_def != nil
       @attrs_def.each do |k, v|
-        if v["default"] != nil
-          @default_def[keyword(k)] = rails_attr_get_default(@attrs_def, k)
-        end
+        @default_def[keyword(k)] = rails_attr_get_default(@attrs_def, k)
       end
     end
 
-    fields = Hash.new
-    if table_keys != nil
-      fields.merge!(table_keys)
-    end
-    if table_def["attributes"] != nil
-      fields.merge!(table_def["attributes"])
-    end
-    @ipaddr_keys = fields.select {|k, v| v["type"] == "ipv4" || v["type"] == "ipv6"}
+    @ipaddr_keys = table_keys.select {|k, v| v["type"] == "ipv4" || v["type"] == "ipv6"}
 
     renderer = ERB.new(template, nil, '<>')
     f.puts renderer.result()
@@ -216,6 +246,8 @@ def rails_modify_model(table_name, table_def, table_keys, is_assoc)
 end
 
 def rails_modify_helper(table_name, table_def)
+  puts "=> Modify helper '" + table_name + "'..."
+
   @helper_name = keyword_plural(table_name)
   helper = "app/helpers/" + @helper_name + "_helper.rb"
   template = File.read("../helper.erb")
@@ -227,9 +259,7 @@ def rails_modify_helper(table_name, table_def)
     @default_def = Hash.new
     if @attrs_def != nil
       @attrs_def.each do |k, v|
-        if v["default"] != nil
-          @default_def[keyword(k)] = rails_attr_get_default(@attrs_def, k)
-        end
+        @default_def[keyword(k)] = rails_attr_get_default(@attrs_def, k)
       end
     end
 
@@ -247,6 +277,8 @@ def rails_api_path(table_name, table_keys)
 end
 
 def rails_modify_controller(table_name, table_def, table_keys)
+  puts "=> Modify controller '" + table_name + "'..."
+
   controller_name = keyword_plural(table_name)
   controller = "app/controllers/#{controller_name}_controller.rb"
   template = File.read("../controller.erb")
@@ -291,23 +323,23 @@ end
 # It is a little bit cumbersome to genearete ERB from ERB...
 # So we do this way.
 def rails_generate_view(table_name, table_def)
+  puts "=> Generate views '" + table_name + "' ..."
+
   name = keyword(table_name)
   namep = keyword_plural(table_name)
-  view = "app/views/" + namep + "/index.cli.erb"
 
   keys = table_def["keys"]
   attrs = table_def["attributes"]
 
   # Generate only if it doesn't exist
-  if !File.exists?(view)
-    File.open(view, "w") do |f|
-      f.puts "! " + name + " config"
-      f.puts "<% @#{namep}.each do |#{name}| %>"
-      f.puts "!"
+  _view = "app/views/" + namep + "/_index.cli.erb"
+  if !File.exists?(_view)
+    File.open(_view, "w") do |f|
+      f.puts "<% #{namep}.each do |v| %>"
 
       # Placeholder of config container, keys must be present.
       if keys != nil
-        f.puts name + " " + key_value_pairs(name, keys)
+        f.puts name + " " + key_value_pairs('v', keys)
       end
 
       # Iterate each columns
@@ -315,14 +347,26 @@ def rails_generate_view(table_name, table_def)
         attrs.each do |k, v|
           key = keyword(k)
 
-          f.puts "<% if #{name}.#{key} != get_default(:#{key}) %>"
-          f.puts " #{k} <%= #{name}.#{key} %>"
-          f.puts "<% end %>"
+          f.puts "<%   if v.#{key} != get_default(:#{key}) %>"
+          f.puts " #{k} <%= v.#{key} %>"
+          f.puts "<%   end %>"
         end
       end
 
-      f.puts "!"
       f.puts "<% end %>"
+    end
+  end
+
+  # Generate only if it doesn't exist
+  view = "app/views/" + namep + "/index.cli.erb"
+  if !File.exists?(view)
+    File.open(view, "w") do |f|
+      f.puts "!"
+      f.puts "! " + name + " config"
+      f.puts "!"
+      f.puts "<%= render partial: \"#{namep}/index\", locals: {#{namep}: @#{namep}} -%>"
+
+      f.puts "!"
     end
   end
 end
@@ -342,6 +386,8 @@ def rails_keys_constraints(table_keys)
 end
 
 def rails_add_routes(table_name, table_keys)
+  puts "=> Add routes '" + table_name + "' ..."
+
   name = keyword_plural(table_name)
   routes = "config/routes.rb"
   
@@ -366,7 +412,7 @@ def rails_add_routes(table_name, table_keys)
   end
 end
 
-def rails_add_tables(table2json, table_name, parent_keys_def)
+def rails_add_tables(options, table2json, table_name, parent_keys_def)
   table_keys = Hash.new
   table_keys.merge!(parent_keys_def) if parent_keys_def != nil
   table_def = table2json[table_name]
@@ -405,45 +451,57 @@ def rails_add_tables(table2json, table_name, parent_keys_def)
     # We do scaffolding only if model doesn't exist.
     # We should have better granularity.
     model = "app/models/" + keyword(table_name) + ".rb"
-    if !File.exists?(model)
+    if !File.exists?(model) and options[:scaffold]
       # Scaffolding
       rails_cmd = "rails generate scaffold " +
         keyword(table_name) + " " + fields.join(" ")
       puts rails_cmd
       system(rails_cmd)
+    end
 
+    if options[:migration]
       # Migration: generate index's
       rails_db_add_index(table_name, table_def, table_keys)
 
       # Migration: set default value
       rails_db_set_default(table_name, table_def)
+    end
 
-      # Model: add association
+    # Model: add association
+    if options[:model]
       rails_modify_model(table_name, table_def, table_keys, false)
+    end
 
-      # Controller: add custom update/destroy methods
+    # Controller: add custom update/destroy methods
+    if options[:controller]
       rails_modify_controller(table_name, table_def, table_keys)
+    end
 
-      # Helper: add get_default
+    # Helper: add get_default
+    if options[:helper]
       rails_modify_helper(table_name, table_def)
+    end
 
-      # View: generate cli.erb
+    # View: generate cli.erb
+    if options[:view]
       rails_generate_view(table_name, table_def)
+    end
 
-      # Routes: add routes
+    # Routes: add routes
+    if options[:routes]
       rails_add_routes(table_name, table_keys)
+    end
 
-      # Iterate children recursively
-      if children != nil
-        children.each do |child|
-          rails_add_tables(table2json, child, table_def["keys"])
-        end
+    # Iterate children recursively
+    if children != nil
+      children.each do |child|
+        rails_add_tables(options, table2json, child, table_def["keys"])
       end
     end
   end
 end
 
-def rails_add_associations(table2json, table_name)
+def rails_add_associations(options, table2json, table_name)
   table_keys = Hash.new
   index_keys = Hash.new
   table_def = table2json[table_name]
@@ -476,32 +534,44 @@ def rails_add_associations(table2json, table_name)
     # We do scaffolding only if model doesn't exist.
     # We should have better granularity.
     model = "app/models/" + keyword(table_name) + ".rb"
-    if !File.exists?(model)
+    if !File.exists?(model) and options[:scaffold]
       # Scaffolding
       rails_cmd = "rails generate scaffold " +
         keyword(table_name) + " " + fields.join(" ")
       puts rails_cmd
       system(rails_cmd)
+    end
 
+    if options[:migration]
       # Migration: generate index's
       rails_db_add_index(table_name, table_def, table_keys)
 
       # Migration: set default value
       rails_db_set_default(table_name, table_def)
+    end
 
-      # Model: add association
+    # Model: add association
+    if options[:model]
       rails_modify_model(table_name, table_def, table_keys, true)
+    end
 
-      # Controller: add custom update/destroy methods
+    # Controller: add custom update/destroy methods
+    if options[:controller]
       rails_modify_controller(table_name, table_def, index_keys)
+    end
 
-      # Helper: add get_default
+    # Helper: add get_default
+    if options[:helper]
       rails_modify_helper(table_name, table_def)
+    end
 
-      # View: generate cli.erb
+    # View: generate cli.erb
+    if options[:view]
       rails_generate_view(table_name, table_def)
+    end
 
-      # Routes: add routes
+    # Routes: add routes
+    if options[:routes]
       rails_add_routes(table_name, index_keys)
     end
   end
@@ -551,6 +621,8 @@ def rails_load_tables(dir)
 end
 
 def rails_update_mime_types
+  puts "=> Update mime_types.rb..."
+
   mime_types = "config/initializers/mime_types.rb"
   line = 'Mime::Type.register_alias "text/plain", :cli'
 
@@ -565,7 +637,7 @@ def rails_update_mime_types
 end
 
 # Main
-def main(rails_project, dir)
+def main(rails_project, dir, options)
   # Get directory where Table JSON located.
   table_json_dir = File.expand_path(Dir.getwd + "/" + dir)
   if !Dir.exists?(table_json_dir)
@@ -589,20 +661,52 @@ def main(rails_project, dir)
 
   # Iterate from parents, and then iterate children recursively.
   parents.each do |p|
-    rails_add_tables(table2json, p, nil)
+    rails_add_tables(options, table2json, p, nil)
   end
 
   # Iterate from associations.
   associations.each do |a|
-    rails_add_associations(table2json, a)
+    rails_add_associations(options, table2json, a)
   end
 
   # Update mime.types
-  rails_update_mime_types
+  rails_update_mime_types if options[:mime] == true
 
   # rake db:migrate
   system("rake db:migrate")
 end
 
+#
+# Options
+#
+options = Hash.new
+set_options_all(options)
+
+opts = GetoptLong.new(
+  [ '--help',            '-h', GetoptLong::NO_ARGUMENT ],
+  [ '--model-only',      '-m', GetoptLong::NO_ARGUMENT ],
+  [ '--controller-only', '-c', GetoptLong::NO_ARGUMENT ],
+  [ '--view-only',       '-v', GetoptLong::NO_ARGUMENT ]
+)
+
+opts.each do |opt, arg|
+  case opt
+    when '--help'
+      show_help
+    when '--model-only'
+      unset_options_all(options)
+      options[:model] = true
+      options[:scaffold] = false
+    when '--controller-only'
+      unset_options_all(options)
+      options[:controller] = true
+      options[:scaffold] = true
+    when '--view-only'
+      unset_options_all(options)
+      options[:view] = true
+      options[:scaffold] = true
+  end
+end
+
 # Start from here
-main(rails_project, dir)
+main(rails_project, dir, options)
