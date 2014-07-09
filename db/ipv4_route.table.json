@@ -8,7 +8,7 @@
           "through": "ipv4-route-nexthop"
         }
       },
-      "order": "address, masklen",
+      "order": "address, masklen DESC",
       "keys": {
         "address": {
           "type": "ipv4"
