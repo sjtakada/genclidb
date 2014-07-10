@@ -3,7 +3,9 @@
     "nexthop-ipv4": {
       "type": "parent",
       "has-association": {
-        "ipv4-route-nexthop": null,
+        "ipv4-route-nexthop": {
+          "as": "ipv4-reachable"
+        },
         "ipv4-route": {
           "through": "ipv4-route-nexthop"
         }
@@ -16,3 +18,4 @@
     }
   }
 }
+

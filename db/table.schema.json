@@ -27,7 +27,7 @@
                 }
               }
             },
-            "has-children": {
+            "has-dependent": {
               "type": "array",
               "items": {
                 "type": "string"
