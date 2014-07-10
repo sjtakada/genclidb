@@ -276,7 +276,7 @@ def rails_api_path(table_name, table_keys)
   path.join("/")
 end
 
-def rails_modify_controller(table_name, table_def, table_keys)
+def rails_modify_controller(table_name, table_def, table_keys, is_assoc)
   puts "=> Modify controller '" + table_name + "'..."
 
   controller_name = keyword_plural(table_name)
@@ -285,9 +285,11 @@ def rails_modify_controller(table_name, table_def, table_keys)
 
   File.open(controller, "w") do |f|
     @controller_name = keyword_plural(table_name)
+    @parents = table_def["belongs-to"]
     @model_name = keyword(table_name)
     @class_name = keyword_camel(table_name)
     @api_path = rails_api_path(table_name, table_keys)
+    @is_association = is_assoc
 
     @order = nil
     if table_def["order"] != nil
@@ -475,7 +477,7 @@ def rails_add_tables(options, table2json, table_name, parent_keys_def)
 
     # Controller: add custom update/destroy methods
     if options[:controller]
-      rails_modify_controller(table_name, table_def, table_keys)
+      rails_modify_controller(table_name, table_def, table_keys, false)
     end
 
     # Helper: add get_default
@@ -558,7 +560,7 @@ def rails_add_associations(options, table2json, table_name)
 
     # Controller: add custom update/destroy methods
     if options[:controller]
-      rails_modify_controller(table_name, table_def, index_keys)
+      rails_modify_controller(table_name, table_def, index_keys, true)
     end
 
     # Helper: add get_default
