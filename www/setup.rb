@@ -224,6 +224,7 @@ def rails_modify_model(table_name, table_def, table_keys, is_assoc)
   File.open(model, "w") do |f|
     @class_name = keyword_camel(table_name)
     @parents = table_def["belongs-to"]
+    @polymorphic = table_def["belongs-to-polymorphic"]
     @children = table_def["has-dependent"]
     @keys_def = table_def["keys"]
     @attrs_def = table_def["attributes"]

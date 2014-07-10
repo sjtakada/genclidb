@@ -5,6 +5,12 @@ class <%= @class_name %> < ActiveRecord::Base
 <%   end %>
 <% end %>
 <% ######################################################################### %>
+<% if @polymorphic != nil %>
+<%   @polymorphic.each do |p| %>
+  belongs_to :<%= keyword(p) %>, polymorphic: true
+<%   end %>
+<% end %>
+<% ######################################################################### %>
 <% if @children != nil %>
 <%   @children.each do |k, v| %>
   has_many :<%= keyword_plural(k) %>, dependent: :destroy
@@ -17,6 +23,8 @@ class <%= @class_name %> < ActiveRecord::Base
   has_many :<%= keyword_plural(k) %>
 <%     elsif v["through"] != nil %>
   has_many :<%= keyword_plural(k) %>, :through => :<%= keyword_plural(v["through"]) %>
+<%     elsif v["as"] != nil %>
+  has_many :<%= keyword_plural(k) %>, :as => :<%= keyword(v["as"]) %>
 <%     end %>
 <%   end %>
 <% end %>
