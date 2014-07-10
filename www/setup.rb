@@ -224,7 +224,7 @@ def rails_modify_model(table_name, table_def, table_keys, is_assoc)
   File.open(model, "w") do |f|
     @class_name = keyword_camel(table_name)
     @parents = table_def["belongs-to"]
-    @children = table_def["has-children"]
+    @children = table_def["has-dependent"]
     @keys_def = table_def["keys"]
     @attrs_def = table_def["attributes"]
     @all_keys = table_keys
@@ -421,7 +421,7 @@ def rails_add_tables(options, table2json, table_name, parent_keys_def)
   table_def = table2json[table_name]
 
   if table_def != nil
-    children = table_def["has-children"]
+    children = table_def["has-dependent"]
 
     fields = Array.new
 
