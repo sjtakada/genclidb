@@ -32,14 +32,14 @@ class <%= @class_name %>sController < ApplicationController
   def destroy_by_keys
     @<%= @model_name %> = <%= @class_name %>.find_by_params(params)
     if @<%= @model_name %> != nil
-<% if @is_association == true %>
+<% if @is_assoc == true %>
 <%   @parents.each do |p| %>
 <%     key_id = keyword(p) + "_id" %>
       <%= key_id %> = @<%= @model_name %>.<%= key_id %>
 <%   end %>
 <% end %>
       @<%= @model_name %>.destroy
-<% if @is_association == true %>
+<% if @is_assoc == true %>
 <%   @parents.each do |p| %>
 <%     key_id = keyword(p) + "_id" %>
       if <%= @class_name %>.find_by_<%= key_id %>(<%= key_id %>) == nil

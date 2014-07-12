@@ -50,6 +50,9 @@
                 }
               }
             },
+            "alias": {
+              "type": "string"
+            },
             "belongs-to": {
               "type": "array",
               "items": {

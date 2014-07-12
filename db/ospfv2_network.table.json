@@ -2,6 +2,7 @@
   "table": {
     "ospfv2-network": {
       "type": "dependent",
+      "alias": "network",
       "belongs-to": [
         "ospfv2"
       ],

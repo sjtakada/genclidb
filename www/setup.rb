@@ -1,4 +1,5 @@
 #!/usr/bin/ruby
+# -*- coding: utf-8 -*-
 #
 # Copyright (c) 2014 Toshiaki Takada
 #
@@ -33,15 +34,15 @@ require 'erb'
 #  [1] table.json directory
 #
 if ARGV[0] != nil
-  rails_project = ARGV[0]
+  $rails_project = ARGV[0]
 else
-  rails_project = "railsapp"
+  $rails_project = "railsapp"
 end  
 
 if ARGV[1] != nil
-  dir = ARGV[1]
+  db_dir = ARGV[1]
 else
-  dir = "../db"
+  db_dir = "../db"
 end
 
 def show_help
@@ -102,10 +103,10 @@ def rails_data_type(obj)
   type
 end
 
-def rails_db_add_index(table_name, table_def, table_keys)
+def rails_db_add_index(table_name, table_keys)
   puts "=> Add index to '" + table_name + "' migrations..."
 
-  index_keys = table_keys.keys
+  index_keys = table_keys.map{|t| t[0]}
   name = keyword_plural(table_name)
   migration = "add_index_to_" + name
 
@@ -167,9 +168,10 @@ def rails_attr_get_default(attributes, key)
   default_value
 end
 
-def rails_db_set_default(table_name, table_def)
+def rails_db_set_default(table_name)
   puts "=> Add default values to '" + table_name + "' migrations..."
 
+  table_def = $table2json[table_name]
   name = keyword_plural(table_name)
   migration = "create_" + name
 
@@ -214,8 +216,15 @@ def find_by_assoc_keys_statement_str(keys)
     keys.map {|k| keyword(k) + ".id"}.join(", ") + ")"
 end
 
-def rails_modify_model(table_name, table_def, table_keys, is_assoc)
+def find_by_func_name_str(table_keys)
+  "find_by_" + table_keys.map{|t| keyword(t[0])}.join("_and_")
+end
+
+def rails_modify_model(table_name, table_keys)
   puts "=> Modify model '" + table_name + "' ..."
+
+  table_def = $table2json[table_name]
+  @is_assoc = (table_def["type"] == "association") ? true : false
 
   @model_name = keyword(table_name)
   model = "app/models/" + @model_name + ".rb"
@@ -230,7 +239,6 @@ def rails_modify_model(table_name, table_def, table_keys, is_assoc)
     @attrs_def = table_def["attributes"]
     @all_keys = table_keys
     @associations = table_def["has-association"]
-    @is_association = is_assoc
 
     @default_def = Hash.new
     if @attrs_def != nil
@@ -239,7 +247,9 @@ def rails_modify_model(table_name, table_def, table_keys, is_assoc)
       end
     end
 
-    @ipaddr_keys = table_keys.select {|k, v| v["type"] == "ipv4" || v["type"] == "ipv6"}
+    @ipaddr_keys = table_keys.select {|t|
+      t[0]["type"] == "ipv4" || t[0]["type"] == "ipv6"
+    }
 
     renderer = ERB.new(template, nil, '<>')
     f.puts renderer.result()
@@ -269,50 +279,51 @@ def rails_modify_helper(table_name, table_def)
   end
 end
 
-def rails_api_path(table_name, table_keys)
+def rails_api_path(table_name, heritage)
   path = Array.new
   path << "api"
-  path << keyword_plural(table_name)
-  path << table_keys.keys.map {|k| ":" + keyword(k)}
+
+  heritage.each do |tuple|
+    name, t = tuple[0], tuple[1]
+
+    if t["type"] == "dependent" and !t["alias"].nil?
+      path << keyword_plural(t["alias"])
+    else
+      path << keyword_plural(name)
+    end
+
+    if !t["keys"].nil?
+      t["keys"].each do |k, v|
+        path << ":" + keyword(k)
+      end
+    end
+  end
+
   path.join("/")
 end
 
-def rails_modify_controller(table_name, table_def, table_keys, is_assoc)
+def rails_modify_controller(table_name, table_keys, db_fields, api_path)
   puts "=> Modify controller '" + table_name + "'..."
 
-  controller_name = keyword_plural(table_name)
-  controller = "app/controllers/#{controller_name}_controller.rb"
+  table_def = $table2json[table_name]
+  @is_assoc = (table_def["type"] == "association") ? true : false
+
+  @controller_name = keyword_plural(table_name)
+  controller = "app/controllers/#{@controller_name}_controller.rb"
   template = File.read("../controller.erb")
 
   File.open(controller, "w") do |f|
-    @controller_name = keyword_plural(table_name)
     @parents = table_def["belongs-to"]
     @model_name = keyword(table_name)
     @class_name = keyword_camel(table_name)
-    @api_path = rails_api_path(table_name, table_keys)
-    @is_association = is_assoc
+    @api_path = api_path
 
     @order = nil
     if table_def["order"] != nil
       @order = table_def["order"]
     end
 
-    fields = Hash.new
-    if table_keys != nil
-      fields.merge!(table_keys)
-    end
-    if table_def["attributes"] != nil
-      fields.merge!(table_def["attributes"])
-    end
-
-    keys = Array.new
-    if table_def["belongs-to"] != nil
-      keys << keyword(table_def["belongs-to"][0]) + "_id"
-    end
-    keys += fields.keys
-
-    @keys_str = keys.map {|k| ':' + keyword(k)}.join(", ")
-    @ipaddr_keys = fields.select {|k, v| v["type"] == "ipv4" || v["type"] == "ipv6"}
+    @keys_str = db_fields.map {|f| ':' + keyword(f[0])}.join(", ")
 
     renderer = ERB.new(template, nil, '<>')
     f.puts renderer.result()
@@ -325,9 +336,10 @@ end
 
 # It is a little bit cumbersome to genearete ERB from ERB...
 # So we do this way.
-def rails_generate_view(table_name, table_def)
+def rails_generate_view(table_name)
   puts "=> Generate views '" + table_name + "' ..."
 
+  table_def = $table2json[table_name]
   name = keyword(table_name)
   namep = keyword_plural(table_name)
   class_name = keyword_camel(table_name)
@@ -379,151 +391,197 @@ def rails_keys_constraints(table_keys)
   cons = ""
 
   if table_keys != nil
-    keys = table_keys.select {|k, v| v["type"] == "ipv4"}
+    keys = table_keys.select {|t| t[1]["type"] == "ipv4" || t[1]["type"] == "ipv6"}
     if keys.size > 0
       cons = ", constraints: {" +
-        keys.map {|k, v| keyword(k) + ': /[\d\.]+/'}.join(', ') + "}"
+        keys.map {|t| keyword(t[0]) + ': /[\d\.]+/'}.join(', ') + "}"
     end
   end
   
   cons
 end
 
-def rails_add_routes(table_name, table_keys)
+def rails_add_routes(table_name, table_keys, api_path)
   puts "=> Add routes '" + table_name + "' ..."
 
   name = keyword_plural(table_name)
-  routes = "config/routes.rb"
-  
-  lines = Array.new
-  File.open(routes, "r") do |f|
-    while line = f.gets
-      lines << line
-    end
-  end
 
-  lines.pop
-  File.open(routes, "w") do |f|
-    path = rails_api_path(table_name, table_keys)
-    cons = rails_keys_constraints(table_keys)
-
-    f.puts lines
-    f.puts
-    f.puts '  put "' + path + '", to: "' + name + '#create_by_keys"' + cons
-    f.puts '  post "' + path + '", to: "' + name + '#update_by_keys"' + cons
-    f.puts '  delete "' + path + '", to: "' + name + '#destroy_by_keys"' + cons
-    f.puts "end"
-  end
+  $routes[name] = Hash.new
+  $routes[name][:path] = api_path
+  $routes[name][:cons] = rails_keys_constraints(table_keys)
 end
 
-def rails_add_tables(options, table2json, table_name, parent_keys_def)
-  table_keys = Hash.new
-  table_keys.merge!(parent_keys_def) if parent_keys_def != nil
-  table_def = table2json[table_name]
+def rails_get_heritage(table_name)
+  heritage = Array.new
 
-  if table_def != nil
-    children = table_def["has-dependent"]
+  table_def = $table2json[table_name]
+  if !table_def.nil?
+    if !table_def["belongs-to"].nil?
+      if table_def["belongs-to"].size > 1
+        puts ">>> Error: Most likely " + table_name + " is association"
+        abort
+      end
 
-    fields = Array.new
+      heritage += rails_get_heritage(table_def["belongs-to"][0])
+    end
 
-    # Association
-    if table_def["belongs-to"] != nil
-      table_def["belongs-to"].each do |k|
-        fields << keyword(k) + "_id:integer"
+    heritage << [table_name, table_def]
+  end
+  
+  heritage
+end
+
+def rails_get_table_keys(heritage)
+  table_keys = Array.new
+
+  heritage.each do |tuple|
+    name, t = tuple[0], tuple[1]
+    if !t["keys"].nil?
+      t["keys"].each do |k, v|
+        table_keys << [k, v]
       end
     end
+  end
 
-    # Push keys
-    if table_def["keys"] != nil
-      table_keys.merge!(table_def["keys"])
+  table_keys
+end
+
+def rails_get_db_fields(table_def, table_keys)
+  db_fields = Array.new
+
+  # Association
+  if table_def["belongs-to"] != nil
+    table_def["belongs-to"].each do |k|
+      db_fields << [ keyword(k) + "_id", "integer" ]
     end
+  end
 
-    # Table keys
-    table_keys.each do |k, obj|
+  # Polymorphic Association
+  if table_def["belongs-to-polymorphic"] != nil
+    table_def["belongs-to-polymorphic"].each do |k|
+      db_fields << [ keyword(k) + "_id", "integer" ]
+      db_fields << [ keyword(k) + "_type", "string" ]
+    end
+  end
+
+  # Table keys
+  table_keys.each do |tuple|
+    key = keyword(tuple[0])
+    db_fields << [ key, rails_data_type(tuple[1]) ]
+  end
+
+  # Other columns
+  if table_def["attributes"] != nil
+    table_def["attributes"].each do |k, obj|
       key = keyword(k)
-      fields << key + ":" + rails_data_type(obj)
+      db_fields << [ key, rails_data_type(obj) ]
     end
+  end
 
-    # Other columns
-    if table_def["attributes"] != nil
-      table_def["attributes"].each do |k, obj|
-        key = keyword(k)
-        fields << key + ":" + rails_data_type(obj)
-      end
-    end
+  db_fields
+end
+
+def rails_add_table(table_name)
+  table_def = $table2json[table_name]
+  if table_def.nil?
+    puts ">>> Error: No table defintion for " + table_name
+  else
+    # Get list of keys from heritage.
+    heritage = rails_get_heritage(table_name)
+    table_keys = rails_get_table_keys(heritage)
+    db_fields = rails_get_db_fields(table_def, table_keys)
+    api_path = rails_api_path(table_name, heritage)
 
     # We do scaffolding only if model doesn't exist.
     # We should have better granularity.
     model = "app/models/" + keyword(table_name) + ".rb"
-    if !File.exists?(model) and options[:scaffold]
+    if !File.exists?(model) and $options[:scaffold]
       # Scaffolding
       rails_cmd = "rails generate scaffold " +
-        keyword(table_name) + " " + fields.join(" ")
+        keyword(table_name) + " " +
+        db_fields.map{|a| a[0] + ":" + a[1] }.join(" ")
+      puts "=> Scaffolding " + table_name + " ..."
       puts rails_cmd
       system(rails_cmd)
     end
 
-    if options[:migration]
+    if $options[:migration]
       # Migration: generate index's
-      rails_db_add_index(table_name, table_def, table_keys)
+      rails_db_add_index(table_name, table_keys)
 
       # Migration: set default value
-      rails_db_set_default(table_name, table_def)
+      rails_db_set_default(table_name)
     end
 
     # Model: add association
-    if options[:model]
-      rails_modify_model(table_name, table_def, table_keys, false)
+    if $options[:model]
+      rails_modify_model(table_name, table_keys)
     end
 
     # Controller: add custom update/destroy methods
-    if options[:controller]
-      rails_modify_controller(table_name, table_def, table_keys, false)
+    if $options[:controller]
+      rails_modify_controller(table_name, table_keys, db_fields, api_path)
     end
 
-    # Helper: add get_default
-#    if options[:helper]
-#      rails_modify_helper(table_name, table_def)
-#    end
-
     # View: generate cli.erb
-    if options[:view]
-      rails_generate_view(table_name, table_def)
+    if $options[:view]
+      rails_generate_view(table_name)
     end
 
     # Routes: add routes
-    if options[:routes]
-      rails_add_routes(table_name, table_keys)
+    if $options[:routes]
+      rails_add_routes(table_name, table_keys, api_path)
     end
 
     # Iterate children recursively
+    children = table_def["has-dependent"]
     if children != nil
       children.each do |child|
-        rails_add_tables(options, table2json, child, table_def["keys"])
+        rails_add_table(child)
       end
     end
   end
 end
 
-def rails_add_associations(options, table2json, table_name)
-  table_keys = Hash.new
-  index_keys = Hash.new
-  table_def = table2json[table_name]
+def rails_add_association(table_name)
+  table_def = $table2json[table]
+  if table_def.nil?
+    puts ">>> Error: No table defintion for " + table_name
+  else
+    table_keys = Hash.new
+    index_keys = Hash.new
 
-  if table_def != nil
-    fields = Array.new
+    db_fields = Array.new
 
     # Association, these are keys, too.
     if table_def["belongs-to"] != nil
       table_def["belongs-to"].each do |k|
-        key = keyword(k) + "_id"
+        key_id = keyword(k) + "_id"
 
-        fields << key + ":integer"
-        table_keys[key] = Hash.new
-        table_keys[key]["type"] = "integer"
-        if table2json[k] != nil
-          index_keys.merge!(table2json[k]["keys"])
+        db_fields << key_id + ":integer"
+        table_keys[key_id] = Hash.new
+        table_keys[key_id]["type"] = "integer"
+        if $table2json[k] != nil
+          index_keys.merge!($table2json[k]["keys"])
         end
+      end
+    end
+
+    # Polymorphic Association
+    if table_def["belongs-to-polymorphic"] != nil
+      table_def["belongs-to-polymorphic"].each do |k|
+        key_id = keyword(k) + "_id"
+        key_type = keyword(k) + "_type"
+
+        db_fields << key_id + ":integer"
+        db_fields << key_type + ":string"
+        table_keys[key_id] = Hash.new
+        table_keys[key_id]["type"] = "integer"
+        table_keys[key_type] = Hash.new
+        table_keys[key_type]["type"] = "string"
+#        if $table2json[k] != nil
+#          index_keys.merge!($table2json[k]["keys"])
+#        end
       end
     end
 
@@ -531,52 +589,48 @@ def rails_add_associations(options, table2json, table_name)
     if table_def["attributes"] != nil
       table_def["attributes"].each do |k, obj|
         key = keyword(k)
-        fields << key + ":" + rails_data_type(obj)
+        db_fields << key + ":" + rails_data_type(obj)
       end
     end
 
     # We do scaffolding only if model doesn't exist.
     # We should have better granularity.
     model = "app/models/" + keyword(table_name) + ".rb"
-    if !File.exists?(model) and options[:scaffold]
+    if !File.exists?(model) and $options[:scaffold]
       # Scaffolding
       rails_cmd = "rails generate scaffold " +
-        keyword(table_name) + " " + fields.join(" ")
+        keyword(table_name) + " " + db_fields.join(" ")
+      puts "=> Scaffolding " + table_name + " ..."
       puts rails_cmd
       system(rails_cmd)
     end
 
-    if options[:migration]
+    if $options[:migration]
       # Migration: generate index's
-      rails_db_add_index(table_name, table_def, table_keys)
+      rails_db_add_index(table_name, table_keys)
 
       # Migration: set default value
-      rails_db_set_default(table_name, table_def)
+      rails_db_set_default(table_name)
     end
 
     # Model: add association
-    if options[:model]
-      rails_modify_model(table_name, table_def, table_keys, true)
+    if $options[:model]
+      rails_modify_model(table_name, table_keys)
     end
 
     # Controller: add custom update/destroy methods
-    if options[:controller]
-      rails_modify_controller(table_name, table_def, index_keys, true)
+    if $options[:controller]
+      rails_modify_controller(table_name, index_keys, db_fields, api_path)
     end
 
-    # Helper: add get_default
-#    if options[:helper]
-#      rails_modify_helper(table_name, table_def)
-#    end
-
     # View: generate cli.erb
-    if options[:view]
-      rails_generate_view(table_name, table_def)
+    if $options[:view]
+      rails_generate_view(table_name)
     end
 
     # Routes: add routes
-    if options[:routes]
-      rails_add_routes(table_name, index_keys)
+    if $options[:routes]
+      rails_add_routes(table_name, index_keys, api_path)
     end
   end
 end
@@ -640,12 +694,27 @@ def rails_update_mime_types
   end
 end
 
+def rails_update_routes
+  puts "=> Update routes.rb ..."
+
+  routes = "config/routes.rb"
+  template = File.read("../routes.erb")
+
+  File.open(routes, "w") do |f|
+    @rails_project = $rails_project
+    @routes = $routes
+
+    renderer = ERB.new(template, nil, '<>')
+    f.puts renderer.result()
+  end
+end
+
 # Main
-def main(rails_project, dir, options)
+def main(dir)
   # Get directory where Table JSON located.
   table_json_dir = File.expand_path(Dir.getwd + "/" + dir)
   if !Dir.exists?(table_json_dir)
-    puts "Directory " + dir + " does not exist!"
+    puts ">>> Directory " + dir + " does not exist!"
     abort
   end
 
@@ -655,36 +724,44 @@ def main(rails_project, dir, options)
   Dir.chdir(top_dir)
 
   # Create rails project
-  if !File.exists?(rails_project)
-    system("rails new #{rails_project}")
+  if !File.exists?($rails_project)
+    system("rails new #{$rails_project}")
   end
-  Dir.chdir(rails_project)
+  Dir.chdir($rails_project)
 
   # Load *.table.json to get list of parents, association and table2json.
   parents, associations, table2json = rails_load_tables(table_json_dir)
+  $table2json = table2json
+
+  # Routes hash.
+  $routes = Hash.new
 
   # Iterate from parents, and then iterate children recursively.
   parents.each do |p|
-    rails_add_tables(options, table2json, p, nil)
+    rails_add_table(p)
   end
 
   # Iterate from associations.
   associations.each do |a|
-    rails_add_associations(options, table2json, a)
+#    rails_add_association(a)
   end
 
+  # Generate routes
+  rails_update_routes()
+
   # Update mime.types
-  rails_update_mime_types if options[:mime] == true
+  rails_update_mime_types if $options[:mime] == true
 
   # rake db:migrate
+  puts "=> Run DB migration ..."
   system("rake db:migrate")
 end
 
 #
 # Options
 #
-options = Hash.new
-set_options_all(options)
+$options = Hash.new
+set_options_all($options)
 
 opts = GetoptLong.new(
   [ '--help',            '-h', GetoptLong::NO_ARGUMENT ],
@@ -698,19 +775,19 @@ opts.each do |opt, arg|
     when '--help'
       show_help
     when '--model-only'
-      unset_options_all(options)
-      options[:model] = true
-      options[:scaffold] = false
+      unset_options_all($options)
+      $options[:model] = true
+      $options[:scaffold] = false
     when '--controller-only'
-      unset_options_all(options)
-      options[:controller] = true
+      unset_options_all($options)
+      $options[:controller] = true
       options[:scaffold] = true
     when '--view-only'
-      unset_options_all(options)
-      options[:view] = true
-      options[:scaffold] = true
+      unset_options_all($options)
+      $options[:view] = true
+      $options[:scaffold] = true
   end
 end
 
 # Start from here
-main(rails_project, dir, options)
+main(db_dir)

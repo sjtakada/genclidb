@@ -14,6 +14,7 @@
     },
     "acl-ipv4-std-rule": {
       "type": "dependent",
+      "alias": "rule",
       "belongs-to": [
         "acl-ipv4-std"
       ],

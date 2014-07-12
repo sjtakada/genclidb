@@ -67,7 +67,7 @@ class <%= @class_name %> < ActiveRecord::Base
 <% ######################################################################### %>
 
   def self.find_by_params(params)
-<% if @is_association == true %>
+<% if @is_assoc == true %>
 <%   if @parents != nil %>
 <%     @parents.each do |p| %>
     <%= keyword(p) %> = <%= keyword_camel(p) %>.find_by_params(params)
@@ -81,17 +81,17 @@ class <%= @class_name %> < ActiveRecord::Base
     <%= @model_name %>
 <% else %>
 <%   params = Array.new %>
-<%   @all_keys.each do |k, v| %>
-<%     if v["type"] == "ipv4" %>
+<%   @all_keys.each do |t| %>
+<%     k, v = t[0], t[1] %>
+<%     if v["type"] == "ipv4" || v["type"] == "ipv6" %>
     <%= keyword(k) %> = IPAddr.new(params[:<%= keyword(k) %>]).hton
 <%       params << keyword(k) %>
 <%     else %>
 <%       params << "params[:" + keyword(k) + "]" %>
 <%     end %>
 <%   end %>
-<%  func_name_str = @all_keys.keys.map{|k| keyword(k)}.join("_and_") %>
-<%  params_str = params.join(", ") %>
-    find_by_<%= func_name_str %>(<%= params_str %>)
+<% params_str = params.join(", ") %>
+    <%= find_by_func_name_str(@all_keys) %>(<%= params_str %>)
 <% end %>
   end
 <% ######################################################################### %>
@@ -102,7 +102,7 @@ class <%= @class_name %> < ActiveRecord::Base
     <%= keyword(p) %> = <%= keyword_camel(p) %>.get_by_params(params)
 <%   end %>
 <% end %>
-<% if @is_association == false %>
+<% if @is_assoc == false %>
     <%= @model_name %> = find_by_params(params)
 <% elsif @parents != nil %>
     <%= @model_name %> = <%= find_by_assoc_keys_statement_str(@parents) %>
@@ -114,8 +114,9 @@ class <%= @class_name %> < ActiveRecord::Base
       <%= @model_name %>.<%= keyword(p) %>_id = <%= keyword(p) %>.id
 <%   end %>
 <% end %>
-<% if @all_keys != nil and @is_association == false %>
-<%   @all_keys.keys.each do |k, v| %>
+<% if @all_keys != nil and @is_assoc == false %>
+<%   @all_keys.each do |t| %>
+<%     k = t[0] %>
       <%= @model_name %>.<%= keyword(k) %> = params[:<%= keyword(k) %>]
 <%   end %>
 <% end %>
@@ -157,7 +158,8 @@ class <%= @class_name %> < ActiveRecord::Base
 <%     end %>
 <%   end %>
 <% end %>
-<% @ipaddr_keys.each do |k, v| %>
+<% @ipaddr_keys.each do |t| %>
+<%  k, v = t[0], t[1] %>
 
   def <%= keyword(k) %>=(v)
     blob = v.nil? ? nil : IPAddr.new(v).hton

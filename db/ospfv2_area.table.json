@@ -2,6 +2,7 @@
   "table": {
     "ospfv2-area": {
       "type": "dependent",
+      "alias": "area",
       "belongs-to": [
         "ospfv2"
       ],
