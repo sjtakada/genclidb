@@ -75,7 +75,6 @@ class <%= @class_name %>sController < ApplicationController
       <%= intf %> = @<%= @model_name %>.<%= intf %>
 <%   end %>
 <% end %>
-
       @<%= @model_name %>.destroy
 <% if @is_assoc == true %>
 <%   @belongs_to.each do |p| %>
@@ -85,7 +84,6 @@ class <%= @class_name %>sController < ApplicationController
         <%= keyword_camel(p) %>.destroy(<%= key_id %>)
       end
 <%   end %>
-
 <%   if @polymorphic != nil and @polymorphic["interface"] != nil %>
 <%     intf = keyword(@polymorphic["interface"]) %>
       if <%= @class_name %>.find_by_<%= intf %>_type_and_<%= intf %>_id(<%= intf %>_type, <%= intf %>.id) == nil

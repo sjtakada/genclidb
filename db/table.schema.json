@@ -58,9 +58,9 @@
             },
             "belongs-to": {
               "type": "object",
-              "patternProperties": {
-                "^[a-z_A-Z0-9\-]+$": {
-                  "type": ["array", "null"]
+              "properties": {
+                "table": {
+                  "type": ["array", "string"]
                 }
               }
             },

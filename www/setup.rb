@@ -727,15 +727,12 @@ def rails_add_association(table_name)
       rails_modify_model(table_name, table_keys)
     end
 
-    # Controller: add custom update/destroy methods
-    if $options[:controller]
-      rails_modify_controller(table_name, nil, db_fields, nil)
-    end
-
     # View: generate cli.erb
     if $options[:view]
       rails_generate_view(table_name)
     end
+
+    api_path = nil
 
     # Routes: add routes
     if $options[:routes]
@@ -748,8 +745,19 @@ def rails_add_association(table_name)
           rails_add_polymorphic_routes(table_name, index_keys, t, api_path)
         end
 
-        $routes_resource << keyword_plural(table_name)
+        api_path = nil
+      else
+        api_path = rails_api_path_polymorphic(belongs_to, nil)
+        index_keys = rails_get_index_keys_assoc(belongs_to, nil)
+        rails_add_routes(table_name, index_keys, api_path)
       end
+
+      $routes_resource << keyword_plural(table_name)
+    end
+
+    # Controller: add custom update/destroy methods
+    if $options[:controller]
+      rails_modify_controller(table_name, nil, db_fields, api_path)
     end
   end
 end
