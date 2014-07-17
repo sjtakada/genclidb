@@ -3,9 +3,7 @@
     "ospfv2-area": {
       "type": "dependent",
       "alias": "area",
-      "belongs-to": [
-        "ospfv2"
-      ],
+      "parent": "ospfv2",
       "keys": {
         "area-id": {
           "type": "integer",

@@ -15,9 +15,7 @@
     "acl-ipv4-std-rule": {
       "type": "dependent",
       "alias": "rule",
-      "belongs-to": [
-        "acl-ipv4-std"
-      ],
+      "parent": "acl-ipv4-std",
       "keys": {
         "rule-type": {
           "type": "enum",

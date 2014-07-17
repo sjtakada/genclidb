@@ -104,7 +104,7 @@ def rails_data_type(obj)
 end
 
 def rails_db_add_index(table_name, table_keys)
-  puts "=> Add index to '" + table_name + "' migrations..."
+  puts "=> Add index to '" + keyword(table_name) + "' migrations..."
 
   index_keys = table_keys.map{|t| t[0]}
   name = keyword_plural(table_name)
@@ -169,7 +169,7 @@ def rails_attr_get_default(attributes, key)
 end
 
 def rails_db_set_default(table_name)
-  puts "=> Add default values to '" + table_name + "' migrations..."
+  puts "=> Add default values to '" + keyword(table_name) + "' migrations..."
 
   table_def = $table2json[table_name]
   name = keyword_plural(table_name)
@@ -210,21 +210,66 @@ def rails_db_set_default(table_name)
   Dir.chdir("../..")
 end
 
-def find_by_assoc_keys_statement_str(keys)
-  "find_by_" +
-    keys.map {|k| keyword(k) + "_id"}.join("_and_") + "(" +
-    keys.map {|k| keyword(k) + ".id"}.join(", ") + ")"
+def find_by_assoc_keys_statement_str(belongs_to, polymorphic)
+  keys = Array.new
+  params = Array.new
+  conds = Array.new
+
+  if belongs_to != nil
+    belongs_to.each do |b|
+      keys << keyword(b) + "_id"
+      params << keyword(b) + ".id"
+      conds << keyword(b)
+    end
+  end
+
+  if polymorphic != nil
+    intf = polymorphic["interface"]
+    keys << keyword(intf) + "_type"
+    keys << keyword(intf) + "_id"
+    params << keyword(intf) + "_type"
+    params << keyword(intf) + "_id"
+    conds << keyword(intf) + "_type"
+    conds << keyword(intf) + "_id"
+  end
+
+  cond_str = conds.map {|c| c + " != nil"}.join(" and ")
+  func_str = "find_by_" + keys.join("_and_") + "(" + params.join(", ") + ")"
+
+  [func_str, cond_str]
 end
 
 def find_by_func_name_str(table_keys)
   "find_by_" + table_keys.map{|t| keyword(t[0])}.join("_and_")
 end
 
+def rails_get_belongs_to_assoc(table_def)
+  belongs_to = Array.new
+  polymorphic = nil
+
+  b = table_def["belongs-to"]
+  if !b.nil?
+    if !b["table"].nil?
+      d = b["table"]
+      if d.kind_of?(Array)
+        belongs_to = d
+      else
+        belongs_to = [d]
+      end
+    end
+    if !b["polymorphic"].nil?
+      polymorphic = b["polymorphic"]
+    end
+  end
+
+  [belongs_to, polymorphic]
+end
+
 def rails_modify_model(table_name, table_keys)
-  puts "=> Modify model '" + table_name + "' ..."
+  puts "=> Modify model '" + keyword(table_name) + "' ..."
 
   table_def = $table2json[table_name]
-  @is_assoc = (table_def["type"] == "association") ? true : false
+  @is_assoc = table_def["type"] == "association"
 
   @model_name = keyword(table_name)
   model = "app/models/" + @model_name + ".rb"
@@ -232,8 +277,13 @@ def rails_modify_model(table_name, table_keys)
 
   File.open(model, "w") do |f|
     @class_name = keyword_camel(table_name)
-    @parents = table_def["belongs-to"]
-    @polymorphic = table_def["belongs-to-polymorphic"]
+    if !table_def["parent"].nil?
+      @belongs_to = [ table_def["parent"] ]
+    elsif table_def["type"] == "association"
+      @belongs_to, @polymorphic = rails_get_belongs_to_assoc(table_def)
+    end
+    @find_func_str, @find_cond_str =
+      find_by_assoc_keys_statement_str(@belongs_to, @polymorphic)
     @children = table_def["has-dependent"]
     @keys_def = table_def["keys"]
     @attrs_def = table_def["attributes"]
@@ -248,7 +298,7 @@ def rails_modify_model(table_name, table_keys)
     end
 
     @ipaddr_keys = table_keys.select {|t|
-      t[0]["type"] == "ipv4" || t[0]["type"] == "ipv6"
+      t[1]["type"] == "ipv4" || t[1]["type"] == "ipv6"
     }
 
     renderer = ERB.new(template, nil, '<>')
@@ -256,28 +306,28 @@ def rails_modify_model(table_name, table_keys)
   end
 end
 
-def rails_modify_helper(table_name, table_def)
-  puts "=> Modify helper '" + table_name + "'..."
-
-  @helper_name = keyword_plural(table_name)
-  helper = "app/helpers/" + @helper_name + "_helper.rb"
-  template = File.read("../helper.erb")
-
-  File.open(helper, "w") do |f|
-    @class_name = keyword_camel(@helper_name)
-    @attrs_def = table_def["attributes"]
-
-    @default_def = Hash.new
-    if @attrs_def != nil
-      @attrs_def.each do |k, v|
-        @default_def[keyword(k)] = rails_attr_get_default(@attrs_def, k)
-      end
-    end
-
-    renderer = ERB.new(template, nil, '<>')
-    f.puts renderer.result()
-  end
-end
+#def rails_modify_helper(table_name, table_def)
+#  puts "=> Modify helper '" + keyword(table_name) + "'..."
+#
+#  @helper_name = keyword_plural(table_name)
+#  helper = "app/helpers/" + @helper_name + "_helper.rb"
+#  template = File.read("../helper.erb")
+#
+#  File.open(helper, "w") do |f|
+#    @class_name = keyword_camel(@helper_name)
+#    @attrs_def = table_def["attributes"]
+#
+#    @default_def = Hash.new
+#    if @attrs_def != nil
+#      @attrs_def.each do |k, v|
+#        @default_def[keyword(k)] = rails_attr_get_default(@attrs_def, k)
+#      end
+#    end
+#
+#    renderer = ERB.new(template, nil, '<>')
+#    f.puts renderer.result()
+#  end
+#end
 
 def rails_api_path(table_name, heritage)
   path = Array.new
@@ -302,18 +352,56 @@ def rails_api_path(table_name, heritage)
   path.join("/")
 end
 
+def rails_api_path_polymorphic(belongs_to, polymorphic)
+  path = Array.new
+  path << "api"
+
+  belongs_to.each do |b|
+    t = $table2json[b]
+    if !t.nil?
+      if t["type"] == "dependent" and !t["alias"].nil?
+        path << keyword_plural(t["alias"])
+      else
+        path << keyword_plural(b)
+      end
+
+      if !t["keys"].nil?
+        t["keys"].each do |k, v|
+          path << ":" + keyword(k)
+        end
+      end
+    end
+  end
+
+  if polymorphic != nil
+    p = polymorphic
+    t = $table2json[p]
+    if !t.nil?
+      path << keyword_plural(p)
+
+      if !t["keys"].nil?
+        t["keys"].each do |k, v|
+          path << ":" + keyword(k)
+        end
+      end
+    end
+  end
+
+  path.join("/")
+end
+
 def rails_modify_controller(table_name, table_keys, db_fields, api_path)
-  puts "=> Modify controller '" + table_name + "'..."
+  puts "=> Modify controller '" + keyword(table_name) + "'..."
 
   table_def = $table2json[table_name]
-  @is_assoc = (table_def["type"] == "association") ? true : false
+  @is_assoc = table_def["type"] == "association"
 
   @controller_name = keyword_plural(table_name)
   controller = "app/controllers/#{@controller_name}_controller.rb"
   template = File.read("../controller.erb")
 
   File.open(controller, "w") do |f|
-    @parents = table_def["belongs-to"]
+    @belongs_to, @polymorphic = rails_get_belongs_to_assoc(table_def)
     @model_name = keyword(table_name)
     @class_name = keyword_camel(table_name)
     @api_path = api_path
@@ -337,7 +425,7 @@ end
 # It is a little bit cumbersome to genearete ERB from ERB...
 # So we do this way.
 def rails_generate_view(table_name)
-  puts "=> Generate views '" + table_name + "' ..."
+  puts "=> Generate views '" + keyword(table_name) + "' ..."
 
   table_def = $table2json[table_name]
   name = keyword(table_name)
@@ -402,13 +490,28 @@ def rails_keys_constraints(table_keys)
 end
 
 def rails_add_routes(table_name, table_keys, api_path)
-  puts "=> Add routes '" + table_name + "' ..."
+  puts "=> Add routes '" + keyword(table_name) + "' ..."
 
-  name = keyword_plural(table_name)
+  route = Hash.new
+  route[:name] = keyword_plural(table_name)
+  route[:path] = api_path
+  route[:cons] = rails_keys_constraints(table_keys)
+  $routes << route
+  $routes_resource << keyword_plural(table_name)
+end
 
-  $routes[name] = Hash.new
-  $routes[name][:path] = api_path
-  $routes[name][:cons] = rails_keys_constraints(table_keys)
+def rails_add_polymorphic_routes(table_name_assoc, index_keys,
+                                 table_name_polymorphic, api_path)
+  puts "=> Add routes '" + keyword(table_name_assoc) + "' ..."
+
+  cons = rails_keys_constraints(index_keys)
+  route = Hash.new
+  route[:name] = keyword(table_name_assoc)
+  route[:path] = api_path
+  route[:polymorphic] = keyword(table_name_polymorphic)
+  route[:cons] = cons
+
+  $routes_polymorphic << route
 end
 
 def rails_get_heritage(table_name)
@@ -416,13 +519,8 @@ def rails_get_heritage(table_name)
 
   table_def = $table2json[table_name]
   if !table_def.nil?
-    if !table_def["belongs-to"].nil?
-      if table_def["belongs-to"].size > 1
-        puts ">>> Error: Most likely " + table_name + " is association"
-        abort
-      end
-
-      heritage += rails_get_heritage(table_def["belongs-to"][0])
+    if !table_def["parent"].nil?
+      heritage += rails_get_heritage(table_def["parent"])
     end
 
     heritage << [table_name, table_def]
@@ -449,25 +547,18 @@ end
 def rails_get_db_fields(table_def, table_keys)
   db_fields = Array.new
 
-  # Association
-  if table_def["belongs-to"] != nil
-    table_def["belongs-to"].each do |k|
-      db_fields << [ keyword(k) + "_id", "integer" ]
-    end
-  end
-
-  # Polymorphic Association
-  if table_def["belongs-to-polymorphic"] != nil
-    table_def["belongs-to-polymorphic"].each do |k|
-      db_fields << [ keyword(k) + "_id", "integer" ]
-      db_fields << [ keyword(k) + "_type", "string" ]
-    end
+  # Simple parent association has only parent.
+  if table_def["parent"] != nil
+    k = table_def["parent"]
+    db_fields << [ keyword(k) + "_id", "integer" ]
   end
 
   # Table keys
-  table_keys.each do |tuple|
-    key = keyword(tuple[0])
-    db_fields << [ key, rails_data_type(tuple[1]) ]
+  if !table_keys.nil?
+    table_keys.each do |tuple|
+      key = keyword(tuple[0])
+      db_fields << [ key, rails_data_type(tuple[1]) ]
+    end
   end
 
   # Other columns
@@ -484,7 +575,7 @@ end
 def rails_add_table(table_name)
   table_def = $table2json[table_name]
   if table_def.nil?
-    puts ">>> Error: No table defintion for " + table_name
+    puts ">>> Error: No table defintion for " + keyword(table_name)
   else
     # Get list of keys from heritage.
     heritage = rails_get_heritage(table_name)
@@ -500,7 +591,7 @@ def rails_add_table(table_name)
       rails_cmd = "rails generate scaffold " +
         keyword(table_name) + " " +
         db_fields.map{|a| a[0] + ":" + a[1] }.join(" ")
-      puts "=> Scaffolding " + table_name + " ..."
+      puts "=> Scaffolding " + keyword(table_name) + " ..."
       puts rails_cmd
       system(rails_cmd)
     end
@@ -543,55 +634,73 @@ def rails_add_table(table_name)
   end
 end
 
-def rails_add_association(table_name)
-  table_def = $table2json[table]
-  if table_def.nil?
-    puts ">>> Error: No table defintion for " + table_name
-  else
-    table_keys = Hash.new
-    index_keys = Hash.new
+def rails_get_table_keys_assoc(table_def)
+  table_keys = Array.new
 
-    db_fields = Array.new
+  belongs_to = table_def["belongs-to"]
+  if !belongs_to.nil?
+    tables = belongs_to["table"]
 
-    # Association, these are keys, too.
-    if table_def["belongs-to"] != nil
-      table_def["belongs-to"].each do |k|
-        key_id = keyword(k) + "_id"
-
-        db_fields << key_id + ":integer"
-        table_keys[key_id] = Hash.new
-        table_keys[key_id]["type"] = "integer"
-        if $table2json[k] != nil
-          index_keys.merge!($table2json[k]["keys"])
+    if !tables.nil?
+      if tables.kind_of?(Array)
+        tables.each do |t|
+          k = keyword(t) + "_id"
+          v = {"type" => "integer"}
+          table_keys << [k, v]
         end
+      else
+        k = keyword(belongs_to["table"]) + "_id"
+        v = {"type" => "integer"}
+        table_keys << [k, v]
       end
     end
 
-    # Polymorphic Association
-    if table_def["belongs-to-polymorphic"] != nil
-      table_def["belongs-to-polymorphic"].each do |k|
-        key_id = keyword(k) + "_id"
-        key_type = keyword(k) + "_type"
+    polymorphic = belongs_to["polymorphic"]
+    if !polymorphic.nil?
+      i = polymorphic["interface"]
+      k = keyword(i) + "_id"
+      v = {"type" => "integer"}
+      table_keys << [k, v]
+      k = keyword(i) + "_type"
+      v = {"type" => "string"}
+      table_keys << [k, v]
+    end
+  end
 
-        db_fields << key_id + ":integer"
-        db_fields << key_type + ":string"
-        table_keys[key_id] = Hash.new
-        table_keys[key_id]["type"] = "integer"
-        table_keys[key_type] = Hash.new
-        table_keys[key_type]["type"] = "string"
-#        if $table2json[k] != nil
-#          index_keys.merge!($table2json[k]["keys"])
-#        end
+  table_keys
+end
+
+def rails_get_index_keys_assoc(belongs_to, table_name)
+  index_keys = Array.new
+
+  belongs_to.each do |t|
+    table_def = $table2json[t]
+    if !table_def["keys"].nil?
+      table_def["keys"].each do |k, v|
+        index_keys << [k, v]
       end
     end
+  end
 
-    # Other columns
-    if table_def["attributes"] != nil
-      table_def["attributes"].each do |k, obj|
-        key = keyword(k)
-        db_fields << key + ":" + rails_data_type(obj)
+  if !table_name.nil?
+    table_def = $table2json[table_name]
+    if !table_def["keys"].nil?
+      table_def["keys"].each do |k, v|
+        index_keys << [k, v]
       end
     end
+  end
+
+  index_keys
+end
+
+def rails_add_association(table_name)
+  table_def = $table2json[table_name]
+  if table_def.nil?
+    puts ">>> Error: No table defintion for " + keyword(table_name)
+  else
+    table_keys = rails_get_table_keys_assoc(table_def)
+    db_fields = rails_get_db_fields(table_def, table_keys)
 
     # We do scaffolding only if model doesn't exist.
     # We should have better granularity.
@@ -600,7 +709,7 @@ def rails_add_association(table_name)
       # Scaffolding
       rails_cmd = "rails generate scaffold " +
         keyword(table_name) + " " + db_fields.join(" ")
-      puts "=> Scaffolding " + table_name + " ..."
+      puts "=> Scaffolding '" + keyword(table_name) + "' ..."
       puts rails_cmd
       system(rails_cmd)
     end
@@ -620,7 +729,7 @@ def rails_add_association(table_name)
 
     # Controller: add custom update/destroy methods
     if $options[:controller]
-      rails_modify_controller(table_name, index_keys, db_fields, api_path)
+      rails_modify_controller(table_name, nil, db_fields, nil)
     end
 
     # View: generate cli.erb
@@ -630,7 +739,17 @@ def rails_add_association(table_name)
 
     # Routes: add routes
     if $options[:routes]
-      rails_add_routes(table_name, index_keys, api_path)
+      belongs_to, polymorphic = rails_get_belongs_to_assoc(table_def)
+      if !polymorphic.nil?
+        intf = polymorphic["interface"]
+        polymorphic["table"].each do |t|
+          api_path = rails_api_path_polymorphic(belongs_to, t)
+          index_keys = rails_get_index_keys_assoc(belongs_to, t)
+          rails_add_polymorphic_routes(table_name, index_keys, t, api_path)
+        end
+
+        $routes_resource << keyword_plural(table_name)
+      end
     end
   end
 end
@@ -664,13 +783,13 @@ def rails_load_tables(dir)
 
   puts "parents:"
   parents.each do |p|
-    puts "- " + p
+    puts "- " + keyword(p)
   end
 
   puts ""
   puts "associations:"
   associations.each do |a|
-    puts "- " + a
+    puts "- " + keyword(a)
   end
 
   puts
@@ -703,6 +822,8 @@ def rails_update_routes
   File.open(routes, "w") do |f|
     @rails_project = $rails_project
     @routes = $routes
+    @routes_resource = $routes_resource
+    @routes_polymorphic = $routes_polymorphic
 
     renderer = ERB.new(template, nil, '<>')
     f.puts renderer.result()
@@ -733,8 +854,10 @@ def main(dir)
   parents, associations, table2json = rails_load_tables(table_json_dir)
   $table2json = table2json
 
-  # Routes hash.
-  $routes = Hash.new
+  # Routes.
+  $routes = Array.new
+  $routes_resource = Array.new
+  $routes_polymorphic = Array.new
 
   # Iterate from parents, and then iterate children recursively.
   parents.each do |p|
@@ -743,11 +866,11 @@ def main(dir)
 
   # Iterate from associations.
   associations.each do |a|
-#    rails_add_association(a)
+    rails_add_association(a)
   end
 
   # Generate routes
-  rails_update_routes()
+  rails_update_routes
 
   # Update mime.types
   rails_update_mime_types if $options[:mime] == true

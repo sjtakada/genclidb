@@ -3,9 +3,7 @@
     "ospfv2-network": {
       "type": "dependent",
       "alias": "network",
-      "belongs-to": [
-        "ospfv2"
-      ],
+      "parent": "ospfv2",
       "order": "address, masklen DESC",
       "keys": {
         "address": {

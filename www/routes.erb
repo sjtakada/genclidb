@@ -1,0 +1,78 @@
+<%= keyword_camel(@rails_project) %>::Application.routes.draw do
+<% @routes_resource.each do |t| %>
+  resources :<%= t %>
+
+<% end %>
+  # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes".
+
+  # You can have the root of your site routed with "root"
+  # root 'welcome#index'
+
+  # Example of regular route:
+  #   get 'products/:id' => 'catalog#view'
+
+  # Example of named route that can be invoked with purchase_url(id: product.id)
+  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+
+  # Example resource route (maps HTTP verbs to controller actions automatically):
+  #   resources :products
+
+  # Example resource route with options:
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
+
+  # Example resource route with sub-resources:
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
+
+  # Example resource route with more complex sub-resources:
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', on: :collection
+  #     end
+  #   end
+
+  # Example resource route with concerns:
+  #   concern :toggleable do
+  #     post 'toggle'
+  #   end
+  #   resources :posts, concerns: :toggleable
+  #   resources :photos, concerns: :toggleable
+
+  # Example resource route within a namespace:
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
+  #   end
+
+  # Custom APIs for regular tables.
+<% @routes.each do |r| %>
+
+  # API routes for <%= keyword_camel(r[:name]) %>
+  put "<%= r[:path] %>", to: "<%= r[:name] %>#create_by_keys"<%= r[:cons] %>
+  post "<%= r[:path] %>", to: "<%= r[:name] %>#update_by_keys"<%= r[:cons] %>
+  delete "<%= r[:path] %>", to: "<%= r[:name] %>#destroy_by_keys"<%= r[:cons] %>
+<% end %>
+
+  # Custom APIs for association tables.
+<% @routes_polymorphic.each do |r| %>
+  # API routes for <%= r[:name] %> with <%= r[:polymorphic] %>
+  put "<%= r[:path] %>", to: "<%= keyword_plural(r[:name]) %>#create_by_<%= r[:polymorphic] %>"<%= r[:cons] %>
+  post "<%= r[:path] %>", to: "<%= keyword_plural(r[:name]) %>#update_by_<%= r[:polymorphic] %>"<%= r[:cons] %>
+  delete "<%= r[:path] %>", to: "<%= keyword_plural(r[:name]) %>#destroy_by_<%= r[:polymorphic] %>"<%= r[:cons] %>
+
+<% end %>
+end
