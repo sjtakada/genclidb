@@ -827,6 +827,15 @@ def rails_update_routes
   routes = "config/routes.rb"
   template = File.read("../routes.erb")
 
+  # Load extra routes.
+  @routes_extra = Array.new
+  m = Dir.entries("../routes").select {|f| f =~ /\.rb$/}
+  m.each do |f|
+    file = "../routes/" + f
+    str = File.read(file)
+    @routes_extra << str
+  end
+
   File.open(routes, "w") do |f|
     @rails_project = $rails_project
     @routes = $routes

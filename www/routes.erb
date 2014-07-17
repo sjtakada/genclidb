@@ -75,4 +75,10 @@
   delete "<%= r[:path] %>", to: "<%= keyword_plural(r[:name]) %>#destroy_by_<%= r[:polymorphic] %>"<%= r[:cons] %>
 
 <% end %>
+
+  # Additional Routes.
+<% @routes_extra.each do |r| %>
+
+<%= r %>
+<% end %>
 end
