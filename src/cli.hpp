@@ -58,6 +58,7 @@ public:
   int mode_read(char *filename);
   CliTree *mode_traverse(Json::Value& current, CliTree *parent);
   bool mode_set(string& mode_str);
+  bool mode_set(CliTree *mode);
   bool mode_up(unsigned int up);
   void exit();
   void end();

@@ -52,6 +52,7 @@ public:
   void init(Cli *cli);
   char *gets();
   bool execute();
+  enum ExecResult execute_parent(string& line, CliTree *mode);
   int describe();
   char **completion(const char *text, int start, int end);
   char *completion_matches(const char *text, int state);

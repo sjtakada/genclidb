@@ -532,21 +532,50 @@ CliReadline::handle_actions(CliNodeTokenVector& node_token_vec)
     }
 }
 
+enum ExecResult
+CliReadline::execute_parent(string& line, CliTree *mode)
+{
+  CliNodeTokenVector node_token_vec;
+  string line_tmp(line);
+
+  enum ExecResult
+    result = parse_execute(line_tmp, mode->top_, node_token_vec);
+
+  if (result == exec_complete)
+    {
+      handle_actions(node_token_vec);
+
+      cli_->mode_set(mode);
+    }
+  else if (mode->parent())
+    {
+      result = execute_parent(line, mode->parent());
+    }
+
+  // Cleanup input token strings.
+  for (CliNodeTokenVector::iterator it = node_token_vec.begin();
+       it != node_token_vec.end(); ++it)
+    delete it->second;
+
+  return result;
+}
+
 bool
 CliReadline::execute()
 {
   // current mode.
-  CliTree *tree = cli_->current_mode();
+  CliTree *mode = cli_->current_mode();
   CliNodeTokenVector node_token_vec;
-  string line(" ");
   boost::smatch m;
+  string line(" ");
 
   line += rl_line_buffer;
-
   if (!boost::regex_search(line, m, re_white_space_only))
     {
+      string line_tmp(line);
+
       enum ExecResult
-        result = parse_execute(line, tree->top_, node_token_vec);
+        result = parse_execute(line_tmp, mode->top_, node_token_vec);
 
       switch (result)
         {
@@ -560,7 +589,12 @@ CliReadline::execute()
           cout << "% Ambiguous command" << endl << endl;
           break;
         case exec_unrecognized:
-          cout << "% Unrecognized command" << endl << endl;
+          if (mode->parent())
+            result = execute_parent(line, mode->parent());
+
+          if (result != exec_complete)
+            cout << "% Unrecognized command" << endl << endl;
+
           break;
         }
 
@@ -572,5 +606,4 @@ CliReadline::execute()
 
   return true;
 }
-
 

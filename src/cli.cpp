@@ -339,6 +339,13 @@ Cli::mode_set(string& mode_str)
 }
 
 bool
+Cli::mode_set(CliTree *mode)
+{
+  mode_ = mode;
+  return true;
+}
+
+bool
 Cli::mode_up(unsigned int up)
 {
   CliTree *mode = current_mode();
