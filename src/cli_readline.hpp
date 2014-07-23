@@ -41,6 +41,25 @@ enum ExecResult {
   exec_unrecognized,
 };
 
+class CliParseState
+{
+public:
+  CliParseState(char *buf)
+    : line_(" "), is_cmd_(false)
+  {
+    line_ += buf;
+  }
+
+  // Current remaining input.
+  string line_;
+
+  // Vector of pair of CliNode and Matchstate.
+  CliNodeMatchStateVector matched_vec_;
+
+  // Return value, whether or not it hits executable command.
+  bool is_cmd_;
+};
+
 class CliReadline
 {
 public:
@@ -84,8 +103,7 @@ private:
   void filter_hidden(CliNodeMatchStateVector& matched_vec);
   size_t match_token(string& input, CliNode *node,
                      CliNodeMatchStateVector& matched_vec);
-  enum ExecResult parse(string& line, CliNode *curr,
-                        CliNodeMatchStateVector& matched_vec, bool& is_cmd);
+  enum ExecResult parse(CliParseState& ps, CliNode *curr);
   enum ExecResult parse_execute(string& line, CliNode *curr,
                                  CliNodeTokenVector& node_token_vec);
   void describe_line(CliNode *node, size_t max_len_token);

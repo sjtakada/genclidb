@@ -143,48 +143,46 @@ CliReadline::filter_hidden(CliNodeMatchStateVector& matched_vec)
 
 // Return true if command can be completed.
 enum ExecResult
-CliReadline::parse(string& line, CliNode *curr,
-                   CliNodeMatchStateVector& matched_vec,
-                   bool& is_cmd)
+CliReadline::parse(CliParseState& ps, CliNode *curr)
 {
   boost::smatch m;
   string token;
 
   do {
-    matched_vec.clear();
-    if (!skip_spaces(line))
+    ps.matched_vec_.clear();
+    if (!skip_spaces(ps.line_))
       break;
 
-    fill_matched_vec(curr, matched_vec);
-    filter_hidden(matched_vec);
+    fill_matched_vec(curr, ps.matched_vec_);
+    filter_hidden(ps.matched_vec_);
 
-    if (!get_token(line, token))
+    if (!get_token(ps.line_, token))
       break;
 
-    match_token(token, curr, matched_vec);
-    filter_hidden(matched_vec);
-    if (line.begin() != line.end())
+    match_token(token, curr, ps.matched_vec_);
+    filter_hidden(ps.matched_vec_);
+    if (ps.line_.begin() != ps.line_.end())
       {
-        filter_matched(matched_vec, match_partial);
+        filter_matched(ps.matched_vec_, match_partial);
 
-        if (matched_vec.size() == 0)
+        if (ps.matched_vec_.size() == 0)
           return exec_unrecognized;
 
-        if (matched_vec.size() > 1)
+        if (ps.matched_vec_.size() > 1)
           return exec_ambiguous;
 
-        return parse(line, matched_vec[0].first, matched_vec, is_cmd);
+        return parse(ps, ps.matched_vec_[0].first);
       }
 
-    if (matched_vec.size() == 0)
+    if (ps.matched_vec_.size() == 0)
       return exec_unrecognized;
 
-    if (matched_vec.size() == 1)
-      curr = matched_vec[0].first;
+    if (ps.matched_vec_.size() == 1)
+      curr = ps.matched_vec_[0].first;
 
   } while (0);
 
-  if ((is_cmd = curr->cmd_))
+  if ((ps.is_cmd_ = curr->cmd_))
     return exec_complete;
 
   return exec_incomplete;
@@ -287,16 +285,12 @@ CliReadline::describe()
   // current mode.
   CliTree *tree = cli_->current_mode();
   CliNode *candidate;
-  CliNodeMatchStateVector matched_vec;
-  string line(" ");
-  bool is_cmd = false;
+  CliParseState ps(rl_line_buffer);
   enum ExecResult result = exec_complete;
-
-  line += rl_line_buffer;
 
   cout << "?" << endl;
 
-  result = parse(line, tree->top_, matched_vec, is_cmd);
+  result = parse(ps, tree->top_);
   if (result == exec_ambiguous)
     cout << "% Ambigouos command" << endl << endl;
   else if (result == exec_unrecognized)
@@ -304,8 +298,8 @@ CliReadline::describe()
   else
     {
       size_t max_len = 0;
-      for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
-           it != matched_vec.end(); ++it)
+      for (CliNodeMatchStateVector::iterator it = ps.matched_vec_.begin();
+           it != ps.matched_vec_.end(); ++it)
         {
           candidate = it->first;
           size_t len = candidate->cli_token().size();
@@ -313,11 +307,11 @@ CliReadline::describe()
             max_len = len;
         }
 
-      for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
-           it != matched_vec.end(); ++it)
+      for (CliNodeMatchStateVector::iterator it = ps.matched_vec_.begin();
+           it != ps.matched_vec_.end(); ++it)
         describe_line(it->first, max_len);
 
-      if (is_cmd)
+      if (ps.is_cmd_)
         cout << "  <cr>" << endl;
     }
 
@@ -343,12 +337,8 @@ char *
 CliReadline::completion_matches(const char *text, int state)
 {
   CliTree *tree = cli_->current_mode();
-  CliNodeMatchStateVector matched_vec;
-  string line(" ");
-  bool is_cmd = false;
+  CliParseState ps(rl_line_buffer);
   enum ExecResult result = exec_complete;
-
-  line += rl_line_buffer;
 
   // No input. 
   if (rl_end == 0)
@@ -363,7 +353,7 @@ CliReadline::completion_matches(const char *text, int state)
       matched_strvec_ = NULL;
       matched_index_ = 0;
 
-      result = parse(line, tree->top_, matched_vec, is_cmd);
+      result = parse(ps, tree->top_);
       if (result == exec_unrecognized)
         {
           cout << endl;
@@ -382,10 +372,10 @@ CliReadline::completion_matches(const char *text, int state)
           int i = 0;
 
           matched_strvec_ =
-            (char **)calloc(matched_vec.size() + 1, sizeof(char *));
+            (char **)calloc(ps.matched_vec_.size() + 1, sizeof(char *));
 
-          for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
-               it != matched_vec.end(); ++it)
+          for (CliNodeMatchStateVector::iterator it = ps.matched_vec_.begin();
+               it != ps.matched_vec_.end(); ++it)
             {
               CliNode *node = it->first;
               if (node->type_ == CliTree::keyword)
