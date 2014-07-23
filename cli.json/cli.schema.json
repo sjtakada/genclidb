@@ -36,6 +36,9 @@
                 "help": {
                   "type": "string"
                 },
+                "hidden": {
+                  "type": "boolean"                
+                },
                 "enum": {
                   "type": "string"
                 }
