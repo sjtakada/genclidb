@@ -367,8 +367,6 @@ CliReadline::completion_matches(const char *text, int state)
       if (result == exec_unrecognized)
         {
           cout << endl;
-          if (!is_cmd)
-            cout << "% Unrecognized command" << endl << endl;
           cout << cli_->prompt();
           cout << rl_line_buffer;
         }
