@@ -81,6 +81,7 @@ private:
   void fill_matched_vec(CliNode *node,
                         CliNodeMatchStateVector& matched_vec);
   void filter_matched(CliNodeMatchStateVector& matched_vec, MatchFlag limit);
+  void filter_hidden(CliNodeMatchStateVector& matched_vec);
   size_t match_token(string& input, CliNode *node,
                      CliNodeMatchStateVector& matched_vec);
   enum ExecResult parse(string& line, CliNode *curr,

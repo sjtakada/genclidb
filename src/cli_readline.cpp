@@ -128,6 +128,19 @@ CliReadline::filter_matched(CliNodeMatchStateVector& matched_vec,
   matched_vec = vec;
 }
 
+void
+CliReadline::filter_hidden(CliNodeMatchStateVector& matched_vec)
+{
+  CliNodeMatchStateVector vec;
+
+  for (CliNodeMatchStateVector::iterator it = matched_vec.begin();
+       it != matched_vec.end(); ++it)
+    if (!it->first->is_hidden())
+      vec.push_back(*it);
+
+  matched_vec = vec;
+}
+
 // Return true if command can be completed.
 enum ExecResult
 CliReadline::parse(string& line, CliNode *curr,
@@ -143,11 +156,13 @@ CliReadline::parse(string& line, CliNode *curr,
       break;
 
     fill_matched_vec(curr, matched_vec);
+    filter_hidden(matched_vec);
 
     if (!get_token(line, token))
       break;
 
     match_token(token, curr, matched_vec);
+    filter_hidden(matched_vec);
     if (line.begin() != line.end())
       {
         filter_matched(matched_vec, match_partial);

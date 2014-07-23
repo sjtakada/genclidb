@@ -263,6 +263,15 @@ CliTree::build_recursive(CliNodeVector& curr, CliNodeVector& head,
           else
             delete node;
 
+          // Merge exposed count.
+          if (!tokens[def_token]["hidden"].isNull())
+            {
+              if (!tokens[def_token]["hidden"].asBool())
+                next->exposed_++;
+            }
+          else
+            next->exposed_++;
+
           // Moving forward.
           curr.clear();
           curr.push_back(next);

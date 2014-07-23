@@ -57,7 +57,7 @@ public:
   CliNode() { }
   CliNode(int type, string& id, string& def_token, string& help)
     : type_(type), id_(id), def_token_(def_token), help_(help),
-      cli_token_(""), completable_(false), cmd_(false)
+      cli_token_(""), completable_(false), exposed_(0), cmd_(false)
   { }
   ~CliNode() { }
 
@@ -69,6 +69,7 @@ public:
 
   void sort_recursive();
   string& def_token() { return def_token_; }
+  bool is_hidden() { return exposed_ == 0; }
 
   friend class CliTree;
   friend class CliReadline;
@@ -101,6 +102,9 @@ protected:
 
   // Bind preprocess statement.
   CondBindPairVector bind_;
+
+  // If it is 0, this node will be hidden.
+  u_int16_t exposed_;
 
   // Command.
   bool cmd_;
