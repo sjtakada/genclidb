@@ -45,7 +45,7 @@ class CliParseState
 {
 public:
   CliParseState(char *buf)
-    : line_(" "), is_cmd_(false)
+    : line_(" "), pos_(0), is_cmd_(false)
   {
     line_ += buf;
   }
@@ -53,11 +53,43 @@ public:
   // Current remaining input.
   string line_;
 
+  // Current position.
+  u_int16_t pos_;
+
   // Vector of pair of CliNode and Matchstate.
   CliNodeMatchStateVector matched_vec_;
 
   // Return value, whether or not it hits executable command.
   bool is_cmd_;
+};
+
+class CliParseStateExecute: public CliParseState
+{
+public:
+  CliParseStateExecute(char *buf)
+    : CliParseState(buf)
+  {
+    line_tmp_ = line_;
+  }
+    
+  ~CliParseStateExecute()
+  {
+    for (CliNodeTokenVector::iterator it = node_token_vec_.begin();
+         it != node_token_vec_.end(); ++it)
+      delete it->second;
+  }
+
+  void reset()
+  {
+    line_ = line_tmp_;
+    node_token_vec_.clear();
+  }
+
+  // Original line.
+  string line_tmp_;
+
+  // Vector of pair of CliNode and input token.
+  CliNodeTokenVector node_token_vec_;
 };
 
 class CliReadline
@@ -71,7 +103,7 @@ public:
   void init(Cli *cli);
   char *gets();
   bool execute();
-  enum ExecResult execute_parent(string& line, CliTree *mode);
+  enum ExecResult execute_parent(CliParseStateExecute& ps, CliTree *mode);
   int describe();
   char **completion(const char *text, int start, int end);
   char *completion_matches(const char *text, int state);
@@ -104,8 +136,7 @@ private:
   size_t match_token(string& input, CliNode *node,
                      CliNodeMatchStateVector& matched_vec);
   enum ExecResult parse(CliParseState& ps, CliNode *curr);
-  enum ExecResult parse_execute(string& line, CliNode *curr,
-                                 CliNodeTokenVector& node_token_vec);
+  enum ExecResult parse_execute(CliParseStateExecute& ps, CliNode *curr);
   void describe_line(CliNode *node, size_t max_len_token);
   void handle_actions(CliNodeTokenVector& node_token_vec);
 };

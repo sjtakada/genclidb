@@ -189,43 +189,44 @@ CliReadline::parse(CliParseState& ps, CliNode *curr)
 }
 
 enum ExecResult
-CliReadline::parse_execute(string& line, CliNode *curr,
-                           CliNodeTokenVector& node_token_vec)
+CliReadline::parse_execute(CliParseStateExecute& ps, CliNode *curr)
 {
   boost::smatch m;
   string token;
-  CliNodeMatchStateVector matched_vec;
+
+  ps.matched_vec_.clear();
 
   do {
-    if (!skip_spaces(line))
+    if (!skip_spaces(ps.line_))
       break;
 
-    if (!get_token(line, token))
+    if (!get_token(ps.line_, token))
       break;
 
-    fill_matched_vec(curr, matched_vec);
-    match_token(token, curr, matched_vec);
-    filter_matched(matched_vec, match_partial);
+    fill_matched_vec(curr, ps.matched_vec_);
+    match_token(token, curr, ps.matched_vec_);
+    filter_matched(ps.matched_vec_, match_partial);
 
-    if (matched_vec.size() == 0)
+    if (ps.matched_vec_.size() == 0)
       return exec_unrecognized;
-    else if (matched_vec.size() > 1)
+    else if (ps.matched_vec_.size() > 1)
       return exec_ambiguous;
 
-    CliNodeTokenPair p = make_pair(matched_vec[0].first, new string(token));
-    node_token_vec.push_back(p);
+    CliNodeTokenPair p =
+      make_pair(ps.matched_vec_[0].first, new string(token));
+    ps.node_token_vec_.push_back(p);
 
     // Candidate is only one at this point.
-    if (line.begin() != line.end())
-      return parse_execute(line, matched_vec[0].first, node_token_vec);
+    if (ps.line_.begin() != ps.line_.end())
+      return parse_execute(ps, ps.matched_vec_[0].first);
 
-    if (matched_vec[0].second.second == match_incomplete)
+    if (ps.matched_vec_[0].second.second == match_incomplete)
       return exec_incomplete;
 
-    if (!matched_vec[0].first->cmd_)
+    if (!ps.matched_vec_[0].first->cmd_)
       return exec_incomplete;
 
-    curr = matched_vec[0].first;
+    curr = ps.matched_vec_[0].first;
 
   } while (0);
 
@@ -536,29 +537,22 @@ CliReadline::handle_actions(CliNodeTokenVector& node_token_vec)
 }
 
 enum ExecResult
-CliReadline::execute_parent(string& line, CliTree *mode)
+CliReadline::execute_parent(CliParseStateExecute& ps, CliTree *mode)
 {
-  CliNodeTokenVector node_token_vec;
-  string line_tmp(line);
+  ps.reset();
 
-  enum ExecResult
-    result = parse_execute(line_tmp, mode->top_, node_token_vec);
+  enum ExecResult result = parse_execute(ps, mode->top_);
 
   if (result == exec_complete)
     {
-      handle_actions(node_token_vec);
+      handle_actions(ps.node_token_vec_);
 
       cli_->mode_set(mode);
     }
   else if (mode->parent())
     {
-      result = execute_parent(line, mode->parent());
+      result = execute_parent(ps, mode->parent());
     }
-
-  // Cleanup input token strings.
-  for (CliNodeTokenVector::iterator it = node_token_vec.begin();
-       it != node_token_vec.end(); ++it)
-    delete it->second;
 
   return result;
 }
@@ -566,24 +560,19 @@ CliReadline::execute_parent(string& line, CliTree *mode)
 bool
 CliReadline::execute()
 {
-  // current mode.
   CliTree *mode = cli_->current_mode();
-  CliNodeTokenVector node_token_vec;
+  CliParseStateExecute ps(rl_line_buffer);
   boost::smatch m;
-  string line(" ");
 
-  line += rl_line_buffer;
-  if (!boost::regex_search(line, m, re_white_space_only))
+  if (!boost::regex_search(ps.line_, m, re_white_space_only))
     {
-      string line_tmp(line);
-
       enum ExecResult
-        result = parse_execute(line_tmp, mode->top_, node_token_vec);
+        result = parse_execute(ps, mode->top_);
 
       switch (result)
         {
         case exec_complete:
-          handle_actions(node_token_vec);
+          handle_actions(ps.node_token_vec_);
           break;
         case exec_incomplete:
           cout << "% Incomplete command" << endl << endl;
@@ -593,18 +582,13 @@ CliReadline::execute()
           break;
         case exec_unrecognized:
           if (mode->parent())
-            result = execute_parent(line, mode->parent());
+            result = execute_parent(ps, mode->parent());
 
           if (result != exec_complete)
             cout << "% Unrecognized command" << endl << endl;
 
           break;
         }
-
-      // Cleanup input token strings.
-      for (CliNodeTokenVector::iterator it = node_token_vec.begin();
-           it != node_token_vec.end(); ++it)
-        delete it->second;
     }
 
   return true;
