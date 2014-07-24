@@ -29,9 +29,7 @@
 #include "cli.hpp"
 #include "cli_tree.hpp"
 #include "cli_action.hpp"
-
-// Regexp to parse CLI JSON defun.
-const boost::regex CliTree::re_white_space("^( +)");
+#include "cli_string.hpp"
 
 const string CliNodeIPv4Prefix::cli_token_default_("A.B.C.D/M");
 const string CliNodeIPv4Address::cli_token_default_("A.B.C.D");
@@ -49,8 +47,7 @@ CliTree::get_token(string& str, string& token)
   size_t offset = 0;
 
   // First skip whitespace.
-  if (boost::regex_search(str, m, re_white_space))
-    str = m.suffix();
+  trim_spaces_at_head(str);
 
   p = str.c_str();
   if (*p == '|')

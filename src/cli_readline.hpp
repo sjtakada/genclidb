@@ -109,10 +109,6 @@ public:
   char *completion_matches(const char *text, int state);
 
 private:
-  static const boost::regex re_white_space;
-  static const boost::regex re_white_space_only;
-  static const boost::regex re_command_string;
-
   // Parent CLI object.
   Cli *cli_;
 
@@ -128,7 +124,6 @@ private:
 
   // Private member functions.
   bool get_token(string&str, string& token);
-  bool skip_spaces(string& str);
   void fill_matched_vec(CliNode *node,
                         CliNodeMatchStateVector& matched_vec);
   void filter_matched(CliNodeMatchStateVector& matched_vec, MatchFlag limit);

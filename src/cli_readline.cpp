@@ -30,11 +30,8 @@
 #include "cli_tree.hpp"
 #include "cli_action.hpp"
 #include "cli_readline.hpp"
+#include "cli_string.hpp"
 #include "cli.hpp"
-
-const boost::regex CliReadline::re_white_space("^([[:space:]]*)");
-const boost::regex CliReadline::re_white_space_only("^([[:space:]]*)$");
-const boost::regex CliReadline::re_command_string("^[^[:space:]]+");
 
 size_t
 CliReadline::match_token(string& input, CliNode *curr,
@@ -64,27 +61,14 @@ CliReadline::match_token(string& input, CliNode *curr,
 bool
 CliReadline::get_token(string& str, string& token)
 {
-  boost::smatch m;
+  size_t len;
 
-  if (boost::regex_search(str, m, re_command_string))
+  len = command_length(str);
+  if (len)
     {
-      token = m[0];
-      str = m.suffix();
+      token = str.substr(0, len);
+      str = str.substr(len, string::npos);
 
-      return true;
-    }
-
-  return false;
-}
-
-bool
-CliReadline::skip_spaces(string& str)
-{
-  boost::smatch m;
-
-  if (boost::regex_search(str, m, re_white_space))
-    {
-      str = m.suffix();
       return true;
     }
 
@@ -145,12 +129,11 @@ CliReadline::filter_hidden(CliNodeMatchStateVector& matched_vec)
 enum ExecResult
 CliReadline::parse(CliParseState& ps, CliNode *curr)
 {
-  boost::smatch m;
   string token;
 
   do {
     ps.matched_vec_.clear();
-    if (!skip_spaces(ps.line_))
+    if (!trim_spaces_at_head(ps.line_))
       break;
 
     fill_matched_vec(curr, ps.matched_vec_);
@@ -191,13 +174,12 @@ CliReadline::parse(CliParseState& ps, CliNode *curr)
 enum ExecResult
 CliReadline::parse_execute(CliParseStateExecute& ps, CliNode *curr)
 {
-  boost::smatch m;
   string token;
 
   ps.matched_vec_.clear();
 
   do {
-    if (!skip_spaces(ps.line_))
+    if (!trim_spaces_at_head(ps.line_))
       break;
 
     if (!get_token(ps.line_, token))
@@ -562,9 +544,8 @@ CliReadline::execute()
 {
   CliTree *mode = cli_->current_mode();
   CliParseStateExecute ps(rl_line_buffer);
-  boost::smatch m;
 
-  if (!boost::regex_search(ps.line_, m, re_white_space_only))
+  if (!::is_white_space_only(ps.line_))
     {
       enum ExecResult
         result = parse_execute(ps, mode->top_);

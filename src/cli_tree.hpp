@@ -24,7 +24,6 @@
 
 #include "project.hpp"
 #include "json/json.h"
-#include "boost/regex.hpp"
 
 class CliAction;
 class CliNode;
@@ -272,8 +271,6 @@ public:
   friend class CliReadline;
 
 private:
-  static const boost::regex re_white_space;
-
   // Mode name.
   string mode_name_;
 

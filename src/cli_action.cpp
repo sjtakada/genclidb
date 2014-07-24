@@ -22,6 +22,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
 
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Easy.hpp>
