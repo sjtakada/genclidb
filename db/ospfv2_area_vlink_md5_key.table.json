@@ -1,0 +1,20 @@
+{
+  "table": {
+    "ospfv2-area-vlink-md5-key": {
+      "type": "dependent",
+      "alias": "vlink-md5-key",
+      "parent": "ospfv2",
+      "keys": {
+        "key-id": {
+          "type": "integer",
+          "range": [1, 255]
+        }
+      },
+      "attributes": {
+        "key-string": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

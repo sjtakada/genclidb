@@ -1,0 +1,44 @@
+{
+  "table": {
+    "ospfv2-area-vlink": {
+      "type": "dependent",
+      "alias": "vlink",
+      "parent": "ospfv2",
+      "keys": {
+        "area-id": {
+          "type": "integer",
+          "range": [0, 4294967295]
+        },
+        "nbr-id": {
+          "type": "ipv4"
+        }
+      },
+      "attributes": {
+        "authentication-key": {
+          "type": "string"
+        },
+        "authentication": {
+          "type": "enum",
+          "default": "",
+          "values": ["", "null", "message-digest"]
+        },
+        "hello-interval": {
+          "type": "integer",
+          "range": [1, 65535]
+        },
+        "dead-interval": {
+          "type": "integer",
+          "range": [1, 65535]
+        },
+        "retransmit-interval": {
+          "type": "integer",
+          "range": [1, 65535]
+        },
+        "transmit-delay": {
+          "type": "integer",
+          "range": [1, 65535]
+        }
+      }
+    }
+  }
+}
