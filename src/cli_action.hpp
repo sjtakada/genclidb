@@ -30,7 +30,7 @@
 class Cli;
 
 // e.g., "ipv4_addr" => "IPV4-ADDR:1.0" -- HTTP param to CLI def token
-typedef map<string, string> ParamTokenMap;
+typedef map<string, Json::Value> ParamTokenMap;
 
 class CliAction
 {

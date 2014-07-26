@@ -36,8 +36,6 @@
 
 using namespace curlpp;
 
-string JsonNullValue("__JSON_NULL_VALUE__");
-
 CliActionHttp::CliActionHttp(Json::Value& http)
   : CliAction()
 {
@@ -50,12 +48,7 @@ CliActionHttp::CliActionHttp(Json::Value& http)
   if (!params.isNull())
     for (Json::Value::iterator it = params.begin();
          it != params.end(); ++it)
-      {
-        if ((*it).isNull())
-          param_token_[it.key().asString()] = JsonNullValue;
-        else
-          param_token_[it.key().asString()] = (*it).asString();
-      }
+      param_token_[it.key().asString()] = *it;
 }
 
 bool
@@ -102,10 +95,24 @@ CliActionHttp::handle(Cli *cli, ParamsMap& input)
   for (ParamTokenMap::iterator it = param_token_.begin();
        it != param_token_.end(); ++it)
     {
-      if (it->second == JsonNullValue)
+      if (cli->is_debug())
+        cout << "param_token_[" << it->first << "] = " << it->second << endl;
+
+      if (it->second.isNull())
         json_params[it->first] = null_value;
-      else if (!input[it->second].empty())
-        json_params[it->first] = input[it->second];
+      else if (it->second.isBool())
+        json_params[it->first] = it->second.asBool();
+      else if (it->second.isUInt64())
+        json_params[it->first] = it->second.asUInt64();
+      else if (it->second.isInt64())
+        json_params[it->first] = it->second.asInt64();
+      else if (it->second.isString())
+        {
+          if (!input[it->second.asString()].empty())
+            json_params[it->first] = input[it->second.asString()];
+          else
+            json_params[it->first] = it->second;
+        }
     }
 
   // Generate path with parameter.
