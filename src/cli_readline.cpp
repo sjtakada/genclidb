@@ -423,18 +423,20 @@ CliReadline::gets()
   return buf_;
 }
 
+typedef map<string, bool> KeywordsMap;
+
 void
 CliReadline::handle_actions(CliNodeTokenVector& node_token_vec)
 {
   ParamsMap input;
-  map<string, bool> keywords;
+  KeywordsMap keywords;
 
   // Populate mode params first.
   for (ParamsMap::iterator it = cli_->params_.begin();
        it != cli_->params_.end(); ++it)
     input[it->first] = it->second;
 
-  //
+  // Populate params and keywords.
   for (CliNodeTokenVector::iterator it = node_token_vec.begin();
        it != node_token_vec.end(); ++it)
     {
@@ -512,6 +514,10 @@ CliReadline::handle_actions(CliNodeTokenVector& node_token_vec)
             {
               ParamsMap::iterator is = input.find(cond);
               if (is != input.end())
+                action->handle(cli_, input);
+
+              KeywordsMap::iterator ik = keywords.find(cond);
+              if (ik != keywords.end())
                 action->handle(cli_, input);
             }
         }
