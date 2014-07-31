@@ -14,8 +14,7 @@
         "authentication": {
           "desc": "area authentication",
           "type": "enum",
-          "values": ["standard", "md5", "null"],
-          "default": "null"
+          "values": ["message-digest", ""]
         },
         "default-cost": {
           "desc": "area default-cost",

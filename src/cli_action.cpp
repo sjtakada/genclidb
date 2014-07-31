@@ -95,23 +95,26 @@ CliActionHttp::handle(Cli *cli, ParamsMap& input)
   for (ParamTokenMap::iterator it = param_token_.begin();
        it != param_token_.end(); ++it)
     {
+      string key = it->first;
+      replace(key.begin(), key.end(), '-', '_');
+
       if (cli->is_debug())
-        cout << "param_token_[" << it->first << "] = " << it->second << endl;
+        cout << "param_token_[" << key << "] = " << it->second << endl;
 
       if (it->second.isNull())
-        json_params[it->first] = null_value;
+        json_params[key] = null_value;
       else if (it->second.isBool())
-        json_params[it->first] = it->second.asBool();
+        json_params[key] = it->second.asBool();
       else if (it->second.isUInt64())
-        json_params[it->first] = it->second.asUInt64();
+        json_params[key] = it->second.asUInt64();
       else if (it->second.isInt64())
-        json_params[it->first] = it->second.asInt64();
+        json_params[key] = it->second.asInt64();
       else if (it->second.isString())
         {
           if (!input[it->second.asString()].empty())
-            json_params[it->first] = input[it->second.asString()];
+            json_params[key] = input[it->second.asString()];
           else
-            json_params[it->first] = it->second;
+            json_params[key] = it->second;
         }
     }
 
@@ -129,7 +132,6 @@ CliActionHttp::handle(Cli *cli, ParamsMap& input)
     }
 
   string json_str = writer.write(json_params);
-  replace(json_str.begin(), json_str.end(), '-', '_');
 
   if (cli->is_debug())
     cout << "json: " << json_str << endl;

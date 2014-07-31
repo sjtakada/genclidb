@@ -156,11 +156,9 @@ def rails_attr_get_default(attributes, key)
       if attr.has_key?("default")
         if attr["type"] == "boolean" or attr["type"] == "integer"
           return attr["default"].to_s
-        else
+        elsif attr["default"] != nil
           return '"' + attr["default"] + '"'
         end
-      else
-        default_value = "nil"
       end
     end
   end
@@ -169,8 +167,6 @@ def rails_attr_get_default(attributes, key)
 end
 
 def rails_db_set_default(table_name)
-  puts "=> Add default values to '" + keyword(table_name) + "' migrations..."
-
   table_def = $table2json[table_name]
   name = keyword_plural(table_name)
   migration = "create_" + name
@@ -179,6 +175,8 @@ def rails_db_set_default(table_name)
   m = Dir.entries(".").select {|f| f =~ /#{migration}\.rb$/}
 
   if m.size == 1
+    puts "=> Add default values to '" + keyword(table_name) + "' migrations..."
+
     migration_file = m[0]
 
     lines = Array.new
@@ -188,11 +186,10 @@ def rails_db_set_default(table_name)
         if m != nil
           key = keyword_dashed(m[1])
           default_value = rails_attr_get_default(table_def["attributes"], key)
-          line.chomp!
           if default_value != "nil"
-            line += ", :null => false, :default => " + default_value.to_s
+            line = m[0] + ", :null => false, :default => " + default_value.to_s
           else
-            line += ", :null => true"
+            line = m[0] + ", :null => true"
           end
         end
 
@@ -425,8 +422,6 @@ end
 # It is a little bit cumbersome to genearete ERB from ERB...
 # So we do this way.
 def rails_generate_view(table_name)
-  puts "=> Generate views '" + keyword(table_name) + "' ..."
-
   table_def = $table2json[table_name]
   name = keyword(table_name)
   namep = keyword_plural(table_name)
@@ -438,6 +433,8 @@ def rails_generate_view(table_name)
   # Generate only if it doesn't exist
   _view = "app/views/" + namep + "/_index.cli.erb"
   if !File.exists?(_view)
+    puts "=> Generate views '" + keyword(table_name) + "' ..."
+
     File.open(_view, "w") do |f|
       f.puts "<% #{namep}.each do |v| %>"
 
