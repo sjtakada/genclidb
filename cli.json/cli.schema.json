@@ -75,67 +75,64 @@
                 "type": "array",
                 "items": {
                   "type": "object",
-                  "patternProperties": {
-                    "^[:\.a-z_A-Z0-9\*\-]+$": {
+                  "properties": {
+                    "cond": {
+                      "type": "string"
+                    },
+                    "http": {
                       "type": "object",
                       "properties": {
-                        "http": {
-                          "type": "object",
-                          "properties": {
-                            "method": {
-                              "enum": [ "GET", "POST", "PUT", "DELETE", "NOP" ]
-                            },
-                            "path": {
-                              "type": "string"
-                            },
-                            "format": {
-                              "type": "string"
-                            },
-                            "params": {
-                              "type": "object",
-                              "patternProperties": {
-                                "^[a-zA-Z0-9\-]+$": {
-                                  "type": ["string", "boolean", "null", "number"]
-                                }
-                              }
-                            }
-                          },
-                          "additionalProperties": false
+                        "method": {
+                          "enum": [ "GET", "POST", "PUT", "DELETE", "NOP" ]
                         },
-                        "built-in": {
-                          "type": "object",
-                          "properties": {
-                            "func": {
-                              "type": "string"
-                            },
-                            "params": {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              }
-                            }
-                          },
-                          "additionalProperties": false
+                        "path": {
+                          "type": "string"
                         },
-                        "mode": {
+                        "format": {
+                          "type": "string"
+                        },
+                        "params": {
                           "type": "object",
-                          "properties": {
-                            "name": {
-                              "type": "string"
-                            },
-                            "up": {
-                              "type": "integer"
-                            },
-                            "params": {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              }
+                          "patternProperties": {
+                            "^[a-zA-Z0-9\-]+$": {
+                              "type": ["string", "boolean", "null", "number"]
                             }
                           }
                         }
                       },
                       "additionalProperties": false
+                    },
+                    "built-in": {
+                      "type": "object",
+                      "properties": {
+                        "func": {
+                          "type": "string"
+                        },
+                        "params": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "mode": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "up": {
+                          "type": "integer"
+                        },
+                        "params": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
                     }
                   },
                   "additionalProperties": false
