@@ -4,8 +4,6 @@
       "type": "parent",
       "has-dependent": [
         "ospfv2-area",
-        "ospfv2-area-vlink",
-        "ospfv2-area-vlink-md5-key",
         "ospfv2-network"
       ],
       "keys": {

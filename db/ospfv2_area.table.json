@@ -2,8 +2,11 @@
   "table": {
     "ospfv2-area": {
       "type": "dependent",
-      "alias": "area",
       "parent": "ospfv2",
+      "has-dependent": [
+        "ospfv2-area-vlink"
+      ],
+      "alias": "area",
       "keys": {
         "area-id": {
           "type": "integer",

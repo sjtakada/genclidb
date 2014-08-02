@@ -2,13 +2,12 @@
   "table": {
     "ospfv2-area-vlink": {
       "type": "dependent",
+      "parent": "ospfv2-area",
+      "has-dependent": [
+        "ospfv2-area-vlink-md5-key"
+      ],
       "alias": "vlink",
-      "parent": "ospfv2",
       "keys": {
-        "area-id": {
-          "type": "integer",
-          "range": [0, 4294967295]
-        },
         "nbr-id": {
           "type": "ipv4"
         }
