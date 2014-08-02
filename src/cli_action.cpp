@@ -96,6 +96,12 @@ CliActionHttp::handle(Cli *cli, ParamsMap& input)
        it != param_token_.end(); ++it)
     {
       string key = it->first;
+      ParamsMap::iterator is;
+
+      is = input.find(key);
+      if (is != input.end())
+        key = is->second;
+
       replace(key.begin(), key.end(), '-', '_');
 
       if (cli->is_debug())
