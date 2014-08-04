@@ -159,8 +159,13 @@ def cli_str2token(defun)
     cmdstr = remainder
 
     case type
-    when :whitespace, :pipe
+    when :whitespace
       ;
+    when :pipe
+      # This is a tricky part. Zebra/Quagga consider (A|) as "A or nothing",
+      # but just "A" as a parameter.  In this case, we ignore latter part
+      # after "|", so that this particular token becomes "(A)"
+      next if remainder =~ /^\)/;
     when :leftparen
       id.push(0)
     when :rightparen
