@@ -145,7 +145,13 @@ def cli_str2token(defun)
   i = 0
   h = Hash.new
   id = Array.new
-  id.push(0)
+  # Make no starting from '0' and other starting from '1',
+  # so that params' ID becomes consistent.
+  if cmdstr =~ /^no /
+    id.push(0)
+  else
+    id.push(1)
+  end
   token_all = Array.new
 
   dot = false
