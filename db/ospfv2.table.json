@@ -4,7 +4,9 @@
       "type": "parent",
       "has-dependent": [
         "ospfv2-area",
-        "ospfv2-network"
+        "ospfv2-network",
+        "ospfv2-redistribute",
+        "ospfv2-distribute-list-out"
       ],
       "keys": {
         "process-id" : {

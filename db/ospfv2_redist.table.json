@@ -1,0 +1,44 @@
+{
+  "table": {
+    "ospfv2-redistribute": {
+      "type": "dependent",
+      "parent": "ospfv2",
+      "alias": "redistribute",
+      "keys": {
+        "protocol": {
+          "type": "enum",
+          "values": ["babel", "bgp", "connected", "isis", "kernel", "rip", "static"]
+        }
+      },
+      "attributes": {
+        "metric": {
+          "type": "integer",
+          "range": [0, 16777214]
+        },
+        "metric-type": {
+          "type": "integer",
+          "range": [1, 2]
+        },
+        "route-map": {
+          "type": "string"
+        }
+      }
+    },
+    "ospfv2-distribute-list-out": {
+      "type": "dependent",
+      "parent": "ospfv2",
+      "alias": "distribute-list-out",
+      "keys": {
+        "protocol": {
+          "type": "enum",
+          "values": ["babel", "bgp", "connected", "isis", "kernel", "rip", "static"]
+        }
+      },
+      "attributes": {
+        "access-list-name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
