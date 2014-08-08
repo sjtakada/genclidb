@@ -95,7 +95,6 @@ def rails_migration(table_name)
 end
 
 
-# Rails related
 def rails_data_type(obj)
   type = obj["type"]
   if type == "enum"
@@ -265,25 +264,37 @@ def rails_db_set_default(table_name)
   migration = "create_" + name
 
   Dir.chdir("db/migrate")
-  m = Dir.entries(".").select {|f| f =~ /#{migration}\.rb$/}
+  migs = Dir.entries(".").select {|f| f =~ /#{migration}\.rb$/}
 
-  if m.size == 1
+  if migs.size == 1
     puts "=> Add default values to '" + keyword(table_name) + "' migrations..."
 
-    migration_file = m[0]
+    migration_file = migs[0]
 
     lines = Array.new
     File.open(migration_file, "r") do |f|
       while line = f.gets
         m = /^\s+t\.\w+ :(\w+)/.match(line)
         if m != nil
+          options = Array.new
+          options << m[0]
+
+          options_str = m.post_match
+          n = /(limit: \d+)/.match(options_str)
+          if n != nil
+            options << n[1]
+          end
+
           key = keyword_dashed(m[1])
           default_value = rails_attr_get_default(table_def["attributes"], key)
           if default_value != "nil"
-            line = m[0] + ", :null => false, :default => " + default_value.to_s
+            options << ":null => false"
+            options << ":default => " + default_value.to_s
           else
-            line = m[0] + ", :null => true"
+            options << ":null => true"
           end
+
+          line = options.join(", ")
         end
 
         lines << line
