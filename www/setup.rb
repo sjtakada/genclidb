@@ -258,8 +258,25 @@ def rails_attr_get_default(attributes, key)
   default_value
 end
 
+def rails_attr_null_ok(attrs, key)
+  null_ok = true
+
+  if !attrs[key].nil?
+    if !attrs[key]["null"].nil?
+      null_ok = attrs[key]["null"].to_s
+    else
+      default_value = rails_attr_get_default(attrs, key)
+      if default_value != "nil"
+        null_ok = false
+      end
+    end
+  end
+
+  null_ok
+end
+
 def rails_db_set_default(table_name)
-  table_def = $table2json[table_name]
+  table_def = $tables[:json][table_name]
   name = keyword_plural(table_name)
   migration = "create_" + name
 
@@ -287,11 +304,11 @@ def rails_db_set_default(table_name)
 
           key = keyword_dashed(m[1])
           default_value = rails_attr_get_default(table_def["attributes"], key)
+          null_ok = rails_attr_null_ok(table_def["attributes"], key)
+
+          options << ":null => " + null_ok.to_s
           if default_value != "nil"
-            options << ":null => false"
             options << ":default => " + default_value.to_s
-          else
-            options << ":null => true"
           end
 
           line = options.join(", ")
@@ -369,7 +386,7 @@ end
 def rails_modify_model(table_name, table_keys)
   puts "=> Modify model '" + keyword(table_name) + "' ..."
 
-  table_def = $table2json[table_name]
+  table_def = $tables[:json][table_name]
   @is_assoc = table_def["type"] == "association"
 
   @model_name = keyword(table_name)
@@ -435,7 +452,7 @@ def rails_api_path_polymorphic(belongs_to, polymorphic)
   path << "api"
 
   belongs_to.each do |b|
-    t = $table2json[b]
+    t = $tables[:json][b]
     if !t.nil?
       if t["type"] == "dependent" and !t["alias"].nil?
         path << keyword_plural(t["alias"])
@@ -453,7 +470,7 @@ def rails_api_path_polymorphic(belongs_to, polymorphic)
 
   if polymorphic != nil
     p = polymorphic
-    t = $table2json[p]
+    t = $tables[:json][p]
     if !t.nil?
       path << keyword_plural(p)
 
@@ -471,7 +488,7 @@ end
 def rails_modify_controller(table_name, table_keys, db_fields, api_path)
   puts "=> Modify controller '" + keyword(table_name) + "'..."
 
-  table_def = $table2json[table_name]
+  table_def = $tables[:json][table_name]
   @is_assoc = table_def["type"] == "association"
 
   @controller_name = keyword_plural(table_name)
@@ -503,7 +520,7 @@ end
 # It is a little bit cumbersome to genearete ERB from ERB...
 # So we do this way.
 def rails_generate_view(table_name)
-  table_def = $table2json[table_name]
+  table_def = $tables[:json][table_name]
   name = keyword(table_name)
   namep = keyword_plural(table_name)
   class_name = keyword_camel(table_name)
@@ -570,7 +587,7 @@ end
 def rails_get_heritage(table_name)
   heritage = Array.new
 
-  table_def = $table2json[table_name]
+  table_def = $tables[:json][table_name]
   if !table_def.nil?
     if !table_def["parent"].nil?
       heritage += rails_get_heritage(table_def["parent"])
@@ -651,7 +668,7 @@ def rails_add_polymorphic_routes(table_name_assoc, index_keys,
 end
 
 def rails_add_table(table_name)
-  table_def = $table2json[table_name]
+  table_def = $tables[:json][table_name]
   if table_def.nil?
     puts ">>> Error: No table defintion for " + keyword(table_name)
   else
@@ -746,7 +763,7 @@ def rails_get_index_keys_assoc(belongs_to, table_name)
   index_keys = Array.new
 
   belongs_to.each do |t|
-    table_def = $table2json[t]
+    table_def = $tables[:json][t]
     if !table_def["keys"].nil?
       table_def["keys"].each do |k, v|
         index_keys << [k, v]
@@ -755,7 +772,7 @@ def rails_get_index_keys_assoc(belongs_to, table_name)
   end
 
   if !table_name.nil?
-    table_def = $table2json[table_name]
+    table_def = $tables[:json][table_name]
     if !table_def["keys"].nil?
       table_def["keys"].each do |k, v|
         index_keys << [k, v]
@@ -767,7 +784,7 @@ def rails_get_index_keys_assoc(belongs_to, table_name)
 end
 
 def rails_add_association(table_name)
-  table_def = $table2json[table_name]
+  table_def = $tables[:json][table_name]
   if table_def.nil?
     puts ">>> Error: No table defintion for " + keyword(table_name)
   else
@@ -893,7 +910,6 @@ def main(dir)
 
   # Load *.table.json to get list of parents, association and table2json.
   $tables = rails_load_tables(table_json_dir)
-  $table2json = $tables[:json]
 
   # Routes.
   $routes = Array.new

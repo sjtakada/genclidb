@@ -59,7 +59,8 @@
           "desc": "log-adacency-changes (detail|)",
           "type": "enum",
           "default": "",
-          "values": [ "", "detail" ]
+          "null": true,
+          "values": [ "", "detail", null ]
         },
         "max-metric-on-startup": {
           "desc": "max-metric router-lsa on-startup <5-86400>",

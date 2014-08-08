@@ -211,7 +211,11 @@ class <%= @class_name %> < ActiveRecord::Base
   end
 <%     else %>
   def <%= keyword(k) %>=(v)
+<%       if rails_attr_null_ok(@attrs_def, k) %>
+    write_attribute(:<%= keyword(k) %>, v)
+<%       else %>
     write_attribute(:<%= keyword(k) %>, v.nil? ? get_default(:<%= keyword(k) %>) : v)
+<%       end %>
   end
 <%     end %>
 <%   end %>
