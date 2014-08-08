@@ -652,6 +652,9 @@ CliNodeIPv6Prefix::cli_match(string& input)
 
           if (isxdigit((int)*p))
             {
+              if (first_colon)
+                return make_pair(match_failure, match_none);
+
               state = state_xdigit;
               xdigits++;
             }
