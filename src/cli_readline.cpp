@@ -310,7 +310,7 @@ CliReadline::describe()
 
   result = parse(ps, tree->top_);
   if (result == exec_ambiguous)
-    cout << "% Ambigouos command" << endl << endl;
+    cout << "% Ambiguous command" << endl << endl;
   else if (result == exec_unrecognized)
     {
       unsigned int offset = strlen(cli_->prompt()) + ps.matched_len_ + 1;
