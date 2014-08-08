@@ -45,16 +45,23 @@ class CliParseState
 {
 public:
   CliParseState(char *buf)
-    : line_(" "), pos_(0), is_cmd_(false)
+    : line_(" "), /*pos_(0),*/ is_cmd_(false)
   {
     line_ += buf;
+    len_ = strlen(buf);
   }
 
   // Current remaining input.
   string line_;
 
   // Current position.
-  u_int16_t pos_;
+  //  u_int16_t pos_;
+
+  // Input length
+  u_int16_t len_;
+
+  // Matched length.
+  u_int16_t matched_len_;
 
   // Vector of pair of CliNode and Matchstate.
   CliNodeMatchStateVector matched_vec_;
@@ -130,6 +137,7 @@ private:
   void filter_hidden(CliNodeMatchStateVector& matched_vec);
   size_t match_token(string& input, CliNode *node,
                      CliNodeMatchStateVector& matched_vec);
+  void match_shorter(CliParseState& ps, CliNode *curr, string& token);
   enum ExecResult parse(CliParseState& ps, CliNode *curr);
   enum ExecResult parse_execute(CliParseStateExecute& ps, CliNode *curr);
   void describe_line(CliNode *node, size_t max_len_token);

@@ -125,6 +125,32 @@ CliReadline::filter_hidden(CliNodeMatchStateVector& matched_vec)
   matched_vec = vec;
 }
 
+void
+CliReadline::match_shorter(CliParseState& ps, CliNode *curr, string& token)
+{
+  unsigned int length = token.size();
+  unsigned int offset = 0;
+  unsigned int parsed_len = ps.len_ - ps.line_.size();
+
+  while (length - offset >= 0)
+    {
+      string sub_token = token.substr(0, length - offset);
+
+      fill_matched_vec(curr, ps.matched_vec_);
+      filter_hidden(ps.matched_vec_);
+      
+      match_token(sub_token, curr, ps.matched_vec_);
+      filter_hidden(ps.matched_vec_);
+      if (ps.matched_vec_.size() > 0)
+        {
+          ps.matched_len_ = parsed_len - offset;
+          break;
+        }
+
+      offset++;
+    }
+}
+
 // Return true if command can be completed.
 enum ExecResult
 CliReadline::parse(CliParseState& ps, CliNode *curr)
@@ -149,7 +175,10 @@ CliReadline::parse(CliParseState& ps, CliNode *curr)
         filter_matched(ps.matched_vec_, match_partial);
 
         if (ps.matched_vec_.size() == 0)
-          return exec_unrecognized;
+          {
+            match_shorter(ps, curr, token);
+            return exec_unrecognized;
+          }
 
         if (ps.matched_vec_.size() > 1)
           return exec_ambiguous;
@@ -158,7 +187,10 @@ CliReadline::parse(CliParseState& ps, CliNode *curr)
       }
 
     if (ps.matched_vec_.size() == 0)
-      return exec_unrecognized;
+      {
+        ps.matched_len_ = ps.len_ - 1;
+        return exec_unrecognized;
+      }
 
     if (ps.matched_vec_.size() == 1)
       curr = ps.matched_vec_[0].first;
@@ -190,7 +222,10 @@ CliReadline::parse_execute(CliParseStateExecute& ps, CliNode *curr)
     filter_matched(ps.matched_vec_, match_partial);
 
     if (ps.matched_vec_.size() == 0)
-      return exec_unrecognized;
+      {
+        match_shorter(ps, curr, token);
+        return exec_unrecognized;
+      }
     else if (ps.matched_vec_.size() > 1)
       return exec_ambiguous;
 
@@ -277,7 +312,11 @@ CliReadline::describe()
   if (result == exec_ambiguous)
     cout << "% Ambigouos command" << endl << endl;
   else if (result == exec_unrecognized)
-    cout << "% Unrecognized command" << endl << endl;
+    {
+      unsigned int offset = strlen(cli_->prompt()) + ps.matched_len_ + 1;
+      cout << right << setw(offset) << "^" << endl;
+      cout << "% Invalid input detected at '^' marker." << endl << endl;
+    }
   else
     {
       size_t max_len = 0;
@@ -572,7 +611,13 @@ CliReadline::execute()
             result = execute_parent(ps, mode->parent());
 
           if (result != exec_complete)
-            cout << "% Unrecognized command" << endl << endl;
+            {
+              unsigned int offset =
+                strlen(cli_->prompt()) + ps.matched_len_ + 1;
+              cout << right << setw(offset) << "^" << endl;
+              cout << "% Invalid input detected at '^' marker."
+                   << endl << endl;
+            }
 
           break;
         }
