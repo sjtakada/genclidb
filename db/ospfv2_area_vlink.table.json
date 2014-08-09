@@ -18,8 +18,8 @@
         },
         "authentication": {
           "type": "enum",
-          "default": "",
-          "values": ["", "null", "message-digest"]
+          "default": null,
+          "values": ["", "null", "message-digest", null]
         },
         "hello-interval": {
           "type": "integer",
