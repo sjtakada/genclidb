@@ -503,7 +503,7 @@ def rails_modify_controller(table_name, table_keys, db_fields, api_path)
 
     @order = nil
     if table_def["order"] != nil
-      @order = table_def["order"]
+      @order = keyword(table_def["order"])
     end
 
     @keys_str = db_fields.map {|f| ':' + keyword(f[0])}.join(", ")

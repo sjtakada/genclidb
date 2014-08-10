@@ -1,0 +1,29 @@
+{
+  "table": {
+    "ospfv2-neighbor": {
+      "type": "dependent",
+      "alias": "neighbor",
+      "parent": "ospfv2",
+      "order": "nbr-id",
+      "keys": {
+        "nbr-id": {
+          "type": "ipv4"
+        }
+      },
+      "attributes": {
+        "poll-interval": {
+          "type": "integer",
+          "range": [1, 65535]
+        },
+        "priority": {
+          "type": "integer",
+          "range": [0, 255]
+        },
+        "cost": {
+          "type": "integer",
+          "range": [0, 65535]
+        }
+      }
+    }
+  }
+}

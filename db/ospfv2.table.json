@@ -5,6 +5,7 @@
       "has-dependent": [
         "ospfv2-area",
         "ospfv2-network",
+        "ospfv2-neighbor",
         "ospfv2-redistribute",
         "ospfv2-distribute-list-out"
       ],
