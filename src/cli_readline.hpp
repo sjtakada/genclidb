@@ -115,6 +115,8 @@ public:
   char **completion(const char *text, int start, int end);
   char *completion_matches(const char *text, int state);
 
+  void clear() { if (buf_) buf_[0] = '\0'; }
+
 private:
   // Parent CLI object.
   Cli *cli_;

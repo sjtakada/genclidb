@@ -164,12 +164,6 @@ CliReadline::parse(CliParseState& ps, CliNode *curr)
     fill_matched_vec(curr, ps.matched_vec_);
     filter_hidden(ps.matched_vec_);
 
-    if (curr->next_.size() == 0)
-      {
-        ps.matched_len_ = ps.len_ - ps.line_.size();
-        return exec_unrecognized;
-      }
-
     if (!get_token(ps.line_, token))
       break;
 
@@ -183,6 +177,9 @@ CliReadline::parse(CliParseState& ps, CliNode *curr)
         if (ps.matched_vec_.size() == 0)
           {
             match_shorter(ps, curr, token);
+            if (curr->next_.size() == 0)
+              ps.matched_len_++;
+
             return exec_unrecognized;
           }
 
@@ -195,6 +192,9 @@ CliReadline::parse(CliParseState& ps, CliNode *curr)
     if (ps.matched_vec_.size() == 0)
       {
         match_shorter(ps, curr, token);
+        if (curr->next_.size() == 0)
+          ps.matched_len_++;
+
         return exec_unrecognized;
       }
 
@@ -222,6 +222,9 @@ CliReadline::parse_execute(CliParseStateExecute& ps, CliNode *curr)
 
     if (curr->next_.size() == 0)
       {
+        if (is_white_space_only(ps.line_))
+          break;
+
         ps.matched_len_ = ps.len_ - ps.line_.size();
         return exec_unrecognized;
       }
@@ -403,6 +406,10 @@ CliReadline::completion_matches(const char *text, int state)
         }
       else
         {
+          cout << endl;
+          cout << cli_->prompt();
+          cout << rl_line_buffer;
+
           int i = 0;
 
           matched_strvec_ =
@@ -602,7 +609,7 @@ CliReadline::execute()
   CliTree *mode = cli_->current_mode();
   CliParseStateExecute ps(rl_line_buffer);
 
-  if (!::is_white_space_only(ps.line_))
+  if (!is_white_space_only(ps.line_))
     {
       enum ExecResult
         result = parse_execute(ps, mode->top_);

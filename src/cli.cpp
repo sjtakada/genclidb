@@ -140,6 +140,8 @@ Cli::exit()
       mode_up(1);
       cout << endl;
     }
+
+  rl_.clear();
 }
 
 // Supposed to fallback to privilege mode.
