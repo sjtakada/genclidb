@@ -132,7 +132,7 @@ CliReadline::match_shorter(CliParseState& ps, CliNode *curr, string& token)
   unsigned int offset = 0;
   unsigned int parsed_len = ps.len_ - ps.line_.size();
 
-  while (length - offset >= 0)
+  while (length >= offset)
     {
       string sub_token = token.substr(0, length - offset);
 
@@ -142,13 +142,12 @@ CliReadline::match_shorter(CliParseState& ps, CliNode *curr, string& token)
       match_token(sub_token, curr, ps.matched_vec_);
       filter_hidden(ps.matched_vec_);
       if (ps.matched_vec_.size() > 0)
-        {
-          ps.matched_len_ = parsed_len - offset;
-          break;
-        }
+        break;
 
       offset++;
     }
+
+  ps.matched_len_ = parsed_len - offset;
 }
 
 // Return true if command can be completed.
@@ -165,11 +164,18 @@ CliReadline::parse(CliParseState& ps, CliNode *curr)
     fill_matched_vec(curr, ps.matched_vec_);
     filter_hidden(ps.matched_vec_);
 
+    if (curr->next_.size() == 0)
+      {
+        ps.matched_len_ = ps.len_ - ps.line_.size();
+        return exec_unrecognized;
+      }
+
     if (!get_token(ps.line_, token))
       break;
 
     match_token(token, curr, ps.matched_vec_);
     filter_hidden(ps.matched_vec_);
+
     if (ps.line_.begin() != ps.line_.end())
       {
         filter_matched(ps.matched_vec_, match_partial);
@@ -188,7 +194,7 @@ CliReadline::parse(CliParseState& ps, CliNode *curr)
 
     if (ps.matched_vec_.size() == 0)
       {
-        ps.matched_len_ = ps.len_ - 1;
+        match_shorter(ps, curr, token);
         return exec_unrecognized;
       }
 
@@ -213,6 +219,12 @@ CliReadline::parse_execute(CliParseStateExecute& ps, CliNode *curr)
   do {
     if (!trim_spaces_at_head(ps.line_))
       break;
+
+    if (curr->next_.size() == 0)
+      {
+        ps.matched_len_ = ps.len_ - ps.line_.size();
+        return exec_unrecognized;
+      }
 
     if (!get_token(ps.line_, token))
       break;
@@ -250,7 +262,7 @@ CliReadline::parse_execute(CliParseStateExecute& ps, CliNode *curr)
   if (curr->cmd_)
     return exec_complete;
 
-  return exec_unrecognized;
+  return exec_incomplete;
 }
 
 void
@@ -607,18 +619,20 @@ CliReadline::execute()
           cout << "% Ambiguous command" << endl << endl;
           break;
         case exec_unrecognized:
-          if (mode->parent())
-            result = execute_parent(ps, mode->parent());
+          {
+            u_int16_t matched_len = ps.matched_len_;
+            if (mode->parent())
+              result = execute_parent(ps, mode->parent());
 
-          if (result != exec_complete)
-            {
-              unsigned int offset =
-                strlen(cli_->prompt()) + ps.matched_len_ + 1;
-              cout << right << setw(offset) << "^" << endl;
-              cout << "% Invalid input detected at '^' marker."
-                   << endl << endl;
-            }
-
+            if (result != exec_complete)
+              {
+                unsigned int offset =
+                  strlen(cli_->prompt()) + matched_len + 1;
+                cout << right << setw(offset) << "^" << endl;
+                cout << "% Invalid input detected at '^' marker."
+                     << endl << endl;
+              }
+          }
           break;
         }
     }
