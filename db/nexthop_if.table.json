@@ -2,11 +2,13 @@
   "table": {
     "nexthop-if": {
       "type": "parent",
-      "has-association": {
+      "has-many": {
         "ipv4-route-nexthop": {
+          "type": "association",
           "as": "ipv4-reachable"
         },
         "ipv4-route": {
+          "type": "table",
           "through": "ipv4-route-nexthop"
         }
       },

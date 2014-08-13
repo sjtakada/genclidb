@@ -3,10 +3,12 @@
     "ipv4-route-nexthop": {
       "type": "association",
       "belongs-to": {
-        "table": "ipv4-route",
-        "polymorphic": {
-          "interface": "ipv4-reachable",
-          "table": [
+        "ipv4-route": {
+          "type": "table"
+        },
+        "ipv4-reachable": {
+          "type": "interface",
+          "tables": [
             "nexthop-ipv4",
             "nexthop-if"
           ]

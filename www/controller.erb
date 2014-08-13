@@ -2,9 +2,7 @@ class <%= @class_name %>sController < ApplicationController
   before_action :set_<%= @model_name %>, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, :if => Proc.new {|c| c.request.format == 'application/json' }
 
-<% if @polymorphic == nil %>
   # PUT /<%= @api_path %>.json
-<% end %>
   def create_by_keys
     @<%= @model_name %> = <%= @class_name %>.get_by_params(params)
 
@@ -16,23 +14,9 @@ class <%= @class_name %>sController < ApplicationController
       end
     end
   end
-<% ######################################################################### %>
-<% if @polymorphic != nil %>
-<%   intf = @polymorphic["interface"] %>
-<%   @polymorphic["table"].each do |t| %>
-
-  # PUT /<%= rails_api_path_polymorphic(@belongs_to, t) %>.json
-  def create_by_<%= keyword(t) %>
-    params["<%= keyword(intf) %>"] = "<%= keyword(t) %>"
-    create_by_keys
-  end
-<%   end %>
-<% end %>
 
 <% ######################################################################### %>
-<% if @polymorphic == nil %>
   # POST /<%= @api_path %>.json
-<% end %>
   def update_by_keys
     @<%= @model_name %> = <%= @class_name %>.get_by_params(params)
 
@@ -44,56 +28,43 @@ class <%= @class_name %>sController < ApplicationController
       end
     end
   end
-<% ######################################################################### %>
-<% if @polymorphic != nil %>
-<%   intf = @polymorphic["interface"] %>
-<%   @polymorphic["table"].each do |t| %>
-
-  # PUT /<%= rails_api_path_polymorphic(@belongs_to, t) %>.json
-  def update_by_<%= keyword(t) %>
-    params["<%= keyword(intf) %>"] = "<%= keyword(t) %>"
-    update_by_keys
-  end
-<%   end %>
-<% end %>
 
 <% ######################################################################### %>
-<% if @polymorphic == nil %>
   # DELETE /<%= @api_path %>.json
-<% end %>
   def destroy_by_keys
     @<%= @model_name %> = <%= @class_name %>.find_by_params(params)
     if @<%= @model_name %> != nil
 <% if @is_assoc == true %>
-<%   @belongs_to.each do |p| %>
-<%     key_id = keyword(p) + "_id" %>
+<%   @belongs_to.each do |k, v| %>
+<%     if v["type"] == "table" %>
+<%       key_id = keyword(k) + "_id" %>
       <%= key_id %> = @<%= @model_name %>.<%= key_id %>
-<%   end %>
-<%   if @polymorphic != nil and @polymorphic["interface"] != nil %>
-<%     intf = keyword(@polymorphic["interface"]) %>
+<%     elsif v["type"] == "interface" %>
+<%     intf = keyword(k) %>
       <%= intf %>_type = @<%= @model_name %>.<%= intf %>_type
       <%= intf %> = @<%= @model_name %>.<%= intf %>
+<%     end %>
 <%   end %>
 <% end %>
       @<%= @model_name %>.destroy
 <% if @is_assoc == true %>
-<%   @belongs_to.each do |p| %>
-
-<%     key_id = keyword(p) + "_id" %>
+<%   @belongs_to.each do |k, v| %>
+<%     if v["type"] == "table" %>
+<%       key_id = keyword(k) + "_id" %>
       if <%= @class_name %>.find_by_<%= key_id %>(<%= key_id %>) == nil
-        <%= keyword_camel(p) %>.destroy(<%= key_id %>)
+        <%= keyword_camel(k) %>.destroy(<%= key_id %>)
       end
-<%   end %>
-<%   if @polymorphic != nil and @polymorphic["interface"] != nil %>
-<%     intf = keyword(@polymorphic["interface"]) %>
+<%     elsif v["type"] == "interface" %>
+<%       intf = keyword(k) %>
       if <%= @class_name %>.find_by_<%= intf %>_type_and_<%= intf %>_id(<%= intf %>_type, <%= intf %>.id) == nil
         case <%= intf %>_type
-<%     @polymorphic["table"].each do |t| %>
+<%       v["tables"].each do |t| %>
         when "<%= keyword(t) %>"
           <%= keyword_camel(t) %>.destroy(<%= intf %>.id)
-<%     end %>
+<%       end %>
         end
       end
+<%     end %>
 <%   end %>
 <% end %>
     end
@@ -103,17 +74,33 @@ class <%= @class_name %>sController < ApplicationController
     end
   end
 <% ######################################################################### %>
-<% if @polymorphic != nil %>
-<%   intf = @polymorphic["interface"] %>
-<%   @polymorphic["table"].each do |t| %>
+<% if @belongs_to != nil %>
+<%   @belongs_to.each do |k, v| %>
+<%     if v["type"] == "interface" %>
+<%       v["tables"].each do |t| %>
+
+  # PUT /<%= rails_api_path_polymorphic(@belongs_to, t) %>.json
+  def create_by_<%= keyword(t) %>
+    params["<%= keyword(k) %>"] = "<%= keyword(t) %>"
+    create_by_keys
+  end
+
+  # PUT /<%= rails_api_path_polymorphic(@belongs_to, t) %>.json
+  def update_by_<%= keyword(t) %>
+    params["<%= keyword(k) %>"] = "<%= keyword(t) %>"
+    update_by_keys
+  end
 
   # PUT /<%= rails_api_path_polymorphic(@belongs_to, t) %>.json
   def destroy_by_<%= keyword(t) %>
-    params["<%= keyword(intf) %>"] = "<%= keyword(t) %>"
+    params["<%= keyword(k) %>"] = "<%= keyword(t) %>"
     destroy_by_keys
   end
+<%       end %>
+<%     end %>
 <%   end %>
 <% end %>
+<% ######################################################################### %>
 
   # GET /<%= @controller_name %>
   # GET /<%= @controller_name %>.json

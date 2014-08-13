@@ -2,7 +2,11 @@
   "table": {
     "ospfv2-redistribute": {
       "type": "dependent",
-      "parent": "ospfv2",
+      "belongs-to": {
+        "ospfv2": {
+          "type": "table"
+        }
+      },
       "alias": "redistribute",
       "keys": {
         "protocol": {
@@ -26,7 +30,11 @@
     },
     "ospfv2-distribute-list-out": {
       "type": "dependent",
-      "parent": "ospfv2",
+      "belongs-to": {
+        "ospfv2": {
+          "type": "table"
+        }
+      },
       "alias": "distribute-list-out",
       "keys": {
         "protocol": {

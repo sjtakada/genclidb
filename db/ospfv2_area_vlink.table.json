@@ -2,10 +2,16 @@
   "table": {
     "ospfv2-area-vlink": {
       "type": "dependent",
-      "parent": "ospfv2-area",
-      "has-dependent": [
-        "ospfv2-area-vlink-md5-key"
-      ],
+      "belongs-to": {
+        "ospfv2-area": {
+          "type": "table"
+        }
+      },
+      "has-many": {
+        "ospfv2-area-vlink-md5-key": {
+          "type": "table"
+        }
+      },
       "alias": "vlink",
       "keys": {
         "nbr-id": {

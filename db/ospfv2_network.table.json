@@ -3,7 +3,11 @@
     "ospfv2-network": {
       "type": "dependent",
       "alias": "network",
-      "parent": "ospfv2",
+      "belongs-to": {
+        "ospfv2": {
+          "type": "table"
+        }
+      },
       "order": "address, masklen DESC",
       "keys": {
         "address": {
@@ -18,7 +22,7 @@
         "area-id": {
           "type": "integer",
           "range": [0, 4294967295],
-          "null": false
+          "null": true
         }
       }
     }

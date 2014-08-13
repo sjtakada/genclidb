@@ -2,9 +2,11 @@
   "table": {
     "acl-ipv4-std": {
       "type": "parent",
-      "has-dependent": [
-        "acl-ipv4-std-rule"
-      ],
+      "has-many": {
+        "acl-ipv4-std-rule": {
+          "type": "table"
+        }
+      },
       "keys": {
         "number": {
           "type": "integer",
@@ -15,7 +17,11 @@
     "acl-ipv4-std-rule": {
       "type": "dependent",
       "alias": "rule",
-      "parent": "acl-ipv4-std",
+      "belongs-to": {
+        "acl-ipv4-std": {
+          "type": "table"
+        }
+      },
       "keys": {
         "rule-type": {
           "type": "enum",

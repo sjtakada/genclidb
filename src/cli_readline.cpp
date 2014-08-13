@@ -440,7 +440,10 @@ readline_completion_matches(const char *text, int state)
 char **
 CliReadline::completion(const char *text, int start, int end)
 {
-  return rl_completion_matches(text, readline_completion_matches);
+  char **matches;
+  matches = rl_completion_matches(text, readline_completion_matches);
+
+  return matches;
 }
 
 char **

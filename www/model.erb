@@ -1,30 +1,28 @@
 class <%= @class_name %> < ActiveRecord::Base
 <% if @belongs_to != nil %>
-<%   @belongs_to.each do |p| %>
-  belongs_to :<%= keyword(p) %>
+<%   @belongs_to.each do |k, v| %>
+<%     if v["type"] == "table" %>
+  belongs_to :<%= keyword(k) %>
+<%     elsif v["type"] == "interface" %>
+  belongs_to :<%= keyword(k) %>, polymorphic: true
+<%     end %>
 <%   end %>
 <% end %>
 <% ######################################################################### %>
-<% if @polymorphic != nil %>
-<%   if @polymorphic["interface"] != nil %>
-  belongs_to :<%= keyword(@polymorphic["interface"]) %>, polymorphic: true
-<%   end %>
-<% end %>
-<% ######################################################################### %>
-<% if @children != nil %>
-<%   @children.each do |k, v| %>
-  has_many :<%= keyword_plural(k) %>, dependent: :destroy
-<%   end %>
-<% end %>
-<% ######################################################################### %>
-<% if @associations != nil %>
-<%   @associations.each do |k, v| %>
-<%     if v == nil %>
-  has_many :<%= keyword_plural(k) %>
-<%     elsif v["through"] != nil %>
-  has_many :<%= keyword_plural(k) %>, :through => :<%= keyword_plural(v["through"]) %>
-<%     elsif v["as"] != nil %>
+<% if @has_many != nil %>
+<%   @has_many.each do |k, v| %>
+<%     if v["type"] == "association" %>
+<%       if !v["as"].nil? %>
   has_many :<%= keyword_plural(k) %>, :as => :<%= keyword(v["as"]) %>
+<%       else %>
+  has_many :<%= keyword_plural(k) %>
+<%       end %>
+<%     else %>
+<%       if !v["through"].nil? %>
+  has_many :<%= keyword_plural(k) %>, :through => :<%= keyword_plural(v["through"]) %>
+<%       else %>
+  has_many :<%= keyword_plural(k) %>, dependent: :destroy
+<%       end %>
 <%     end %>
 <%   end %>
 <% end %>
@@ -69,26 +67,26 @@ class <%= @class_name %> < ActiveRecord::Base
   def self.find_by_params(params)
 <% if @is_assoc == true %>
 <%   if @belongs_to != nil %>
-<%     @belongs_to.each do |p| %>
-    <%= keyword(p) %> = <%= keyword_camel(p) %>.find_by_params(params)
-<%     end %>
-<%   end %>
-<%   if @polymorphic != nil and @polymorphic["table"] != nil %>
-<%     intf = @polymorphic["interface"] %>
-    if params["<%= keyword(intf) %>"] != nil
-      <%= keyword(intf) %>_type = params["<%= keyword(intf) %>"]
-      <%= keyword(intf) %>_id = nil
+<%     @belongs_to.each do |k, v| %>
+<%       if v["type"] == "table" %>
+    <%= keyword(k) %> = <%= keyword_camel(k) %>.find_by_params(params)
+<%       elsif v["type"] == "interface" %>
+    if params["<%= keyword(k) %>"] != nil
+      <%= keyword(k) %>_type = params["<%= keyword(k) %>"]
+      <%= keyword(k) %>_id = nil
 
-      case <%= keyword(intf) %>_type
-<%     @polymorphic["table"].each do |t| %>
+      case <%= keyword(k) %>_type
+<%         v["tables"].each do |t| %>
       when "<%= keyword(t) %>"
         <%= keyword(t) %> = <%= keyword_camel(t) %>.find_by_params(params)
         if <%= keyword(t) %> != nil
-          <%= keyword(intf) %>_id = <%= keyword(t) %>.id
+          <%= keyword(k) %>_id = <%= keyword(t) %>.id
         end
-<%     end %>
+<%         end %>
       end
     end
+<%       end %>
+<%     end %>
 <%   end %>
 
     <%= @model_name %> = nil
@@ -116,29 +114,28 @@ class <%= @class_name %> < ActiveRecord::Base
 
   def self.get_by_params(params)
 <% if @belongs_to != nil %>
-<%   @belongs_to.each do |p| %>
-    <%= keyword(p) %> = <%= keyword_camel(p) %>.get_by_params(params)
-<%   end %>
-<% end %>
-<% if @is_assoc == true %>
-<%   if @polymorphic != nil and @polymorphic["table"] != nil %>
-<%     intf = @polymorphic["interface"] %>
-    if params["<%= keyword(intf) %>"] != nil
-      <%= keyword(intf) %>_type = params["<%= keyword(intf) %>"]
-      <%= keyword(intf) %>_id = nil
+<%   @belongs_to.each do |k, v| %>
+<%     if v["type"] == "table" %>
+    <%= keyword(k) %> = <%= keyword_camel(k) %>.get_by_params(params)
+<%     elsif v["type"] == "interface" %>
+    if params["<%= keyword(k) %>"] != nil
+      <%= keyword(k) %>_type = params["<%= keyword(k) %>"]
+      <%= keyword(k) %>_id = nil
 
-      case <%= keyword(intf) %>_type
-<%     @polymorphic["table"].each do |t| %>
+      case <%= keyword(k) %>_type
+<%       v["tables"].each do |t| %>
       when "<%= keyword(t) %>"
         <%= keyword(t) %> = <%= keyword_camel(t) %>.get_by_params(params)
         if <%= keyword(t) %> != nil
-          <%= keyword(intf) %>_id = <%= keyword(t) %>.id
+          <%= keyword(k) %>_id = <%= keyword(t) %>.id
         end
-<%     end %>
+<%       end %>
       end
     end
-
+<%     end %>
 <%   end %>
+<% end %>
+<% if @is_assoc %>
     <%= @model_name %> = <%= @find_func_str %>
 <% else %>
     <%= @model_name %> = find_by_params(params)
@@ -146,14 +143,14 @@ class <%= @class_name %> < ActiveRecord::Base
     if <%= @model_name %> == nil
       <%= @model_name %> = <%= @class_name %>.new
 <% if @belongs_to != nil %>
-<%   @belongs_to.each do |p| %>
-      <%= @model_name %>.<%= keyword(p) %>_id = <%= keyword(p) %>.id
+<%   @belongs_to.each do |k, v| %>
+<%     if v["type"] == "table" %>
+      <%= @model_name %>.<%= keyword(k) %>_id = <%= keyword(k) %>.id
+<%     elsif v["type"] == "interface" %>
+      <%= @model_name %>.<%= keyword(k) %>_type = <%= keyword(k) %>_type
+      <%= @model_name %>.<%= keyword(k) %>_id = <%= keyword(k) %>_id
+<%     end %>
 <%   end %>
-<% end %>
-<% if @polymorphic != nil and @polymorphic["table"] != nil %>
-<%   intf = @polymorphic["interface"] %>
-      <%= @model_name %>.<%= keyword(intf) %>_type = <%= keyword(intf) %>_type
-      <%= @model_name %>.<%= keyword(intf) %>_id = <%= keyword(intf) %>_id
 <% end %>
 <% if @all_keys != nil and @is_assoc == false %>
 <%   @all_keys.each do |t| %>
@@ -179,27 +176,30 @@ class <%= @class_name %> < ActiveRecord::Base
     self.save!
   end
 <% ######################################################################### %>
-<% if @polymorphic != nil and @polymorphic["table"] != nil %>
-<%   intf = @polymorphic["interface"] %>
+<% if @belongs_to != nil %>
+<%   @belongs_to.each do |k, v| %>
+<%     if v["type"] == "interface" %>
 
-  def <%= keyword(intf) %>
+  def <%= keyword(k) %>
     value = nil
 
-    case <%= keyword(intf) %>_type
-<%   @polymorphic["table"].each do |t| %>
+    case <%= keyword(k) %>_type
+<%       v["tables"].each do |t| %>
     when "<%= keyword(t) %>"
-      value = <%= keyword_camel(t) %>.find(<%= keyword(intf) %>_id)
-<%   end %>
+      value = <%= keyword_camel(t) %>.find(<%= keyword(k) %>_id)
+<%       end %>
     end
 
     value
   end
+<%     end %>
+<%   end %>
 <% end %>
 <% ######################################################################### %>
 <% if @attrs_def != nil %>
 <%   @attrs_def.each do |k, v| %>
-
 <%     if v["type"] == "ipv4" or v["type"] == "ipv6" %>
+
   def <%= keyword(k) %>=(v)
     blob = v.nil? ? <%= @default_def[keyword(k)] %> : IPAddr.new(v).hton
     write_attribute(:<%= keyword(k) %>, blob)
@@ -210,6 +210,7 @@ class <%= @class_name %> < ActiveRecord::Base
     blob.nil? ? nil : IPAddr.new_ntoh(blob).to_s
   end
 <%     else %>
+
   def <%= keyword(k) %>=(v)
 <%       if rails_attr_null_ok(@attrs_def, k) %>
     write_attribute(:<%= keyword(k) %>, v)

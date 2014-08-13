@@ -2,9 +2,12 @@
   "table": {
     "ipv4-route": {
       "type": "parent",
-      "has-association": {
-        "ipv4-route-nexthop": null,
+      "has-many": {
+        "ipv4-route-nexthop": {
+          "type": "association"
+        },
         "ipv4-reachable": {
+          "type": "interface",
           "through": "ipv4-route-nexthop"
         }
       },

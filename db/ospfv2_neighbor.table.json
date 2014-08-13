@@ -3,7 +3,11 @@
     "ospfv2-neighbor": {
       "type": "dependent",
       "alias": "neighbor",
-      "parent": "ospfv2",
+      "belongs-to": {
+        "ospfv2": {
+          "type": "table"
+        }
+      },
       "order": "nbr-id",
       "keys": {
         "nbr-id": {

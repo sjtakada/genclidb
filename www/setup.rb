@@ -239,12 +239,12 @@ def rails_load_tables(dir)
   tables
 end
 
-def rails_attr_get_default(attributes, key)
+def rails_attr_get_default(attrs, key)
   default_value = "nil"
 
-  if attributes != nil
-    if attributes[key] != nil
-      attr = attributes[key]
+  if attrs != nil
+    if attrs[key] != nil
+      attr = attrs[key]
       if attr.has_key?("default")
         if attr["type"] == "boolean" or attr["type"] == "integer"
           return attr["default"].to_s
@@ -261,13 +261,15 @@ end
 def rails_attr_null_ok(attrs, key)
   null_ok = true
 
-  if !attrs[key].nil?
-    if !attrs[key]["null"].nil?
-      null_ok = attrs[key]["null"].to_s
-    else
-      default_value = rails_attr_get_default(attrs, key)
-      if default_value != "nil"
-        null_ok = false
+  if attrs != nil
+    if !attrs[key].nil?
+      if !attrs[key]["null"].nil?
+        null_ok = attrs[key]["null"].to_s
+      else
+        default_value = rails_attr_get_default(attrs, key)
+        if default_value != "nil"
+          null_ok = false
+        end
       end
     end
   end
@@ -277,78 +279,80 @@ end
 
 def rails_db_set_default(table_name)
   table_def = $tables[:json][table_name]
+  attrs = table_def["attributes"]
   name = keyword_plural(table_name)
   migration = "create_" + name
 
-  Dir.chdir("db/migrate")
-  migs = Dir.entries(".").select {|f| f =~ /#{migration}\.rb$/}
+  if !attrs.nil?
+    Dir.chdir("db/migrate")
+    migs = Dir.entries(".").select {|f| f =~ /#{migration}\.rb$/}
 
-  if migs.size == 1
-    puts "=> Add default values to '" + keyword(table_name) + "' migrations..."
+    if migs.size == 1
+      puts "=> Add default values to '" + keyword(table_name) + "' migrations..."
 
-    migration_file = migs[0]
+      migration_file = migs[0]
 
-    lines = Array.new
-    File.open(migration_file, "r") do |f|
-      while line = f.gets
-        m = /^\s+t\.\w+ :(\w+)/.match(line)
-        if m != nil
-          options = Array.new
-          options << m[0]
+      lines = Array.new
+      File.open(migration_file, "r") do |f|
+        while line = f.gets
+          m = /^\s+t\.\w+ :(\w+)/.match(line)
+          if m != nil
+            options = Array.new
+            options << m[0]
 
-          options_str = m.post_match
-          n = /(limit: \d+)/.match(options_str)
-          if n != nil
-            options << n[1]
+            options_str = m.post_match
+            n = /(limit: \d+)/.match(options_str)
+            if n != nil
+              options << n[1]
+            end
+
+            key = keyword_dashed(m[1])
+            default_value = rails_attr_get_default(attrs, key)
+            null_ok = rails_attr_null_ok(attrs, key)
+
+            options << ":null => " + null_ok.to_s
+            if default_value != "nil"
+              options << ":default => " + default_value.to_s
+            end
+
+            line = options.join(", ")
           end
 
-          key = keyword_dashed(m[1])
-          default_value = rails_attr_get_default(table_def["attributes"], key)
-          null_ok = rails_attr_null_ok(table_def["attributes"], key)
-
-          options << ":null => " + null_ok.to_s
-          if default_value != "nil"
-            options << ":default => " + default_value.to_s
-          end
-
-          line = options.join(", ")
+          lines << line
         end
+      end
 
-        lines << line
+      File.open(migration_file, "w") do |f|
+        lines.each do |line|
+          f.puts line
+        end
       end
     end
 
-    File.open(migration_file, "w") do |f|
-      lines.each do |line|
-        f.puts line
-      end
-    end
+    Dir.chdir("../..")
   end
-
-  Dir.chdir("../..")
 end
 
-def find_by_assoc_keys_statement_str(belongs_to, polymorphic)
+def find_by_assoc_keys_statement_str(belongs_to)
   keys = Array.new
   params = Array.new
   conds = Array.new
 
   if belongs_to != nil
-    belongs_to.each do |b|
-      keys << keyword(b) + "_id"
-      params << keyword(b) + ".id"
-      conds << keyword(b)
+    belongs_to.each do |k, v|
+      if v["type"] == "table"
+        keys << keyword(k) + "_id"
+        params << keyword(k) + ".id"
+        conds << keyword(k)
+      elsif v["type"] == "interface"
+        keys << keyword(k) + "_type"
+        keys << keyword(k) + "_id"
+        params << keyword(k) + "_type"
+        params << keyword(k) + "_id"
+        conds << keyword(k) + "_type"
+        conds << keyword(k) + "_id"
+      end
     end
-  end
-
-  if polymorphic != nil
-    intf = polymorphic["interface"]
-    keys << keyword(intf) + "_type"
-    keys << keyword(intf) + "_id"
-    params << keyword(intf) + "_type"
-    params << keyword(intf) + "_id"
-    conds << keyword(intf) + "_type"
-    conds << keyword(intf) + "_id"
   end
 
   cond_str = conds.map {|c| c + " != nil"}.join(" and ")
@@ -359,28 +363,6 @@ end
 
 def find_by_func_name_str(table_keys)
   "find_by_" + table_keys.map{|t| keyword(t[0])}.join("_and_")
-end
-
-def rails_get_belongs_to_assoc(table_def)
-  belongs_to = Array.new
-  polymorphic = nil
-
-  b = table_def["belongs-to"]
-  if !b.nil?
-    if !b["table"].nil?
-      d = b["table"]
-      if d.kind_of?(Array)
-        belongs_to = d
-      else
-        belongs_to = [d]
-      end
-    end
-    if !b["polymorphic"].nil?
-      polymorphic = b["polymorphic"]
-    end
-  end
-
-  [belongs_to, polymorphic]
 end
 
 def rails_modify_model(table_name, table_keys)
@@ -395,18 +377,15 @@ def rails_modify_model(table_name, table_keys)
 
   File.open(model, "w") do |f|
     @class_name = keyword_camel(table_name)
-    if !table_def["parent"].nil?
-      @belongs_to = [ table_def["parent"] ]
-    elsif table_def["type"] == "association"
-      @belongs_to, @polymorphic = rails_get_belongs_to_assoc(table_def)
-    end
+    @belongs_to = table_def["belongs-to"]
+    @has_many = table_def["has-many"]
+
     @find_func_str, @find_cond_str =
-      find_by_assoc_keys_statement_str(@belongs_to, @polymorphic)
-    @children = table_def["has-dependent"]
+      find_by_assoc_keys_statement_str(@belongs_to)
+
     @keys_def = table_def["keys"]
     @attrs_def = table_def["attributes"]
     @all_keys = table_keys
-    @associations = table_def["has-association"]
 
     @default_def = Hash.new
     if @attrs_def != nil
@@ -447,17 +426,41 @@ def rails_api_path(table_name, heritage)
   path.join("/")
 end
 
-def rails_api_path_polymorphic(belongs_to, polymorphic)
+def rails_api_path_assoc(belongs_to)
   path = Array.new
   path << "api"
 
-  belongs_to.each do |b|
-    t = $tables[:json][b]
+  belongs_to.each do |x, y|
+    t = $tables[:json][x]
     if !t.nil?
       if t["type"] == "dependent" and !t["alias"].nil?
         path << keyword_plural(t["alias"])
       else
-        path << keyword_plural(b)
+        path << keyword_plural(x)
+      end
+
+      if !t["keys"].nil?
+        t["keys"].each do |k, v|
+          path << ":" + keyword(k)
+        end
+      end
+    end
+  end
+
+  path.join("/")
+end
+
+def rails_api_path_polymorphic(belongs_to, polymorphic)
+  path = Array.new
+  path << "api"
+
+  belongs_to.each do |x, y|
+    t = $tables[:json][x]
+    if !t.nil?
+      if t["type"] == "dependent" and !t["alias"].nil?
+        path << keyword_plural(t["alias"])
+      else
+        path << keyword_plural(x)
       end
 
       if !t["keys"].nil?
@@ -496,7 +499,7 @@ def rails_modify_controller(table_name, table_keys, db_fields, api_path)
   template = File.read("../controller.erb")
 
   File.open(controller, "w") do |f|
-    @belongs_to, @polymorphic = rails_get_belongs_to_assoc(table_def)
+    @belongs_to = table_def["belongs-to"]
     @model_name = keyword(table_name)
     @class_name = keyword_camel(table_name)
     @api_path = api_path
@@ -589,8 +592,12 @@ def rails_get_heritage(table_name)
 
   table_def = $tables[:json][table_name]
   if !table_def.nil?
-    if !table_def["parent"].nil?
-      heritage += rails_get_heritage(table_def["parent"])
+    if table_def["type"] != "association"
+      if !table_def["belongs-to"].nil?
+        table_def["belongs-to"].each do |k, v|
+          heritage += rails_get_heritage(k)
+        end
+      end
     end
 
     heritage << [table_name, table_def]
@@ -603,10 +610,21 @@ def rails_get_table_keys(heritage)
   table_keys = Array.new
 
   heritage.each do |tuple|
-    name, t = tuple[0], tuple[1]
-    if !t["keys"].nil?
-      t["keys"].each do |k, v|
-        table_keys << [k, v]
+    name, table_def = tuple[0], tuple[1]
+    if table_def["type"] == "association"
+      if !table_def["belongs-to"].nil?
+        table_def["belongs-to"].each do |k, v|
+          table_keys << [keyword(k) + "_id", {"type" => "integer"}]
+          if v["type"] == "interface"
+            table_keys << [keyword(k) + "_type", {"type"=> "string"}]
+          end
+        end
+      end
+    else
+      if !table_def["keys"].nil?
+        table_def["keys"].each do |k, v|
+          table_keys << [k, v]
+        end
       end
     end
   end
@@ -618,9 +636,13 @@ def rails_get_db_fields(table_def, table_keys)
   db_fields = Array.new
 
   # Simple parent association has only parent.
-  if table_def["parent"] != nil
-    k = table_def["parent"]
-    db_fields << [ keyword(k) + "_id", "integer" ]
+  if table_def["type"] != "association"
+    if table_def["belongs-to"] != nil
+      table_def["belongs-to"].each do |k, v|
+        db_fields << [ keyword(k) + "_id", "integer" ]
+#      db_fields << [ keyword(k) + "_type", "string" ] if v["type"] == "interface"
+      end
+    end
   end
 
   # Table keys
@@ -633,9 +655,9 @@ def rails_get_db_fields(table_def, table_keys)
 
   # Other columns
   if table_def["attributes"] != nil
-    table_def["attributes"].each do |k, obj|
+    table_def["attributes"].each do |k, v|
       key = keyword(k)
-      db_fields << [ key, rails_data_type(obj) ]
+      db_fields << [ key, rails_data_type(v) ]
     end
   end
 
@@ -653,7 +675,7 @@ def rails_add_routes(table_name, table_keys, api_path)
   $routes_resource << keyword_plural(table_name)
 end
 
-def rails_add_polymorphic_routes(table_name_assoc, index_keys,
+def rails_add_routes_polymorphic(table_name_assoc, index_keys,
                                  table_name_polymorphic, api_path)
   puts "=> Add routes for '" + keyword(table_name_assoc) + "' ..."
 
@@ -714,59 +736,26 @@ def rails_add_table(table_name)
     rails_add_routes(table_name, table_keys, api_path)
 
     # Iterate children recursively
-    children = table_def["has-dependent"]
-    if children != nil
-      children.each do |child|
-        rails_add_table(child)
-      end
-    end
-  end
-end
-
-def rails_get_table_keys_assoc(table_def)
-  table_keys = Array.new
-
-  belongs_to = table_def["belongs-to"]
-  if !belongs_to.nil?
-    tables = belongs_to["table"]
-
-    if !tables.nil?
-      if tables.kind_of?(Array)
-        tables.each do |t|
-          k = keyword(t) + "_id"
-          v = {"type" => "integer"}
-          table_keys << [k, v]
+    if !table_def["has-many"].nil?
+      table_def["has-many"].each do |t, obj|
+        if !obj["type"].nil? and obj["type"] == "table" and obj["through"].nil?
+          rails_add_table(t)
         end
-      else
-        k = keyword(belongs_to["table"]) + "_id"
-        v = {"type" => "integer"}
-        table_keys << [k, v]
       end
     end
-
-    polymorphic = belongs_to["polymorphic"]
-    if !polymorphic.nil?
-      i = polymorphic["interface"]
-      k = keyword(i) + "_id"
-      v = {"type" => "integer"}
-      table_keys << [k, v]
-      k = keyword(i) + "_type"
-      v = {"type" => "string"}
-      table_keys << [k, v]
-    end
   end
-
-  table_keys
 end
 
 def rails_get_index_keys_assoc(belongs_to, table_name)
   index_keys = Array.new
 
-  belongs_to.each do |t|
-    table_def = $tables[:json][t]
-    if !table_def["keys"].nil?
-      table_def["keys"].each do |k, v|
-        index_keys << [k, v]
+  belongs_to.each do |b, obj|
+    if obj["type"] != "interface"
+      table_def = $tables[:json][b]
+      if !table_def["keys"].nil?
+        table_def["keys"].each do |k, v|
+          index_keys << [k, v]
+        end
       end
     end
   end
@@ -788,7 +777,8 @@ def rails_add_association(table_name)
   if table_def.nil?
     puts ">>> Error: No table defintion for " + keyword(table_name)
   else
-    table_keys = rails_get_table_keys_assoc(table_def)
+    heritage = rails_get_heritage(table_name)
+    table_keys = rails_get_table_keys(heritage)
     db_fields = rails_get_db_fields(table_def, table_keys)
 
     # New table, scaffold.
@@ -818,23 +808,39 @@ def rails_add_association(table_name)
       rails_generate_view(table_name)
     end
 
+    # In association, either
+    #   1) both "belongs-to" are tables
+    #   2) One "belongs-to" is a table, the other is an interface.
+
+    b_tables = Hash.new
+    b_interfaces = Hash.new
     api_path = nil
 
     # Routes: add routes
-    belongs_to, polymorphic = rails_get_belongs_to_assoc(table_def)
-    if !polymorphic.nil?
-      intf = polymorphic["interface"]
-      polymorphic["table"].each do |t|
-        api_path = rails_api_path_polymorphic(belongs_to, t)
-        index_keys = rails_get_index_keys_assoc(belongs_to, t)
-        rails_add_polymorphic_routes(table_name, index_keys, t, api_path)
+    belongs_to = table_def["belongs-to"]
+    if belongs_to != nil
+      belongs_to.each do |k, v|
+        if v["type"] == "table"
+          b_tables[k] = v
+        elsif v["type"] == "interface"
+          b_interfaces[k] = v
+        end
       end
 
-      api_path = nil
-    else
-      api_path = rails_api_path_polymorphic(belongs_to, nil)
-      index_keys = rails_get_index_keys_assoc(belongs_to, nil)
-      rails_add_routes(table_name, index_keys, api_path)
+      if b_interfaces.size == 0
+        api_path = rails_api_path_polymorphic(b_tables)
+        index_keys = rails_get_index_keys_assoc(b_tables, nil)
+        rails_add_routes(table_name, index_keys, api_path)
+      else
+        b_interfaces.each do |b, obj|
+          obj["tables"].each do |t|
+            api_path = rails_api_path_polymorphic(b_tables, t)
+            index_keys = rails_get_index_keys_assoc(b_tables, t)
+            rails_add_routes_polymorphic(table_name, index_keys, t, api_path)
+          end
+        end
+        api_path = nil
+      end
     end
 
     $routes_resource << keyword_plural(table_name)

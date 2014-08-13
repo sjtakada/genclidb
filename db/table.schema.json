@@ -17,52 +17,66 @@
               "type": "object",
               "patternProperties": {
                 "^[a-z_A-Z0-9\-]+$": {
-                  "type": ["object", "null"],
+                  "type": "object",
                   "properties": {
-                    "through": {
-                      "type": "string"
-                    }
-                  },
-                  "additionalProperties": false
-                }
-              }
-            },
-            "has-dependent": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "has-association": {
-              "type": "object",
-              "patternProperties": {
-                "^[a-z_A-Z0-9\-]+$": {
-                  "type": ["object", "null"],
-                  "properties": {
-                    "through": {
-                      "type": "string"
+                    "type": {
+                      "enum": ["table", "association", "interface"]
                     },
                     "as": {
                       "type": "string"
+                    },
+                    "through": {
+                      "type": "string"
                     }
                   },
                   "additionalProperties": false
                 }
               }
             },
-            "alias": {
-              "type": "string"
-            },
-            "parent": {
-              "type": "string"
+            "has-many": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-z_A-Z0-9\-]+$": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "enum": ["table", "association", "interface"]
+                    },
+                    "as": {
+                      "type": "string"
+                    },
+                    "through": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
             },
             "belongs-to": {
               "type": "object",
-              "properties": {
-                "table": {
-                  "type": ["array", "string"]
+              "patternProperties": {
+                "^[a-z_A-Z0-9\-]+$": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "enum": ["table", "interface"]
+                    },
+                    "tables": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "additionalProperties": false
                 }
-              }
+              },
+              "additionalProperties": false
+            },
+            "alias": {
+              "type": "string"
             },
             "order": {
               "type": "string"

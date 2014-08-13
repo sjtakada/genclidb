@@ -2,13 +2,23 @@
   "table": {
     "ospfv2": {
       "type": "parent",
-      "has-dependent": [
-        "ospfv2-area",
-        "ospfv2-network",
-        "ospfv2-neighbor",
-        "ospfv2-redistribute",
-        "ospfv2-distribute-list-out"
-      ],
+      "has-many": {
+        "ospfv2-area": {
+          "type": "table"
+        },
+        "ospfv2-network": {
+          "type": "table"
+        },
+        "ospfv2-neighbor": {
+          "type": "table"
+        },
+        "ospfv2-redistribute": {
+          "type": "table"
+        },
+        "ospfv2-distribute-list-out": {
+          "type": "table"
+        }
+      },
       "keys": {
         "process-id" : {
           "type": "integer",
