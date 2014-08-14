@@ -12,6 +12,11 @@
           "type": "table"
         }
       },
+      "has-one": {
+        "ospfv2-nssa": {
+          "type": "table"
+        }
+      },
       "alias": "area",
       "keys": {
         "area-id": {

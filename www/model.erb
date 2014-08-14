@@ -27,6 +27,12 @@ class <%= @class_name %> < ActiveRecord::Base
 <%   end %>
 <% end %>
 <% ######################################################################### %>
+<% if @has_one != nil %>
+<%   @has_one.each do |k, v| %>
+  has_one :<%= keyword(k) %>, dependent: :destroy
+<%   end %>
+<% end %>
+<% ######################################################################### %>
 <% if @keys_def != nil %>
 <%   @keys_def.each do |k, v| %>
 <%     if v["type"] == "integer" and v["range"] != nil %>

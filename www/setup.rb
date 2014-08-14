@@ -379,6 +379,7 @@ def rails_modify_model(table_name, table_keys)
     @class_name = keyword_camel(table_name)
     @belongs_to = table_def["belongs-to"]
     @has_many = table_def["has-many"]
+    @has_one = table_def["has-one"]
 
     @find_func_str, @find_cond_str =
       find_by_assoc_keys_statement_str(@belongs_to)
@@ -739,6 +740,14 @@ def rails_add_table(table_name)
     if !table_def["has-many"].nil?
       table_def["has-many"].each do |t, obj|
         if !obj["type"].nil? and obj["type"] == "table" and obj["through"].nil?
+          rails_add_table(t)
+        end
+      end
+    end
+
+    if !table_def["has-one"].nil?
+      table_def["has-one"].each do |t, obj|
+        if !obj["type"].nil? and obj["type"] == "table"
           rails_add_table(t)
         end
       end

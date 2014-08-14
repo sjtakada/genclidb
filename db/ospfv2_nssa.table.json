@@ -1,0 +1,27 @@
+{
+  "table": {
+    "ospfv2-area-nssa": {
+      "type": "dependent",
+      "alias": "nssa",
+      "belongs-to": {
+        "ospfv2-area": {
+          "type": "table"
+        }
+      },
+      "attributes": {
+        "no-summary": {
+          "type": "boolean",
+          "default": false
+        },
+        "translator-role": {
+          "type": "enum",
+          "values": [
+            "translate-always",
+            "translate-candidate",
+            "translate-never"
+          ]
+        }
+      }
+    }
+  }
+}
