@@ -32,7 +32,7 @@
 //
 // Output:
 //   0: Area ID as unsigned integer
-//   1: Area ID format (0: IP address format, 1: numeric format)
+//   1: Area ID format ("ipv4" or "integer")
 //
 StringVector&
 area_id_and_format(StringVector& vec)
@@ -58,12 +58,12 @@ area_id_and_format(StringVector& vec)
       else
         snprintf(area_id_str, 11, "%u", ntohl(a.s_addr));
 
-      format_str = "0";
+      format_str = "ipv4";
     }
   else
     {
       snprintf(area_id_str, 11, "%s", num.c_str());
-      format_str = "1";
+      format_str = "integer";
     }
 
   vec.push_back(area_id_str);

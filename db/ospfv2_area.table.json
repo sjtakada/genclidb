@@ -25,6 +25,10 @@
         }
       },
       "attributes": {
+        "area-id-format": {
+          "type": "enum",
+          "values": ["ipv4", "integer"]
+        },
         "authentication": {
           "desc": "area authentication",
           "type": "enum",
