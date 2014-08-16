@@ -13,7 +13,7 @@
         }
       },
       "has-one": {
-        "ospfv2-nssa": {
+        "ospfv2-area-nssa": {
           "type": "table"
         }
       },
