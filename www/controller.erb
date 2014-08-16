@@ -1,4 +1,4 @@
-class <%= @class_name %>sController < ApplicationController
+class <%= @class_name_p %>Controller < ApplicationController
   before_action :set_<%= @model_name %>, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token, :if => Proc.new {|c| c.request.format == 'application/json' }
 

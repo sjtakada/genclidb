@@ -1,4 +1,4 @@
-class AddIndexTo<%= @class_name %>s < ActiveRecord::Migration
+class AddIndexTo<%= @class_name %> < ActiveRecord::Migration
   def change
     add_index "<%= @index_name %>", [<%= @keys_str %>], :unique => true, :name => '<%= @index_name %>_index'
   end

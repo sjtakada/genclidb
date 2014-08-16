@@ -24,6 +24,7 @@
 # Setup Rails App and DB environment.
 #
 
+require 'active_support/inflector'
 require 'pathname'
 require 'getoptlong'
 require 'json'
@@ -32,19 +33,19 @@ require 'erb'
 
 # Utilities
 def keyword(k)
-  k.gsub(/\-/, "_")
+  k.underscore
 end
 
 def keyword_dashed(k)
-  k.gsub(/_/, "-")
+  k.dasherize
 end
 
 def keyword_camel(k)
-  k.split(/[\-_]/).map(&:capitalize).join("")
+  k.underscore.camelize
 end
 
 def keyword_plural(k)
-  keyword(k) + "s"
+  k.underscore.pluralize
 end
 
 
@@ -121,7 +122,7 @@ def rails_db_add_index(table_name, table_keys)
     migration_file = m[0]
 
     File.open(migration_file, "w") do |f|
-      @class_name = keyword_camel(table_name)
+      @class_name = keyword_camel(table_name).pluralize
       @index_name = name_p
 
       # All index keys
@@ -503,6 +504,7 @@ def rails_modify_controller(table_name, table_keys, db_fields, api_path)
     @belongs_to = table_def["belongs-to"]
     @model_name = keyword(table_name)
     @class_name = keyword_camel(table_name)
+    @class_name_p = keyword_camel(table_name).pluralize
     @api_path = api_path
 
     @order = nil

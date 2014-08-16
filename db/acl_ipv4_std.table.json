@@ -3,7 +3,7 @@
     "acl-ipv4-std": {
       "type": "parent",
       "has-many": {
-        "acl-ipv4-std-rule": {
+        "acl-ipv4-std-entry": {
           "type": "table"
         }
       },
@@ -14,19 +14,29 @@
         }
       }
     },
-    "acl-ipv4-std-rule": {
+    "acl-ipv4-std-entry": {
       "type": "dependent",
-      "alias": "rule",
+      "alias": "entry",
       "belongs-to": {
         "acl-ipv4-std": {
           "type": "table"
         }
       },
+      "has-one": {
+        "acl-ipv4-std-rule": {
+          "type": "table"
+        }
+      }
+    },
+    "acl-ipv4-std-rule": {
+      "type": "dependent",
+      "alias": "rule",
+      "belongs-to": {
+        "acl-ipv4-std-entry": {
+          "type": "table"
+        }
+      },
       "keys": {
-        "rule-type": {
-          "type": "enum",
-          "values": ["rule", "remark"]
-        },
         "address": {
           "type": "ipv4"
         },
