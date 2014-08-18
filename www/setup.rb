@@ -362,8 +362,32 @@ def find_by_assoc_keys_statement_str(belongs_to)
   [func_str, cond_str]
 end
 
+def str2ip(str)
+  IPAddr.new(str).hton
+end
+
 def find_by_func_name_str(table_keys)
   "find_by_" + table_keys.map{|t| keyword(t[0])}.join("_and_")
+end
+
+# Generate statement.
+def find_all_statement_str(table_keys)
+  keys = Array.new
+  params = Array.new
+
+  table_keys.each do |t|
+    k, v = t[0], t[1]
+    if v["type"] != "integer" or v["auto"].nil?
+      keys << k
+      if v["type"] == "ipv4" or v["type"] == "ipv6"
+        params << "IPAddr.new(params[:" + keyword(k) + "]).hton"
+      else
+        params << "params[:" + keyword(k) + "]"
+      end
+    end
+  end
+
+  "find_all_by_" + keys.join("_and_") + "(" + params.join(", ") + ")"
 end
 
 def rails_modify_model(table_name, table_keys)

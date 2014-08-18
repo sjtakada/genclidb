@@ -7,6 +7,7 @@
           "type": "table"
         }
       },
+      "order": "number",
       "keys": {
         "number": {
           "type": "integer",
@@ -25,6 +26,15 @@
       "has-one": {
         "acl-ipv4-std-rule": {
           "type": "table"
+        }
+      },
+      "order": "seq",
+      "keys": {
+        "seq": {
+          "type": "integer",
+          "auto": {
+            "step": 4
+          }
         }
       }
     },

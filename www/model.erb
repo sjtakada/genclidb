@@ -117,6 +117,25 @@ class <%= @class_name %> < ActiveRecord::Base
 <% end %>
   end
 <% ######################################################################### %>
+<% if @all_keys != nil and @is_assoc == false %>
+<%   @all_keys.each do |t| %>
+<%     k, v = t[0], t[1] %>
+<%     if v["type"] == "integer" and !v["auto"].nil? and !@keys_def[k].nil? %>
+
+  def self.get_next_<%= keyword(k) %>(params)
+    array = <%= @class_name %>.<%= find_all_statement_str(@all_keys) %>
+    if array.size == 0
+      max = 0
+    else
+      max = array.max_by(&:<%= keyword(k) %>).<%= keyword(k) %>
+    end
+
+    val = (max / <%= v["auto"]["step"] %> + 1) * <%= v["auto"]["step"] %>
+  end
+<%     end %>
+<%   end %>
+<% end %>
+<% ######################################################################### %>
 
   def self.get_by_params(params)
 <% if @belongs_to != nil %>
@@ -160,8 +179,12 @@ class <%= @class_name %> < ActiveRecord::Base
 <% end %>
 <% if @all_keys != nil and @is_assoc == false %>
 <%   @all_keys.each do |t| %>
-<%     k = t[0] %>
+<%     k, v = t[0], t[1] %>
+<%     if v["type"] == "integer" and !v["auto"].nil? and !@keys_def[k].nil? %>
+      <%= @model_name %>.<%= keyword(k) %> = get_next_<%= keyword(k) %>(params)
+<%     else %>
       <%= @model_name %>.<%= keyword(k) %> = params[:<%= keyword(k) %>]
+<%     end %>
 <%   end %>
 <% end %>
       <%= @model_name %>.save!
