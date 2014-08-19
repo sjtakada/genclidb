@@ -71,38 +71,36 @@ class <%= @class_name %> < ActiveRecord::Base
 <% ######################################################################### %>
 
   def self.find_by_params(params)
-<% params = Array.new %>
-<% @all_keys.each do |t| %>
-<%   k, v = t[0], t[1] %>
-<%   if v["type"] == "ipv4" || v["type"] == "ipv6" %>
-    <%= keyword(k) %> = IPAddr.new(params[:<%= keyword(k) %>]).hton
-<%       params << keyword(k) %>
-<%   else %>
-<%       params << "params[:" + keyword(k) + "]" %>
-<%   end %>
-<% end %>
-<% params_str = params.join(", ") %>
-    <%= find_by_func_name_str(@all_keys) %>(<%= params_str %>)
-  end
-<% ######################################################################### %>
-<% if @all_keys != nil %>
-<%   @all_keys.each do |t| %>
-<%     k, v = t[0], t[1] %>
-<%     if v["type"] == "integer" and !v["auto"].nil? and !@keys_def[k].nil? %>
+<% if @belongs_to != nil %>
+<%   @belongs_to.each do |k, v| %>
+<%     if v["type"] == "table" %>
+    <%= keyword(k) %> = <%= keyword_camel(k) %>.find_by_params(params)
+<%     elsif v["type"] == "interface" %>
+    if params["<%= keyword(k) %>"] != nil
+      <%= keyword(k) %>_type = params["<%= keyword(k) %>"]
+      <%= keyword(k) %>_id = nil
 
-  def self.get_next_<%= keyword(k) %>(params)
-    array = <%= @class_name %>.<%= find_all_statement_str(@all_keys) %>
-    if array.size == 0
-      max = 0
-    else
-      max = array.max_by(&:<%= keyword(k) %>).<%= keyword(k) %>
+      case <%= keyword(k) %>_type
+<%       v["tables"].each do |t| %>
+      when "<%= keyword(t) %>"
+        <%= keyword(t) %> = <%= keyword_camel(t) %>.find_by_params(params)
+        if <%= keyword(t) %> != nil
+          <%= keyword(k) %>_id = <%= keyword(t) %>.id
+        end
+<%       end %>
+      end
     end
-
-    val = (max / <%= v["auto"]["step"] %> + 1) * <%= v["auto"]["step"] %>
-  end
 <%     end %>
 <%   end %>
 <% end %>
+
+    <%= @model_name %> = nil
+    if <%= @find_cond_str %>
+      <%= @model_name %> = <%= @find_func_str %>
+    end
+
+    <%= @model_name %>
+  end
 <% ######################################################################### %>
 
   def self.get_by_params(params)
@@ -128,7 +126,7 @@ class <%= @class_name %> < ActiveRecord::Base
 <%     end %>
 <%   end %>
 <% end %>
-    <%= @model_name %> = find_by_params(params)
+    <%= @model_name %> = <%= @find_func_str %>
     if <%= @model_name %> == nil
       <%= @model_name %> = <%= @class_name %>.new
 <% if @belongs_to != nil %>
@@ -138,16 +136,6 @@ class <%= @class_name %> < ActiveRecord::Base
 <%     elsif v["type"] == "interface" %>
       <%= @model_name %>.<%= keyword(k) %>_type = <%= keyword(k) %>_type
       <%= @model_name %>.<%= keyword(k) %>_id = <%= keyword(k) %>_id
-<%     end %>
-<%   end %>
-<% end %>
-<% if @all_keys != nil %>
-<%   @all_keys.each do |t| %>
-<%     k, v = t[0], t[1] %>
-<%     if v["type"] == "integer" and !v["auto"].nil? and !@keys_def[k].nil? %>
-      <%= @model_name %>.<%= keyword(k) %> = get_next_<%= keyword(k) %>(params)
-<%     else %>
-      <%= @model_name %>.<%= keyword(k) %> = params[:<%= keyword(k) %>]
 <%     end %>
 <%   end %>
 <% end %>

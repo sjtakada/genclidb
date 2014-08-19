@@ -394,11 +394,15 @@ def rails_modify_model(table_name, table_keys)
   puts "=> Modify model '" + keyword(table_name) + "' ..."
 
   table_def = $tables[:json][table_name]
-  @is_assoc = table_def["type"] == "association"
+
+  if table_def["type"] == "association"
+    template = File.read("../model_assoc.erb")
+  else
+    template = File.read("../model.erb")
+  end
 
   @model_name = keyword(table_name)
   model = "app/models/" + @model_name + ".rb"
-  template = File.read("../model.erb")
 
   File.open(model, "w") do |f|
     @class_name = keyword_camel(table_name)
