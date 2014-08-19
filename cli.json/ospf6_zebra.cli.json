@@ -1,0 +1,359 @@
+{
+  "show-zebra-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "zebra": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Zebra information"
+      }
+    },
+    "command": [
+      {
+        "defun": "show zebra",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "router-zebra-cmd": {
+    "token": {
+      "router": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Enable a routing process"
+      },
+      "zebra": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Make connection to zebra daemon"
+      }
+    },
+    "command": [
+      {
+        "defun": "router zebra",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-router-zebra-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "router": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Configure routing process"
+      },
+      "zebra": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Disable connection to zebra daemon"
+      }
+    },
+    "command": [
+      {
+        "defun": "no router zebra",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "redistribute-ospf6-cmd": {
+    "token": {
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute control"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF6 route"
+      }
+    },
+    "command": [
+      {
+        "defun": "redistribute ospf6",
+        "mode": [
+          "ZEBRA-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-redistribute-ospf6-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute control"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF6 route"
+      }
+    },
+    "command": [
+      {
+        "defun": "no redistribute ospf6",
+        "mode": [
+          "ZEBRA-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf6-zebra-sendrecv-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug connection between zebra"
+      },
+      "send": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Debug Sending zebra",
+        "enum": "ENUM:4"
+      },
+      "recv": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Debug Receiving zebra",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 zebra (send|recv)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf6-zebra-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug connection between zebra"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 zebra",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-zebra-sendrecv-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug connection between zebra"
+      },
+      "send": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Debug Sending zebra",
+        "enum": "ENUM:4"
+      },
+      "recv": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Debug Receiving zebra",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 zebra (send|recv)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-zebra-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug connection between zebra"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 zebra",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

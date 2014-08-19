@@ -1,0 +1,356 @@
+{
+  "debug-ospf6-message-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "message": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug OSPFv3 message"
+      },
+      "unknown": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Debug Unknown message",
+        "enum": "ENUM:4"
+      },
+      "hello": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Debug Hello message",
+        "enum": "ENUM:4"
+      },
+      "dbdesc": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Debug Database Description message",
+        "enum": "ENUM:4"
+      },
+      "lsreq": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "Debug Link State Request message",
+        "enum": "ENUM:4"
+      },
+      "lsupdate": {
+        "id": "4.4",
+        "type": "keyword",
+        "help": "Debug Link State Update message",
+        "enum": "ENUM:4"
+      },
+      "lsack": {
+        "id": "4.5",
+        "type": "keyword",
+        "help": "Debug Link State Acknowledgement message",
+        "enum": "ENUM:4"
+      },
+      "all": {
+        "id": "4.6",
+        "type": "keyword",
+        "help": "Debug All message",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 message (unknown|hello|dbdesc|lsreq|lsupdate|lsack|all)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf6-message-sendrecv-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "message": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug OSPFv3 message"
+      },
+      "unknown": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Debug Unknown message",
+        "enum": "ENUM:4"
+      },
+      "hello": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Debug Hello message",
+        "enum": "ENUM:4"
+      },
+      "dbdesc": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Debug Database Description message",
+        "enum": "ENUM:4"
+      },
+      "lsreq": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "Debug Link State Request message",
+        "enum": "ENUM:4"
+      },
+      "lsupdate": {
+        "id": "4.4",
+        "type": "keyword",
+        "help": "Debug Link State Update message",
+        "enum": "ENUM:4"
+      },
+      "lsack": {
+        "id": "4.5",
+        "type": "keyword",
+        "help": "Debug Link State Acknowledgement message",
+        "enum": "ENUM:4"
+      },
+      "all": {
+        "id": "4.6",
+        "type": "keyword",
+        "help": "Debug All message",
+        "enum": "ENUM:4"
+      },
+      "send": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Debug only sending message",
+        "enum": "ENUM:5"
+      },
+      "recv": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Debug only receiving message",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 message (unknown|hello|dbdesc|lsreq|lsupdate|lsack|all) (send|recv)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-message-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "message": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug OSPFv3 message"
+      },
+      "unknown": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Debug Unknown message",
+        "enum": "ENUM:4"
+      },
+      "hello": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Debug Hello message",
+        "enum": "ENUM:4"
+      },
+      "dbdesc": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Debug Database Description message",
+        "enum": "ENUM:4"
+      },
+      "lsreq": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "Debug Link State Request message",
+        "enum": "ENUM:4"
+      },
+      "lsupdate": {
+        "id": "4.4",
+        "type": "keyword",
+        "help": "Debug Link State Update message",
+        "enum": "ENUM:4"
+      },
+      "lsack": {
+        "id": "4.5",
+        "type": "keyword",
+        "help": "Debug Link State Acknowledgement message",
+        "enum": "ENUM:4"
+      },
+      "all": {
+        "id": "4.6",
+        "type": "keyword",
+        "help": "Debug All message",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 message (unknown|hello|dbdesc|lsreq|lsupdate|lsack|all)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-message-sendrecv-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "message": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug OSPFv3 message"
+      },
+      "unknown": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Debug Unknown message",
+        "enum": "ENUM:4"
+      },
+      "hello": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Debug Hello message",
+        "enum": "ENUM:4"
+      },
+      "dbdesc": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Debug Database Description message",
+        "enum": "ENUM:4"
+      },
+      "lsreq": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "Debug Link State Request message",
+        "enum": "ENUM:4"
+      },
+      "lsupdate": {
+        "id": "4.4",
+        "type": "keyword",
+        "help": "Debug Link State Update message",
+        "enum": "ENUM:4"
+      },
+      "lsack": {
+        "id": "4.5",
+        "type": "keyword",
+        "help": "Debug Link State Acknowledgement message",
+        "enum": "ENUM:4"
+      },
+      "all": {
+        "id": "4.6",
+        "type": "keyword",
+        "help": "Debug All message",
+        "enum": "ENUM:4"
+      },
+      "send": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Debug only sending message",
+        "enum": "ENUM:5"
+      },
+      "recv": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Debug only receiving message",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 message (unknown|hello|dbdesc|lsreq|lsupdate|lsack|all) (send|recv)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,2382 @@
+{
+  "config-terminal-cmd": {
+    "token": {
+      "configure": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Configuration from vty interface"
+      },
+      "terminal": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Configuration terminal"
+      }
+    },
+    "command": [
+      {
+        "defun": "configure terminal",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "mode": {
+              "name": "CONFIG-NODE"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-enable-cmd": {
+    "token": {
+      "enable": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Turn on privileged mode command"
+      }
+    },
+    "command": [
+      {
+        "defun": "enable",
+        "mode": [
+          "VIEW-NODE",
+          "RESTRICTED-NODE"
+        ],
+        "action": [
+          {
+            "mode": {
+              "name": "ENABLE-NODE"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-disable-cmd": {
+    "token": {
+      "disable": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Turn off privileged mode command"
+      }
+    },
+    "command": [
+      {
+        "defun": "disable",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "mode": {
+              "name": "VIEW-NODE"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-exit-cmd": {
+    "token": {
+      "exit": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Exit current mode and down to previous mode"
+      }
+    },
+    "command": [
+      {
+        "defun": "exit",
+        "mode": [
+          "node",
+          "VIEW-NODE",
+          "RESTRICTED-NODE",
+          "INTERFACE-NODE",
+          "OSPF-NODE",
+          "BGP-NODE",
+          "RIP-NODE",
+          "OSPF6-NODE",
+          "RIPNG-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "built-in": {
+              "func": "cli-exit"
+            }
+          }
+        ]
+      },
+      {
+        "defun": "exit",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "*": {
+              "mode": {
+                "name": "ENABLE-NODE"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-quit-cmd": {
+    "token": {
+      "quit": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Exit current mode and down to previous mode"
+      }
+    },
+    "command": [
+      {
+        "defun": "quit",
+        "mode": [
+          "node",
+          "VIEW-NODE",
+          "RESTRICTED-NODE",
+          "CONFIG-NODE",
+          "INTERFACE-NODE",
+          "OSPF-NODE",
+          "BGP-NODE",
+          "RIP-NODE",
+          "OSPF6-NODE",
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "mode": {
+              "up": 1
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-end-cmd": {
+    "token": {
+      "end": {
+        "id": "1",
+        "type": "keyword",
+        "help": "End current mode and change to enable mode."
+      }
+    },
+    "command": [
+      {
+        "defun": "end",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "mode": {
+              "name": "ENABLE-NODE"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-version-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "version": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Displays zebra version"
+      }
+    },
+    "command": [
+      {
+        "defun": "show version",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-help-cmd": {
+    "token": {
+      "help": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Description of the interactive help system"
+      }
+    },
+    "command": [
+      {
+        "defun": "help",
+        "mode": [
+          "node",
+          "VIEW-NODE",
+          "RESTRICTED-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-list-cmd": {
+    "token": {
+      "list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Print command list"
+      }
+    },
+    "command": [
+      {
+        "defun": "list",
+        "mode": [
+          "node",
+          "VIEW-NODE",
+          "RESTRICTED-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-write-file-cmd": {
+    "token": {
+      "write": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Write running configuration to memory, network, or terminal"
+      },
+      "file": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Write to configuration file"
+      }
+    },
+    "command": [
+      {
+        "defun": "write file",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-write-cmd": {
+    "token": {
+      "write": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Write running configuration to memory, network, or terminal"
+      }
+    },
+    "command": [
+      {
+        "defun": "write",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-write-memory-cmd": {
+    "token": {
+      "write": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Write running configuration to memory, network, or terminal"
+      },
+      "memory": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Write configuration to the file (same as write file)"
+      }
+    },
+    "command": [
+      {
+        "defun": "write memory",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "copy-runningconfig-startupconfig-cmd": {
+    "token": {
+      "copy": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Copy configuration"
+      },
+      "running-config": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Copy running config to... "
+      },
+      "startup-config": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Copy running config to startup config (same as write file)"
+      }
+    },
+    "command": [
+      {
+        "defun": "copy running-config startup-config",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-write-terminal-cmd": {
+    "token": {
+      "write": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Write running configuration to memory, network, or terminal"
+      },
+      "terminal": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Write to terminal"
+      }
+    },
+    "command": [
+      {
+        "defun": "write terminal",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-running-config-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "running-config": {
+        "id": "2",
+        "type": "keyword",
+        "help": "running configuration"
+      }
+    },
+    "command": [
+      {
+        "defun": "show running-config",
+        "mode": [
+          "node",
+          "ENABLE-NODE",
+          "CONFIG-NODE",
+          "OSPF-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "GET",
+              "path": "show/running-config",
+              "format": "cli"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-startup-config-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "startup-config": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Contentes of startup configuration"
+      }
+    },
+    "command": [
+      {
+        "defun": "show startup-config",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "hostname-cmd": {
+    "token": {
+      "hostname": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set system's network name"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "This system's network name"
+      }
+    },
+    "command": [
+      {
+        "defun": "hostname WORD:2",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-hostname-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "hostname": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Reset system's network name"
+      },
+      "WORD:2.0": {
+        "id": "2.0",
+        "type": "string",
+        "help": "Host name of this router"
+      }
+    },
+    "command": [
+      {
+        "defun": "no hostname (WORD:2.0|)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "password-cmd": {
+    "token": {
+      "password": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Assign the terminal connection password"
+      },
+      "8": {
+        "id": "2.0",
+        "type": "keyword",
+        "help": "Specifies a HIDDEN password will follow",
+        "enum": "ENUM:2"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "dummy string "
+      }
+    },
+    "command": [
+      {
+        "defun": "password (8) WORD:3",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "password-text-cmd": {
+    "token": {
+      "password": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Assign the terminal connection password"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "The UNENCRYPTED (cleartext) line password"
+      }
+    },
+    "command": [
+      {
+        "defun": "password WORD:2",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "enable-password-cmd": {
+    "token": {
+      "enable": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Modify enable password parameters"
+      },
+      "password": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Assign the privileged level password"
+      },
+      "8": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specifies a HIDDEN password will follow",
+        "enum": "ENUM:3"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "dummy string "
+      }
+    },
+    "command": [
+      {
+        "defun": "enable password (8) WORD:4",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "enable-password-text-cmd": {
+    "token": {
+      "enable": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Modify enable password parameters"
+      },
+      "password": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Assign the privileged level password"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "The UNENCRYPTED (cleartext) 'enable' password"
+      }
+    },
+    "command": [
+      {
+        "defun": "enable password WORD:3",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-enable-password-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "enable": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Modify enable password parameters"
+      },
+      "password": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Assign the privileged level password"
+      }
+    },
+    "command": [
+      {
+        "defun": "no enable password",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "service-password-encrypt-cmd": {
+    "token": {
+      "service": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set up miscellaneous service"
+      },
+      "password-encryption": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Enable encrypted passwords"
+      }
+    },
+    "command": [
+      {
+        "defun": "service password-encryption",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-service-password-encrypt-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "service": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set up miscellaneous service"
+      },
+      "password-encryption": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Enable encrypted passwords"
+      }
+    },
+    "command": [
+      {
+        "defun": "no service password-encryption",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-terminal-length-cmd": {
+    "token": {
+      "terminal": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set terminal line parameters"
+      },
+      "length": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Set number of lines on a screen"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Number of lines on screen (0 for no pausing)",
+        "range": [
+          0,
+          512
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "terminal length RANGE:3",
+        "mode": [
+          "VIEW-NODE",
+          "RESTRICTED-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-terminal-no-length-cmd": {
+    "token": {
+      "terminal": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set terminal line parameters"
+      },
+      "no": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "length": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Set number of lines on a screen"
+      }
+    },
+    "command": [
+      {
+        "defun": "terminal no length",
+        "mode": [
+          "VIEW-NODE",
+          "RESTRICTED-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "service-terminal-length-cmd": {
+    "token": {
+      "service": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set up miscellaneous service"
+      },
+      "terminal-length": {
+        "id": "2",
+        "type": "keyword",
+        "help": "System wide terminal length configuration"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Number of lines of VTY (0 means no line control)",
+        "range": [
+          0,
+          512
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "service terminal-length RANGE:3",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-service-terminal-length-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "service": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set up miscellaneous service"
+      },
+      "terminal-length": {
+        "id": "2",
+        "type": "keyword",
+        "help": "System wide terminal length configuration"
+      },
+      "RANGE:3.0": {
+        "id": "3.0",
+        "type": "integer",
+        "help": "Number of lines of VTY (0 means no line control)",
+        "range": [
+          0,
+          512
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no service terminal-length (RANGE:3.0|)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-logmsg-cmd": {
+    "token": {
+      "logmsg": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Send a message to enabled logging destinations"
+      },
+      "emergencies": {
+        "id": "2.0",
+        "type": "keyword",
+        "help": "System is unusable",
+        "enum": "ENUM:2"
+      },
+      "alerts": {
+        "id": "2.1",
+        "type": "keyword",
+        "help": "Immediate action needed",
+        "enum": "ENUM:2"
+      },
+      "critical": {
+        "id": "2.2",
+        "type": "keyword",
+        "help": "Critical conditions",
+        "enum": "ENUM:2"
+      },
+      "errors": {
+        "id": "2.3",
+        "type": "keyword",
+        "help": "Error conditions",
+        "enum": "ENUM:2"
+      },
+      "warnings": {
+        "id": "2.4",
+        "type": "keyword",
+        "help": "Warning conditions",
+        "enum": "ENUM:2"
+      },
+      "notifications": {
+        "id": "2.5",
+        "type": "keyword",
+        "help": "Normal but significant conditions",
+        "enum": "ENUM:2"
+      },
+      "informational": {
+        "id": "2.6",
+        "type": "keyword",
+        "help": "Informational messages",
+        "enum": "ENUM:2"
+      },
+      "debugging": {
+        "id": "2.7",
+        "type": "keyword",
+        "help": "Debugging messages",
+        "enum": "ENUM:2"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "The message to send"
+      }
+    },
+    "command": [
+      {
+        "defun": "logmsg (emergencies|alerts|critical|errors|warnings|notifications|informational|debugging) [WORD:3]",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-logging-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "logging": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Show current logging configuration"
+      }
+    },
+    "command": [
+      {
+        "defun": "show logging",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-log-stdout-cmd": {
+    "token": {
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "stdout": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Set stdout logging level"
+      }
+    },
+    "command": [
+      {
+        "defun": "log stdout",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-log-stdout-level-cmd": {
+    "token": {
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "stdout": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Set stdout logging level"
+      },
+      "emergencies": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "System is unusable",
+        "enum": "ENUM:3"
+      },
+      "alerts": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Immediate action needed",
+        "enum": "ENUM:3"
+      },
+      "critical": {
+        "id": "3.2",
+        "type": "keyword",
+        "help": "Critical conditions",
+        "enum": "ENUM:3"
+      },
+      "errors": {
+        "id": "3.3",
+        "type": "keyword",
+        "help": "Error conditions",
+        "enum": "ENUM:3"
+      },
+      "warnings": {
+        "id": "3.4",
+        "type": "keyword",
+        "help": "Warning conditions",
+        "enum": "ENUM:3"
+      },
+      "notifications": {
+        "id": "3.5",
+        "type": "keyword",
+        "help": "Normal but significant conditions",
+        "enum": "ENUM:3"
+      },
+      "informational": {
+        "id": "3.6",
+        "type": "keyword",
+        "help": "Informational messages",
+        "enum": "ENUM:3"
+      },
+      "debugging": {
+        "id": "3.7",
+        "type": "keyword",
+        "help": "Debugging messages",
+        "enum": "ENUM:3"
+      }
+    },
+    "command": [
+      {
+        "defun": "log stdout (emergencies|alerts|critical|errors|warnings|notifications|informational|debugging)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-config-log-stdout-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "stdout": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Cancel logging to stdout"
+      },
+      "WORD:3.0": {
+        "id": "3.0",
+        "type": "string",
+        "help": "Logging level"
+      }
+    },
+    "command": [
+      {
+        "defun": "no log stdout (WORD:3.0|)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-log-monitor-cmd": {
+    "token": {
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "monitor": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Set terminal line (monitor) logging level"
+      }
+    },
+    "command": [
+      {
+        "defun": "log monitor",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-log-monitor-level-cmd": {
+    "token": {
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "monitor": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Set terminal line (monitor) logging level"
+      },
+      "emergencies": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "System is unusable",
+        "enum": "ENUM:3"
+      },
+      "alerts": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Immediate action needed",
+        "enum": "ENUM:3"
+      },
+      "critical": {
+        "id": "3.2",
+        "type": "keyword",
+        "help": "Critical conditions",
+        "enum": "ENUM:3"
+      },
+      "errors": {
+        "id": "3.3",
+        "type": "keyword",
+        "help": "Error conditions",
+        "enum": "ENUM:3"
+      },
+      "warnings": {
+        "id": "3.4",
+        "type": "keyword",
+        "help": "Warning conditions",
+        "enum": "ENUM:3"
+      },
+      "notifications": {
+        "id": "3.5",
+        "type": "keyword",
+        "help": "Normal but significant conditions",
+        "enum": "ENUM:3"
+      },
+      "informational": {
+        "id": "3.6",
+        "type": "keyword",
+        "help": "Informational messages",
+        "enum": "ENUM:3"
+      },
+      "debugging": {
+        "id": "3.7",
+        "type": "keyword",
+        "help": "Debugging messages",
+        "enum": "ENUM:3"
+      }
+    },
+    "command": [
+      {
+        "defun": "log monitor (emergencies|alerts|critical|errors|warnings|notifications|informational|debugging)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-config-log-monitor-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "monitor": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Disable terminal line (monitor) logging"
+      },
+      "WORD:3.0": {
+        "id": "3.0",
+        "type": "string",
+        "help": "Logging level"
+      }
+    },
+    "command": [
+      {
+        "defun": "no log monitor (WORD:3.0|)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-log-file-cmd": {
+    "token": {
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "file": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Logging to file"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Logging filename"
+      }
+    },
+    "command": [
+      {
+        "defun": "log file WORD:3",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-log-file-level-cmd": {
+    "token": {
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "file": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Logging to file"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Logging filename"
+      },
+      "emergencies": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "System is unusable",
+        "enum": "ENUM:4"
+      },
+      "alerts": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Immediate action needed",
+        "enum": "ENUM:4"
+      },
+      "critical": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Critical conditions",
+        "enum": "ENUM:4"
+      },
+      "errors": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "Error conditions",
+        "enum": "ENUM:4"
+      },
+      "warnings": {
+        "id": "4.4",
+        "type": "keyword",
+        "help": "Warning conditions",
+        "enum": "ENUM:4"
+      },
+      "notifications": {
+        "id": "4.5",
+        "type": "keyword",
+        "help": "Normal but significant conditions",
+        "enum": "ENUM:4"
+      },
+      "informational": {
+        "id": "4.6",
+        "type": "keyword",
+        "help": "Informational messages",
+        "enum": "ENUM:4"
+      },
+      "debugging": {
+        "id": "4.7",
+        "type": "keyword",
+        "help": "Debugging messages",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "log file WORD:3 (emergencies|alerts|critical|errors|warnings|notifications|informational|debugging)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-config-log-file-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "file": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Cancel logging to file"
+      },
+      "WORD:3.0": {
+        "id": "3.0",
+        "type": "string",
+        "help": "Logging file name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no log file (WORD:3.0|)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-config-log-file-level-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "file": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Cancel logging to file"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Logging file name"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Logging level"
+      }
+    },
+    "command": [
+      {
+        "defun": "no log file WORD:3 WORD:4",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-log-syslog-cmd": {
+    "token": {
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "syslog": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Set syslog logging level"
+      }
+    },
+    "command": [
+      {
+        "defun": "log syslog",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-log-syslog-level-cmd": {
+    "token": {
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "syslog": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Set syslog logging level"
+      },
+      "emergencies": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "System is unusable",
+        "enum": "ENUM:3"
+      },
+      "alerts": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Immediate action needed",
+        "enum": "ENUM:3"
+      },
+      "critical": {
+        "id": "3.2",
+        "type": "keyword",
+        "help": "Critical conditions",
+        "enum": "ENUM:3"
+      },
+      "errors": {
+        "id": "3.3",
+        "type": "keyword",
+        "help": "Error conditions",
+        "enum": "ENUM:3"
+      },
+      "warnings": {
+        "id": "3.4",
+        "type": "keyword",
+        "help": "Warning conditions",
+        "enum": "ENUM:3"
+      },
+      "notifications": {
+        "id": "3.5",
+        "type": "keyword",
+        "help": "Normal but significant conditions",
+        "enum": "ENUM:3"
+      },
+      "informational": {
+        "id": "3.6",
+        "type": "keyword",
+        "help": "Informational messages",
+        "enum": "ENUM:3"
+      },
+      "debugging": {
+        "id": "3.7",
+        "type": "keyword",
+        "help": "Debugging messages",
+        "enum": "ENUM:3"
+      }
+    },
+    "command": [
+      {
+        "defun": "log syslog (emergencies|alerts|critical|errors|warnings|notifications|informational|debugging)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-config-log-syslog-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "syslog": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Cancel logging to syslog"
+      },
+      "WORD:3.0": {
+        "id": "3.0",
+        "type": "string",
+        "help": "Logging level"
+      }
+    },
+    "command": [
+      {
+        "defun": "no log syslog (WORD:3.0|)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-config-log-syslog-facility-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "syslog": {
+        "id": "4.5",
+        "type": "keyword",
+        "help": "Syslog itself",
+        "enum": "ENUM:4"
+      },
+      "facility": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Facility parameter for syslog messages"
+      },
+      "kern": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Kernel",
+        "enum": "ENUM:4"
+      },
+      "user": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "User process",
+        "enum": "ENUM:4"
+      },
+      "mail": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Mail system",
+        "enum": "ENUM:4"
+      },
+      "daemon": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "System daemons",
+        "enum": "ENUM:4"
+      },
+      "auth": {
+        "id": "4.4",
+        "type": "keyword",
+        "help": "Authorization system",
+        "enum": "ENUM:4"
+      },
+      "lpr": {
+        "id": "4.6",
+        "type": "keyword",
+        "help": "Line printer system",
+        "enum": "ENUM:4"
+      },
+      "news": {
+        "id": "4.7",
+        "type": "keyword",
+        "help": "USENET news",
+        "enum": "ENUM:4"
+      },
+      "uucp": {
+        "id": "4.8",
+        "type": "keyword",
+        "help": "Unix-to-Unix copy system",
+        "enum": "ENUM:4"
+      },
+      "cron": {
+        "id": "4.9",
+        "type": "keyword",
+        "help": "Cron/at facility",
+        "enum": "ENUM:4"
+      },
+      "local0": {
+        "id": "4.10",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:4"
+      },
+      "local1": {
+        "id": "4.11",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:4"
+      },
+      "local2": {
+        "id": "4.12",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:4"
+      },
+      "local3": {
+        "id": "4.13",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:4"
+      },
+      "local4": {
+        "id": "4.14",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:4"
+      },
+      "local5": {
+        "id": "4.15",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:4"
+      },
+      "local6": {
+        "id": "4.16",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:4"
+      },
+      "local7": {
+        "id": "4.17",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no log syslog facility (kern|user|mail|daemon|auth|syslog|lpr|news|uucp|cron|local0|local1|local2|local3|local4|local5|local6|local7)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-log-facility-cmd": {
+    "token": {
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "facility": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Facility parameter for syslog messages"
+      },
+      "kern": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Kernel",
+        "enum": "ENUM:3"
+      },
+      "user": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "User process",
+        "enum": "ENUM:3"
+      },
+      "mail": {
+        "id": "3.2",
+        "type": "keyword",
+        "help": "Mail system",
+        "enum": "ENUM:3"
+      },
+      "daemon": {
+        "id": "3.3",
+        "type": "keyword",
+        "help": "System daemons",
+        "enum": "ENUM:3"
+      },
+      "auth": {
+        "id": "3.4",
+        "type": "keyword",
+        "help": "Authorization system",
+        "enum": "ENUM:3"
+      },
+      "syslog": {
+        "id": "3.5",
+        "type": "keyword",
+        "help": "Syslog itself",
+        "enum": "ENUM:3"
+      },
+      "lpr": {
+        "id": "3.6",
+        "type": "keyword",
+        "help": "Line printer system",
+        "enum": "ENUM:3"
+      },
+      "news": {
+        "id": "3.7",
+        "type": "keyword",
+        "help": "USENET news",
+        "enum": "ENUM:3"
+      },
+      "uucp": {
+        "id": "3.8",
+        "type": "keyword",
+        "help": "Unix-to-Unix copy system",
+        "enum": "ENUM:3"
+      },
+      "cron": {
+        "id": "3.9",
+        "type": "keyword",
+        "help": "Cron/at facility",
+        "enum": "ENUM:3"
+      },
+      "local0": {
+        "id": "3.10",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:3"
+      },
+      "local1": {
+        "id": "3.11",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:3"
+      },
+      "local2": {
+        "id": "3.12",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:3"
+      },
+      "local3": {
+        "id": "3.13",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:3"
+      },
+      "local4": {
+        "id": "3.14",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:3"
+      },
+      "local5": {
+        "id": "3.15",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:3"
+      },
+      "local6": {
+        "id": "3.16",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:3"
+      },
+      "local7": {
+        "id": "3.17",
+        "type": "keyword",
+        "help": "Local use",
+        "enum": "ENUM:3"
+      }
+    },
+    "command": [
+      {
+        "defun": "log facility (kern|user|mail|daemon|auth|syslog|lpr|news|uucp|cron|local0|local1|local2|local3|local4|local5|local6|local7)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-config-log-facility-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "facility": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Reset syslog facility to default (daemon)"
+      },
+      "WORD:3.0": {
+        "id": "3.0",
+        "type": "string",
+        "help": "Syslog facility"
+      }
+    },
+    "command": [
+      {
+        "defun": "no log facility (WORD:3.0|)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-log-record-priority-cmd": {
+    "token": {
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "record-priority": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Log the priority of the message within the message"
+      }
+    },
+    "command": [
+      {
+        "defun": "log record-priority",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-config-log-record-priority-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "record-priority": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Do not log the priority of the message within the message"
+      }
+    },
+    "command": [
+      {
+        "defun": "no log record-priority",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "config-log-timestamp-precision-cmd": {
+    "token": {
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "timestamp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Timestamp configuration"
+      },
+      "precision": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Set the timestamp precision"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Number of subsecond digits",
+        "range": [
+          0,
+          6
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "log timestamp precision RANGE:4",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-config-log-timestamp-precision-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "log": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Logging control"
+      },
+      "timestamp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Timestamp configuration"
+      },
+      "precision": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Reset the timestamp precision to the default value of 0"
+      }
+    },
+    "command": [
+      {
+        "defun": "no log timestamp precision",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "banner-motd-file-cmd": {
+    "token": {
+      "banner": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set banner"
+      },
+      "motd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Banner for motd"
+      },
+      "file": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Banner from a file"
+      },
+      "WORD:4.0": {
+        "id": "4.0",
+        "type": "string",
+        "help": "Filename"
+      }
+    },
+    "command": [
+      {
+        "defun": "banner motd file (WORD:4.0|)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "banner-motd-default-cmd": {
+    "token": {
+      "banner": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set banner string"
+      },
+      "motd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Strings for motd"
+      },
+      "default": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Default string"
+      }
+    },
+    "command": [
+      {
+        "defun": "banner motd default",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-banner-motd-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "banner": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set banner string"
+      },
+      "motd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Strings for motd"
+      }
+    },
+    "command": [
+      {
+        "defun": "no banner motd",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

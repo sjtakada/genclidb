@@ -1,0 +1,808 @@
+{
+  "router-zebra-cmd": {
+    "token": {
+      "router": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Enable a routing process"
+      },
+      "zebra": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Make connection to zebra daemon"
+      }
+    },
+    "command": [
+      {
+        "defun": "router zebra",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-router-zebra-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "router": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Disable a routing process"
+      },
+      "zebra": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Stop connection to zebra daemon"
+      }
+    },
+    "command": [
+      {
+        "defun": "no router zebra",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ripng-redistribute-ripng-cmd": {
+    "token": {
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute information from another routing protocol"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIPng route"
+      }
+    },
+    "command": [
+      {
+        "defun": "redistribute ripng",
+        "mode": [
+          "ZEBRA-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-redistribute-ripng-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute information from another routing protocol"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIPng route"
+      }
+    },
+    "command": [
+      {
+        "defun": "no redistribute ripng",
+        "mode": [
+          "ZEBRA-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ripng-redistribute-type-cmd": {
+    "token": {
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute"
+      },
+      "kernel": {
+        "id": "2.0",
+        "type": "keyword",
+        "help": "Kernel routes (not installed via the zebra RIB)",
+        "enum": "ENUM:2"
+      },
+      "connected": {
+        "id": "2.1",
+        "type": "keyword",
+        "help": "Connected routes (directly attached subnet or host)",
+        "enum": "ENUM:2"
+      },
+      "static": {
+        "id": "2.2",
+        "type": "keyword",
+        "help": "Statically configured routes",
+        "enum": "ENUM:2"
+      },
+      "ospf6": {
+        "id": "2.3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (IPv6) (OSPFv3)",
+        "enum": "ENUM:2"
+      },
+      "isis": {
+        "id": "2.4",
+        "type": "keyword",
+        "help": "Intermediate System to Intermediate System (IS-IS)",
+        "enum": "ENUM:2"
+      },
+      "bgp": {
+        "id": "2.5",
+        "type": "keyword",
+        "help": "Border Gateway Protocol (BGP)",
+        "enum": "ENUM:2"
+      },
+      "babel": {
+        "id": "2.6",
+        "type": "keyword",
+        "help": "Babel routing protocol (Babel)",
+        "enum": "ENUM:2"
+      }
+    },
+    "command": [
+      {
+        "defun": "redistribute (kernel|connected|static|ospf6|isis|bgp|babel)",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-redistribute-type-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute"
+      },
+      "kernel": {
+        "id": "2.0",
+        "type": "keyword",
+        "help": "Kernel routes (not installed via the zebra RIB)",
+        "enum": "ENUM:2"
+      },
+      "connected": {
+        "id": "2.1",
+        "type": "keyword",
+        "help": "Connected routes (directly attached subnet or host)",
+        "enum": "ENUM:2"
+      },
+      "static": {
+        "id": "2.2",
+        "type": "keyword",
+        "help": "Statically configured routes",
+        "enum": "ENUM:2"
+      },
+      "ospf6": {
+        "id": "2.3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (IPv6) (OSPFv3)",
+        "enum": "ENUM:2"
+      },
+      "isis": {
+        "id": "2.4",
+        "type": "keyword",
+        "help": "Intermediate System to Intermediate System (IS-IS)",
+        "enum": "ENUM:2"
+      },
+      "bgp": {
+        "id": "2.5",
+        "type": "keyword",
+        "help": "Border Gateway Protocol (BGP)",
+        "enum": "ENUM:2"
+      },
+      "babel": {
+        "id": "2.6",
+        "type": "keyword",
+        "help": "Babel routing protocol (Babel)",
+        "enum": "ENUM:2"
+      }
+    },
+    "command": [
+      {
+        "defun": "no redistribute (kernel|connected|static|ospf6|isis|bgp|babel)",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ripng-redistribute-type-metric-cmd": {
+    "token": {
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute"
+      },
+      "kernel": {
+        "id": "2.0",
+        "type": "keyword",
+        "help": "Kernel routes (not installed via the zebra RIB)",
+        "enum": "ENUM:2"
+      },
+      "connected": {
+        "id": "2.1",
+        "type": "keyword",
+        "help": "Connected routes (directly attached subnet or host)",
+        "enum": "ENUM:2"
+      },
+      "static": {
+        "id": "2.2",
+        "type": "keyword",
+        "help": "Statically configured routes",
+        "enum": "ENUM:2"
+      },
+      "ospf6": {
+        "id": "2.3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (IPv6) (OSPFv3)",
+        "enum": "ENUM:2"
+      },
+      "isis": {
+        "id": "2.4",
+        "type": "keyword",
+        "help": "Intermediate System to Intermediate System (IS-IS)",
+        "enum": "ENUM:2"
+      },
+      "bgp": {
+        "id": "2.5",
+        "type": "keyword",
+        "help": "Border Gateway Protocol (BGP)",
+        "enum": "ENUM:2"
+      },
+      "babel": {
+        "id": "2.6",
+        "type": "keyword",
+        "help": "Babel routing protocol (Babel)",
+        "enum": "ENUM:2"
+      },
+      "metric": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Metric"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Metric value",
+        "range": [
+          0,
+          16
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "redistribute (kernel|connected|static|ospf6|isis|bgp|babel) metric RANGE:4",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-redistribute-type-metric-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute"
+      },
+      "kernel": {
+        "id": "2.0",
+        "type": "keyword",
+        "help": "Kernel routes (not installed via the zebra RIB)",
+        "enum": "ENUM:2"
+      },
+      "connected": {
+        "id": "2.1",
+        "type": "keyword",
+        "help": "Connected routes (directly attached subnet or host)",
+        "enum": "ENUM:2"
+      },
+      "static": {
+        "id": "2.2",
+        "type": "keyword",
+        "help": "Statically configured routes",
+        "enum": "ENUM:2"
+      },
+      "ospf6": {
+        "id": "2.3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (IPv6) (OSPFv3)",
+        "enum": "ENUM:2"
+      },
+      "isis": {
+        "id": "2.4",
+        "type": "keyword",
+        "help": "Intermediate System to Intermediate System (IS-IS)",
+        "enum": "ENUM:2"
+      },
+      "bgp": {
+        "id": "2.5",
+        "type": "keyword",
+        "help": "Border Gateway Protocol (BGP)",
+        "enum": "ENUM:2"
+      },
+      "babel": {
+        "id": "2.6",
+        "type": "keyword",
+        "help": "Babel routing protocol (Babel)",
+        "enum": "ENUM:2"
+      },
+      "metric": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Metric"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Metric value",
+        "range": [
+          0,
+          16
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no redistribute (kernel|connected|static|ospf6|isis|bgp|babel) metric RANGE:4",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ripng-redistribute-type-routemap-cmd": {
+    "token": {
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute"
+      },
+      "kernel": {
+        "id": "2.0",
+        "type": "keyword",
+        "help": "Kernel routes (not installed via the zebra RIB)",
+        "enum": "ENUM:2"
+      },
+      "connected": {
+        "id": "2.1",
+        "type": "keyword",
+        "help": "Connected routes (directly attached subnet or host)",
+        "enum": "ENUM:2"
+      },
+      "static": {
+        "id": "2.2",
+        "type": "keyword",
+        "help": "Statically configured routes",
+        "enum": "ENUM:2"
+      },
+      "ospf6": {
+        "id": "2.3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (IPv6) (OSPFv3)",
+        "enum": "ENUM:2"
+      },
+      "isis": {
+        "id": "2.4",
+        "type": "keyword",
+        "help": "Intermediate System to Intermediate System (IS-IS)",
+        "enum": "ENUM:2"
+      },
+      "bgp": {
+        "id": "2.5",
+        "type": "keyword",
+        "help": "Border Gateway Protocol (BGP)",
+        "enum": "ENUM:2"
+      },
+      "babel": {
+        "id": "2.6",
+        "type": "keyword",
+        "help": "Babel routing protocol (Babel)",
+        "enum": "ENUM:2"
+      },
+      "route-map": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Route map reference"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Pointer to route-map entries"
+      }
+    },
+    "command": [
+      {
+        "defun": "redistribute (kernel|connected|static|ospf6|isis|bgp|babel) route-map WORD:4",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-redistribute-type-routemap-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute"
+      },
+      "kernel": {
+        "id": "2.0",
+        "type": "keyword",
+        "help": "Kernel routes (not installed via the zebra RIB)",
+        "enum": "ENUM:2"
+      },
+      "connected": {
+        "id": "2.1",
+        "type": "keyword",
+        "help": "Connected routes (directly attached subnet or host)",
+        "enum": "ENUM:2"
+      },
+      "static": {
+        "id": "2.2",
+        "type": "keyword",
+        "help": "Statically configured routes",
+        "enum": "ENUM:2"
+      },
+      "ospf6": {
+        "id": "2.3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (IPv6) (OSPFv3)",
+        "enum": "ENUM:2"
+      },
+      "isis": {
+        "id": "2.4",
+        "type": "keyword",
+        "help": "Intermediate System to Intermediate System (IS-IS)",
+        "enum": "ENUM:2"
+      },
+      "bgp": {
+        "id": "2.5",
+        "type": "keyword",
+        "help": "Border Gateway Protocol (BGP)",
+        "enum": "ENUM:2"
+      },
+      "babel": {
+        "id": "2.6",
+        "type": "keyword",
+        "help": "Babel routing protocol (Babel)",
+        "enum": "ENUM:2"
+      },
+      "route-map": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Route map reference"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Pointer to route-map entries"
+      }
+    },
+    "command": [
+      {
+        "defun": "no redistribute (kernel|connected|static|ospf6|isis|bgp|babel) route-map WORD:4",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ripng-redistribute-type-metric-routemap-cmd": {
+    "token": {
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute"
+      },
+      "kernel": {
+        "id": "2.0",
+        "type": "keyword",
+        "help": "Kernel routes (not installed via the zebra RIB)",
+        "enum": "ENUM:2"
+      },
+      "connected": {
+        "id": "2.1",
+        "type": "keyword",
+        "help": "Connected routes (directly attached subnet or host)",
+        "enum": "ENUM:2"
+      },
+      "static": {
+        "id": "2.2",
+        "type": "keyword",
+        "help": "Statically configured routes",
+        "enum": "ENUM:2"
+      },
+      "ospf6": {
+        "id": "2.3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (IPv6) (OSPFv3)",
+        "enum": "ENUM:2"
+      },
+      "isis": {
+        "id": "2.4",
+        "type": "keyword",
+        "help": "Intermediate System to Intermediate System (IS-IS)",
+        "enum": "ENUM:2"
+      },
+      "bgp": {
+        "id": "2.5",
+        "type": "keyword",
+        "help": "Border Gateway Protocol (BGP)",
+        "enum": "ENUM:2"
+      },
+      "babel": {
+        "id": "2.6",
+        "type": "keyword",
+        "help": "Babel routing protocol (Babel)",
+        "enum": "ENUM:2"
+      },
+      "metric": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Metric"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Metric value",
+        "range": [
+          0,
+          16
+        ]
+      },
+      "route-map": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Route map reference"
+      },
+      "WORD:6": {
+        "id": "6",
+        "type": "string",
+        "help": "Pointer to route-map entries"
+      }
+    },
+    "command": [
+      {
+        "defun": "redistribute (kernel|connected|static|ospf6|isis|bgp|babel) metric RANGE:4 route-map WORD:6",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-redistribute-type-metric-routemap-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute"
+      },
+      "kernel": {
+        "id": "2.0",
+        "type": "keyword",
+        "help": "Kernel routes (not installed via the zebra RIB)",
+        "enum": "ENUM:2"
+      },
+      "connected": {
+        "id": "2.1",
+        "type": "keyword",
+        "help": "Connected routes (directly attached subnet or host)",
+        "enum": "ENUM:2"
+      },
+      "static": {
+        "id": "2.2",
+        "type": "keyword",
+        "help": "Statically configured routes",
+        "enum": "ENUM:2"
+      },
+      "ospf6": {
+        "id": "2.3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (IPv6) (OSPFv3)",
+        "enum": "ENUM:2"
+      },
+      "isis": {
+        "id": "2.4",
+        "type": "keyword",
+        "help": "Intermediate System to Intermediate System (IS-IS)",
+        "enum": "ENUM:2"
+      },
+      "bgp": {
+        "id": "2.5",
+        "type": "keyword",
+        "help": "Border Gateway Protocol (BGP)",
+        "enum": "ENUM:2"
+      },
+      "babel": {
+        "id": "2.6",
+        "type": "keyword",
+        "help": "Babel routing protocol (Babel)",
+        "enum": "ENUM:2"
+      },
+      "metric": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Route map reference"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Pointer to route-map entries",
+        "range": [
+          0,
+          16
+        ]
+      },
+      "route-map": {
+        "id": "5",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      },
+      "WORD:6": {
+        "id": "6",
+        "type": "string",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "no redistribute (kernel|connected|static|ospf6|isis|bgp|babel) metric RANGE:4 route-map WORD:6",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

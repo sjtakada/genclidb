@@ -1,0 +1,330 @@
+{
+  "show-ipv6-ospf6-neighbor-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "neighbor": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Neighbor list"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 neighbor",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-neighbor-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "neighbor": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Neighbor list"
+      },
+      "detail": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display details",
+        "enum": "ENUM:5"
+      },
+      "drchoice": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display DR choices",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 neighbor (detail|drchoice)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-neighbor-one-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "neighbor": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Neighbor list"
+      },
+      "IPV4-ADDR:5": {
+        "id": "5",
+        "type": "ipv4address",
+        "help": "Specify Router-ID as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 neighbor IPV4-ADDR:5",
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf6-neighbor-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "neighbor": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug OSPFv3 Neighbor"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 neighbor",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf6-neighbor-detail-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "neighbor": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug OSPFv3 Neighbor"
+      },
+      "state": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Debug OSPFv3 Neighbor State Change",
+        "enum": "ENUM:4"
+      },
+      "event": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Debug OSPFv3 Neighbor Event",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 neighbor (state|event)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-neighbor-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "neighbor": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug OSPFv3 Neighbor"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 neighbor",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-neighbor-detail-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "neighbor": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug OSPFv3 Neighbor"
+      },
+      "state": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Debug OSPFv3 Neighbor State Change",
+        "enum": "ENUM:4"
+      },
+      "event": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Debug OSPFv3 Neighbor Event",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 neighbor (state|event)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

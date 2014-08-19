@@ -1,0 +1,218 @@
+{
+  "bgp-scan-time-cmd": {
+    "token": {
+      "bgp": {
+        "id": "1",
+        "type": "keyword",
+        "help": "BGP specific commands"
+      },
+      "scan-time": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Configure background scanner interval"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Scanner interval (seconds)",
+        "range": [
+          5,
+          60
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "bgp scan-time RANGE:3",
+        "mode": [
+          "BGP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-bgp-scan-time-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "bgp": {
+        "id": "1",
+        "type": "keyword",
+        "help": "BGP specific commands"
+      },
+      "scan-time": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Configure background scanner interval"
+      }
+    },
+    "command": [
+      {
+        "defun": "no bgp scan-time",
+        "mode": [
+          "BGP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-bgp-scan-time-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "bgp": {
+        "id": "1",
+        "type": "keyword",
+        "help": "BGP specific commands"
+      },
+      "scan-time": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Configure background scanner interval"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Scanner interval (seconds)",
+        "range": [
+          5,
+          60
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no bgp scan-time RANGE:3",
+        "mode": [
+          "BGP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-bgp-scan-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "bgp": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "scan": {
+        "id": "4",
+        "type": "keyword",
+        "help": "BGP scan status"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip bgp scan",
+        "mode": [
+          "VIEW-NODE",
+          "RESTRICTED-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-bgp-scan-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "bgp": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "scan": {
+        "id": "4",
+        "type": "keyword",
+        "help": "BGP scan status"
+      },
+      "detail": {
+        "id": "5",
+        "type": "keyword",
+        "help": "More detailed output"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip bgp scan detail",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

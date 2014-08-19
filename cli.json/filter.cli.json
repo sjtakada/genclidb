@@ -1,0 +1,3377 @@
+{
+  "access-list-standard-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP standard access list",
+        "range": [
+          1,
+          99
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP standard access list (expanded range)",
+        "range": [
+          1300,
+          1999
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "Address to match"
+      },
+      "IPV4-ADDR:5": {
+        "id": "5",
+        "type": "ipv4address",
+        "help": "Wildcard bits"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list (RANGE:2.0|RANGE:2.1) (deny|permit) IPV4-ADDR:4 IPV4-ADDR:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "bind": [
+          "if RANGE:2.0 do ACL-NUM = RANGE:2.0",
+          "if RANGE:2.1 do ACL-NUM = RANGE:2.1"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "POST",
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:IPV4-ADDR:4/:IPV4-ADDR:5",
+              "params": {
+                "permit-deny": "ENUM:3"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-standard-nomask-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP standard access list",
+        "range": [
+          1,
+          99
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP standard access list (expanded range)",
+        "range": [
+          1300,
+          1999
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "Address to match"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list (RANGE:2.0|RANGE:2.1) (deny|permit) IPV4-ADDR:4",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "bind": [
+          "if RANGE:2.0 do ACL-NUM = RANGE:2.0",
+          "if RANGE:2.1 do ACL-NUM = RANGE:2.1",
+          "MASK = 0.0.0.0"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "POST",
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:IPV4-ADDR:4/:MASK",
+              "params": {
+                "permit-deny": "ENUM:3"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-standard-host-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP standard access list",
+        "range": [
+          1,
+          99
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP standard access list (expanded range)",
+        "range": [
+          1300,
+          1999
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "host": {
+        "id": "4",
+        "type": "keyword",
+        "help": "A single host address"
+      },
+      "IPV4-ADDR:5": {
+        "id": "5",
+        "type": "ipv4address",
+        "help": "Address to match"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list (RANGE:2.0|RANGE:2.1) (deny|permit) host IPV4-ADDR:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "bind": [
+          "if RANGE:2.0 do ACL-NUM = RANGE:2.0",
+          "if RANGE:2.1 do ACL-NUM = RANGE:2.1",
+          "MASK = 0.0.0.0"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "POST",
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:IPV4-ADDR:5/:MASK",
+              "params": {
+                "permit-deny": "ENUM:3"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-standard-any-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP standard access list",
+        "range": [
+          1,
+          99
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP standard access list (expanded range)",
+        "range": [
+          1300,
+          1999
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "any": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any source host"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list (RANGE:2.0|RANGE:2.1) (deny|permit) any",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "bind": [
+          "if RANGE:2.0 do ACL-NUM = RANGE:2.0",
+          "if RANGE:2.1 do ACL-NUM = RANGE:2.1",
+          "ADDRESS, MASK = 0.0.0.0, 255.255.255.255"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "POST",
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:ADDRESS/:MASK",
+              "params": {
+                "permit-deny": "ENUM:3"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-standard-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP standard access list",
+        "range": [
+          1,
+          99
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP standard access list (expanded range)",
+        "range": [
+          1300,
+          1999
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "Address to match"
+      },
+      "IPV4-ADDR:5": {
+        "id": "5",
+        "type": "ipv4address",
+        "help": "Wildcard bits"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1) (deny|permit) IPV4-ADDR:4 IPV4-ADDR:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "bind": [
+          "if RANGE:2.0 do ACL-NUM = RANGE:2.0",
+          "if RANGE:2.1 do ACL-NUM = RANGE:2.1"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "DELETE",
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:IPV4-ADDR:4/:IPV4-ADDR:5"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-standard-nomask-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP standard access list",
+        "range": [
+          1,
+          99
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP standard access list (expanded range)",
+        "range": [
+          1300,
+          1999
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "Address to match"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1) (deny|permit) IPV4-ADDR:4",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "bind": [
+          "if RANGE:2.0 do ACL-NUM = RANGE:2.0",
+          "if RANGE:2.1 do ACL-NUM = RANGE:2.1",
+          "MASK = 0.0.0.0"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "DELETE",
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:IPV4-ADDR:4/:MASK"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-standard-host-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP standard access list",
+        "range": [
+          1,
+          99
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP standard access list (expanded range)",
+        "range": [
+          1300,
+          1999
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "host": {
+        "id": "4",
+        "type": "keyword",
+        "help": "A single host address"
+      },
+      "IPV4-ADDR:5": {
+        "id": "5",
+        "type": "ipv4address",
+        "help": "Address to match"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1) (deny|permit) host IPV4-ADDR:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "bind": [
+          "if RANGE:2.0 do ACL-NUM = RANGE:2.0",
+          "if RANGE:2.1 do ACL-NUM = RANGE:2.1",
+          "MASK = 0.0.0.0"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "DELETE",
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:IPV4-ADDR:5/:MASK"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-standard-any-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP standard access list",
+        "range": [
+          1,
+          99
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP standard access list (expanded range)",
+        "range": [
+          1300,
+          1999
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "any": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any source host"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1) (deny|permit) any",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "bind": [
+          "if RANGE:2.0 do ACL-NUM = RANGE:2.0",
+          "if RANGE:2.1 do ACL-NUM = RANGE:2.1",
+          "ADDRESS, MASK = 0.0.0.0, 255.255.255.255"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "DELETE",
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:ADDRESS/:MASK"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-extended-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "IPV4-ADDR:5": {
+        "id": "5",
+        "type": "ipv4address",
+        "help": "Source address"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Source wildcard bits"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Destination address"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "Destination Wildcard bits"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip IPV4-ADDR:5 IPV4-ADDR:6 IPV4-ADDR:7 IPV4-ADDR:8",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-extended-mask-any-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "IPV4-ADDR:5": {
+        "id": "5",
+        "type": "ipv4address",
+        "help": "Source address"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Source wildcard bits"
+      },
+      "any": {
+        "id": "7",
+        "type": "keyword",
+        "help": "Any destination host"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip IPV4-ADDR:5 IPV4-ADDR:6 any",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-extended-any-mask-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "any": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Any source host"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Destination address"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Destination Wildcard bits"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip any IPV4-ADDR:6 IPV4-ADDR:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-extended-any-any-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "any": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Any destination host"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip any any",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-extended-mask-host-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "IPV4-ADDR:5": {
+        "id": "5",
+        "type": "ipv4address",
+        "help": "Source address"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Source wildcard bits"
+      },
+      "host": {
+        "id": "7",
+        "type": "keyword",
+        "help": "A single destination host"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "Destination address"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip IPV4-ADDR:5 IPV4-ADDR:6 host IPV4-ADDR:8",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-extended-host-mask-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "host": {
+        "id": "5",
+        "type": "keyword",
+        "help": "A single source host"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Source address"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Destination address"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "Destination Wildcard bits"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip host IPV4-ADDR:6 IPV4-ADDR:7 IPV4-ADDR:8",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-extended-host-host-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "host": {
+        "id": "7",
+        "type": "keyword",
+        "help": "A single destination host"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Source address"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "Destination address"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip host IPV4-ADDR:6 host IPV4-ADDR:8",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-extended-any-host-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "any": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Any source host"
+      },
+      "host": {
+        "id": "6",
+        "type": "keyword",
+        "help": "A single destination host"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Destination address"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip any host IPV4-ADDR:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-extended-host-any-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "host": {
+        "id": "5",
+        "type": "keyword",
+        "help": "A single source host"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Source address"
+      },
+      "any": {
+        "id": "7",
+        "type": "keyword",
+        "help": "Any destination host"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip host IPV4-ADDR:6 any",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-extended-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "IPV4-ADDR:5": {
+        "id": "5",
+        "type": "ipv4address",
+        "help": "Source address"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Source wildcard bits"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Destination address"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "Destination Wildcard bits"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip IPV4-ADDR:5 IPV4-ADDR:6 IPV4-ADDR:7 IPV4-ADDR:8",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-extended-mask-any-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "IPV4-ADDR:5": {
+        "id": "5",
+        "type": "ipv4address",
+        "help": "Source address"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Source wildcard bits"
+      },
+      "any": {
+        "id": "7",
+        "type": "keyword",
+        "help": "Any destination host"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip IPV4-ADDR:5 IPV4-ADDR:6 any",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-extended-any-mask-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "any": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Any source host"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Destination address"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Destination Wildcard bits"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip any IPV4-ADDR:6 IPV4-ADDR:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-extended-any-any-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "any": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Any destination host"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip any any",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-extended-mask-host-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "IPV4-ADDR:5": {
+        "id": "5",
+        "type": "ipv4address",
+        "help": "Source address"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Source wildcard bits"
+      },
+      "host": {
+        "id": "7",
+        "type": "keyword",
+        "help": "A single destination host"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "Destination address"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip IPV4-ADDR:5 IPV4-ADDR:6 host IPV4-ADDR:8",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-extended-host-mask-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "host": {
+        "id": "5",
+        "type": "keyword",
+        "help": "A single source host"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Source address"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Destination address"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "Destination Wildcard bits"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip host IPV4-ADDR:6 IPV4-ADDR:7 IPV4-ADDR:8",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-extended-host-host-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "host": {
+        "id": "7",
+        "type": "keyword",
+        "help": "A single destination host"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Source address"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "Destination address"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip host IPV4-ADDR:6 host IPV4-ADDR:8",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-extended-any-host-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "any": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Any source host"
+      },
+      "host": {
+        "id": "6",
+        "type": "keyword",
+        "help": "A single destination host"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Destination address"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip any host IPV4-ADDR:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-extended-host-any-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "ip": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Any Internet Protocol"
+      },
+      "host": {
+        "id": "5",
+        "type": "keyword",
+        "help": "A single source host"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Source address"
+      },
+      "any": {
+        "id": "7",
+        "type": "keyword",
+        "help": "Any destination host"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1) (deny|permit) ip host IPV4-ADDR:6 any",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "IP zebra access-list name"
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "IPV4-PREFIX:4": {
+        "id": "4",
+        "type": "ipv4prefix",
+        "help": "Prefix to match. e.g. 10.0.0.0/8"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list WORD:2 (deny|permit) IPV4-PREFIX:4",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-exact-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "IP zebra access-list name"
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "IPV4-PREFIX:4": {
+        "id": "4",
+        "type": "ipv4prefix",
+        "help": "Prefix to match. e.g. 10.0.0.0/8"
+      },
+      "exact-match": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Exact match of the prefixes"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list WORD:2 (deny|permit) IPV4-PREFIX:4 exact-match",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-any-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "IP zebra access-list name"
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "any": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Prefix to match. e.g. 10.0.0.0/8"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list WORD:2 (deny|permit) any",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "IP zebra access-list name"
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "IPV4-PREFIX:4": {
+        "id": "4",
+        "type": "ipv4prefix",
+        "help": "Prefix to match. e.g. 10.0.0.0/8"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list WORD:2 (deny|permit) IPV4-PREFIX:4",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-exact-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "IP zebra access-list name"
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "IPV4-PREFIX:4": {
+        "id": "4",
+        "type": "ipv4prefix",
+        "help": "Prefix to match. e.g. 10.0.0.0/8"
+      },
+      "exact-match": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Exact match of the prefixes"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list WORD:2 (deny|permit) IPV4-PREFIX:4 exact-match",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-any-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "IP zebra access-list name"
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:3"
+      },
+      "any": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Prefix to match. e.g. 10.0.0.0/8"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list WORD:2 (deny|permit) any",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-all-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP standard access list",
+        "range": [
+          1,
+          99
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.2": {
+        "id": "2.2",
+        "type": "integer",
+        "help": "IP standard access list (expanded range)",
+        "range": [
+          1300,
+          1999
+        ]
+      },
+      "RANGE:2.3": {
+        "id": "2.3",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "WORD:2.4": {
+        "id": "2.4",
+        "type": "string",
+        "help": "IP zebra access-list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1|RANGE:2.2|RANGE:2.3|WORD:2.4)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "bind": [
+          "if RANGE:2.0 do ACL-NUM = RANGE:2.0",
+          "if RANGE:2.1 do ACL-NUM = RANGE:2.1"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "DELETE",
+              "path": "acl_ipv4_stds/:ACL-NUM"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "access-list-remark-cmd": {
+    "token": {
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP standard access list",
+        "range": [
+          1,
+          99
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.2": {
+        "id": "2.2",
+        "type": "integer",
+        "help": "IP standard access list (expanded range)",
+        "range": [
+          1300,
+          1999
+        ]
+      },
+      "RANGE:2.3": {
+        "id": "2.3",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "WORD:2.4": {
+        "id": "2.4",
+        "type": "string",
+        "help": "IP zebra access-list"
+      },
+      "remark": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Access list entry comment"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Comment up to 100 characters"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-list (RANGE:2.0|RANGE:2.1|RANGE:2.2|RANGE:2.3|WORD:2.4) remark [WORD:4]",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-remark-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP standard access list",
+        "range": [
+          1,
+          99
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.2": {
+        "id": "2.2",
+        "type": "integer",
+        "help": "IP standard access list (expanded range)",
+        "range": [
+          1300,
+          1999
+        ]
+      },
+      "RANGE:2.3": {
+        "id": "2.3",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "WORD:2.4": {
+        "id": "2.4",
+        "type": "string",
+        "help": "IP zebra access-list"
+      },
+      "remark": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Access list entry comment"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1|RANGE:2.2|RANGE:2.3|WORD:2.4) remark",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-access-list-remark-arg-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "RANGE:2.0": {
+        "id": "2.0",
+        "type": "integer",
+        "help": "IP standard access list",
+        "range": [
+          1,
+          99
+        ]
+      },
+      "RANGE:2.1": {
+        "id": "2.1",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:2.2": {
+        "id": "2.2",
+        "type": "integer",
+        "help": "IP standard access list (expanded range)",
+        "range": [
+          1300,
+          1999
+        ]
+      },
+      "RANGE:2.3": {
+        "id": "2.3",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "WORD:2.4": {
+        "id": "2.4",
+        "type": "string",
+        "help": "IP zebra access-list"
+      },
+      "remark": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Access list entry comment"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Comment up to 100 characters"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-list (RANGE:2.0|RANGE:2.1|RANGE:2.2|RANGE:2.3|WORD:2.4) remark [WORD:4]",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-access-list-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "access-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "IPv6 zebra access-list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "Prefix to match. e.g. 3ffe:506::/32"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 access-list WORD:3 (deny|permit) IPV6-PREFIX:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-access-list-exact-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "access-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "IPv6 zebra access-list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "Prefix to match. e.g. 3ffe:506::/32"
+      },
+      "exact-match": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Exact match of the prefixes"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 access-list WORD:3 (deny|permit) IPV6-PREFIX:5 exact-match",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-access-list-any-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "access-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "IPv6 zebra access-list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "any": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Any prefixi to match"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 access-list WORD:3 (deny|permit) any",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-access-list-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "access-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "IPv6 zebra access-list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "Prefix to match. e.g. 3ffe:506::/32"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 access-list WORD:3 (deny|permit) IPV6-PREFIX:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-access-list-exact-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "access-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "IPv6 zebra access-list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "Prefix to match. e.g. 3ffe:506::/32"
+      },
+      "exact-match": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Exact match of the prefixes"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 access-list WORD:3 (deny|permit) IPV6-PREFIX:5 exact-match",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-access-list-any-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "access-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "IPv6 zebra access-list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "any": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Any prefixi to match"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 access-list WORD:3 (deny|permit) any",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-access-list-all-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "access-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "IPv6 zebra access-list"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 access-list WORD:3",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-access-list-remark-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "access-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "IPv6 zebra access-list"
+      },
+      "remark": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Access list entry comment"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Comment up to 100 characters"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 access-list WORD:3 remark [WORD:5]",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-access-list-remark-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "access-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "IPv6 zebra access-list"
+      },
+      "remark": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Access list entry comment"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 access-list WORD:3 remark",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-access-list-remark-arg-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "access-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Add an access list entry"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "IPv6 zebra access-list"
+      },
+      "remark": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Access list entry comment"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Comment up to 100 characters"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 access-list WORD:3 remark [WORD:5]",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-access-list-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "access-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "List IP access lists"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip access-list",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-access-list-name-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "access-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "List IP access lists"
+      },
+      "RANGE:4.0": {
+        "id": "4.0",
+        "type": "integer",
+        "help": "IP standard access list",
+        "range": [
+          1,
+          99
+        ]
+      },
+      "RANGE:4.1": {
+        "id": "4.1",
+        "type": "integer",
+        "help": "IP extended access list",
+        "range": [
+          100,
+          199
+        ]
+      },
+      "RANGE:4.2": {
+        "id": "4.2",
+        "type": "integer",
+        "help": "IP standard access list (expanded range)",
+        "range": [
+          1300,
+          1999
+        ]
+      },
+      "RANGE:4.3": {
+        "id": "4.3",
+        "type": "integer",
+        "help": "IP extended access list (expanded range)",
+        "range": [
+          2000,
+          2699
+        ]
+      },
+      "WORD:4.4": {
+        "id": "4.4",
+        "type": "string",
+        "help": "IP zebra access-list"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip access-list (RANGE:4.0|RANGE:4.1|RANGE:4.2|RANGE:4.3|WORD:4.4)",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-access-list-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "access-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "List IPv6 access lists"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 access-list",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-access-list-name-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "access-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "List IPv6 access lists"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "IPv6 zebra access-list"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 access-list WORD:4",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,822 @@
+{
+  "ospf6-redistribute-cmd": {
+    "token": {
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute"
+      },
+      "kernel": {
+        "id": "2.0",
+        "type": "keyword",
+        "help": "Kernel routes (not installed via the zebra RIB)",
+        "enum": "ENUM:2"
+      },
+      "connected": {
+        "id": "2.1",
+        "type": "keyword",
+        "help": "Connected routes (directly attached subnet or host)",
+        "enum": "ENUM:2"
+      },
+      "static": {
+        "id": "2.2",
+        "type": "keyword",
+        "help": "Statically configured routes",
+        "enum": "ENUM:2"
+      },
+      "ripng": {
+        "id": "2.3",
+        "type": "keyword",
+        "help": "Routing Information Protocol next-generation (IPv6) (RIPng)",
+        "enum": "ENUM:2"
+      },
+      "isis": {
+        "id": "2.4",
+        "type": "keyword",
+        "help": "Intermediate System to Intermediate System (IS-IS)",
+        "enum": "ENUM:2"
+      },
+      "bgp": {
+        "id": "2.5",
+        "type": "keyword",
+        "help": "Border Gateway Protocol (BGP)",
+        "enum": "ENUM:2"
+      },
+      "babel": {
+        "id": "2.6",
+        "type": "keyword",
+        "help": "Babel routing protocol (Babel)",
+        "enum": "ENUM:2"
+      }
+    },
+    "command": [
+      {
+        "defun": "redistribute (kernel|connected|static|ripng|isis|bgp|babel)",
+        "mode": [
+          "OSPF6-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ospf6-redistribute-routemap-cmd": {
+    "token": {
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute"
+      },
+      "kernel": {
+        "id": "2.0",
+        "type": "keyword",
+        "help": "Kernel routes (not installed via the zebra RIB)",
+        "enum": "ENUM:2"
+      },
+      "connected": {
+        "id": "2.1",
+        "type": "keyword",
+        "help": "Connected routes (directly attached subnet or host)",
+        "enum": "ENUM:2"
+      },
+      "static": {
+        "id": "2.2",
+        "type": "keyword",
+        "help": "Statically configured routes",
+        "enum": "ENUM:2"
+      },
+      "ripng": {
+        "id": "2.3",
+        "type": "keyword",
+        "help": "Routing Information Protocol next-generation (IPv6) (RIPng)",
+        "enum": "ENUM:2"
+      },
+      "isis": {
+        "id": "2.4",
+        "type": "keyword",
+        "help": "Intermediate System to Intermediate System (IS-IS)",
+        "enum": "ENUM:2"
+      },
+      "bgp": {
+        "id": "2.5",
+        "type": "keyword",
+        "help": "Border Gateway Protocol (BGP)",
+        "enum": "ENUM:2"
+      },
+      "babel": {
+        "id": "2.6",
+        "type": "keyword",
+        "help": "Babel routing protocol (Babel)",
+        "enum": "ENUM:2"
+      },
+      "route-map": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Route map reference"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Route map name"
+      }
+    },
+    "command": [
+      {
+        "defun": "redistribute (kernel|connected|static|ripng|isis|bgp|babel) route-map WORD:4",
+        "mode": [
+          "OSPF6-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ospf6-redistribute-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "redistribute": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Redistribute"
+      },
+      "kernel": {
+        "id": "2.0",
+        "type": "keyword",
+        "help": "Kernel routes (not installed via the zebra RIB)",
+        "enum": "ENUM:2"
+      },
+      "connected": {
+        "id": "2.1",
+        "type": "keyword",
+        "help": "Connected routes (directly attached subnet or host)",
+        "enum": "ENUM:2"
+      },
+      "static": {
+        "id": "2.2",
+        "type": "keyword",
+        "help": "Statically configured routes",
+        "enum": "ENUM:2"
+      },
+      "ripng": {
+        "id": "2.3",
+        "type": "keyword",
+        "help": "Routing Information Protocol next-generation (IPv6) (RIPng)",
+        "enum": "ENUM:2"
+      },
+      "isis": {
+        "id": "2.4",
+        "type": "keyword",
+        "help": "Intermediate System to Intermediate System (IS-IS)",
+        "enum": "ENUM:2"
+      },
+      "bgp": {
+        "id": "2.5",
+        "type": "keyword",
+        "help": "Border Gateway Protocol (BGP)",
+        "enum": "ENUM:2"
+      },
+      "babel": {
+        "id": "2.6",
+        "type": "keyword",
+        "help": "Babel routing protocol (Babel)",
+        "enum": "ENUM:2"
+      }
+    },
+    "command": [
+      {
+        "defun": "no redistribute (kernel|connected|static|ripng|isis|bgp|babel)",
+        "mode": [
+          "OSPF6-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ospf6-routemap-match-address-prefixlist-cmd": {
+    "token": {
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "address": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Match address of route"
+      },
+      "prefix-list": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Match entries of prefix-lists"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IPv6 prefix-list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "match ipv6 address prefix-list WORD:5",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ospf6-routemap-no-match-address-prefixlist-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "address": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Match address of route"
+      },
+      "prefix-list": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Match entries of prefix-lists"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IPv6 prefix-list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match ipv6 address prefix-list WORD:5",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ospf6-routemap-match-interface-cmd": {
+    "token": {
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "interface": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Match first hop interface of route"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "match interface WORD:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ospf6-routemap-no-match-interface-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "interface": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Match first hop interface of route"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match interface",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ospf6-routemap-no-match-interface-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "interface": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Match first hop interface of route"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match interface WORD:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ospf6-routemap-set-metric-type-cmd": {
+    "token": {
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set value"
+      },
+      "metric-type": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Type of metric"
+      },
+      "type-1": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "OSPF6 external type 1 metric",
+        "enum": "ENUM:3"
+      },
+      "type-2": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "OSPF6 external type 2 metric",
+        "enum": "ENUM:3"
+      }
+    },
+    "command": [
+      {
+        "defun": "set metric-type (type-1|type-2)",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ospf6-routemap-no-set-metric-type-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set value"
+      },
+      "metric-type": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Type of metric"
+      },
+      "type-1": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "OSPF6 external type 1 metric",
+        "enum": "ENUM:3"
+      },
+      "type-2": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "OSPF6 external type 2 metric",
+        "enum": "ENUM:3"
+      }
+    },
+    "command": [
+      {
+        "defun": "no set metric-type (type-1|type-2)",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "set-metric-cmd": {
+    "token": {
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set value"
+      },
+      "metric": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Metric value"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Metric value",
+        "range": [
+          0,
+          4294967295
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "set metric RANGE:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-set-metric-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set value"
+      },
+      "metric": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Metric"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "METRIC value",
+        "range": [
+          0,
+          4294967295
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no set metric RANGE:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ospf6-routemap-set-forwarding-cmd": {
+    "token": {
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set value"
+      },
+      "forwarding-address": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Forwarding Address"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "IPv6 Address"
+      }
+    },
+    "command": [
+      {
+        "defun": "set forwarding-address WORD:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ospf6-routemap-no-set-forwarding-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set value"
+      },
+      "forwarding-address": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Forwarding Address"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "IPv6 Address"
+      }
+    },
+    "command": [
+      {
+        "defun": "no set forwarding-address WORD:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-redistribute-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "redistribute": {
+        "id": "4",
+        "type": "keyword",
+        "help": "redistributing External information"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 redistribute",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf6-asbr-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "asbr": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug OSPFv3 ASBR function"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 asbr",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-asbr-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "asbr": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug OSPFv3 ASBR function"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 asbr",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

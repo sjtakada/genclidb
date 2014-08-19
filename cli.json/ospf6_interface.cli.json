@@ -1,0 +1,1205 @@
+{
+  "show-ipv6-ospf6-interface-ifname-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "interface": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Interface infomation"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Interface name(e.g. ep0)"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 interface WORD:5",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-interface-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "interface": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Interface infomation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 interface",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-interface-ifname-prefix-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "interface": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Interface infomation"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Interface name(e.g. ep0)"
+      },
+      "prefix": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Display connected prefixes to advertise"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 interface WORD:5 prefix",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-interface-ifname-prefix-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "interface": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Interface infomation"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Interface name(e.g. ep0)"
+      },
+      "prefix": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Display connected prefixes to advertise"
+      },
+      "WORD:7.0": {
+        "id": "7.0",
+        "type": "string",
+        "help": "Display the route bestmatches the address"
+      },
+      "IPV6-PREFIX:7.1": {
+        "id": "7.1",
+        "type": "ipv6prefix",
+        "help": "Display the route"
+      },
+      "detail": {
+        "id": "7.2",
+        "type": "keyword",
+        "help": "Display details of the prefixes",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 interface WORD:5 prefix (WORD:7.0|IPV6-PREFIX:7.1|detail)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-interface-ifname-prefix-match-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "interface": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Interface infomation"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Interface name(e.g. ep0)"
+      },
+      "prefix": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Display connected prefixes to advertise"
+      },
+      "IPV6-PREFIX:7": {
+        "id": "7",
+        "type": "ipv6prefix",
+        "help": "Display the route"
+      },
+      "match": {
+        "id": "8.0",
+        "type": "keyword",
+        "help": "Display the route matches the prefix",
+        "enum": "ENUM:8"
+      },
+      "detail": {
+        "id": "8.1",
+        "type": "keyword",
+        "help": "Display details of the prefixes",
+        "enum": "ENUM:8"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 interface WORD:5 prefix IPV6-PREFIX:7 (match|detail)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-interface-prefix-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "interface": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Interface infomation"
+      },
+      "prefix": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Display connected prefixes to advertise"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 interface prefix",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-interface-prefix-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "interface": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Interface infomation"
+      },
+      "prefix": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Display connected prefixes to advertise"
+      },
+      "WORD:6.0": {
+        "id": "6.0",
+        "type": "string",
+        "help": "Display the route bestmatches the address"
+      },
+      "IPV6-PREFIX:6.1": {
+        "id": "6.1",
+        "type": "ipv6prefix",
+        "help": "Display the route"
+      },
+      "detail": {
+        "id": "6.2",
+        "type": "keyword",
+        "help": "Display details of the prefixes",
+        "enum": "ENUM:6"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 interface prefix (WORD:6.0|IPV6-PREFIX:6.1|detail)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-interface-prefix-match-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "interface": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Interface infomation"
+      },
+      "prefix": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Display connected prefixes to advertise"
+      },
+      "IPV6-PREFIX:6": {
+        "id": "6",
+        "type": "ipv6prefix",
+        "help": "Display the route"
+      },
+      "match": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "Display the route matches the prefix",
+        "enum": "ENUM:7"
+      },
+      "detail": {
+        "id": "7.1",
+        "type": "keyword",
+        "help": "Display details of the prefixes",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 interface prefix IPV6-PREFIX:6 (match|detail)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-ospf6-ifmtu-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "ifmtu": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Interface MTU"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "OSPFv3 Interface MTU",
+        "range": [
+          1,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 ospf6 ifmtu RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-ospf6-ifmtu-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "ifmtu": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Interface MTU"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 ospf6 ifmtu",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-ospf6-cost-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "cost": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Interface cost"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Outgoing metric of this interface",
+        "range": [
+          1,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 ospf6 cost RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-ospf6-hellointerval-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "hello-interval": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Interval time of Hello packets"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "<1-65535> Seconds",
+        "range": [
+          1,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 ospf6 hello-interval RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-ospf6-deadinterval-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "dead-interval": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Interval time after which a neighbor is declared down"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "<1-65535> Seconds",
+        "range": [
+          1,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 ospf6 dead-interval RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-ospf6-transmitdelay-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "transmit-delay": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Transmit delay of this interface"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "<1-65535> Seconds",
+        "range": [
+          1,
+          3600
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 ospf6 transmit-delay RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-ospf6-retransmitinterval-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "retransmit-interval": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Time between retransmitting lost link state advertisements"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "<1-65535> Seconds",
+        "range": [
+          1,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 ospf6 retransmit-interval RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-ospf6-priority-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "priority": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Router priority"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Priority value",
+        "range": [
+          0,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 ospf6 priority RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-ospf6-instance-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "instance-id": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Instance ID for this interface"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Instance ID value",
+        "range": [
+          0,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 ospf6 instance-id RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-ospf6-passive-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "passive": {
+        "id": "3",
+        "type": "keyword",
+        "help": "passive interface, No adjacency will be formed on this interface"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 ospf6 passive",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-ospf6-passive-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "passive": {
+        "id": "3",
+        "type": "keyword",
+        "help": "passive interface: No Adjacency will be formed on this I/F"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 ospf6 passive",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-ospf6-mtu-ignore-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "mtu-ignore": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Ignore MTU mismatch on this interface"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 ospf6 mtu-ignore",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-ospf6-mtu-ignore-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "mtu-ignore": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Ignore MTU mismatch on this interface"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 ospf6 mtu-ignore",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-ospf6-advertise-prefix-list-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "advertise": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertising options"
+      },
+      "prefix-list": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Filter prefix using prefix-list"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Prefix list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 ospf6 advertise prefix-list WORD:5",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-ospf6-advertise-prefix-list-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "advertise": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertising options"
+      },
+      "prefix-list": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Filter prefix using prefix-list"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 ospf6 advertise prefix-list",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf6-interface-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "interface": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug OSPFv3 Interface"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 interface",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-interface-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "interface": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug OSPFv3 Interface"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 interface",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

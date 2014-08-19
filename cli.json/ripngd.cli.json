@@ -1,0 +1,662 @@
+{
+  "show-ipv6-ripng-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ripng": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Show RIPng routes"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ripng",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ripng-status-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ripng": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Show RIPng routes"
+      },
+      "status": {
+        "id": "4",
+        "type": "keyword",
+        "help": "IPv6 routing protocol process parameters and statistics"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ripng status",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "router-ripng-cmd": {
+    "token": {
+      "router": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Enable a routing process"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Make RIPng instance command"
+      }
+    },
+    "command": [
+      {
+        "defun": "router ripng",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-router-ripng-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "router": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Enable a routing process"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Make RIPng instance command"
+      }
+    },
+    "command": [
+      {
+        "defun": "no router ripng",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ripng-route-cmd": {
+    "token": {
+      "route": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Static route setup"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Set static RIPng route announcement"
+      }
+    },
+    "command": [
+      {
+        "defun": "route WORD:2",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-route-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "route": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Static route setup"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Delete static RIPng route announcement"
+      }
+    },
+    "command": [
+      {
+        "defun": "no route WORD:2",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ripng-aggregate-address-cmd": {
+    "token": {
+      "aggregate-address": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set aggregate RIPng route announcement"
+      },
+      "IPV6-PREFIX:2": {
+        "id": "2",
+        "type": "ipv6prefix",
+        "help": "Aggregate network"
+      }
+    },
+    "command": [
+      {
+        "defun": "aggregate-address IPV6-PREFIX:2",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-aggregate-address-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "aggregate-address": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Delete aggregate RIPng route announcement"
+      },
+      "IPV6-PREFIX:2": {
+        "id": "2",
+        "type": "ipv6prefix",
+        "help": "Aggregate network"
+      }
+    },
+    "command": [
+      {
+        "defun": "no aggregate-address IPV6-PREFIX:2",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ripng-default-metric-cmd": {
+    "token": {
+      "default-metric": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set a metric of redistribute routes"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Default metric",
+        "range": [
+          1,
+          16
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "default-metric RANGE:2",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-default-metric-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "default-metric": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set a metric of redistribute routes"
+      }
+    },
+    "command": [
+      {
+        "defun": "no default-metric",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-default-metric-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "default-metric": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set a metric of redistribute routes"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Default metric",
+        "range": [
+          1,
+          16
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no default-metric RANGE:2",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ripng-timers-cmd": {
+    "token": {
+      "timers": {
+        "id": "1",
+        "type": "keyword",
+        "help": "RIPng timers setup"
+      },
+      "basic": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Basic timer"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Routing table update timer value in second. Default is 30.",
+        "range": [
+          0,
+          65535
+        ]
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Routing information timeout timer. Default is 180.",
+        "range": [
+          0,
+          65535
+        ]
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Garbage collection timer. Default is 120.",
+        "range": [
+          0,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "timers basic RANGE:3 RANGE:4 RANGE:5",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-timers-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "timers": {
+        "id": "1",
+        "type": "keyword",
+        "help": "RIPng timers setup"
+      },
+      "basic": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Basic timer"
+      }
+    },
+    "command": [
+      {
+        "defun": "no timers basic",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-timers-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "timers": {
+        "id": "1",
+        "type": "keyword",
+        "help": "RIPng timers setup"
+      },
+      "basic": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Basic timer"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Routing table update timer value in second. Default is 30.",
+        "range": [
+          0,
+          65535
+        ]
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Routing information timeout timer. Default is 180.",
+        "range": [
+          0,
+          65535
+        ]
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Garbage collection timer. Default is 120.",
+        "range": [
+          0,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no timers basic RANGE:3 RANGE:4 RANGE:5",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-protocols-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "protocols": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Routing protocol information"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 protocols",
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ripng-default-information-originate-cmd": {
+    "token": {
+      "default-information": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Default route information"
+      },
+      "originate": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Distribute default route"
+      }
+    },
+    "command": [
+      {
+        "defun": "default-information originate",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-default-information-originate-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "default-information": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Default route information"
+      },
+      "originate": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Distribute default route"
+      }
+    },
+    "command": [
+      {
+        "defun": "no default-information originate",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

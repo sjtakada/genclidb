@@ -1,0 +1,661 @@
+{
+  "ip-irdp-multicast-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "ICMP Router discovery on this interface using multicast"
+      },
+      "multicast": {
+        "id": "3",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip irdp multicast",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-irdp-broadcast-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "ICMP Router discovery on this interface using broadcast"
+      },
+      "broadcast": {
+        "id": "3",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip irdp broadcast",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-irdp-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Disable ICMP Router discovery on this interface"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip irdp",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-irdp-shutdown-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "ICMP Router discovery shutdown on this interface"
+      },
+      "shutdown": {
+        "id": "3",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip irdp shutdown",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-irdp-shutdown-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "ICMP Router discovery no shutdown on this interface"
+      },
+      "shutdown": {
+        "id": "3",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip irdp shutdown",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-irdp-holdtime-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "ICMP Router discovery on this interface"
+      },
+      "holdtime": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Set holdtime value"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Holdtime value in seconds. Default is 1800 seconds",
+        "range": [
+          0,
+          9000
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip irdp holdtime RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-irdp-minadvertinterval-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "ICMP Router discovery on this interface"
+      },
+      "minadvertinterval": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Set minimum time between advertisement"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Minimum advertisement interval in seconds",
+        "range": [
+          3,
+          1800
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip irdp minadvertinterval RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-irdp-maxadvertinterval-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "ICMP Router discovery on this interface"
+      },
+      "maxadvertinterval": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Set maximum time between advertisement"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Maximum advertisement interval in seconds",
+        "range": [
+          4,
+          1800
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip irdp maxadvertinterval RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-irdp-preference-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "ICMP Router discovery on this interface"
+      },
+      "preference": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Set default preference level for this interface"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Preference level",
+        "range": [
+          0,
+          2147483647
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip irdp preference RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-irdp-address-preference-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Alter ICMP Router discovery preference this interface"
+      },
+      "address": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Specify IRDP non-default preference to advertise"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "Set IRDP address for advertise"
+      },
+      "preference": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Preference level"
+      },
+      "RANGE:6": {
+        "id": "6",
+        "type": "integer",
+        "help": "*MISSING-HELP*",
+        "range": [
+          0,
+          2147483647
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip irdp address IPV4-ADDR:4 preference RANGE:6",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-irdp-address-preference-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Alter ICMP Router discovery preference this interface"
+      },
+      "address": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Removes IRDP non-default preference"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "Select IRDP address"
+      },
+      "preference": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Old preference level"
+      },
+      "RANGE:6": {
+        "id": "6",
+        "type": "integer",
+        "help": "*MISSING-HELP*",
+        "range": [
+          0,
+          2147483647
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip irdp address IPV4-ADDR:4 preference RANGE:6",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-irdp-debug-messages-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "ICMP Router discovery debug Averts. and Solicits (short)"
+      },
+      "debug": {
+        "id": "3",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      },
+      "messages": {
+        "id": "4",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip irdp debug messages",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-irdp-debug-misc-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "ICMP Router discovery debug Averts. and Solicits (short)"
+      },
+      "debug": {
+        "id": "3",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      },
+      "misc": {
+        "id": "4",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip irdp debug misc",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-irdp-debug-packet-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "ICMP Router discovery debug Averts. and Solicits (short)"
+      },
+      "debug": {
+        "id": "3",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      },
+      "packet": {
+        "id": "4",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip irdp debug packet",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-irdp-debug-disable-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "irdp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "ICMP Router discovery debug Averts. and Solicits (short)"
+      },
+      "debug": {
+        "id": "3",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      },
+      "disable": {
+        "id": "4",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip irdp debug disable",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

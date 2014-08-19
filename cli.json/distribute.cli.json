@@ -1,0 +1,826 @@
+{
+  "distribute-list-all-cmd": {
+    "token": {
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Access-list name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:3"
+      }
+    },
+    "command": [
+      {
+        "defun": "distribute-list WORD:2 (in|out)",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-distribute-list-all-cmd": {
+    "token": {
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Access-list name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:3"
+      }
+    },
+    "command": [
+      {
+        "defun": "distribute-list WORD:2 (in|out)",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-distribute-list-all-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Access-list name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:3"
+      }
+    },
+    "command": [
+      {
+        "defun": "no distribute-list WORD:2 (in|out)",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-distribute-list-all-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Access-list name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:3"
+      }
+    },
+    "command": [
+      {
+        "defun": "no distribute-list WORD:2 (in|out)",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "distribute-list-cmd": {
+    "token": {
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Access-list name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:3"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "distribute-list WORD:2 (in|out) WORD:4",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-distribute-list-cmd": {
+    "token": {
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Access-list name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:3"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "distribute-list WORD:2 (in|out) WORD:4",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-distribute-list-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Access-list name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:3"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no distribute-list WORD:2 (in|out) WORD:4",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-distribute-list-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Access-list name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:3"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no distribute-list WORD:2 (in|out) WORD:4",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "distribute-list-prefix-all-cmd": {
+    "token": {
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "prefix": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Filter prefixes in routing updates"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of an IP prefix-list"
+      },
+      "in": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:4"
+      },
+      "out": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "distribute-list prefix WORD:3 (in|out)",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-distribute-list-prefix-all-cmd": {
+    "token": {
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "prefix": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Filter prefixes in routing updates"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of an IP prefix-list"
+      },
+      "in": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:4"
+      },
+      "out": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "distribute-list prefix WORD:3 (in|out)",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-distribute-list-prefix-all-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "prefix": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Filter prefixes in routing updates"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of an IP prefix-list"
+      },
+      "in": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:4"
+      },
+      "out": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no distribute-list prefix WORD:3 (in|out)",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-distribute-list-prefix-all-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "prefix": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Filter prefixes in routing updates"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of an IP prefix-list"
+      },
+      "in": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:4"
+      },
+      "out": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no distribute-list prefix WORD:3 (in|out)",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "distribute-list-prefix-cmd": {
+    "token": {
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "prefix": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Filter prefixes in routing updates"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of an IP prefix-list"
+      },
+      "in": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:4"
+      },
+      "out": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:4"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "distribute-list prefix WORD:3 (in|out) WORD:5",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-distribute-list-prefix-cmd": {
+    "token": {
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "prefix": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Filter prefixes in routing updates"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of an IP prefix-list"
+      },
+      "in": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:4"
+      },
+      "out": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:4"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "distribute-list prefix WORD:3 (in|out) WORD:5",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-distribute-list-prefix-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "prefix": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Filter prefixes in routing updates"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of an IP prefix-list"
+      },
+      "in": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:4"
+      },
+      "out": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:4"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no distribute-list prefix WORD:3 (in|out) WORD:5",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-distribute-list-prefix-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "distribute-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter networks in routing updates"
+      },
+      "prefix": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Filter prefixes in routing updates"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of an IP prefix-list"
+      },
+      "in": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Filter incoming routing updates",
+        "enum": "ENUM:4"
+      },
+      "out": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Filter outgoing routing updates",
+        "enum": "ENUM:4"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no distribute-list prefix WORD:3 (in|out) WORD:5",
+        "mode": [
+          "node"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

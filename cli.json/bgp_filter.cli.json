@@ -1,0 +1,253 @@
+{
+  "ip-as-path-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "as-path": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP autonomous system path filter"
+      },
+      "access-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Specify an access list name"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Regular expression access list name"
+      },
+      "deny": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:5"
+      },
+      "permit": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:5"
+      },
+      "WORD:6": {
+        "id": "6",
+        "type": "string",
+        "help": "A regular-expression to match the BGP AS paths"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip as-path access-list WORD:4 (deny|permit) [WORD:6]",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-as-path-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "as-path": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP autonomous system path filter"
+      },
+      "access-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Specify an access list name"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Regular expression access list name"
+      },
+      "deny": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:5"
+      },
+      "permit": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:5"
+      },
+      "WORD:6": {
+        "id": "6",
+        "type": "string",
+        "help": "A regular-expression to match the BGP AS paths"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip as-path access-list WORD:4 (deny|permit) [WORD:6]",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-as-path-all-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "as-path": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP autonomous system path filter"
+      },
+      "access-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Specify an access list name"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Regular expression access list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip as-path access-list WORD:4",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-as-path-access-list-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "as-path-access-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "List AS path access lists"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "AS path access list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip as-path-access-list WORD:4",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-as-path-access-list-all-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "as-path-access-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "List AS path access lists"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip as-path-access-list",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

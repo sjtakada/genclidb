@@ -1,0 +1,585 @@
+{
+  "vpnv4-network-cmd": {
+    "token": {
+      "network": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Specify a network to announce via BGP"
+      },
+      "IPV4-PREFIX:2": {
+        "id": "2",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "rd": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Specify Route Distinguisher"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "VPN Route Distinguisher"
+      },
+      "tag": {
+        "id": "5",
+        "type": "keyword",
+        "help": "BGP tag"
+      },
+      "WORD:6": {
+        "id": "6",
+        "type": "string",
+        "help": "tag value"
+      }
+    },
+    "command": [
+      {
+        "defun": "network IPV4-PREFIX:2 rd WORD:4 tag WORD:6",
+        "mode": [
+          "BGP-VPNV4-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-vpnv4-network-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "network": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Specify a network to announce via BGP"
+      },
+      "IPV4-PREFIX:2": {
+        "id": "2",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "rd": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Specify Route Distinguisher"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "VPN Route Distinguisher"
+      },
+      "tag": {
+        "id": "5",
+        "type": "keyword",
+        "help": "BGP tag"
+      },
+      "WORD:6": {
+        "id": "6",
+        "type": "string",
+        "help": "tag value"
+      }
+    },
+    "command": [
+      {
+        "defun": "no network IPV4-PREFIX:2 rd WORD:4 tag WORD:6",
+        "mode": [
+          "BGP-VPNV4-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-bgp-vpnv4-all-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "bgp": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "vpnv4": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display VPNv4 NLRI specific information"
+      },
+      "all": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Display information about all VPNv4 NLRIs"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip bgp vpnv4 all",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-bgp-vpnv4-rd-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "bgp": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "vpnv4": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display VPNv4 NLRI specific information"
+      },
+      "rd": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Display information for a route distinguisher"
+      },
+      "WORD:6": {
+        "id": "6",
+        "type": "string",
+        "help": "VPN Route Distinguisher"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip bgp vpnv4 rd WORD:6",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-bgp-vpnv4-all-tags-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "bgp": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "vpnv4": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display VPNv4 NLRI specific information"
+      },
+      "all": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Display information about all VPNv4 NLRIs"
+      },
+      "tags": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Display BGP tags for prefixes"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip bgp vpnv4 all tags",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-bgp-vpnv4-rd-tags-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "bgp": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "vpnv4": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display VPNv4 NLRI specific information"
+      },
+      "rd": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Display information for a route distinguisher"
+      },
+      "WORD:6": {
+        "id": "6",
+        "type": "string",
+        "help": "VPN Route Distinguisher"
+      },
+      "tags": {
+        "id": "7",
+        "type": "keyword",
+        "help": "Display BGP tags for prefixes"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip bgp vpnv4 rd WORD:6 tags",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-bgp-vpnv4-all-neighbor-routes-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "bgp": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "vpnv4": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display VPNv4 NLRI specific information"
+      },
+      "all": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Display information about all VPNv4 NLRIs"
+      },
+      "neighbors": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Detailed information on TCP and BGP neighbor connections"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Neighbor to display information about"
+      },
+      "routes": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Display routes learned from neighbor"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip bgp vpnv4 all neighbors IPV4-ADDR:7 routes",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-bgp-vpnv4-rd-neighbor-routes-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "bgp": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "vpnv4": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display VPNv4 NLRI specific information"
+      },
+      "rd": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Display information for a route distinguisher"
+      },
+      "WORD:6": {
+        "id": "6",
+        "type": "string",
+        "help": "VPN Route Distinguisher"
+      },
+      "neighbors": {
+        "id": "7",
+        "type": "keyword",
+        "help": "Detailed information on TCP and BGP neighbor connections"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "Neighbor to display information about"
+      },
+      "routes": {
+        "id": "9",
+        "type": "keyword",
+        "help": "Display routes learned from neighbor"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip bgp vpnv4 rd WORD:6 neighbors IPV4-ADDR:8 routes",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-bgp-vpnv4-all-neighbor-advertised-routes-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "bgp": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "vpnv4": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display VPNv4 NLRI specific information"
+      },
+      "all": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Display information about all VPNv4 NLRIs"
+      },
+      "neighbors": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Detailed information on TCP and BGP neighbor connections"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Neighbor to display information about"
+      },
+      "advertised-routes": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Display the routes advertised to a BGP neighbor"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip bgp vpnv4 all neighbors IPV4-ADDR:7 advertised-routes",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-bgp-vpnv4-rd-neighbor-advertised-routes-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "bgp": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "vpnv4": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display VPNv4 NLRI specific information"
+      },
+      "rd": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Display information for a route distinguisher"
+      },
+      "WORD:6": {
+        "id": "6",
+        "type": "string",
+        "help": "VPN Route Distinguisher"
+      },
+      "neighbors": {
+        "id": "7",
+        "type": "keyword",
+        "help": "Detailed information on TCP and BGP neighbor connections"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "Neighbor to display information about"
+      },
+      "advertised-routes": {
+        "id": "9",
+        "type": "keyword",
+        "help": "Display the routes advertised to a BGP neighbor"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip bgp vpnv4 rd WORD:6 neighbors IPV4-ADDR:8 advertised-routes",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

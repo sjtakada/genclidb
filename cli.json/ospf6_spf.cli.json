@@ -1,0 +1,275 @@
+{
+  "debug-ospf6-spf-process-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "spf": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug SPF Calculation"
+      },
+      "process": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Debug Detailed SPF Process"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 spf process",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf6-spf-time-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "spf": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug SPF Calculation"
+      },
+      "time": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Measure time taken by SPF Calculation"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 spf time",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf6-spf-database-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "spf": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug SPF Calculation"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Log number of LSAs at SPF Calculation time"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 spf database",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-spf-process-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "spf": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Quit Debugging SPF Calculation"
+      },
+      "process": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Quit Debugging Detailed SPF Process"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 spf process",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-spf-time-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "spf": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Quit Debugging SPF Calculation"
+      },
+      "time": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Quit Measuring time taken by SPF Calculation"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 spf time",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-spf-database-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "spf": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug SPF Calculation"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Quit Logging number of LSAs at SPF Calculation time"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 spf database",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

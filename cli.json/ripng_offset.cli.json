@@ -1,0 +1,234 @@
+{
+  "ripng-offset-list-cmd": {
+    "token": {
+      "offset-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Modify RIPng metric"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Access-list name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "For incoming updates",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "For outgoing updates",
+        "enum": "ENUM:3"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Metric value",
+        "range": [
+          0,
+          16
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "offset-list WORD:2 (in|out) RANGE:4",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ripng-offset-list-ifname-cmd": {
+    "token": {
+      "offset-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Modify RIPng metric"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Access-list name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "For incoming updates",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "For outgoing updates",
+        "enum": "ENUM:3"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Metric value",
+        "range": [
+          0,
+          16
+        ]
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Interface to match"
+      }
+    },
+    "command": [
+      {
+        "defun": "offset-list WORD:2 (in|out) RANGE:4 WORD:5",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-offset-list-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "offset-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Modify RIPng metric"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Access-list name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "For incoming updates",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "For outgoing updates",
+        "enum": "ENUM:3"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Metric value",
+        "range": [
+          0,
+          16
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no offset-list WORD:2 (in|out) RANGE:4",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-offset-list-ifname-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "offset-list": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Modify RIPng metric"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Access-list name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "For incoming updates",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "For outgoing updates",
+        "enum": "ENUM:3"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Metric value",
+        "range": [
+          0,
+          16
+        ]
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Interface to match"
+      }
+    },
+    "command": [
+      {
+        "defun": "no offset-list WORD:2 (in|out) RANGE:4 WORD:5",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

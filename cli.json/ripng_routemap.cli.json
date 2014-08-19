@@ -1,0 +1,760 @@
+{
+  "match-metric-cmd": {
+    "token": {
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "metric": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Match metric of route"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Metric value",
+        "range": [
+          0,
+          4294967295
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "match metric RANGE:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-metric-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "metric": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Match metric of route"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match metric",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-metric-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "metric": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Match metric of route"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Metric value",
+        "range": [
+          0,
+          4294967295
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no match metric RANGE:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "match-interface-cmd": {
+    "token": {
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "interface": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Match first hop interface of route"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "match interface WORD:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-interface-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "interface": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Match first hop interface of route"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match interface",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-interface-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "interface": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Match first hop interface of route"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match interface WORD:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "match-tag-cmd": {
+    "token": {
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "tag": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Match tag of route"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Metric value",
+        "range": [
+          0,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "match tag RANGE:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-tag-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "tag": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Match tag of route"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match tag",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-tag-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "tag": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Match tag of route"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Metric value",
+        "range": [
+          0,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no match tag RANGE:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "set-metric-cmd": {
+    "token": {
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set value"
+      },
+      "metric": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Metric value for destination routing protocol"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Metric value",
+        "range": [
+          0,
+          4294967295
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "set metric RANGE:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-set-metric-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set values in destination routing protocol"
+      },
+      "metric": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Metric value for destination routing protocol"
+      }
+    },
+    "command": [
+      {
+        "defun": "no set metric",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-set-metric-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set values in destination routing protocol"
+      },
+      "metric": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Metric value for destination routing protocol"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Metric value",
+        "range": [
+          0,
+          4294967295
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no set metric RANGE:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "set-ipv6-nexthop-local-cmd": {
+    "token": {
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set values in destination routing protocol"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "next-hop": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IPv6 next-hop address"
+      },
+      "local": {
+        "id": "4",
+        "type": "keyword",
+        "help": "IPv6 local address"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IPv6 address of next hop"
+      }
+    },
+    "command": [
+      {
+        "defun": "set ipv6 next-hop local WORD:5",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-set-ipv6-nexthop-local-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set values in destination routing protocol"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "next-hop": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IPv6 next-hop address"
+      },
+      "local": {
+        "id": "4",
+        "type": "keyword",
+        "help": "IPv6 local address"
+      }
+    },
+    "command": [
+      {
+        "defun": "no set ipv6 next-hop local",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-set-ipv6-nexthop-local-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set values in destination routing protocol"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "next-hop": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IPv6 next-hop address"
+      },
+      "local": {
+        "id": "4",
+        "type": "keyword",
+        "help": "IPv6 local address"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IPv6 address of next hop"
+      }
+    },
+    "command": [
+      {
+        "defun": "no set ipv6 next-hop local WORD:5",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "set-tag-cmd": {
+    "token": {
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set values in destination routing protocol"
+      },
+      "tag": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Tag value for routing protocol"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Tag value",
+        "range": [
+          0,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "set tag RANGE:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-set-tag-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set values in destination routing protocol"
+      },
+      "tag": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Tag value for routing protocol"
+      }
+    },
+    "command": [
+      {
+        "defun": "no set tag",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-set-tag-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set values in destination routing protocol"
+      },
+      "tag": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Tag value for routing protocol"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Tag value",
+        "range": [
+          0,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no set tag RANGE:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

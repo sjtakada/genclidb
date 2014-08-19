@@ -1,0 +1,620 @@
+{
+  "show-interface-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "interface": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Interface status and configuration"
+      },
+      "WORD:3.0": {
+        "id": "3.0",
+        "type": "string",
+        "help": "Inteface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "show interface (WORD:3.0|)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-interface-desc-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "interface": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Interface status and configuration"
+      },
+      "description": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Interface description"
+      }
+    },
+    "command": [
+      {
+        "defun": "show interface description",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "multicast-cmd": {
+    "token": {
+      "multicast": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set multicast flag to interface"
+      }
+    },
+    "command": [
+      {
+        "defun": "multicast",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-multicast-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "multicast": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Unset multicast flag to interface"
+      }
+    },
+    "command": [
+      {
+        "defun": "no multicast",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "linkdetect-cmd": {
+    "token": {
+      "link-detect": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Enable link detection on interface"
+      }
+    },
+    "command": [
+      {
+        "defun": "link-detect",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-linkdetect-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "link-detect": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Disable link detection on interface"
+      }
+    },
+    "command": [
+      {
+        "defun": "no link-detect",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "shutdown-if-cmd": {
+    "token": {
+      "shutdown": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Shutdown the selected interface"
+      }
+    },
+    "command": [
+      {
+        "defun": "shutdown",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-shutdown-if-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "shutdown": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Shutdown the selected interface"
+      }
+    },
+    "command": [
+      {
+        "defun": "no shutdown",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "bandwidth-if-cmd": {
+    "token": {
+      "bandwidth": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set bandwidth informational parameter"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Bandwidth in kilobits",
+        "range": [
+          1,
+          10000000
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "bandwidth RANGE:2",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-bandwidth-if-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "bandwidth": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set bandwidth informational parameter"
+      }
+    },
+    "command": [
+      {
+        "defun": "no bandwidth",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-bandwidth-if-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "bandwidth": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set bandwidth informational parameter"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Bandwidth in kilobits",
+        "range": [
+          1,
+          10000000
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no bandwidth RANGE:2",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-address-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface Internet Protocol config commands"
+      },
+      "address": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Set the IP address of an interface"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP address (e.g. 10.0.0.1/8)"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip address IPV4-PREFIX:3",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-address-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface Internet Protocol config commands"
+      },
+      "address": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Set the IP address of an interface"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP Address (e.g. 10.0.0.1/8)"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip address IPV4-PREFIX:3",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-address-label-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface Internet Protocol config commands"
+      },
+      "address": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Set the IP address of an interface"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP address (e.g. 10.0.0.1/8)"
+      },
+      "label": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Label of this address"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Label"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip address IPV4-PREFIX:3 label WORD:5",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-address-label-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface Internet Protocol config commands"
+      },
+      "address": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Set the IP address of an interface"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP address (e.g. 10.0.0.1/8)"
+      },
+      "label": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Label of this address"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Label"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip address IPV4-PREFIX:3 label WORD:5",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-address-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "address": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Set the IP address of an interface"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 address (e.g. 3ffe:506::1/48)"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 address IPV6-PREFIX:3",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-address-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "address": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Set the IP address of an interface"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 address (e.g. 3ffe:506::1/48)"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 address IPV6-PREFIX:3",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

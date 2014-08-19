@@ -1,0 +1,387 @@
+{
+  "show-debugging-rip-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "debugging": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "rip": {
+        "id": "3",
+        "type": "keyword",
+        "help": "RIP information"
+      }
+    },
+    "command": [
+      {
+        "defun": "show debugging rip",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-rip-events-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIP information"
+      },
+      "events": {
+        "id": "3",
+        "type": "keyword",
+        "help": "RIP events"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug rip events",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-rip-packet-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIP information"
+      },
+      "packet": {
+        "id": "3",
+        "type": "keyword",
+        "help": "RIP packet"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug rip packet",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-rip-packet-direct-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIP information"
+      },
+      "packet": {
+        "id": "3",
+        "type": "keyword",
+        "help": "RIP packet"
+      },
+      "recv": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "RIP receive packet",
+        "enum": "ENUM:4"
+      },
+      "send": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "RIP send packet",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug rip packet (recv|send)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-rip-zebra-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIP information"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "RIP and ZEBRA communication"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug rip zebra",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-rip-events-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIP information"
+      },
+      "events": {
+        "id": "3",
+        "type": "keyword",
+        "help": "RIP events"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug rip events",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-rip-packet-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIP information"
+      },
+      "packet": {
+        "id": "3",
+        "type": "keyword",
+        "help": "RIP packet"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug rip packet",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-rip-packet-direct-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIP information"
+      },
+      "packet": {
+        "id": "3",
+        "type": "keyword",
+        "help": "RIP packet"
+      },
+      "recv": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "RIP option set for receive packet",
+        "enum": "ENUM:4"
+      },
+      "send": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "RIP option set for send packet",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug rip packet (recv|send)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-rip-zebra-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIP information"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "RIP and ZEBRA communication"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug rip zebra",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

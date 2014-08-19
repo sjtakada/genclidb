@@ -1,0 +1,3341 @@
+{
+  "ip-route-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP destination prefix (e.g. 10.0.0.0/8)"
+      },
+      "IPV4-ADDR:4.0": {
+        "id": "4.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "null0": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Null interface",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip route IPV4-PREFIX:3 (IPV4-ADDR:4.0|WORD:4.1|null0)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "bind": [
+          "if IPV4-PREFIX:3 do ADDRESS, MASKLEN = ipv4prefix2address_masklen (IPV4-PREFIX:3)"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "PUT",
+              "path": "ipv4_routes/:ADDRESS/:MASKLEN/nexthop_ipv4s/:IPV4-ADDR:4.0"
+            },
+            "cond": "IPV4-ADDR:4.0"
+          },
+          {
+            "http": {
+              "method": "PUT",
+              "path": "ipv4_routes/:ADDRESS/:MASKLEN/nexthop_ifs/:WORD:4.1"
+            },
+            "cond": "WORD:4.1"
+          }
+        ]
+      }
+    ]
+  },
+  "ip-route-flags-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP destination prefix (e.g. 10.0.0.0/8)"
+      },
+      "IPV4-ADDR:4.0": {
+        "id": "4.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "reject": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:5"
+      },
+      "blackhole": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip route IPV4-PREFIX:3 (IPV4-ADDR:4.0|WORD:4.1) (reject|blackhole)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-route-flags2-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP destination prefix (e.g. 10.0.0.0/8)"
+      },
+      "reject": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:4"
+      },
+      "blackhole": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip route IPV4-PREFIX:3 (reject|blackhole)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-route-mask-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-ADDR:3": {
+        "id": "3",
+        "type": "ipv4address",
+        "help": "IP destination prefix"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "IP destination prefix mask"
+      },
+      "IPV4-ADDR:5.0": {
+        "id": "5.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:5.1": {
+        "id": "5.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "null0": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Null interface",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip route IPV4-ADDR:3 IPV4-ADDR:4 (IPV4-ADDR:5.0|WORD:5.1|null0)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-route-mask-flags-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-ADDR:3": {
+        "id": "3",
+        "type": "ipv4address",
+        "help": "IP destination prefix"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "IP destination prefix mask"
+      },
+      "IPV4-ADDR:5.0": {
+        "id": "5.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:5.1": {
+        "id": "5.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "reject": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:6"
+      },
+      "blackhole": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:6"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip route IPV4-ADDR:3 IPV4-ADDR:4 (IPV4-ADDR:5.0|WORD:5.1) (reject|blackhole)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-route-mask-flags2-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-ADDR:3": {
+        "id": "3",
+        "type": "ipv4address",
+        "help": "IP destination prefix"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "IP destination prefix mask"
+      },
+      "reject": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:5"
+      },
+      "blackhole": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip route IPV4-ADDR:3 IPV4-ADDR:4 (reject|blackhole)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-route-distance-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP destination prefix (e.g. 10.0.0.0/8)"
+      },
+      "IPV4-ADDR:4.0": {
+        "id": "4.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "null0": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Null interface",
+        "enum": "ENUM:4"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Distance value for this route",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip route IPV4-PREFIX:3 (IPV4-ADDR:4.0|WORD:4.1|null0) RANGE:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-route-flags-distance-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP destination prefix (e.g. 10.0.0.0/8)"
+      },
+      "IPV4-ADDR:4.0": {
+        "id": "4.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "reject": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:5"
+      },
+      "blackhole": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:5"
+      },
+      "RANGE:6": {
+        "id": "6",
+        "type": "integer",
+        "help": "Distance value for this route",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip route IPV4-PREFIX:3 (IPV4-ADDR:4.0|WORD:4.1) (reject|blackhole) RANGE:6",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-route-flags-distance2-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP destination prefix (e.g. 10.0.0.0/8)"
+      },
+      "reject": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:4"
+      },
+      "blackhole": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:4"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Distance value for this route",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip route IPV4-PREFIX:3 (reject|blackhole) RANGE:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-route-mask-distance-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-ADDR:3": {
+        "id": "3",
+        "type": "ipv4address",
+        "help": "IP destination prefix"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "IP destination prefix mask"
+      },
+      "IPV4-ADDR:5.0": {
+        "id": "5.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:5.1": {
+        "id": "5.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "null0": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Null interface",
+        "enum": "ENUM:5"
+      },
+      "RANGE:6": {
+        "id": "6",
+        "type": "integer",
+        "help": "Distance value for this route",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip route IPV4-ADDR:3 IPV4-ADDR:4 (IPV4-ADDR:5.0|WORD:5.1|null0) RANGE:6",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-route-mask-flags-distance-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-ADDR:3": {
+        "id": "3",
+        "type": "ipv4address",
+        "help": "IP destination prefix"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "IP destination prefix mask"
+      },
+      "IPV4-ADDR:5.0": {
+        "id": "5.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:5.1": {
+        "id": "5.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "reject": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Distance value for this route",
+        "enum": "ENUM:6"
+      },
+      "blackhole": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:6"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Silently discard pkts when matched",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip route IPV4-ADDR:3 IPV4-ADDR:4 (IPV4-ADDR:5.0|WORD:5.1) (reject|blackhole) RANGE:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-route-mask-flags-distance2-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-ADDR:3": {
+        "id": "3",
+        "type": "ipv4address",
+        "help": "IP destination prefix"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "IP destination prefix mask"
+      },
+      "reject": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Distance value for this route",
+        "enum": "ENUM:5"
+      },
+      "blackhole": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:5"
+      },
+      "RANGE:6": {
+        "id": "6",
+        "type": "integer",
+        "help": "Silently discard pkts when matched",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip route IPV4-ADDR:3 IPV4-ADDR:4 (reject|blackhole) RANGE:6",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-route-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP destination prefix (e.g. 10.0.0.0/8)"
+      },
+      "IPV4-ADDR:4.0": {
+        "id": "4.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "null0": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Null interface",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip route IPV4-PREFIX:3 (IPV4-ADDR:4.0|WORD:4.1|null0)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "bind": [
+          "if IPV4-PREFIX:3 do ADDRESS, MASKLEN = ipv4prefix2address_masklen (IPV4-PREFIX:3)"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "DELETE",
+              "path": "ipv4_routes/:ADDRESS/:MASKLEN/nexthop_ipv4s/:IPV4-ADDR:4.0"
+            },
+            "cond": "IPV4-ADDR:4.0"
+          },
+          {
+            "http": {
+              "method": "DELETE",
+              "path": "ipv4_routes/:ADDRESS/:MASKLEN/nexthop_ifs/:WORD:4.1"
+            },
+            "cond": "WORD:4.1"
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-route-flags-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP destination prefix (e.g. 10.0.0.0/8)"
+      },
+      "IPV4-ADDR:4.0": {
+        "id": "4.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "reject": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:5"
+      },
+      "blackhole": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip route IPV4-PREFIX:3 (IPV4-ADDR:4.0|WORD:4.1) (reject|blackhole)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-route-flags2-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP destination prefix (e.g. 10.0.0.0/8)"
+      },
+      "reject": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:4"
+      },
+      "blackhole": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip route IPV4-PREFIX:3 (reject|blackhole)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-route-mask-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-ADDR:3": {
+        "id": "3",
+        "type": "ipv4address",
+        "help": "IP destination prefix"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "IP destination prefix mask"
+      },
+      "IPV4-ADDR:5.0": {
+        "id": "5.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:5.1": {
+        "id": "5.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "null0": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Null interface",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip route IPV4-ADDR:3 IPV4-ADDR:4 (IPV4-ADDR:5.0|WORD:5.1|null0)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-route-mask-flags-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-ADDR:3": {
+        "id": "3",
+        "type": "ipv4address",
+        "help": "IP destination prefix"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "IP destination prefix mask"
+      },
+      "IPV4-ADDR:5.0": {
+        "id": "5.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:5.1": {
+        "id": "5.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "reject": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:6"
+      },
+      "blackhole": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:6"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip route IPV4-ADDR:3 IPV4-ADDR:4 (IPV4-ADDR:5.0|WORD:5.1) (reject|blackhole)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-route-mask-flags2-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-ADDR:3": {
+        "id": "3",
+        "type": "ipv4address",
+        "help": "IP destination prefix"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "IP destination prefix mask"
+      },
+      "reject": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:5"
+      },
+      "blackhole": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip route IPV4-ADDR:3 IPV4-ADDR:4 (reject|blackhole)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-route-distance-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP destination prefix (e.g. 10.0.0.0/8)"
+      },
+      "IPV4-ADDR:4.0": {
+        "id": "4.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "null0": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Null interface",
+        "enum": "ENUM:4"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Distance value for this route",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip route IPV4-PREFIX:3 (IPV4-ADDR:4.0|WORD:4.1|null0) RANGE:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-route-flags-distance-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP destination prefix (e.g. 10.0.0.0/8)"
+      },
+      "IPV4-ADDR:4.0": {
+        "id": "4.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "reject": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:5"
+      },
+      "blackhole": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:5"
+      },
+      "RANGE:6": {
+        "id": "6",
+        "type": "integer",
+        "help": "Distance value for this route",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip route IPV4-PREFIX:3 (IPV4-ADDR:4.0|WORD:4.1) (reject|blackhole) RANGE:6",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-route-flags-distance2-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP destination prefix (e.g. 10.0.0.0/8)"
+      },
+      "reject": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:4"
+      },
+      "blackhole": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:4"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Distance value for this route",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip route IPV4-PREFIX:3 (reject|blackhole) RANGE:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-route-mask-distance-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-ADDR:3": {
+        "id": "3",
+        "type": "ipv4address",
+        "help": "IP destination prefix"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "IP destination prefix mask"
+      },
+      "IPV4-ADDR:5.0": {
+        "id": "5.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:5.1": {
+        "id": "5.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "null0": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Null interface",
+        "enum": "ENUM:5"
+      },
+      "RANGE:6": {
+        "id": "6",
+        "type": "integer",
+        "help": "Distance value for this route",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip route IPV4-ADDR:3 IPV4-ADDR:4 (IPV4-ADDR:5.0|WORD:5.1|null0) RANGE:6",
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-route-mask-flags-distance-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-ADDR:3": {
+        "id": "3",
+        "type": "ipv4address",
+        "help": "IP destination prefix"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "IP destination prefix mask"
+      },
+      "IPV4-ADDR:5.0": {
+        "id": "5.0",
+        "type": "ipv4address",
+        "help": "IP gateway address"
+      },
+      "WORD:5.1": {
+        "id": "5.1",
+        "type": "string",
+        "help": "IP gateway interface name"
+      },
+      "reject": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:6"
+      },
+      "blackhole": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:6"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Distance value for this route",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip route IPV4-ADDR:3 IPV4-ADDR:4 (IPV4-ADDR:5.0|WORD:5.1) (reject|blackhole) RANGE:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-route-mask-flags-distance2-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV4-ADDR:3": {
+        "id": "3",
+        "type": "ipv4address",
+        "help": "IP destination prefix"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "IP destination prefix mask"
+      },
+      "reject": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:5"
+      },
+      "blackhole": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:5"
+      },
+      "RANGE:6": {
+        "id": "6",
+        "type": "integer",
+        "help": "Distance value for this route",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip route IPV4-ADDR:3 IPV4-ADDR:4 (reject|blackhole) RANGE:6",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-protocol-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "protocol": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Apply route map to PROTO"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Protocol name"
+      },
+      "route-map": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Route map name"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip protocol WORD:3 route-map WORD:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-protocol-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Remove route map from PROTO"
+      },
+      "protocol": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Protocol name"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip protocol WORD:3",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-route-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IP routing table"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip route",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-route-prefix-longer-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IP routing table"
+      },
+      "IPV4-PREFIX:4": {
+        "id": "4",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "longer-prefixes": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Show route matching the specified Network/Mask pair only"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip route IPV4-PREFIX:4 longer-prefixes",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-route-supernets-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IP routing table"
+      },
+      "supernets-only": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Show supernet entries only"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip route supernets-only",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-route-protocol-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IP routing table"
+      },
+      "kernel": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Kernel routes (not installed via the zebra RIB)",
+        "enum": "ENUM:4"
+      },
+      "connected": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Connected routes (directly attached subnet or host)",
+        "enum": "ENUM:4"
+      },
+      "static": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Statically configured routes",
+        "enum": "ENUM:4"
+      },
+      "rip": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "Routing Information Protocol (RIP)",
+        "enum": "ENUM:4"
+      },
+      "ospf": {
+        "id": "4.4",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPFv2)",
+        "enum": "ENUM:4"
+      },
+      "isis": {
+        "id": "4.5",
+        "type": "keyword",
+        "help": "Intermediate System to Intermediate System (IS-IS)",
+        "enum": "ENUM:4"
+      },
+      "bgp": {
+        "id": "4.6",
+        "type": "keyword",
+        "help": "Border Gateway Protocol (BGP)",
+        "enum": "ENUM:4"
+      },
+      "babel": {
+        "id": "4.7",
+        "type": "keyword",
+        "help": "Babel routing protocol (Babel)",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip route (kernel|connected|static|rip|ospf|isis|bgp|babel)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-route-addr-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IP routing table"
+      },
+      "IPV4-ADDR:4": {
+        "id": "4",
+        "type": "ipv4address",
+        "help": "Network in the IP routing table to display"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip route IPV4-ADDR:4",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-route-prefix-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IP routing table"
+      },
+      "IPV4-PREFIX:4": {
+        "id": "4",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip route IPV4-PREFIX:4",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-route-summary-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IP routing table"
+      },
+      "summary": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Summary of all routes"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip route summary",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-protocol-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "protocol": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IP protocol filtering status"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip protocol",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-mroute-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "mroute": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IP Multicast routing table"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip mroute",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-route-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4.0": {
+        "id": "4.0",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-route-flags-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4.0": {
+        "id": "4.0",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      },
+      "reject": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:5"
+      },
+      "blackhole": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1) (reject|blackhole)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-route-ifname-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-route-ifname-flags-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      },
+      "reject": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:6"
+      },
+      "blackhole": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:6"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5 (reject|blackhole)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-route-pref-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4.0": {
+        "id": "4.0",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Distance value for this prefix",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1) RANGE:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-route-flags-pref-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4.0": {
+        "id": "4.0",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      },
+      "reject": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:5"
+      },
+      "blackhole": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:5"
+      },
+      "RANGE:6": {
+        "id": "6",
+        "type": "integer",
+        "help": "Distance value for this prefix",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1) (reject|blackhole) RANGE:6",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-route-ifname-pref-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      },
+      "RANGE:6": {
+        "id": "6",
+        "type": "integer",
+        "help": "Distance value for this prefix",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5 RANGE:6",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-route-ifname-flags-pref-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      },
+      "reject": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:6"
+      },
+      "blackhole": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:6"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Distance value for this prefix",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5 (reject|blackhole) RANGE:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-route-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4.0": {
+        "id": "4.0",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-route-flags-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4.0": {
+        "id": "4.0",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      },
+      "reject": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:5"
+      },
+      "blackhole": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1) (reject|blackhole)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-route-ifname-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-route-ifname-flags-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      },
+      "reject": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:6"
+      },
+      "blackhole": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:6"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5 (reject|blackhole)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-route-pref-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4.0": {
+        "id": "4.0",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Distance value for this prefix",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1) RANGE:5",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-route-flags-pref-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4.0": {
+        "id": "4.0",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:4.1": {
+        "id": "4.1",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      },
+      "reject": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:5"
+      },
+      "blackhole": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:5"
+      },
+      "RANGE:6": {
+        "id": "6",
+        "type": "integer",
+        "help": "Distance value for this prefix",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1) (reject|blackhole) RANGE:6",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-route-ifname-pref-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      },
+      "RANGE:6": {
+        "id": "6",
+        "type": "integer",
+        "help": "Distance value for this prefix",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5 RANGE:6",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-route-ifname-flags-pref-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Establish static routes"
+      },
+      "IPV6-PREFIX:3": {
+        "id": "3",
+        "type": "ipv6prefix",
+        "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "IPv6 gateway address"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IPv6 gateway interface name"
+      },
+      "reject": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Emit an ICMP unreachable when matched",
+        "enum": "ENUM:6"
+      },
+      "blackhole": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Silently discard pkts when matched",
+        "enum": "ENUM:6"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Distance value for this prefix",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5 (reject|blackhole) RANGE:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-route-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IPv6 routing table"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 route",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-route-prefix-longer-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IPv6 routing table"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      },
+      "longer-prefixes": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Show route matching the specified Network/Mask pair only"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 route IPV6-PREFIX:4 longer-prefixes",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-route-protocol-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IP routing table"
+      },
+      "kernel": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Kernel routes (not installed via the zebra RIB)",
+        "enum": "ENUM:4"
+      },
+      "connected": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Connected routes (directly attached subnet or host)",
+        "enum": "ENUM:4"
+      },
+      "static": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Statically configured routes",
+        "enum": "ENUM:4"
+      },
+      "ripng": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "Routing Information Protocol next-generation (IPv6) (RIPng)",
+        "enum": "ENUM:4"
+      },
+      "ospf6": {
+        "id": "4.4",
+        "type": "keyword",
+        "help": "Open Shortest Path First (IPv6) (OSPFv3)",
+        "enum": "ENUM:4"
+      },
+      "isis": {
+        "id": "4.5",
+        "type": "keyword",
+        "help": "Intermediate System to Intermediate System (IS-IS)",
+        "enum": "ENUM:4"
+      },
+      "bgp": {
+        "id": "4.6",
+        "type": "keyword",
+        "help": "Border Gateway Protocol (BGP)",
+        "enum": "ENUM:4"
+      },
+      "babel": {
+        "id": "4.7",
+        "type": "keyword",
+        "help": "Babel routing protocol (Babel)",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 route (kernel|connected|static|ripng|ospf6|isis|bgp|babel)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-route-addr-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IPv6 routing table"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "IPv6 Address"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 route WORD:4",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-route-prefix-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IPv6 routing table"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 route IPV6-PREFIX:4",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-route-summary-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IPv6 routing table"
+      },
+      "summary": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Summary of all IPv6 routes"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 route summary",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-mroute-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "mroute": {
+        "id": "3",
+        "type": "keyword",
+        "help": "IPv6 Multicast routing table"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 mroute",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

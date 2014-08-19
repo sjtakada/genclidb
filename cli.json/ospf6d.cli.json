@@ -1,0 +1,3629 @@
+{
+  "show-version-ospf6-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "version": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Displays ospf6d version"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "show version ospf6",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "detail": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:5"
+      },
+      "dump": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:5"
+      },
+      "internal": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "detail": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:6"
+      },
+      "dump": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:6"
+      },
+      "internal": {
+        "id": "6.2",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:6"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-id-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "*": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Any Link state Type"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database * IPV4-ADDR:6",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-id-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "*": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Any Link state Type"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      },
+      "detail": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:7"
+      },
+      "dump": {
+        "id": "7.1",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:7"
+      },
+      "internal": {
+        "id": "7.2",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database * IPV4-ADDR:6 (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-linkstate-id-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "linkstate-id": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Search by Link state ID"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database linkstate-id IPV4-ADDR:6",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-linkstate-id-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "linkstate-id": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Search by Link state ID"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      },
+      "detail": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:7"
+      },
+      "dump": {
+        "id": "7.1",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:7"
+      },
+      "internal": {
+        "id": "7.2",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database linkstate-id IPV4-ADDR:6 (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-router-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "*": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Any Link state ID"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database * * IPV4-ADDR:7",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-router-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "*": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Any Link state ID"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      },
+      "detail": {
+        "id": "8.0",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:8"
+      },
+      "dump": {
+        "id": "8.1",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:8"
+      },
+      "internal": {
+        "id": "8.2",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:8"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database * * IPV4-ADDR:7 (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-adv-router-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "adv-router": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Search by Advertising Router"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database adv-router IPV4-ADDR:6",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-adv-router-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "adv-router": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Search by Advertising Router"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      },
+      "detail": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:7"
+      },
+      "dump": {
+        "id": "7.1",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:7"
+      },
+      "internal": {
+        "id": "7.2",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database adv-router IPV4-ADDR:6 (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-id-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) IPV4-ADDR:6",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-id-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      },
+      "detail": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:7"
+      },
+      "dump": {
+        "id": "7.1",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:7"
+      },
+      "internal": {
+        "id": "7.2",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) IPV4-ADDR:6 (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-linkstate-id-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "linkstate-id": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Search by Link state ID"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) linkstate-id IPV4-ADDR:7",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-linkstate-id-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "linkstate-id": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Search by Link state ID"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      },
+      "detail": {
+        "id": "8.0",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:8"
+      },
+      "dump": {
+        "id": "8.1",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:8"
+      },
+      "internal": {
+        "id": "8.2",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:8"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) linkstate-id IPV4-ADDR:7 (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-router-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "*": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Any Link state ID"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) * IPV4-ADDR:7",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-router-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "*": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Any Link state ID"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      },
+      "detail": {
+        "id": "8.0",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:8"
+      },
+      "dump": {
+        "id": "8.1",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:8"
+      },
+      "internal": {
+        "id": "8.2",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:8"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) * IPV4-ADDR:7 (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-adv-router-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "adv-router": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Search by Advertising Router"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) adv-router IPV4-ADDR:7",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-adv-router-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "adv-router": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Search by Advertising Router"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      },
+      "detail": {
+        "id": "8.0",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:8"
+      },
+      "dump": {
+        "id": "8.1",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:8"
+      },
+      "internal": {
+        "id": "8.2",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:8"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) adv-router IPV4-ADDR:7 (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-id-router-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "*": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Any Link state Type"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database * IPV4-ADDR:6 IPV4-ADDR:7",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-id-router-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "*": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Any Link state Type"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      },
+      "detail": {
+        "id": "8.0",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:8"
+      },
+      "dump": {
+        "id": "8.1",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:8"
+      },
+      "internal": {
+        "id": "8.2",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:8"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database * IPV4-ADDR:6 IPV4-ADDR:7 (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-adv-router-linkstate-id-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "adv-router": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Search by Advertising Router"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      },
+      "linkstate-id": {
+        "id": "7",
+        "type": "keyword",
+        "help": "Search by Link state ID"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database adv-router IPV4-ADDR:6 linkstate-id IPV4-ADDR:8",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-adv-router-linkstate-id-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "adv-router": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Search by Advertising Router"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      },
+      "linkstate-id": {
+        "id": "7",
+        "type": "keyword",
+        "help": "Search by Link state ID"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      },
+      "detail": {
+        "id": "9.0",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:9"
+      },
+      "dump": {
+        "id": "9.1",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:9"
+      },
+      "internal": {
+        "id": "9.2",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:9"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database adv-router IPV4-ADDR:6 linkstate-id IPV4-ADDR:8 (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-id-router-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) IPV4-ADDR:6 IPV4-ADDR:7",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-id-router-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      },
+      "dump": {
+        "id": "8.0",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:8"
+      },
+      "internal": {
+        "id": "8.1",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:8"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) IPV4-ADDR:6 IPV4-ADDR:7 (dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-adv-router-linkstate-id-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "adv-router": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Search by Advertising Router"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      },
+      "linkstate-id": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Search by Link state ID"
+      },
+      "IPV4-ADDR:9": {
+        "id": "9",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) adv-router IPV4-ADDR:7 linkstate-id IPV4-ADDR:9",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-adv-router-linkstate-id-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "adv-router": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Search by Advertising Router"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Advertising Router as IPv4 address notation"
+      },
+      "linkstate-id": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Search by Link state ID"
+      },
+      "IPV4-ADDR:9": {
+        "id": "9",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      },
+      "dump": {
+        "id": "10.0",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:10"
+      },
+      "internal": {
+        "id": "10.1",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:10"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) adv-router IPV4-ADDR:7 linkstate-id IPV4-ADDR:9 (dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-self-originated-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Self-originated LSAs"
+      },
+      "self-originated": {
+        "id": "5",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database self-originated",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-self-originated-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Self-originated LSAs"
+      },
+      "self-originated": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Display details of LSAs"
+      },
+      "detail": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:6"
+      },
+      "dump": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:6"
+      },
+      "internal": {
+        "id": "6.2",
+        "type": "keyword",
+        "help": "*MISSING-HELP*",
+        "enum": "ENUM:6"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database self-originated (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-self-originated-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "self-originated": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Display Self-originated LSAs"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) self-originated",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-self-originated-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "self-originated": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Display Self-originated LSAs"
+      },
+      "detail": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:7"
+      },
+      "dump": {
+        "id": "7.1",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:7"
+      },
+      "internal": {
+        "id": "7.2",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) self-originated (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-self-originated-linkstate-id-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "self-originated": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Display Self-originated LSAs"
+      },
+      "linkstate-id": {
+        "id": "7",
+        "type": "keyword",
+        "help": "Search by Link state ID"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) self-originated linkstate-id IPV4-ADDR:8",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-self-originated-linkstate-id-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "self-originated": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Display Self-originated LSAs"
+      },
+      "linkstate-id": {
+        "id": "7",
+        "type": "keyword",
+        "help": "Search by Link state ID"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      },
+      "detail": {
+        "id": "9.0",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:9"
+      },
+      "dump": {
+        "id": "9.1",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:9"
+      },
+      "internal": {
+        "id": "9.2",
+        "type": "keyword",
+        "help": "Display LSA's internal information",
+        "enum": "ENUM:9"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) self-originated linkstate-id IPV4-ADDR:8 (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-id-self-originated-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      },
+      "self-originated": {
+        "id": "7",
+        "type": "keyword",
+        "help": "Display Self-originated LSAs"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) IPV4-ADDR:6 self-originated",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-database-type-id-self-originated-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "database": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display Link state database"
+      },
+      "router": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Display Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "network": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Network LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-prefix": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Display Inter-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "inter-router": {
+        "id": "5.3",
+        "type": "keyword",
+        "help": "Display Inter-Area-Router LSAs",
+        "enum": "ENUM:5"
+      },
+      "as-external": {
+        "id": "5.4",
+        "type": "keyword",
+        "help": "Display As-External LSAs",
+        "enum": "ENUM:5"
+      },
+      "group-membership": {
+        "id": "5.5",
+        "type": "keyword",
+        "help": "Display Group-Membership LSAs",
+        "enum": "ENUM:5"
+      },
+      "type-7": {
+        "id": "5.6",
+        "type": "keyword",
+        "help": "Display Type-7 LSAs",
+        "enum": "ENUM:5"
+      },
+      "link": {
+        "id": "5.7",
+        "type": "keyword",
+        "help": "Display Link LSAs",
+        "enum": "ENUM:5"
+      },
+      "intra-prefix": {
+        "id": "5.8",
+        "type": "keyword",
+        "help": "Display Intra-Area-Prefix LSAs",
+        "enum": "ENUM:5"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Display Self-originated LSAs"
+      },
+      "self-originated": {
+        "id": "7",
+        "type": "keyword",
+        "help": "Search by Link state ID"
+      },
+      "detail": {
+        "id": "8.0",
+        "type": "keyword",
+        "help": "Specify Link state ID as IPv4 address notation",
+        "enum": "ENUM:8"
+      },
+      "dump": {
+        "id": "8.1",
+        "type": "keyword",
+        "help": "Display details of LSAs",
+        "enum": "ENUM:8"
+      },
+      "internal": {
+        "id": "8.2",
+        "type": "keyword",
+        "help": "Dump LSAs",
+        "enum": "ENUM:8"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 database (router|network|inter-prefix|inter-router|as-external|group-membership|type-7|link|intra-prefix) IPV4-ADDR:6 self-originated (detail|dump|internal)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-border-routers-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "border-routers": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display routing table for ABR and ASBR"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 border-routers",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-border-routers-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "border-routers": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display routing table for ABR and ASBR"
+      },
+      "IPV4-ADDR:5.0": {
+        "id": "5.0",
+        "type": "ipv4address",
+        "help": "Specify Router-ID"
+      },
+      "detail": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Display Detail",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 border-routers (IPV4-ADDR:5.0|detail)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-linkstate-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "linkstate": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display linkstate routing table"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 linkstate",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-linkstate-router-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "linkstate": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display linkstate routing table"
+      },
+      "router": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Display Router Entry"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Router ID as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 linkstate router IPV4-ADDR:6",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-linkstate-network-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "linkstate": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display linkstate routing table"
+      },
+      "network": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Display Network Entry"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify Router ID as IPv4 address notation"
+      },
+      "IPV4-ADDR:7": {
+        "id": "7",
+        "type": "ipv4address",
+        "help": "Specify Link state ID as IPv4 address notation"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 linkstate network IPV4-ADDR:6 IPV4-ADDR:7",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-linkstate-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "linkstate": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Display linkstate routing table"
+      },
+      "detail": {
+        "id": "5",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 linkstate detail",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

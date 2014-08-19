@@ -1,0 +1,1524 @@
+{
+  "debug-ospf-packet-all-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "packet": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF packets"
+      },
+      "hello": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "OSPF Hello",
+        "enum": "ENUM:4"
+      },
+      "dd": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "OSPF Database Description",
+        "enum": "ENUM:4"
+      },
+      "ls-request": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "OSPF Link State Request",
+        "enum": "ENUM:4"
+      },
+      "ls-update": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "OSPF Link State Update",
+        "enum": "ENUM:4"
+      },
+      "ls-ack": {
+        "id": "4.4",
+        "type": "keyword",
+        "help": "OSPF Link State Acknowledgment",
+        "enum": "ENUM:4"
+      },
+      "all": {
+        "id": "4.5",
+        "type": "keyword",
+        "help": "OSPF all packets",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf packet (hello|dd|ls-request|ls-update|ls-ack|all)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf-packet-send-recv-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "packet": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF packets"
+      },
+      "hello": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "OSPF Hello",
+        "enum": "ENUM:4"
+      },
+      "dd": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "OSPF Database Description",
+        "enum": "ENUM:4"
+      },
+      "ls-request": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "OSPF Link State Request",
+        "enum": "ENUM:4"
+      },
+      "ls-update": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "OSPF Link State Update",
+        "enum": "ENUM:4"
+      },
+      "ls-ack": {
+        "id": "4.4",
+        "type": "keyword",
+        "help": "OSPF Link State Acknowledgment",
+        "enum": "ENUM:4"
+      },
+      "all": {
+        "id": "4.5",
+        "type": "keyword",
+        "help": "OSPF all packets",
+        "enum": "ENUM:4"
+      },
+      "send": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Packet sent",
+        "enum": "ENUM:5"
+      },
+      "recv": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Packet received",
+        "enum": "ENUM:5"
+      },
+      "detail": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Detail information",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf packet (hello|dd|ls-request|ls-update|ls-ack|all) (send|recv|detail)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf-packet-send-recv-detail-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "packet": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF packets"
+      },
+      "hello": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "OSPF Hello",
+        "enum": "ENUM:4"
+      },
+      "dd": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "OSPF Database Description",
+        "enum": "ENUM:4"
+      },
+      "ls-request": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "OSPF Link State Request",
+        "enum": "ENUM:4"
+      },
+      "ls-update": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "OSPF Link State Update",
+        "enum": "ENUM:4"
+      },
+      "ls-ack": {
+        "id": "4.4",
+        "type": "keyword",
+        "help": "OSPF Link State Acknowledgment",
+        "enum": "ENUM:4"
+      },
+      "all": {
+        "id": "4.5",
+        "type": "keyword",
+        "help": "OSPF all packets",
+        "enum": "ENUM:4"
+      },
+      "send": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Packet sent",
+        "enum": "ENUM:5"
+      },
+      "recv": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Packet received",
+        "enum": "ENUM:5"
+      },
+      "detail": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Detail Information",
+        "enum": "ENUM:6"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf packet (hello|dd|ls-request|ls-update|ls-ack|all) (send|recv) (detail)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf-packet-all-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "packet": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF packets"
+      },
+      "hello": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "OSPF Hello",
+        "enum": "ENUM:4"
+      },
+      "dd": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "OSPF Database Description",
+        "enum": "ENUM:4"
+      },
+      "ls-request": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "OSPF Link State Request",
+        "enum": "ENUM:4"
+      },
+      "ls-update": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "OSPF Link State Update",
+        "enum": "ENUM:4"
+      },
+      "ls-ack": {
+        "id": "4.4",
+        "type": "keyword",
+        "help": "OSPF Link State Acknowledgment",
+        "enum": "ENUM:4"
+      },
+      "all": {
+        "id": "4.5",
+        "type": "keyword",
+        "help": "OSPF all packets",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf packet (hello|dd|ls-request|ls-update|ls-ack|all)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf-packet-send-recv-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "packet": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF packets"
+      },
+      "hello": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "OSPF Hello",
+        "enum": "ENUM:4"
+      },
+      "dd": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "OSPF Database Description",
+        "enum": "ENUM:4"
+      },
+      "ls-request": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "OSPF Link State Request",
+        "enum": "ENUM:4"
+      },
+      "ls-update": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "OSPF Link State Update",
+        "enum": "ENUM:4"
+      },
+      "ls-ack": {
+        "id": "4.4",
+        "type": "keyword",
+        "help": "OSPF Link State Acknowledgment",
+        "enum": "ENUM:4"
+      },
+      "all": {
+        "id": "4.5",
+        "type": "keyword",
+        "help": "OSPF all packets",
+        "enum": "ENUM:4"
+      },
+      "send": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Packet sent",
+        "enum": "ENUM:5"
+      },
+      "recv": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Packet received",
+        "enum": "ENUM:5"
+      },
+      "detail": {
+        "id": "5.2",
+        "type": "keyword",
+        "help": "Detail Information",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf packet (hello|dd|ls-request|ls-update|ls-ack|all) (send|recv|detail)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf-packet-send-recv-detail-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "packet": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF packets"
+      },
+      "hello": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "OSPF Hello",
+        "enum": "ENUM:4"
+      },
+      "dd": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "OSPF Database Description",
+        "enum": "ENUM:4"
+      },
+      "ls-request": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "OSPF Link State Request",
+        "enum": "ENUM:4"
+      },
+      "ls-update": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "OSPF Link State Update",
+        "enum": "ENUM:4"
+      },
+      "ls-ack": {
+        "id": "4.4",
+        "type": "keyword",
+        "help": "OSPF Link State Acknowledgment",
+        "enum": "ENUM:4"
+      },
+      "all": {
+        "id": "4.5",
+        "type": "keyword",
+        "help": "OSPF all packets",
+        "enum": "ENUM:4"
+      },
+      "send": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Packet sent",
+        "enum": "ENUM:5"
+      },
+      "recv": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Packet received",
+        "enum": "ENUM:5"
+      },
+      "detail": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Detail Information",
+        "enum": "ENUM:6"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf packet (hello|dd|ls-request|ls-update|ls-ack|all) (send|recv) (detail)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf-ism-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "ism": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Interface State Machine"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf ism",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf-ism-sub-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "ism": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Interface State Machine"
+      },
+      "status": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "ISM Status Information",
+        "enum": "ENUM:4"
+      },
+      "events": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "ISM Event Information",
+        "enum": "ENUM:4"
+      },
+      "timers": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "ISM TImer Information",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf ism (status|events|timers)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf-ism-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "ism": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Interface State Machine"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf ism",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf-ism-sub-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "ism": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Interface State Machine"
+      },
+      "status": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "ISM Status Information",
+        "enum": "ENUM:4"
+      },
+      "events": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "ISM Event Information",
+        "enum": "ENUM:4"
+      },
+      "timers": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "ISM Timer Information",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf ism (status|events|timers)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf-nsm-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "nsm": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Neighbor State Machine"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf nsm",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf-nsm-sub-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "nsm": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Neighbor State Machine"
+      },
+      "status": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "NSM Status Information",
+        "enum": "ENUM:4"
+      },
+      "events": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "NSM Event Information",
+        "enum": "ENUM:4"
+      },
+      "timers": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "NSM Timer Information",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf nsm (status|events|timers)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf-nsm-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "nsm": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Neighbor State Machine"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf nsm",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf-nsm-sub-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "nsm": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Interface State Machine"
+      },
+      "status": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "NSM Status Information",
+        "enum": "ENUM:4"
+      },
+      "events": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "NSM Event Information",
+        "enum": "ENUM:4"
+      },
+      "timers": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "NSM Timer Information",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf nsm (status|events|timers)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf-lsa-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "lsa": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Link State Advertisement"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf lsa",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf-lsa-sub-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "lsa": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Link State Advertisement"
+      },
+      "generate": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "LSA Generation",
+        "enum": "ENUM:4"
+      },
+      "flooding": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "LSA Flooding",
+        "enum": "ENUM:4"
+      },
+      "install": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "LSA Install/Delete",
+        "enum": "ENUM:4"
+      },
+      "refresh": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "LSA Refresh",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf lsa (generate|flooding|install|refresh)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf-lsa-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "lsa": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Link State Advertisement"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf lsa",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf-lsa-sub-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "lsa": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Link State Advertisement"
+      },
+      "generate": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "LSA Generation",
+        "enum": "ENUM:4"
+      },
+      "flooding": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "LSA Flooding",
+        "enum": "ENUM:4"
+      },
+      "install": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "LSA Install/Delete",
+        "enum": "ENUM:4"
+      },
+      "refresh": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "LSA Refres",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf lsa (generate|flooding|install|refresh)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf-zebra-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Zebra information"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf zebra",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf-zebra-sub-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Zebra information"
+      },
+      "interface": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Zebra interface",
+        "enum": "ENUM:4"
+      },
+      "redistribute": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Zebra redistribute",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf zebra (interface|redistribute)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf-zebra-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Zebra information"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf zebra",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf-zebra-sub-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF Zebra information"
+      },
+      "interface": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Zebra interface",
+        "enum": "ENUM:4"
+      },
+      "redistribute": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Zebra redistribute",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf zebra (interface|redistribute)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf-event-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "event": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF event information"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf event",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf-event-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "event": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF event information"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf event",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf-nssa-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "nssa": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF nssa information"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf nssa",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf-nssa-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "2",
+        "type": "keyword",
+        "help": "OSPF information"
+      },
+      "nssa": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF nssa information"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf nssa",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-debugging-ospf-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "debugging": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF information"
+      }
+    },
+    "command": [
+      {
+        "defun": "show debugging ospf",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

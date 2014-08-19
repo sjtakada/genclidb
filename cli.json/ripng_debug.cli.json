@@ -1,0 +1,388 @@
+{
+  "show-debugging-ripng-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "debugging": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ripng": {
+        "id": "3",
+        "type": "keyword",
+        "help": "RIPng configuration"
+      }
+    },
+    "command": [
+      {
+        "defun": "show debugging ripng",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ripng-events-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIPng configuration"
+      },
+      "events": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug option set for ripng events"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ripng events",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ripng-packet-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIPng configuration"
+      },
+      "packet": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug option set for ripng packet"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ripng packet",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ripng-packet-direct-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIPng configuration"
+      },
+      "packet": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug option set for ripng packet"
+      },
+      "recv": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Debug option set for receive packet",
+        "enum": "ENUM:4"
+      },
+      "send": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Debug option set for send packet",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ripng packet (recv|send)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ripng-zebra-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIPng configuration"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug option set for ripng and zebra communication"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ripng zebra",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ripng-events-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIPng configuration"
+      },
+      "events": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug option set for ripng events"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ripng events",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ripng-packet-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIPng configuration"
+      },
+      "packet": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug option set for ripng packet"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ripng packet",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ripng-packet-direct-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIPng configuration"
+      },
+      "packet": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug option set for ripng packet"
+      },
+      "recv": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Debug option set for receive packet",
+        "enum": "ENUM:4"
+      },
+      "send": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Debug option set for send packet",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ripng packet (recv|send)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ripng-zebra-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "RIPng configuration"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug option set for ripng and zebra communication"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ripng zebra",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,615 @@
+{
+  "area-range-cmd": {
+    "token": {
+      "area": {
+        "id": "1",
+        "type": "keyword",
+        "help": "OSPF area parameters"
+      },
+      "IPV4-ADDR:2": {
+        "id": "2",
+        "type": "ipv4address",
+        "help": "Area ID (as an IPv4 notation)"
+      },
+      "range": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Configured address range"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "Specify IPv6 prefix"
+      }
+    },
+    "command": [
+      {
+        "defun": "area IPV4-ADDR:2 range IPV6-PREFIX:4",
+        "mode": [
+          "OSPF6-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "area-range-advertise-cmd": {
+    "token": {
+      "area": {
+        "id": "1",
+        "type": "keyword",
+        "help": "OSPF area parameters"
+      },
+      "IPV4-ADDR:2": {
+        "id": "2",
+        "type": "ipv4address",
+        "help": "Area ID (as an IPv4 notation)"
+      },
+      "range": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Configured address range"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "Specify IPv6 prefix"
+      },
+      "advertise": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "*MISSING-HELP*",
+        "enum": "ENUM:5"
+      },
+      "not-advertise": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "*MISSING-HELP*",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "area IPV4-ADDR:2 range IPV6-PREFIX:4 (advertise|not-advertise)",
+        "mode": [
+          "OSPF6-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-area-range-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "OSPF area parameters"
+      },
+      "area": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Area ID (as an IPv4 notation)"
+      },
+      "IPV4-ADDR:2": {
+        "id": "2",
+        "type": "ipv4address",
+        "help": "Configured address range"
+      },
+      "range": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Specify IPv6 prefix"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "no area IPV4-ADDR:2 range IPV6-PREFIX:4",
+        "mode": [
+          "OSPF6-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "area-filter-list-cmd": {
+    "token": {
+      "area": {
+        "id": "1",
+        "type": "keyword",
+        "help": "OSPFv6 area parameters"
+      },
+      "IPV4-ADDR:2": {
+        "id": "2",
+        "type": "ipv4address",
+        "help": "OSPFv6 area ID in IP address format"
+      },
+      "filter-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Filter networks between OSPFv6 areas"
+      },
+      "prefix": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Filter prefixes between OSPFv6 areas"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Name of an IPv6 prefix-list"
+      },
+      "in": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Filter networks sent to this area",
+        "enum": "ENUM:6"
+      },
+      "out": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Filter networks sent from this area",
+        "enum": "ENUM:6"
+      }
+    },
+    "command": [
+      {
+        "defun": "area IPV4-ADDR:2 filter-list prefix WORD:5 (in|out)",
+        "mode": [
+          "OSPF6-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-area-filter-list-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "area": {
+        "id": "1",
+        "type": "keyword",
+        "help": "OSPFv6 area parameters"
+      },
+      "IPV4-ADDR:2": {
+        "id": "2",
+        "type": "ipv4address",
+        "help": "OSPFv6 area ID in IP address format"
+      },
+      "filter-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Filter networks between OSPFv6 areas"
+      },
+      "prefix": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Filter prefixes between OSPFv6 areas"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Name of an IPv6 prefix-list"
+      },
+      "in": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Filter networks sent to this area",
+        "enum": "ENUM:6"
+      },
+      "out": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Filter networks sent from this area",
+        "enum": "ENUM:6"
+      }
+    },
+    "command": [
+      {
+        "defun": "no area IPV4-ADDR:2 filter-list prefix WORD:5 (in|out)",
+        "mode": [
+          "OSPF6-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "area-import-list-cmd": {
+    "token": {
+      "area": {
+        "id": "1",
+        "type": "keyword",
+        "help": "OSPFv6 area parameters"
+      },
+      "IPV4-ADDR:2": {
+        "id": "2",
+        "type": "ipv4address",
+        "help": "OSPFv6 area ID in IP address format"
+      },
+      "import-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Set the filter for networks from other areas announced to the specified one"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of the acess-list"
+      }
+    },
+    "command": [
+      {
+        "defun": "area IPV4-ADDR:2 import-list WORD:4",
+        "mode": [
+          "OSPF6-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-area-import-list-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "OSPFv6 area parameters"
+      },
+      "area": {
+        "id": "1",
+        "type": "keyword",
+        "help": "OSPFv6 area ID in IP address format"
+      },
+      "IPV4-ADDR:2": {
+        "id": "2",
+        "type": "ipv4address",
+        "help": "Unset the filter for networks announced to other areas"
+      },
+      "import-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "NAme of the access-list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "no area IPV4-ADDR:2 import-list WORD:4",
+        "mode": [
+          "OSPF6-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "area-export-list-cmd": {
+    "token": {
+      "area": {
+        "id": "1",
+        "type": "keyword",
+        "help": "OSPFv6 area parameters"
+      },
+      "IPV4-ADDR:2": {
+        "id": "2",
+        "type": "ipv4address",
+        "help": "OSPFv6 area ID in IP address format"
+      },
+      "export-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Set the filter for networks announced to other areas"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of the acess-list"
+      }
+    },
+    "command": [
+      {
+        "defun": "area IPV4-ADDR:2 export-list WORD:4",
+        "mode": [
+          "OSPF6-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-area-export-list-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "OSPFv6 area parameters"
+      },
+      "area": {
+        "id": "1",
+        "type": "keyword",
+        "help": "OSPFv6 area ID in IP address format"
+      },
+      "IPV4-ADDR:2": {
+        "id": "2",
+        "type": "ipv4address",
+        "help": "Unset the filter for networks announced to other areas"
+      },
+      "export-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Name of the access-list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "no area IPV4-ADDR:2 export-list WORD:4",
+        "mode": [
+          "OSPF6-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-spf-tree-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "spf": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Shortest Path First caculation"
+      },
+      "tree": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Show SPF tree"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 spf tree",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-area-spf-tree-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "area": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Area information"
+      },
+      "IPV4-ADDR:5": {
+        "id": "5",
+        "type": "ipv4address",
+        "help": "Area ID (as an IPv4 notation)"
+      },
+      "spf": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Shortest Path First caculation"
+      },
+      "tree": {
+        "id": "7",
+        "type": "keyword",
+        "help": "Show SPF tree"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 area IPV4-ADDR:5 spf tree",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-ospf6-simulate-spf-tree-root-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 Information"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "simulate": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Shortest Path First caculation"
+      },
+      "spf-tree": {
+        "id": "5",
+        "type": "keyword",
+        "help": "Show SPF tree"
+      },
+      "IPV4-ADDR:6": {
+        "id": "6",
+        "type": "ipv4address",
+        "help": "Specify root's router-id to calculate another router's SPF tree"
+      },
+      "area": {
+        "id": "7",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      },
+      "IPV4-ADDR:8": {
+        "id": "8",
+        "type": "ipv4address",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 ospf6 simulate spf-tree IPV4-ADDR:6 area IPV4-ADDR:8",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

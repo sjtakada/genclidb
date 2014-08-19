@@ -1,0 +1,434 @@
+{
+  "mpls-te-cmd": {
+    "token": {
+      "mpls-te": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Configure MPLS-TE parameters"
+      }
+    },
+    "command": [
+      {
+        "defun": "mpls-te",
+        "mode": [
+          "OSPF-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "mpls-te-on-cmd": {
+    "token": {
+      "mpls-te": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Configure MPLS-TE parameters"
+      },
+      "on": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Enable the MPLS-TE functionality"
+      }
+    },
+    "command": [
+      {
+        "defun": "mpls-te on",
+        "mode": [
+          "OSPF-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-mpls-te-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "mpls-te": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Configure MPLS-TE parameters"
+      }
+    },
+    "command": [
+      {
+        "defun": "no mpls-te",
+        "mode": [
+          "OSPF-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "mpls-te-router-addr-cmd": {
+    "token": {
+      "mpls-te": {
+        "id": "1",
+        "type": "keyword",
+        "help": "MPLS-TE specific commands"
+      },
+      "router-address": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Stable IP address of the advertising router"
+      },
+      "IPV4-ADDR:3": {
+        "id": "3",
+        "type": "ipv4address",
+        "help": "MPLS-TE router address in IPv4 address format"
+      }
+    },
+    "command": [
+      {
+        "defun": "mpls-te router-address IPV4-ADDR:3",
+        "mode": [
+          "OSPF-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "mpls-te-link-metric-cmd": {
+    "token": {
+      "mpls-te": {
+        "id": "1",
+        "type": "keyword",
+        "help": "MPLS-TE specific commands"
+      },
+      "link": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Configure MPLS-TE link parameters"
+      },
+      "metric": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Link metric for MPLS-TE purpose"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Metric",
+        "range": [
+          0,
+          4294967295
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "mpls-te link metric RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "mpls-te-link-maxbw-cmd": {
+    "token": {
+      "mpls-te": {
+        "id": "1",
+        "type": "keyword",
+        "help": "MPLS-TE specific commands"
+      },
+      "link": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Configure MPLS-TE link parameters"
+      },
+      "max-bw": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Maximum bandwidth that can be used"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Bytes/second (IEEE floating point format)"
+      }
+    },
+    "command": [
+      {
+        "defun": "mpls-te link max-bw WORD:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "mpls-te-link-max-rsv-bw-cmd": {
+    "token": {
+      "mpls-te": {
+        "id": "1",
+        "type": "keyword",
+        "help": "MPLS-TE specific commands"
+      },
+      "link": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Configure MPLS-TE link parameters"
+      },
+      "max-rsv-bw": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Maximum bandwidth that may be reserved"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Bytes/second (IEEE floating point format)"
+      }
+    },
+    "command": [
+      {
+        "defun": "mpls-te link max-rsv-bw WORD:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "mpls-te-link-unrsv-bw-cmd": {
+    "token": {
+      "mpls-te": {
+        "id": "1",
+        "type": "keyword",
+        "help": "MPLS-TE specific commands"
+      },
+      "link": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Configure MPLS-TE link parameters"
+      },
+      "unrsv-bw": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Unreserved bandwidth at each priority level"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Priority",
+        "range": [
+          0,
+          7
+        ]
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Bytes/second (IEEE floating point format)"
+      }
+    },
+    "command": [
+      {
+        "defun": "mpls-te link unrsv-bw RANGE:4 WORD:5",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "mpls-te-link-rsc-clsclr-cmd": {
+    "token": {
+      "mpls-te": {
+        "id": "1",
+        "type": "keyword",
+        "help": "MPLS-TE specific commands"
+      },
+      "link": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Configure MPLS-TE link parameters"
+      },
+      "rsc-clsclr": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Administrative group membership"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "32-bit Hexadecimal value (ex. 0xa1)"
+      }
+    },
+    "command": [
+      {
+        "defun": "mpls-te link rsc-clsclr WORD:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-mpls-te-router-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "mpls-te": {
+        "id": "2",
+        "type": "keyword",
+        "help": "MPLS-TE information"
+      },
+      "router": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Router information"
+      }
+    },
+    "command": [
+      {
+        "defun": "show mpls-te router",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-mpls-te-link-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "mpls-te": {
+        "id": "2",
+        "type": "keyword",
+        "help": "MPLS-TE information"
+      },
+      "interface": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Interface information"
+      },
+      "WORD:4.0": {
+        "id": "4.0",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "show mpls-te interface (WORD:4.0|)",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

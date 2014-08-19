@@ -1,0 +1,93 @@
+{
+  "debug-ospf6-lsa-hex-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "lsa": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug Link State Advertisements (LSAs)"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Specify LS type as Hexadecimal"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 lsa WORD:4",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-lsa-hex-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "lsa": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug Link State Advertisements (LSAs)"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Specify LS type as Hexadecimal"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 lsa WORD:4",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,4996 @@
+{
+  "ip-prefix-list-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV4-PREFIX:5.0": {
+        "id": "5.0",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "any": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Any prefix match. Same as \\\"0.0.0.0/0 le 32\\\"",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip prefix-list WORD:3 (deny|permit) (IPV4-PREFIX:5.0|any)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-prefix-list-ge-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV4-PREFIX:5": {
+        "id": "5",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "ge": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip prefix-list WORD:3 (deny|permit) IPV4-PREFIX:5 ge RANGE:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-prefix-list-ge-le-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV4-PREFIX:5": {
+        "id": "5",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "ge": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      },
+      "le": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip prefix-list WORD:3 (deny|permit) IPV4-PREFIX:5 ge RANGE:7 le RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-prefix-list-le-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV4-PREFIX:5": {
+        "id": "5",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "le": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip prefix-list WORD:3 (deny|permit) IPV4-PREFIX:5 le RANGE:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-prefix-list-le-ge-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV4-PREFIX:5": {
+        "id": "5",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "le": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      },
+      "ge": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip prefix-list WORD:3 (deny|permit) IPV4-PREFIX:5 le RANGE:7 ge RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-prefix-list-seq-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV4-PREFIX:7.0": {
+        "id": "7.0",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "any": {
+        "id": "7.1",
+        "type": "keyword",
+        "help": "Any prefix match. Same as \\\"0.0.0.0/0 le 32\\\"",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip prefix-list WORD:3 seq RANGE:5 (deny|permit) (IPV4-PREFIX:7.0|any)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-prefix-list-seq-ge-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV4-PREFIX:7": {
+        "id": "7",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "ge": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV4-PREFIX:7 ge RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-prefix-list-seq-ge-le-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV4-PREFIX:7": {
+        "id": "7",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "ge": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      },
+      "le": {
+        "id": "10",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:11": {
+        "id": "11",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV4-PREFIX:7 ge RANGE:9 le RANGE:11",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-prefix-list-seq-le-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV4-PREFIX:7": {
+        "id": "7",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "le": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV4-PREFIX:7 le RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-prefix-list-seq-le-ge-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV4-PREFIX:7": {
+        "id": "7",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "le": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      },
+      "ge": {
+        "id": "10",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:11": {
+        "id": "11",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ip prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV4-PREFIX:7 le RANGE:9 ge RANGE:11",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-prefix-list-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip prefix-list WORD:3",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-prefix-list-prefix-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV4-PREFIX:5.0": {
+        "id": "5.0",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "any": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Any prefix match.  Same as \\\"0.0.0.0/0 le 32\\\"",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip prefix-list WORD:3 (deny|permit) (IPV4-PREFIX:5.0|any)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-prefix-list-ge-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV4-PREFIX:5": {
+        "id": "5",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "ge": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip prefix-list WORD:3 (deny|permit) IPV4-PREFIX:5 ge RANGE:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-prefix-list-ge-le-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV4-PREFIX:5": {
+        "id": "5",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "ge": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      },
+      "le": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip prefix-list WORD:3 (deny|permit) IPV4-PREFIX:5 ge RANGE:7 le RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-prefix-list-le-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV4-PREFIX:5": {
+        "id": "5",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "le": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip prefix-list WORD:3 (deny|permit) IPV4-PREFIX:5 le RANGE:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-prefix-list-le-ge-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV4-PREFIX:5": {
+        "id": "5",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "le": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      },
+      "ge": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip prefix-list WORD:3 (deny|permit) IPV4-PREFIX:5 le RANGE:7 ge RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-prefix-list-seq-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV4-PREFIX:7.0": {
+        "id": "7.0",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "any": {
+        "id": "7.1",
+        "type": "keyword",
+        "help": "Any prefix match.  Same as \\\"0.0.0.0/0 le 32\\\"",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip prefix-list WORD:3 seq RANGE:5 (deny|permit) (IPV4-PREFIX:7.0|any)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-prefix-list-seq-ge-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV4-PREFIX:7": {
+        "id": "7",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "ge": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV4-PREFIX:7 ge RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-prefix-list-seq-ge-le-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV4-PREFIX:7": {
+        "id": "7",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "ge": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      },
+      "le": {
+        "id": "10",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:11": {
+        "id": "11",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV4-PREFIX:7 ge RANGE:9 le RANGE:11",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-prefix-list-seq-le-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV4-PREFIX:7": {
+        "id": "7",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "le": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV4-PREFIX:7 le RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-prefix-list-seq-le-ge-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV4-PREFIX:7": {
+        "id": "7",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "le": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      },
+      "ge": {
+        "id": "10",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:11": {
+        "id": "11",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          32
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV4-PREFIX:7 le RANGE:9 ge RANGE:11",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-prefix-list-sequence-number-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "sequence-number": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Include/exclude sequence numbers in NVGEN"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip prefix-list sequence-number",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-prefix-list-sequence-number-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "sequence-number": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Include/exclude sequence numbers in NVGEN"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip prefix-list sequence-number",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-prefix-list-description-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "description": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Prefix-list specific description"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Up to 80 characters describing this prefix-list"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip prefix-list WORD:3 description [WORD:5]",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-prefix-list-description-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "description": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Prefix-list specific description"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip prefix-list WORD:3 description",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-prefix-list-description-arg-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "description": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Prefix-list specific description"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Up to 80 characters describing this prefix-list"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip prefix-list WORD:3 description [WORD:5]",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-prefix-list-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip prefix-list",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-prefix-list-name-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of a prefix list"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip prefix-list WORD:4",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-prefix-list-name-seq-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "5",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:6": {
+        "id": "6",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip prefix-list WORD:4 seq RANGE:6",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-prefix-list-prefix-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "IPV4-PREFIX:5": {
+        "id": "5",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip prefix-list WORD:4 IPV4-PREFIX:5",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-prefix-list-prefix-longer-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "IPV4-PREFIX:5": {
+        "id": "5",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "longer": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Lookup longer prefix"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip prefix-list WORD:4 IPV4-PREFIX:5 longer",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-prefix-list-prefix-first-match-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "IPV4-PREFIX:5": {
+        "id": "5",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "first-match": {
+        "id": "6",
+        "type": "keyword",
+        "help": "First matched prefix"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip prefix-list WORD:4 IPV4-PREFIX:5 first-match",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-prefix-list-summary-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "summary": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Summary of prefix lists"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip prefix-list summary",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-prefix-list-summary-name-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "summary": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Summary of prefix lists"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Name of a prefix list"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip prefix-list summary WORD:5",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-prefix-list-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "detail": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Detail of prefix lists"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip prefix-list detail",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-prefix-list-detail-name-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "detail": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Detail of prefix lists"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Name of a prefix list"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip prefix-list detail WORD:5",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "clear-ip-prefix-list-cmd": {
+    "token": {
+      "clear": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Reset functions"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      }
+    },
+    "command": [
+      {
+        "defun": "clear ip prefix-list",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "clear-ip-prefix-list-name-cmd": {
+    "token": {
+      "clear": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Reset functions"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of a prefix list"
+      }
+    },
+    "command": [
+      {
+        "defun": "clear ip prefix-list WORD:4",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "clear-ip-prefix-list-name-prefix-cmd": {
+    "token": {
+      "clear": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Reset functions"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "IPV4-PREFIX:5": {
+        "id": "5",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      }
+    },
+    "command": [
+      {
+        "defun": "clear ip prefix-list WORD:4 IPV4-PREFIX:5",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-prefix-list-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV6-PREFIX:5.0": {
+        "id": "5.0",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "any": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Any prefix match.  Same as \\\"::0/0 le 128\\\"",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 prefix-list WORD:3 (deny|permit) (IPV6-PREFIX:5.0|any)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-prefix-list-ge-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "ge": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 prefix-list WORD:3 (deny|permit) IPV6-PREFIX:5 ge RANGE:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-prefix-list-ge-le-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "ge": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      },
+      "le": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 prefix-list WORD:3 (deny|permit) IPV6-PREFIX:5 ge RANGE:7 le RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-prefix-list-le-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "le": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 prefix-list WORD:3 (deny|permit) IPV6-PREFIX:5 le RANGE:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-prefix-list-le-ge-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "le": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      },
+      "ge": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 prefix-list WORD:3 (deny|permit) IPV6-PREFIX:5 le RANGE:7 ge RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-prefix-list-seq-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV6-PREFIX:7.0": {
+        "id": "7.0",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "any": {
+        "id": "7.1",
+        "type": "keyword",
+        "help": "Any prefix match.  Same as \\\"::0/0 le 128\\\"",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 prefix-list WORD:3 seq RANGE:5 (deny|permit) (IPV6-PREFIX:7.0|any)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-prefix-list-seq-ge-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV6-PREFIX:7": {
+        "id": "7",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "ge": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV6-PREFIX:7 ge RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-prefix-list-seq-ge-le-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV6-PREFIX:7": {
+        "id": "7",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "ge": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      },
+      "le": {
+        "id": "10",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:11": {
+        "id": "11",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV6-PREFIX:7 ge RANGE:9 le RANGE:11",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-prefix-list-seq-le-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV6-PREFIX:7": {
+        "id": "7",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "le": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV6-PREFIX:7 le RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-prefix-list-seq-le-ge-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV6-PREFIX:7": {
+        "id": "7",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "le": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      },
+      "ge": {
+        "id": "10",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:11": {
+        "id": "11",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV6-PREFIX:7 le RANGE:9 ge RANGE:11",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-prefix-list-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 prefix-list WORD:3",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-prefix-list-prefix-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV6-PREFIX:5.0": {
+        "id": "5.0",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "any": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Any prefix match.  Same as \\\"::0/0 le 128\\\"",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 prefix-list WORD:3 (deny|permit) (IPV6-PREFIX:5.0|any)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-prefix-list-ge-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "ge": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 prefix-list WORD:3 (deny|permit) IPV6-PREFIX:5 ge RANGE:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-prefix-list-ge-le-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "ge": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      },
+      "le": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 prefix-list WORD:3 (deny|permit) IPV6-PREFIX:5 ge RANGE:7 le RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-prefix-list-le-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "le": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 prefix-list WORD:3 (deny|permit) IPV6-PREFIX:5 le RANGE:7",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-prefix-list-le-ge-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "deny": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:4"
+      },
+      "permit": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:4"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "le": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      },
+      "ge": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 prefix-list WORD:3 (deny|permit) IPV6-PREFIX:5 le RANGE:7 ge RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-prefix-list-seq-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV6-PREFIX:7.0": {
+        "id": "7.0",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "any": {
+        "id": "7.1",
+        "type": "keyword",
+        "help": "Any prefix match.  Same as \\\"::0/0 le 128\\\"",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 prefix-list WORD:3 seq RANGE:5 (deny|permit) (IPV6-PREFIX:7.0|any)",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-prefix-list-seq-ge-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV6-PREFIX:7": {
+        "id": "7",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "ge": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV6-PREFIX:7 ge RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-prefix-list-seq-ge-le-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV6-PREFIX:7": {
+        "id": "7",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "ge": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      },
+      "le": {
+        "id": "10",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:11": {
+        "id": "11",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV6-PREFIX:7 ge RANGE:9 le RANGE:11",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-prefix-list-seq-le-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV6-PREFIX:7": {
+        "id": "7",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "le": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV6-PREFIX:7 le RANGE:9",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-prefix-list-seq-le-ge-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "4",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      },
+      "deny": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Specify packets to reject",
+        "enum": "ENUM:6"
+      },
+      "permit": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Specify packets to forward",
+        "enum": "ENUM:6"
+      },
+      "IPV6-PREFIX:7": {
+        "id": "7",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "le": {
+        "id": "8",
+        "type": "keyword",
+        "help": "Maximum prefix length to be matched"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Maximum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      },
+      "ge": {
+        "id": "10",
+        "type": "keyword",
+        "help": "Minimum prefix length to be matched"
+      },
+      "RANGE:11": {
+        "id": "11",
+        "type": "integer",
+        "help": "Minimum prefix length",
+        "range": [
+          0,
+          128
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 prefix-list WORD:3 seq RANGE:5 (deny|permit) IPV6-PREFIX:7 le RANGE:9 ge RANGE:11",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-prefix-list-sequence-number-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "sequence-number": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Include/exclude sequence numbers in NVGEN"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 prefix-list sequence-number",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-prefix-list-sequence-number-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "sequence-number": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Include/exclude sequence numbers in NVGEN"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 prefix-list sequence-number",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-prefix-list-description-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "description": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Prefix-list specific description"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Up to 80 characters describing this prefix-list"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 prefix-list WORD:3 description [WORD:5]",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-prefix-list-description-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "description": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Prefix-list specific description"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 prefix-list WORD:3 description",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-prefix-list-description-arg-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "description": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Prefix-list specific description"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Up to 80 characters describing this prefix-list"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 prefix-list WORD:3 description [WORD:5]",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-prefix-list-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 prefix-list",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-prefix-list-name-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of a prefix list"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 prefix-list WORD:4",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-prefix-list-name-seq-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "seq": {
+        "id": "5",
+        "type": "keyword",
+        "help": "sequence number of an entry"
+      },
+      "RANGE:6": {
+        "id": "6",
+        "type": "integer",
+        "help": "Sequence number",
+        "range": [
+          1,
+          4294967295
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 prefix-list WORD:4 seq RANGE:6",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-prefix-list-prefix-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 prefix-list WORD:4 IPV6-PREFIX:5",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-prefix-list-prefix-longer-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "longer": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Lookup longer prefix"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 prefix-list WORD:4 IPV6-PREFIX:5 longer",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-prefix-list-prefix-first-match-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      },
+      "first-match": {
+        "id": "6",
+        "type": "keyword",
+        "help": "First matched prefix"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 prefix-list WORD:4 IPV6-PREFIX:5 first-match",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-prefix-list-summary-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "summary": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Summary of prefix lists"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 prefix-list summary",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-prefix-list-summary-name-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "summary": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Summary of prefix lists"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Name of a prefix list"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 prefix-list summary WORD:5",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-prefix-list-detail-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "detail": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Detail of prefix lists"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 prefix-list detail",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ipv6-prefix-list-detail-name-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "detail": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Detail of prefix lists"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Name of a prefix list"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ipv6 prefix-list detail WORD:5",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "clear-ipv6-prefix-list-cmd": {
+    "token": {
+      "clear": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Reset functions"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      }
+    },
+    "command": [
+      {
+        "defun": "clear ipv6 prefix-list",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "clear-ipv6-prefix-list-name-cmd": {
+    "token": {
+      "clear": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Reset functions"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of a prefix list"
+      }
+    },
+    "command": [
+      {
+        "defun": "clear ipv6 prefix-list WORD:4",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "clear-ipv6-prefix-list-name-prefix-cmd": {
+    "token": {
+      "clear": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Reset functions"
+      },
+      "ipv6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "prefix-list": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Build a prefix list"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Name of a prefix list"
+      },
+      "IPV6-PREFIX:5": {
+        "id": "5",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix <network>/<length>, e.g., 3ffe::/16"
+      }
+    },
+    "command": [
+      {
+        "defun": "clear ipv6 prefix-list WORD:4 IPV6-PREFIX:5",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

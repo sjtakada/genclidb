@@ -1,0 +1,629 @@
+{
+  "route-map-cmd": {
+    "token": {
+      "route-map": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Create route-map or enter route-map command mode"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Route map tag"
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Route map denies set operations",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Route map permits set operations",
+        "enum": "ENUM:3"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Sequence to insert to/delete from existing route-map entry",
+        "range": [
+          1,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "route-map WORD:2 (deny|permit) RANGE:4",
+        "mode": [
+          "CONFIG-NODE",
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-route-map-all-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "route-map": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Create route-map or enter route-map command mode"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Route map tag"
+      }
+    },
+    "command": [
+      {
+        "defun": "no route-map WORD:2",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-route-map-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "route-map": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Create route-map or enter route-map command mode"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Route map tag"
+      },
+      "deny": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Route map denies set operations",
+        "enum": "ENUM:3"
+      },
+      "permit": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Route map permits set operations",
+        "enum": "ENUM:3"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Sequence to insert to/delete from existing route-map entry",
+        "range": [
+          1,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no route-map WORD:2 (deny|permit) RANGE:4",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rmap-onmatch-next-cmd": {
+    "token": {
+      "on-match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Exit policy on matches"
+      },
+      "next": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Next clause"
+      }
+    },
+    "command": [
+      {
+        "defun": "on-match next",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rmap-onmatch-next-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "on-match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Exit policy on matches"
+      },
+      "next": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Next clause"
+      }
+    },
+    "command": [
+      {
+        "defun": "no on-match next",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rmap-onmatch-goto-cmd": {
+    "token": {
+      "on-match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Exit policy on matches"
+      },
+      "goto": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Goto Clause number"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Number",
+        "range": [
+          1,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "on-match goto RANGE:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rmap-onmatch-goto-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "on-match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Exit policy on matches"
+      },
+      "goto": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Goto Clause number"
+      }
+    },
+    "command": [
+      {
+        "defun": "no on-match goto",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rmap-continue-cmd": {
+    "token": {
+      "continue": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Continue on a different entry within the route-map"
+      }
+    },
+    "command": [
+      {
+        "defun": "continue",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rmap-continue-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "continue": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Continue on a different entry within the route-map"
+      }
+    },
+    "command": [
+      {
+        "defun": "no continue",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rmap-continue-seq-cmd": {
+    "token": {
+      "continue": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Continue on a different entry within the route-map"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Route-map entry sequence number",
+        "range": [
+          1,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "continue RANGE:2",
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rmap-continue-seq": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "continue": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Continue on a different entry within the route-map"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Route-map entry sequence number",
+        "range": [
+          1,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no continue RANGE:2",
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rmap-show-name-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "route-map": {
+        "id": "2",
+        "type": "keyword",
+        "help": "route-map information"
+      },
+      "WORD:3.0": {
+        "id": "3.0",
+        "type": "string",
+        "help": "route-map name"
+      }
+    },
+    "command": [
+      {
+        "defun": "show route-map (WORD:3.0|)",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rmap-continue-index-cmd": {
+    "token": {
+      "continue": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Exit policy on matches"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Goto Clause number",
+        "range": [
+          1,
+          65536
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "continue RANGE:2",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rmap-call-cmd": {
+    "token": {
+      "call": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Jump to another Route-Map after match+set"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Target route-map name"
+      }
+    },
+    "command": [
+      {
+        "defun": "call WORD:2",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rmap-call-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "call": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Jump to another Route-Map after match+set"
+      }
+    },
+    "command": [
+      {
+        "defun": "no call",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rmap-description-cmd": {
+    "token": {
+      "description": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Route-map comment"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Comment describing this route-map rule"
+      }
+    },
+    "command": [
+      {
+        "defun": "description [WORD:2]",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rmap-description-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "description": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Route-map comment"
+      }
+    },
+    "command": [
+      {
+        "defun": "no description",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,424 @@
+{
+  "show-memory-all-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "memory": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Memory statistics"
+      },
+      "all": {
+        "id": "3",
+        "type": "keyword",
+        "help": "All memory statistics"
+      }
+    },
+    "command": [
+      {
+        "defun": "show memory all",
+        "mode": [
+          "RESTRICTED-NODE",
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-memory-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "memory": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Memory statistics"
+      }
+    },
+    "command": [
+      {
+        "defun": "show memory",
+        "mode": [
+          "RESTRICTED-NODE",
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-memory-lib-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "memory": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Memory statistics"
+      },
+      "lib": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Library memory"
+      }
+    },
+    "command": [
+      {
+        "defun": "show memory lib",
+        "mode": [
+          "RESTRICTED-NODE",
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-memory-zebra-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "memory": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Memory statistics"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Zebra memory"
+      }
+    },
+    "command": [
+      {
+        "defun": "show memory zebra",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-memory-rip-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "memory": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Memory statistics"
+      },
+      "rip": {
+        "id": "3",
+        "type": "keyword",
+        "help": "RIP memory"
+      }
+    },
+    "command": [
+      {
+        "defun": "show memory rip",
+        "mode": [
+          "RESTRICTED-NODE",
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-memory-ripng-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "memory": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Memory statistics"
+      },
+      "ripng": {
+        "id": "3",
+        "type": "keyword",
+        "help": "RIPng memory"
+      }
+    },
+    "command": [
+      {
+        "defun": "show memory ripng",
+        "mode": [
+          "RESTRICTED-NODE",
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-memory-babel-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "memory": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Memory statistics"
+      },
+      "babel": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Babel memory"
+      }
+    },
+    "command": [
+      {
+        "defun": "show memory babel",
+        "mode": [
+          "RESTRICTED-NODE",
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-memory-bgp-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "memory": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Memory statistics"
+      },
+      "bgp": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP memory"
+      }
+    },
+    "command": [
+      {
+        "defun": "show memory bgp",
+        "mode": [
+          "RESTRICTED-NODE",
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-memory-ospf-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "memory": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Memory statistics"
+      },
+      "ospf": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF memory"
+      }
+    },
+    "command": [
+      {
+        "defun": "show memory ospf",
+        "mode": [
+          "RESTRICTED-NODE",
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-memory-ospf6-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "memory": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Memory statistics"
+      },
+      "ospf6": {
+        "id": "3",
+        "type": "keyword",
+        "help": "OSPF6 memory"
+      }
+    },
+    "command": [
+      {
+        "defun": "show memory ospf6",
+        "mode": [
+          "RESTRICTED-NODE",
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-memory-isis-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "memory": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Memory statistics"
+      },
+      "isis": {
+        "id": "3",
+        "type": "keyword",
+        "help": "ISIS memory"
+      }
+    },
+    "command": [
+      {
+        "defun": "show memory isis",
+        "mode": [
+          "RESTRICTED-NODE",
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

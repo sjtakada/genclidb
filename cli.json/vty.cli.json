@@ -1,0 +1,662 @@
+{
+  "config-who-cmd": {
+    "token": {
+      "who": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Display who is on vty"
+      }
+    },
+    "command": [
+      {
+        "defun": "who",
+        "mode": [
+          "RESTRICTED-NODE",
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "line-vty-cmd": {
+    "token": {
+      "line": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Configure a terminal line"
+      },
+      "vty": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Virtual terminal"
+      }
+    },
+    "command": [
+      {
+        "defun": "line vty",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "exec-timeout-min-cmd": {
+    "token": {
+      "exec-timeout": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set timeout value"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Timeout value in minutes",
+        "range": [
+          0,
+          35791
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "exec-timeout RANGE:2",
+        "mode": [
+          "VTY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "exec-timeout-sec-cmd": {
+    "token": {
+      "exec-timeout": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set the EXEC timeout"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Timeout in minutes",
+        "range": [
+          0,
+          35791
+        ]
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Timeout in seconds",
+        "range": [
+          0,
+          2147483
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "exec-timeout RANGE:2 RANGE:3",
+        "mode": [
+          "VTY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-exec-timeout-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "exec-timeout": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set the EXEC timeout"
+      }
+    },
+    "command": [
+      {
+        "defun": "no exec-timeout",
+        "mode": [
+          "VTY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "vty-access-class-cmd": {
+    "token": {
+      "access-class": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter connections based on an IP access list"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "IP access list"
+      }
+    },
+    "command": [
+      {
+        "defun": "access-class WORD:2",
+        "mode": [
+          "VTY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-vty-access-class-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "access-class": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Filter connections based on an IP access list"
+      },
+      "WORD:2.0": {
+        "id": "2.0",
+        "type": "string",
+        "help": "IP access list"
+      }
+    },
+    "command": [
+      {
+        "defun": "no access-class (WORD:2.0|)",
+        "mode": [
+          "VTY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "vty-ipv6-access-class-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "access-class": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Filter connections based on an IP access list"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "IPv6 access list"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 access-class WORD:3",
+        "mode": [
+          "VTY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-vty-ipv6-access-class-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "access-class": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Filter connections based on an IP access list"
+      },
+      "WORD:3.0": {
+        "id": "3.0",
+        "type": "string",
+        "help": "IPv6 access list"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 access-class (WORD:3.0|)",
+        "mode": [
+          "VTY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "vty-login-cmd": {
+    "token": {
+      "login": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Enable password checking"
+      }
+    },
+    "command": [
+      {
+        "defun": "login",
+        "mode": [
+          "VTY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-vty-login-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "login": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Enable password checking"
+      }
+    },
+    "command": [
+      {
+        "defun": "no login",
+        "mode": [
+          "VTY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "vty-restricted-mode-cmd": {
+    "token": {
+      "anonymous": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Restrict view commands available in anonymous, unauthenticated vty"
+      },
+      "restricted": {
+        "id": "2",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "anonymous restricted",
+        "mode": [
+          "VTY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "vty-no-restricted-mode-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "anonymous": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Enable password checking"
+      },
+      "restricted": {
+        "id": "2",
+        "type": "keyword",
+        "help": "*MISSING-HELP*"
+      }
+    },
+    "command": [
+      {
+        "defun": "no anonymous restricted",
+        "mode": [
+          "VTY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "service-advanced-vty-cmd": {
+    "token": {
+      "service": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set up miscellaneous service"
+      },
+      "advanced-vty": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Enable advanced mode vty interface"
+      }
+    },
+    "command": [
+      {
+        "defun": "service advanced-vty",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-service-advanced-vty-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "service": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set up miscellaneous service"
+      },
+      "advanced-vty": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Enable advanced mode vty interface"
+      }
+    },
+    "command": [
+      {
+        "defun": "no service advanced-vty",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "terminal-monitor-cmd": {
+    "token": {
+      "terminal": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set terminal line parameters"
+      },
+      "monitor": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Copy debug output to the current terminal line"
+      }
+    },
+    "command": [
+      {
+        "defun": "terminal monitor",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "terminal-no-monitor-cmd": {
+    "token": {
+      "terminal": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set terminal line parameters"
+      },
+      "no": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "monitor": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Copy debug output to the current terminal line"
+      }
+    },
+    "command": [
+      {
+        "defun": "terminal no monitor",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-terminal-monitor-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "terminal": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set terminal line parameters"
+      },
+      "monitor": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Copy debug output to the current terminal line"
+      }
+    },
+    "command": [
+      {
+        "defun": "no terminal monitor",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-history-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "history": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Display the session command history"
+      }
+    },
+    "command": [
+      {
+        "defun": "show history",
+        "mode": [
+          "RESTRICTED-NODE",
+          "VIEW-NODE",
+          "CONFIG-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

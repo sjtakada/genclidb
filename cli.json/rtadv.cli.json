@@ -1,0 +1,2442 @@
+{
+  "ipv6-nd-suppress-ra-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "suppress-ra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Suppress Router Advertisement"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd suppress-ra",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-suppress-ra-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "suppress-ra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Suppress Router Advertisement"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd suppress-ra",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-ra-interval-msec-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "ra-interval": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Router Advertisement interval"
+      },
+      "msec": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Router Advertisement interval in milliseconds"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "*MISSING-HELP*",
+        "range": [
+          70,
+          1800000
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd ra-interval msec RANGE:5",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-ra-interval-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "ra-interval": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Router Advertisement interval"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Router Advertisement interval in seconds",
+        "range": [
+          1,
+          1800
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd ra-interval RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-ra-interval-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "ra-interval": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Router Advertisement interval"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd ra-interval",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-ra-interval-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "ra-interval": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Router Advertisement interval"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "*MISSING-HELP*",
+        "range": [
+          1,
+          1800
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd ra-interval RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-ra-interval-msec-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "ra-interval": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Router Advertisement interval"
+      },
+      "msec": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Router Advertisement interval in milliseconds"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "*MISSING-HELP*",
+        "range": [
+          1,
+          1800000
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd ra-interval msec RANGE:5",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-ra-lifetime-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "ra-lifetime": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Router lifetime"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Router lifetime in seconds (0 stands for a non-default gw)",
+        "range": [
+          0,
+          9000
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd ra-lifetime RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-ra-lifetime-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "ra-lifetime": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Router lifetime"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd ra-lifetime",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-ra-lifetime-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "ra-lifetime": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Router lifetime"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Router lifetime in seconds (0 stands for a non-default gw)",
+        "range": [
+          0,
+          9000
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd ra-lifetime RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-reachable-time-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "reachable-time": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Reachable time"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Reachable time in milliseconds",
+        "range": [
+          1,
+          3600000
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd reachable-time RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-reachable-time-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "reachable-time": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Reachable time"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd reachable-time",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-reachable-time-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "reachable-time": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Reachable time"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Reachable time in milliseconds",
+        "range": [
+          1,
+          3600000
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd reachable-time RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-homeagent-preference-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "home-agent-preference": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Home Agent preference"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "preference value (default is 0, least preferred)",
+        "range": [
+          0,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd home-agent-preference RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-homeagent-preference-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "home-agent-preference": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Home Agent preference"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd home-agent-preference",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-homeagent-preference-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "home-agent-preference": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Home Agent preference"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "preference value (default is 0, least preferred)",
+        "range": [
+          0,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd home-agent-preference RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-homeagent-lifetime-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "home-agent-lifetime": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Home Agent lifetime"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Home Agent lifetime in seconds (0 to track ra-lifetime)",
+        "range": [
+          0,
+          65520
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd home-agent-lifetime RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-homeagent-lifetime-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "home-agent-lifetime": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Home Agent lifetime"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd home-agent-lifetime",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-homeagent-lifetime-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "home-agent-lifetime": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Home Agent lifetime"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Home Agent lifetime in seconds (0 to track ra-lifetime)",
+        "range": [
+          0,
+          65520
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd home-agent-lifetime RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-managed-config-flag-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "managed-config-flag": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Managed address configuration flag"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd managed-config-flag",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-managed-config-flag-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "managed-config-flag": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Managed address configuration flag"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd managed-config-flag",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-homeagent-config-flag-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "home-agent-config-flag": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Home Agent configuration flag"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd home-agent-config-flag",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-homeagent-config-flag-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "home-agent-config-flag": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Home Agent configuration flag"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd home-agent-config-flag",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-adv-interval-config-option-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "adv-interval-option": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertisement Interval Option"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd adv-interval-option",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-adv-interval-config-option-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "adv-interval-option": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertisement Interval Option"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd adv-interval-option",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-other-config-flag-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "other-config-flag": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Other statefull configuration flag"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd other-config-flag",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-other-config-flag-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "other-config-flag": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Other statefull configuration flag"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd other-config-flag",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-prefix-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      },
+      "RANGE:5.0": {
+        "id": "5.0",
+        "type": "integer",
+        "help": "Valid lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "infinite": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Infinite preferred lifetime",
+        "enum": "ENUM:6"
+      },
+      "RANGE:6.0": {
+        "id": "6.0",
+        "type": "integer",
+        "help": "Preferred lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "off-link": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "Do not use prefix for onlink determination",
+        "enum": "ENUM:7"
+      },
+      "no-autoconfig": {
+        "id": "8.0",
+        "type": "keyword",
+        "help": "Do not use prefix for autoconfiguration",
+        "enum": "ENUM:8"
+      },
+      "router-address": {
+        "id": "9.0",
+        "type": "keyword",
+        "help": "Set Router Address flag",
+        "enum": "ENUM:9"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd prefix IPV6-PREFIX:4 (RANGE:5.0|infinite) (RANGE:6.0|infinite) (off-link) (no-autoconfig) (router-address)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-prefix-val-nortaddr-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      },
+      "RANGE:5.0": {
+        "id": "5.0",
+        "type": "integer",
+        "help": "Valid lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "infinite": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Infinite preferred lifetime",
+        "enum": "ENUM:6"
+      },
+      "RANGE:6.0": {
+        "id": "6.0",
+        "type": "integer",
+        "help": "Preferred lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "off-link": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "Do not use prefix for onlink determination",
+        "enum": "ENUM:7"
+      },
+      "no-autoconfig": {
+        "id": "8.0",
+        "type": "keyword",
+        "help": "Do not use prefix for autoconfiguration",
+        "enum": "ENUM:8"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd prefix IPV6-PREFIX:4 (RANGE:5.0|infinite) (RANGE:6.0|infinite) (off-link) (no-autoconfig)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-prefix-val-rev-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      },
+      "RANGE:5.0": {
+        "id": "5.0",
+        "type": "integer",
+        "help": "Valid lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "infinite": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Infinite preferred lifetime",
+        "enum": "ENUM:6"
+      },
+      "RANGE:6.0": {
+        "id": "6.0",
+        "type": "integer",
+        "help": "Preferred lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "no-autoconfig": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "Do not use prefix for autoconfiguration",
+        "enum": "ENUM:7"
+      },
+      "off-link": {
+        "id": "8.0",
+        "type": "keyword",
+        "help": "Do not use prefix for onlink determination",
+        "enum": "ENUM:8"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd prefix IPV6-PREFIX:4 (RANGE:5.0|infinite) (RANGE:6.0|infinite) (no-autoconfig) (off-link)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-prefix-val-rev-rtaddr-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      },
+      "RANGE:5.0": {
+        "id": "5.0",
+        "type": "integer",
+        "help": "Valid lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "infinite": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Infinite preferred lifetime",
+        "enum": "ENUM:6"
+      },
+      "RANGE:6.0": {
+        "id": "6.0",
+        "type": "integer",
+        "help": "Preferred lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "no-autoconfig": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "Do not use prefix for autoconfiguration",
+        "enum": "ENUM:7"
+      },
+      "off-link": {
+        "id": "8.0",
+        "type": "keyword",
+        "help": "Do not use prefix for onlink determination",
+        "enum": "ENUM:8"
+      },
+      "router-address": {
+        "id": "9.0",
+        "type": "keyword",
+        "help": "Set Router Address flag",
+        "enum": "ENUM:9"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd prefix IPV6-PREFIX:4 (RANGE:5.0|infinite) (RANGE:6.0|infinite) (no-autoconfig) (off-link) (router-address)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-prefix-val-noauto-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      },
+      "RANGE:5.0": {
+        "id": "5.0",
+        "type": "integer",
+        "help": "Valid lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "infinite": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Infinite preferred lifetime",
+        "enum": "ENUM:6"
+      },
+      "RANGE:6.0": {
+        "id": "6.0",
+        "type": "integer",
+        "help": "Preferred lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "no-autoconfig": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "Do not use prefix for autoconfiguration",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd prefix IPV6-PREFIX:4 (RANGE:5.0|infinite) (RANGE:6.0|infinite) (no-autoconfig)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-prefix-val-offlink-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      },
+      "RANGE:5.0": {
+        "id": "5.0",
+        "type": "integer",
+        "help": "Valid lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "infinite": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Infinite preferred lifetime",
+        "enum": "ENUM:6"
+      },
+      "RANGE:6.0": {
+        "id": "6.0",
+        "type": "integer",
+        "help": "Preferred lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "off-link": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "Do not use prefix for onlink determination",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd prefix IPV6-PREFIX:4 (RANGE:5.0|infinite) (RANGE:6.0|infinite) (off-link)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-prefix-val-rtaddr-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      },
+      "RANGE:5.0": {
+        "id": "5.0",
+        "type": "integer",
+        "help": "Valid lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "infinite": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Infinite preferred lifetime",
+        "enum": "ENUM:6"
+      },
+      "RANGE:6.0": {
+        "id": "6.0",
+        "type": "integer",
+        "help": "Preferred lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "router-address": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "Set Router Address flag",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd prefix IPV6-PREFIX:4 (RANGE:5.0|infinite) (RANGE:6.0|infinite) (router-address)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-prefix-val-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      },
+      "RANGE:5.0": {
+        "id": "5.0",
+        "type": "integer",
+        "help": "Valid lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      },
+      "infinite": {
+        "id": "6.1",
+        "type": "keyword",
+        "help": "Infinite preferred lifetime",
+        "enum": "ENUM:6"
+      },
+      "RANGE:6.0": {
+        "id": "6.0",
+        "type": "integer",
+        "help": "Preferred lifetime in seconds",
+        "range": [
+          0,
+          4294967295
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd prefix IPV6-PREFIX:4 (RANGE:5.0|infinite) (RANGE:6.0|infinite)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-prefix-noval-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      },
+      "no-autoconfig": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Do not use prefix for autoconfiguration",
+        "enum": "ENUM:5"
+      },
+      "off-link": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Do not use prefix for onlink determination",
+        "enum": "ENUM:6"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd prefix IPV6-PREFIX:4 (no-autoconfig) (off-link)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-prefix-noval-rev-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      },
+      "off-link": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Do not use prefix for onlink determination",
+        "enum": "ENUM:5"
+      },
+      "no-autoconfig": {
+        "id": "6.0",
+        "type": "keyword",
+        "help": "Do not use prefix for autoconfiguration",
+        "enum": "ENUM:6"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd prefix IPV6-PREFIX:4 (off-link) (no-autoconfig)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-prefix-noval-noauto-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      },
+      "no-autoconfig": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Do not use prefix for autoconfiguration",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd prefix IPV6-PREFIX:4 (no-autoconfig)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-prefix-noval-offlink-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      },
+      "off-link": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Do not use prefix for onlink determination",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd prefix IPV6-PREFIX:4 (off-link)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-prefix-noval-rtaddr-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      },
+      "router-address": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Set Router Address flag",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd prefix IPV6-PREFIX:4 (router-address)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-prefix-prefix-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "IPV6-PREFIX:4": {
+        "id": "4",
+        "type": "ipv6prefix",
+        "help": "IPv6 prefix"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd prefix IPV6-PREFIX:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-prefix-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "prefix": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Prefix information"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "IPv6 prefix"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd prefix WORD:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-router-preference-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "router-preference": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Default router preference"
+      },
+      "high": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "High default router preference",
+        "enum": "ENUM:4"
+      },
+      "medium": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Low default router preference",
+        "enum": "ENUM:4"
+      },
+      "low": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Medium default router preference (default)",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd router-preference (high|medium|low)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-router-preference-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "router-preference": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Default router preference"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd router-preference",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-router-preference-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "router-preference": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Default router preference"
+      },
+      "high": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "High default router preference",
+        "enum": "ENUM:4"
+      },
+      "medium": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Low default router preference",
+        "enum": "ENUM:4"
+      },
+      "low": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Medium default router preference (default)",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd router-preference (high|medium|low",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-nd-mtu-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "mtu": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertised MTU"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "MTU in bytes",
+        "range": [
+          1,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 nd mtu RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-mtu-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "mtu": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertised MTU"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd mtu",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-nd-mtu-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Interface IPv6 config commands"
+      },
+      "nd": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Neighbor discovery"
+      },
+      "mtu": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertised MTU"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "MTU in bytes",
+        "range": [
+          1,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 nd mtu RANGE:4",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

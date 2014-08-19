@@ -1,0 +1,860 @@
+{
+  "router-rip-cmd": {
+    "token": {
+      "router": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Enable a routing process"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol (RIP)"
+      }
+    },
+    "command": [
+      {
+        "defun": "router rip",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-router-rip-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "router": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Enable a routing process"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol (RIP)"
+      }
+    },
+    "command": [
+      {
+        "defun": "no router rip",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rip-version-cmd": {
+    "token": {
+      "version": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set routing protocol version"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "version",
+        "range": [
+          1,
+          2
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "version RANGE:2",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rip-version-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "version": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set routing protocol version"
+      }
+    },
+    "command": [
+      {
+        "defun": "no version",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rip-version-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "version": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set routing protocol version"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "version",
+        "range": [
+          1,
+          2
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no version RANGE:2",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rip-route-cmd": {
+    "token": {
+      "route": {
+        "id": "1",
+        "type": "keyword",
+        "help": "RIP static route configuration"
+      },
+      "IPV4-PREFIX:2": {
+        "id": "2",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>"
+      }
+    },
+    "command": [
+      {
+        "defun": "route IPV4-PREFIX:2",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rip-route-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "route": {
+        "id": "1",
+        "type": "keyword",
+        "help": "RIP static route configuration"
+      },
+      "IPV4-PREFIX:2": {
+        "id": "2",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>"
+      }
+    },
+    "command": [
+      {
+        "defun": "no route IPV4-PREFIX:2",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rip-default-metric-cmd": {
+    "token": {
+      "default-metric": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set a metric of redistribute routes"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Default metric",
+        "range": [
+          1,
+          16
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "default-metric RANGE:2",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rip-default-metric-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "default-metric": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set a metric of redistribute routes"
+      }
+    },
+    "command": [
+      {
+        "defun": "no default-metric",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rip-default-metric-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "default-metric": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set a metric of redistribute routes"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Default metric",
+        "range": [
+          1,
+          16
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no default-metric RANGE:2",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rip-timers-cmd": {
+    "token": {
+      "timers": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Adjust routing timers"
+      },
+      "basic": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Basic routing protocol update timers"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Routing table update timer value in second. Default is 30.",
+        "range": [
+          5,
+          2147483647
+        ]
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Routing information timeout timer. Default is 180.",
+        "range": [
+          5,
+          2147483647
+        ]
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Garbage collection timer. Default is 120.",
+        "range": [
+          5,
+          2147483647
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "timers basic RANGE:3 RANGE:4 RANGE:5",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rip-timers-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "timers": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Adjust routing timers"
+      },
+      "basic": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Basic routing protocol update timers"
+      }
+    },
+    "command": [
+      {
+        "defun": "no timers basic",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rip-timers-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "timers": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Adjust routing timers"
+      },
+      "basic": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Basic routing protocol update timers"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Routing table update timer value in second. Default is 30.",
+        "range": [
+          0,
+          65535
+        ]
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Routing information timeout timer. Default is 180.",
+        "range": [
+          0,
+          65535
+        ]
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Garbage collection timer. Default is 120.",
+        "range": [
+          0,
+          65535
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no timers basic RANGE:3 RANGE:4 RANGE:5",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rip-distance-cmd": {
+    "token": {
+      "distance": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Administrative distance"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Distance value",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "distance RANGE:2",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rip-distance-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "distance": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Administrative distance"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Distance value",
+        "range": [
+          1,
+          255
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no distance RANGE:2",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rip-distance-source-cmd": {
+    "token": {
+      "distance": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Administrative distance"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Distance value",
+        "range": [
+          1,
+          255
+        ]
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP source prefix"
+      }
+    },
+    "command": [
+      {
+        "defun": "distance RANGE:2 IPV4-PREFIX:3",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rip-distance-source-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "distance": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Administrative distance"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Distance value",
+        "range": [
+          1,
+          255
+        ]
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP source prefix"
+      }
+    },
+    "command": [
+      {
+        "defun": "no distance RANGE:2 IPV4-PREFIX:3",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rip-distance-source-access-list-cmd": {
+    "token": {
+      "distance": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Administrative distance"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Distance value",
+        "range": [
+          1,
+          255
+        ]
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP source prefix"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Access list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "distance RANGE:2 IPV4-PREFIX:3 WORD:4",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rip-distance-source-access-list-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "distance": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Administrative distance"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Distance value",
+        "range": [
+          1,
+          255
+        ]
+      },
+      "IPV4-PREFIX:3": {
+        "id": "3",
+        "type": "ipv4prefix",
+        "help": "IP source prefix"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Access list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no distance RANGE:2 IPV4-PREFIX:3 WORD:4",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-rip-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Show RIP routes"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip rip",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-ip-rip-status-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Show RIP routes"
+      },
+      "status": {
+        "id": "4",
+        "type": "keyword",
+        "help": "IP routing protocol process parameters and statistics"
+      }
+    },
+    "command": [
+      {
+        "defun": "show ip rip status",
+        "mode": [
+          "VIEW-NODE",
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

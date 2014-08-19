@@ -1,0 +1,275 @@
+{
+  "debug-ospf6-brouter-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "border-routers": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug border router"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 border-routers",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-brouter-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "border-routers": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug border router"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 border-routers",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf6-brouter-router-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "border-routers": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug border router"
+      },
+      "router-id": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Debug specific border router"
+      },
+      "IPV4-ADDR:5": {
+        "id": "5",
+        "type": "ipv4address",
+        "help": "Specify border-router's router-id"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 border-routers router-id IPV4-ADDR:5",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-brouter-router-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "border-routers": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug border router"
+      },
+      "router-id": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Debug specific border router"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 border-routers router-id",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-ospf6-brouter-area-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "border-routers": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug border router"
+      },
+      "area-id": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Debug border routers in specific Area"
+      },
+      "IPV4-ADDR:5": {
+        "id": "5",
+        "type": "ipv4address",
+        "help": "Specify Area-ID"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 border-routers area-id IPV4-ADDR:5",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-brouter-area-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "border-routers": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug border router"
+      },
+      "area-id": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Debug border routers in specific Area"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 border-routers area-id",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

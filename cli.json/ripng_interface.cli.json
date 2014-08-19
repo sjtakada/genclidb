@@ -1,0 +1,308 @@
+{
+  "ripng-network-cmd": {
+    "token": {
+      "network": {
+        "id": "1",
+        "type": "keyword",
+        "help": "RIPng enable on specified interface or network."
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Interface or address"
+      }
+    },
+    "command": [
+      {
+        "defun": "network WORD:2",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-network-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "network": {
+        "id": "1",
+        "type": "keyword",
+        "help": "RIPng enable on specified interface or network."
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Interface or address"
+      }
+    },
+    "command": [
+      {
+        "defun": "no network WORD:2",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-ripng-split-horizon-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "split-horizon": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Perform split horizon"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 ripng split-horizon",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ipv6-ripng-split-horizon-poisoned-reverse-cmd": {
+    "token": {
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "split-horizon": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Perform split horizon"
+      },
+      "poisoned-reverse": {
+        "id": "4",
+        "type": "keyword",
+        "help": "With poisoned-reverse"
+      }
+    },
+    "command": [
+      {
+        "defun": "ipv6 ripng split-horizon poisoned-reverse",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-ripng-split-horizon-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "split-horizon": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Perform split horizon"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 ripng split-horizon",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ipv6-ripng-split-horizon-poisoned-reverse-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ipv6": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IPv6 information"
+      },
+      "ripng": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "split-horizon": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Perform split horizon"
+      },
+      "poisoned-reverse": {
+        "id": "4",
+        "type": "keyword",
+        "help": "With poisoned-reverse"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ipv6 ripng split-horizon poisoned-reverse",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ripng-passive-interface-cmd": {
+    "token": {
+      "passive-interface": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Suppress routing updates on an interface"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "passive-interface WORD:2",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ripng-passive-interface-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "passive-interface": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Suppress routing updates on an interface"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no passive-interface WORD:2",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

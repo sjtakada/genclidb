@@ -1,0 +1,208 @@
+{
+  "if-rmap-cmd": {
+    "token": {
+      "route-map": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Route map set"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Route map name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Route map set for input filtering",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Route map set for output filtering",
+        "enum": "ENUM:3"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Route map interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "route-map WORD:2 (in|out) WORD:4",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "if-ipv6-rmap-cmd": {
+    "token": {
+      "route-map": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Route map set"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Route map name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Route map set for input filtering",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Route map set for output filtering",
+        "enum": "ENUM:3"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Route map interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "route-map WORD:2 (in|out) WORD:4",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-if-rmap-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "route-map": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Route map unset"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Route map name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Route map for input filtering",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Route map for output filtering",
+        "enum": "ENUM:3"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Route map interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no route-map WORD:2 (in|out) WORD:4",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-if-ipv6-rmap-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "route-map": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Route map unset"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "Route map name"
+      },
+      "in": {
+        "id": "3.0",
+        "type": "keyword",
+        "help": "Route map for input filtering",
+        "enum": "ENUM:3"
+      },
+      "out": {
+        "id": "3.1",
+        "type": "keyword",
+        "help": "Route map for output filtering",
+        "enum": "ENUM:3"
+      },
+      "WORD:4": {
+        "id": "4",
+        "type": "string",
+        "help": "Route map interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no route-map WORD:2 (in|out) WORD:4",
+        "mode": [
+          "RIPNG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

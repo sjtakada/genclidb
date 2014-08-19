@@ -1,0 +1,1230 @@
+{
+  "debug-bgp-as4-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "as4": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP AS4 actions"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug bgp as4",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-bgp-as4-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "as4": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP AS4 actions"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug bgp as4",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "undebug-bgp-as4-cmd": {
+    "token": {
+      "undebug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Disable debugging functions (see also 'debug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "as4": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP AS4 actions"
+      }
+    },
+    "command": [
+      {
+        "defun": "undebug bgp as4",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-bgp-as4-segment-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "as4": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP AS4 actions"
+      },
+      "segment": {
+        "id": "4",
+        "type": "keyword",
+        "help": "BGP AS4 aspath segment handling"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug bgp as4 segment",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-bgp-as4-segment-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "as4": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP AS4 actions"
+      },
+      "segment": {
+        "id": "4",
+        "type": "keyword",
+        "help": "BGP AS4 aspath segment handling"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug bgp as4 segment",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "undebug-bgp-as4-segment-cmd": {
+    "token": {
+      "undebug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Disable debugging functions (see also 'debug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "as4": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP AS4 actions"
+      },
+      "segment": {
+        "id": "4",
+        "type": "keyword",
+        "help": "BGP AS4 aspath segment handling"
+      }
+    },
+    "command": [
+      {
+        "defun": "undebug bgp as4 segment",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-bgp-fsm-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "fsm": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP Finite State Machine"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug bgp fsm",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-bgp-fsm-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "fsm": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Finite State Machine"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug bgp fsm",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "undebug-bgp-fsm-cmd": {
+    "token": {
+      "undebug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Disable debugging functions (see also 'debug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "fsm": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Finite State Machine"
+      }
+    },
+    "command": [
+      {
+        "defun": "undebug bgp fsm",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-bgp-events-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "events": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP events"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug bgp events",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-bgp-events-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "events": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP events"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug bgp events",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "undebug-bgp-events-cmd": {
+    "token": {
+      "undebug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Disable debugging functions (see also 'debug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "events": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP events"
+      }
+    },
+    "command": [
+      {
+        "defun": "undebug bgp events",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-bgp-filter-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "filters": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP filters"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug bgp filters",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-bgp-filter-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "filters": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP filters"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug bgp filters",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "undebug-bgp-filter-cmd": {
+    "token": {
+      "undebug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Disable debugging functions (see also 'debug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "filters": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP filters"
+      }
+    },
+    "command": [
+      {
+        "defun": "undebug bgp filters",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-bgp-keepalive-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "keepalives": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP keepalives"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug bgp keepalives",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-bgp-keepalive-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "keepalives": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP keepalives"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug bgp keepalives",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "undebug-bgp-keepalive-cmd": {
+    "token": {
+      "undebug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Disable debugging functions (see also 'debug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "keepalives": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP keepalives"
+      }
+    },
+    "command": [
+      {
+        "defun": "undebug bgp keepalives",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-bgp-update-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "updates": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP updates"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug bgp updates",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-bgp-update-direct-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "updates": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP updates"
+      },
+      "in": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Inbound updates",
+        "enum": "ENUM:4"
+      },
+      "out": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Outbound updates",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug bgp updates (in|out)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-bgp-update-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "updates": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP updates"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug bgp updates",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "undebug-bgp-update-cmd": {
+    "token": {
+      "undebug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Disable debugging functions (see also 'debug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "updates": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP updates"
+      }
+    },
+    "command": [
+      {
+        "defun": "undebug bgp updates",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-bgp-normal-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug bgp",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-bgp-normal-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug bgp",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "undebug-bgp-normal-cmd": {
+    "token": {
+      "undebug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Disable debugging functions (see also 'debug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      }
+    },
+    "command": [
+      {
+        "defun": "undebug bgp",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "debug-bgp-zebra-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP Zebra messages"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug bgp zebra",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-bgp-zebra-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP Zebra messages"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug bgp zebra",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "undebug-bgp-zebra-cmd": {
+    "token": {
+      "undebug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Disable debugging functions (see also 'debug')"
+      },
+      "bgp": {
+        "id": "2",
+        "type": "keyword",
+        "help": "BGP information"
+      },
+      "zebra": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP Zebra messages"
+      }
+    },
+    "command": [
+      {
+        "defun": "undebug bgp zebra",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-bgp-all-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "all": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Enable all debugging"
+      },
+      "bgp": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP information"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug all bgp",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "undebug-bgp-all-cmd": {
+    "token": {
+      "undebug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Disable debugging functions (see also 'debug')"
+      },
+      "all": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Enable all debugging"
+      },
+      "bgp": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP information"
+      }
+    },
+    "command": [
+      {
+        "defun": "undebug all bgp",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "show-debugging-bgp-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "debugging": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "bgp": {
+        "id": "3",
+        "type": "keyword",
+        "help": "BGP information"
+      }
+    },
+    "command": [
+      {
+        "defun": "show debugging bgp",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,1413 @@
+{
+  "key-chain-cmd": {
+    "token": {
+      "key": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Authentication key management"
+      },
+      "chain": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Key-chain management"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Key-chain name"
+      }
+    },
+    "command": [
+      {
+        "defun": "key chain WORD:3",
+        "mode": [
+          "CONFIG-NODE",
+          "KEYCHAIN-NODE",
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-key-chain-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "key": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Authentication key management"
+      },
+      "chain": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Key-chain management"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Key-chain name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no key chain WORD:3",
+        "mode": [
+          "CONFIG-NODE",
+          "KEYCHAIN-NODE",
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "key-cmd": {
+    "token": {
+      "key": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Configure a key"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Key identifier number",
+        "range": [
+          0,
+          2147483647
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "key RANGE:2",
+        "mode": [
+          "KEYCHAIN-NODE",
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-key-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "key": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Delete a key"
+      },
+      "RANGE:2": {
+        "id": "2",
+        "type": "integer",
+        "help": "Key identifier number",
+        "range": [
+          0,
+          2147483647
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "no key RANGE:2",
+        "mode": [
+          "KEYCHAIN-NODE",
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "key-string-cmd": {
+    "token": {
+      "key-string": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set key string"
+      },
+      "WORD:2": {
+        "id": "2",
+        "type": "string",
+        "help": "The key"
+      }
+    },
+    "command": [
+      {
+        "defun": "key-string WORD:2",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-key-string-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "key-string": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Unset key string"
+      },
+      "WORD:2.0": {
+        "id": "2.0",
+        "type": "string",
+        "help": "The key"
+      }
+    },
+    "command": [
+      {
+        "defun": "no key-string (WORD:2.0|)",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "accept-lifetime-day-month-day-month-cmd": {
+    "token": {
+      "accept-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set accept lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "MONTH:4": {
+        "id": "4",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "TIME:6": {
+        "id": "6",
+        "type": "time",
+        "help": "Time to expire"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Day of th month to expire",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "MONTH:8": {
+        "id": "8",
+        "type": "month",
+        "help": "Month of the year to expire"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Year to expire",
+        "range": [
+          1993,
+          2035
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "accept-lifetime TIME:2 RANGE:3 MONTH:4 RANGE:5 TIME:6 RANGE:7 MONTH:8 RANGE:9",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "accept-lifetime-day-month-month-day-cmd": {
+    "token": {
+      "accept-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set accept lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "MONTH:4": {
+        "id": "4",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "TIME:6": {
+        "id": "6",
+        "type": "time",
+        "help": "Time to expire"
+      },
+      "MONTH:7": {
+        "id": "7",
+        "type": "month",
+        "help": "Month of the year to expire"
+      },
+      "RANGE:8": {
+        "id": "8",
+        "type": "integer",
+        "help": "Day of th month to expire",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Year to expire",
+        "range": [
+          1993,
+          2035
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "accept-lifetime TIME:2 RANGE:3 MONTH:4 RANGE:5 TIME:6 MONTH:7 RANGE:8 RANGE:9",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "accept-lifetime-month-day-day-month-cmd": {
+    "token": {
+      "accept-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set accept lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "MONTH:3": {
+        "id": "3",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "TIME:6": {
+        "id": "6",
+        "type": "time",
+        "help": "Time to expire"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Day of th month to expire",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "MONTH:8": {
+        "id": "8",
+        "type": "month",
+        "help": "Month of the year to expire"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Year to expire",
+        "range": [
+          1993,
+          2035
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "accept-lifetime TIME:2 MONTH:3 RANGE:4 RANGE:5 TIME:6 RANGE:7 MONTH:8 RANGE:9",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "accept-lifetime-month-day-month-day-cmd": {
+    "token": {
+      "accept-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set accept lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "MONTH:3": {
+        "id": "3",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "TIME:6": {
+        "id": "6",
+        "type": "time",
+        "help": "Time to expire"
+      },
+      "MONTH:7": {
+        "id": "7",
+        "type": "month",
+        "help": "Month of the year to expire"
+      },
+      "RANGE:8": {
+        "id": "8",
+        "type": "integer",
+        "help": "Day of th month to expire",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Year to expire",
+        "range": [
+          1993,
+          2035
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "accept-lifetime TIME:2 MONTH:3 RANGE:4 RANGE:5 TIME:6 MONTH:7 RANGE:8 RANGE:9",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "accept-lifetime-infinite-day-month-cmd": {
+    "token": {
+      "accept-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set accept lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "MONTH:4": {
+        "id": "4",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "infinite": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Never expires"
+      }
+    },
+    "command": [
+      {
+        "defun": "accept-lifetime TIME:2 RANGE:3 MONTH:4 RANGE:5 infinite",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "accept-lifetime-infinite-month-day-cmd": {
+    "token": {
+      "accept-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set accept lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "MONTH:3": {
+        "id": "3",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "infinite": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Never expires"
+      }
+    },
+    "command": [
+      {
+        "defun": "accept-lifetime TIME:2 MONTH:3 RANGE:4 RANGE:5 infinite",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "accept-lifetime-duration-day-month-cmd": {
+    "token": {
+      "accept-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set accept lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "MONTH:4": {
+        "id": "4",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "duration": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Duration of the key"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Duration seconds",
+        "range": [
+          1,
+          2147483646
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "accept-lifetime TIME:2 RANGE:3 MONTH:4 RANGE:5 duration RANGE:7",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "accept-lifetime-duration-month-day-cmd": {
+    "token": {
+      "accept-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set accept lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "MONTH:3": {
+        "id": "3",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "duration": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Duration of the key"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Duration seconds",
+        "range": [
+          1,
+          2147483646
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "accept-lifetime TIME:2 MONTH:3 RANGE:4 RANGE:5 duration RANGE:7",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "send-lifetime-day-month-day-month-cmd": {
+    "token": {
+      "send-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set send lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "MONTH:4": {
+        "id": "4",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "TIME:6": {
+        "id": "6",
+        "type": "time",
+        "help": "Time to expire"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Day of th month to expire",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "MONTH:8": {
+        "id": "8",
+        "type": "month",
+        "help": "Month of the year to expire"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Year to expire",
+        "range": [
+          1993,
+          2035
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "send-lifetime TIME:2 RANGE:3 MONTH:4 RANGE:5 TIME:6 RANGE:7 MONTH:8 RANGE:9",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "send-lifetime-day-month-month-day-cmd": {
+    "token": {
+      "send-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set send lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "MONTH:4": {
+        "id": "4",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "TIME:6": {
+        "id": "6",
+        "type": "time",
+        "help": "Time to expire"
+      },
+      "MONTH:7": {
+        "id": "7",
+        "type": "month",
+        "help": "Month of the year to expire"
+      },
+      "RANGE:8": {
+        "id": "8",
+        "type": "integer",
+        "help": "Day of th month to expire",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Year to expire",
+        "range": [
+          1993,
+          2035
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "send-lifetime TIME:2 RANGE:3 MONTH:4 RANGE:5 TIME:6 MONTH:7 RANGE:8 RANGE:9",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "send-lifetime-month-day-day-month-cmd": {
+    "token": {
+      "send-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set send lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "MONTH:3": {
+        "id": "3",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "TIME:6": {
+        "id": "6",
+        "type": "time",
+        "help": "Time to expire"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Day of th month to expire",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "MONTH:8": {
+        "id": "8",
+        "type": "month",
+        "help": "Month of the year to expire"
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Year to expire",
+        "range": [
+          1993,
+          2035
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "send-lifetime TIME:2 MONTH:3 RANGE:4 RANGE:5 TIME:6 RANGE:7 MONTH:8 RANGE:9",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "send-lifetime-month-day-month-day-cmd": {
+    "token": {
+      "send-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set send lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "MONTH:3": {
+        "id": "3",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "TIME:6": {
+        "id": "6",
+        "type": "time",
+        "help": "Time to expire"
+      },
+      "MONTH:7": {
+        "id": "7",
+        "type": "month",
+        "help": "Month of the year to expire"
+      },
+      "RANGE:8": {
+        "id": "8",
+        "type": "integer",
+        "help": "Day of th month to expire",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "RANGE:9": {
+        "id": "9",
+        "type": "integer",
+        "help": "Year to expire",
+        "range": [
+          1993,
+          2035
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "send-lifetime TIME:2 MONTH:3 RANGE:4 RANGE:5 TIME:6 MONTH:7 RANGE:8 RANGE:9",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "send-lifetime-infinite-day-month-cmd": {
+    "token": {
+      "send-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set send lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "MONTH:4": {
+        "id": "4",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "infinite": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Never expires"
+      }
+    },
+    "command": [
+      {
+        "defun": "send-lifetime TIME:2 RANGE:3 MONTH:4 RANGE:5 infinite",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "send-lifetime-infinite-month-day-cmd": {
+    "token": {
+      "send-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set send lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "MONTH:3": {
+        "id": "3",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "infinite": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Never expires"
+      }
+    },
+    "command": [
+      {
+        "defun": "send-lifetime TIME:2 MONTH:3 RANGE:4 RANGE:5 infinite",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "send-lifetime-duration-day-month-cmd": {
+    "token": {
+      "send-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set send lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "RANGE:3": {
+        "id": "3",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "MONTH:4": {
+        "id": "4",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "duration": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Duration of the key"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Duration seconds",
+        "range": [
+          1,
+          2147483646
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "send-lifetime TIME:2 RANGE:3 MONTH:4 RANGE:5 duration RANGE:7",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "send-lifetime-duration-month-day-cmd": {
+    "token": {
+      "send-lifetime": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set send lifetime of the key"
+      },
+      "TIME:2": {
+        "id": "2",
+        "type": "time",
+        "help": "Time to start"
+      },
+      "MONTH:3": {
+        "id": "3",
+        "type": "month",
+        "help": "Month of the year to start"
+      },
+      "RANGE:4": {
+        "id": "4",
+        "type": "integer",
+        "help": "Day of th month to start",
+        "range": [
+          1,
+          31
+        ]
+      },
+      "RANGE:5": {
+        "id": "5",
+        "type": "integer",
+        "help": "Year to start",
+        "range": [
+          1993,
+          2035
+        ]
+      },
+      "duration": {
+        "id": "6",
+        "type": "keyword",
+        "help": "Duration of the key"
+      },
+      "RANGE:7": {
+        "id": "7",
+        "type": "integer",
+        "help": "Duration seconds",
+        "range": [
+          1,
+          2147483646
+        ]
+      }
+    },
+    "command": [
+      {
+        "defun": "send-lifetime TIME:2 MONTH:3 RANGE:4 RANGE:5 duration RANGE:7",
+        "mode": [
+          "KEYCHAIN-KEY-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

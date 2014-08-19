@@ -1,0 +1,1526 @@
+{
+  "rip-network-cmd": {
+    "token": {
+      "network": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Enable routing on an IP network"
+      },
+      "IPV4-PREFIX:2.0": {
+        "id": "2.0",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "WORD:2.1": {
+        "id": "2.1",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "network (IPV4-PREFIX:2.0|WORD:2.1)",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rip-network-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "network": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Enable routing on an IP network"
+      },
+      "IPV4-PREFIX:2.0": {
+        "id": "2.0",
+        "type": "ipv4prefix",
+        "help": "IP prefix <network>/<length>, e.g., 35.0.0.0/8"
+      },
+      "WORD:2.1": {
+        "id": "2.1",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no network (IPV4-PREFIX:2.0|WORD:2.1)",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rip-neighbor-cmd": {
+    "token": {
+      "neighbor": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Specify a neighbor router"
+      },
+      "IPV4-ADDR:2": {
+        "id": "2",
+        "type": "ipv4address",
+        "help": "Neighbor address"
+      }
+    },
+    "command": [
+      {
+        "defun": "neighbor IPV4-ADDR:2",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rip-neighbor-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "neighbor": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Specify a neighbor router"
+      },
+      "IPV4-ADDR:2": {
+        "id": "2",
+        "type": "ipv4address",
+        "help": "Neighbor address"
+      }
+    },
+    "command": [
+      {
+        "defun": "no neighbor IPV4-ADDR:2",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-rip-receive-version-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "receive": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertisement reception"
+      },
+      "version": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Version control"
+      },
+      "1": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "RIP version 1",
+        "enum": "ENUM:5"
+      },
+      "2": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "RIP version 2",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip rip receive version (1|2)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-rip-receive-version-1-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "receive": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertisement reception"
+      },
+      "version": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Version control"
+      },
+      "1": {
+        "id": "5",
+        "type": "keyword",
+        "help": "RIP version 1"
+      },
+      "2": {
+        "id": "6",
+        "type": "keyword",
+        "help": "RIP version 2"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip rip receive version 1 2",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-rip-receive-version-2-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "receive": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertisement reception"
+      },
+      "version": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Version control"
+      },
+      "2": {
+        "id": "5",
+        "type": "keyword",
+        "help": "RIP version 2"
+      },
+      "1": {
+        "id": "6",
+        "type": "keyword",
+        "help": "RIP version 1"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip rip receive version 2 1",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-rip-receive-version-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "receive": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertisement reception"
+      },
+      "version": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Version control"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip rip receive version",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-rip-receive-version-num-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "receive": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertisement reception"
+      },
+      "version": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Version control"
+      },
+      "1": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Version 1",
+        "enum": "ENUM:5"
+      },
+      "2": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Version 2",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip rip receive version (1|2)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-rip-send-version-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "send": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertisement transmission"
+      },
+      "version": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Version control"
+      },
+      "1": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "RIP version 1",
+        "enum": "ENUM:5"
+      },
+      "2": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "RIP version 2",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip rip send version (1|2)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-rip-send-version-1-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "send": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertisement transmission"
+      },
+      "version": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Version control"
+      },
+      "1": {
+        "id": "5",
+        "type": "keyword",
+        "help": "RIP version 1"
+      },
+      "2": {
+        "id": "6",
+        "type": "keyword",
+        "help": "RIP version 2"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip rip send version 1 2",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-rip-send-version-2-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "send": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertisement transmission"
+      },
+      "version": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Version control"
+      },
+      "2": {
+        "id": "5",
+        "type": "keyword",
+        "help": "RIP version 2"
+      },
+      "1": {
+        "id": "6",
+        "type": "keyword",
+        "help": "RIP version 1"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip rip send version 2 1",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-rip-send-version-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "send": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertisement transmission"
+      },
+      "version": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Version control"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip rip send version",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-rip-send-version-num-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "send": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Advertisement transmission"
+      },
+      "version": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Version control"
+      },
+      "1": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Version 1",
+        "enum": "ENUM:5"
+      },
+      "2": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Version 2",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip rip send version (1|2)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-rip-authentication-mode-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "authentication": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Authentication control"
+      },
+      "mode": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Authentication mode"
+      },
+      "md5": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Keyed message digest",
+        "enum": "ENUM:5"
+      },
+      "text": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Clear text authentication",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip rip authentication mode (md5|text)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-rip-authentication-mode-authlen-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "authentication": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Authentication control"
+      },
+      "mode": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Authentication mode"
+      },
+      "md5": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Keyed message digest",
+        "enum": "ENUM:5"
+      },
+      "text": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Clear text authentication",
+        "enum": "ENUM:5"
+      },
+      "auth-length": {
+        "id": "6",
+        "type": "keyword",
+        "help": "MD5 authentication data length"
+      },
+      "rfc": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "RFC compatible",
+        "enum": "ENUM:7"
+      },
+      "old-ripd": {
+        "id": "7.1",
+        "type": "keyword",
+        "help": "Old ripd compatible",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip rip authentication mode (md5|text) auth-length (rfc|old-ripd)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-rip-authentication-mode-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "authentication": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Authentication control"
+      },
+      "mode": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Authentication mode"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip rip authentication mode",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-rip-authentication-mode-type-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "authentication": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Authentication control"
+      },
+      "mode": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Authentication mode"
+      },
+      "md5": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Keyed message digest",
+        "enum": "ENUM:5"
+      },
+      "text": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Clear text authentication",
+        "enum": "ENUM:5"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip rip authentication mode (md5|text)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-rip-authentication-mode-type-authlen-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "authentication": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Authentication control"
+      },
+      "mode": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Authentication mode"
+      },
+      "md5": {
+        "id": "5.0",
+        "type": "keyword",
+        "help": "Keyed message digest",
+        "enum": "ENUM:5"
+      },
+      "text": {
+        "id": "5.1",
+        "type": "keyword",
+        "help": "Clear text authentication",
+        "enum": "ENUM:5"
+      },
+      "auth-length": {
+        "id": "6",
+        "type": "keyword",
+        "help": "MD5 authentication data length"
+      },
+      "rfc": {
+        "id": "7.0",
+        "type": "keyword",
+        "help": "RFC compatible",
+        "enum": "ENUM:7"
+      },
+      "old-ripd": {
+        "id": "7.1",
+        "type": "keyword",
+        "help": "Old ripd compatible",
+        "enum": "ENUM:7"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip rip authentication mode (md5|text) auth-length (rfc|old-ripd)",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-rip-authentication-string-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "authentication": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Authentication control"
+      },
+      "string": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Authentication string"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Authentication string"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip rip authentication string WORD:5",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-rip-authentication-string-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "authentication": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Authentication control"
+      },
+      "string": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Authentication string"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip rip authentication string",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-rip-authentication-string2-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "authentication": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Authentication control"
+      },
+      "string": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Authentication string"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "Authentication string"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip rip authentication string WORD:5",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-rip-authentication-key-chain-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "authentication": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Authentication control"
+      },
+      "key-chain": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Authentication key-chain"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "name of key-chain"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip rip authentication key-chain WORD:5",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-rip-authentication-key-chain-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "authentication": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Authentication control"
+      },
+      "key-chain": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Authentication key-chain"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip rip authentication key-chain",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-rip-authentication-key-chain2-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "authentication": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Authentication control"
+      },
+      "key-chain": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Authentication key-chain"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "name of key-chain"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip rip authentication key-chain WORD:5",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-rip-split-horizon-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "split-horizon": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Perform split horizon"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip rip split-horizon",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ip-rip-split-horizon-poisoned-reverse-cmd": {
+    "token": {
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "split-horizon": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Perform split horizon"
+      },
+      "poisoned-reverse": {
+        "id": "4",
+        "type": "keyword",
+        "help": "With poisoned-reverse"
+      }
+    },
+    "command": [
+      {
+        "defun": "ip rip split-horizon poisoned-reverse",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-rip-split-horizon-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "split-horizon": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Perform split horizon"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip rip split-horizon",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ip-rip-split-horizon-poisoned-reverse-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ip": {
+        "id": "1",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "rip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Routing Information Protocol"
+      },
+      "split-horizon": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Perform split horizon"
+      },
+      "poisoned-reverse": {
+        "id": "4",
+        "type": "keyword",
+        "help": "With poisoned-reverse"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ip rip split-horizon poisoned-reverse",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "rip-passive-interface-cmd": {
+    "token": {
+      "passive-interface": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Suppress routing updates on an interface"
+      },
+      "WORD:2.0": {
+        "id": "2.0",
+        "type": "string",
+        "help": "Interface name"
+      },
+      "default": {
+        "id": "2.1",
+        "type": "keyword",
+        "help": "default for all interfaces",
+        "enum": "ENUM:2"
+      }
+    },
+    "command": [
+      {
+        "defun": "passive-interface (WORD:2.0|default)",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-rip-passive-interface-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "passive-interface": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Suppress routing updates on an interface"
+      },
+      "WORD:2.0": {
+        "id": "2.0",
+        "type": "string",
+        "help": "Interface name"
+      },
+      "default": {
+        "id": "2.1",
+        "type": "keyword",
+        "help": "default for all interfaces",
+        "enum": "ENUM:2"
+      }
+    },
+    "command": [
+      {
+        "defun": "no passive-interface (WORD:2.0|default)",
+        "mode": [
+          "RIP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

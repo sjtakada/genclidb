@@ -1,0 +1,857 @@
+{
+  "match-interface-cmd": {
+    "token": {
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "interface": {
+        "id": "2",
+        "type": "keyword",
+        "help": "match first hop interface of route"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "match interface WORD:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-interface-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "interface": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Match first hop interface of route"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match interface",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-interface-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "interface": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Match first hop interface of route"
+      },
+      "WORD:3": {
+        "id": "3",
+        "type": "string",
+        "help": "Interface name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match interface WORD:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "match-ip-next-hop-cmd": {
+    "token": {
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "next-hop": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Match next-hop address of route"
+      },
+      "RANGE:4.0": {
+        "id": "4.0",
+        "type": "integer",
+        "help": "IP access-list number",
+        "range": [
+          1,
+          199
+        ]
+      },
+      "RANGE:4.1": {
+        "id": "4.1",
+        "type": "integer",
+        "help": "IP access-list number (expanded range)",
+        "range": [
+          1300,
+          2699
+        ]
+      },
+      "WORD:4.2": {
+        "id": "4.2",
+        "type": "string",
+        "help": "IP Access-list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "match ip next-hop (RANGE:4.0|RANGE:4.1|WORD:4.2)",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-ip-next-hop-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "next-hop": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Match next-hop address of route"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match ip next-hop",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-ip-next-hop-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "next-hop": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Match next-hop address of route"
+      },
+      "RANGE:4.0": {
+        "id": "4.0",
+        "type": "integer",
+        "help": "IP access-list number",
+        "range": [
+          1,
+          199
+        ]
+      },
+      "RANGE:4.1": {
+        "id": "4.1",
+        "type": "integer",
+        "help": "IP access-list number (expanded range)",
+        "range": [
+          1300,
+          2699
+        ]
+      },
+      "WORD:4.2": {
+        "id": "4.2",
+        "type": "string",
+        "help": "IP Access-list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match ip next-hop (RANGE:4.0|RANGE:4.1|WORD:4.2)",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "match-ip-next-hop-prefix-list-cmd": {
+    "token": {
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "next-hop": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Match next-hop address of route"
+      },
+      "prefix-list": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Match entries of prefix-lists"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IP prefix-list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "match ip next-hop prefix-list WORD:5",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-ip-next-hop-prefix-list-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "next-hop": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Match next-hop address of route"
+      },
+      "prefix-list": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Match entries of prefix-lists"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match ip next-hop prefix-list",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-ip-next-hop-prefix-list-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "next-hop": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Match next-hop address of route"
+      },
+      "prefix-list": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Match entries of prefix-lists"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IP prefix-list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match ip next-hop prefix-list WORD:5",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "match-ip-address-cmd": {
+    "token": {
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "address": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Match address of route"
+      },
+      "RANGE:4.0": {
+        "id": "4.0",
+        "type": "integer",
+        "help": "IP access-list number",
+        "range": [
+          1,
+          199
+        ]
+      },
+      "RANGE:4.1": {
+        "id": "4.1",
+        "type": "integer",
+        "help": "IP access-list number (expanded range)",
+        "range": [
+          1300,
+          2699
+        ]
+      },
+      "WORD:4.2": {
+        "id": "4.2",
+        "type": "string",
+        "help": "IP Access-list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "match ip address (RANGE:4.0|RANGE:4.1|WORD:4.2)",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-ip-address-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "address": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Match address of route"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match ip address",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-ip-address-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "address": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Match address of route"
+      },
+      "RANGE:4.0": {
+        "id": "4.0",
+        "type": "integer",
+        "help": "IP access-list number",
+        "range": [
+          1,
+          199
+        ]
+      },
+      "RANGE:4.1": {
+        "id": "4.1",
+        "type": "integer",
+        "help": "IP access-list number (expanded range)",
+        "range": [
+          1300,
+          2699
+        ]
+      },
+      "WORD:4.2": {
+        "id": "4.2",
+        "type": "string",
+        "help": "IP Access-list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match ip address (RANGE:4.0|RANGE:4.1|WORD:4.2)",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "match-ip-address-prefix-list-cmd": {
+    "token": {
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "address": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Match address of route"
+      },
+      "prefix-list": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Match entries of prefix-lists"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IP prefix-list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "match ip address prefix-list WORD:5",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-ip-address-prefix-list-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "address": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Match address of route"
+      },
+      "prefix-list": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Match entries of prefix-lists"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match ip address prefix-list",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-match-ip-address-prefix-list-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "match": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Match values from routing table"
+      },
+      "ip": {
+        "id": "2",
+        "type": "keyword",
+        "help": "IP information"
+      },
+      "address": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Match address of route"
+      },
+      "prefix-list": {
+        "id": "4",
+        "type": "keyword",
+        "help": "Match entries of prefix-lists"
+      },
+      "WORD:5": {
+        "id": "5",
+        "type": "string",
+        "help": "IP prefix-list name"
+      }
+    },
+    "command": [
+      {
+        "defun": "no match ip address prefix-list WORD:5",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "set-src-cmd": {
+    "token": {
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set values in destination routing protocol"
+      },
+      "src": {
+        "id": "2",
+        "type": "keyword",
+        "help": "src address for route"
+      },
+      "IPV4-ADDR:3": {
+        "id": "3",
+        "type": "ipv4address",
+        "help": "src address"
+      }
+    },
+    "command": [
+      {
+        "defun": "set src IPV4-ADDR:3",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-set-src-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set values in destination routing protocol"
+      },
+      "src": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Source address for route"
+      }
+    },
+    "command": [
+      {
+        "defun": "no set src",
+        "mode": [
+          "RMAP-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-set-src-val-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "set": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Set values in destination routing protocol"
+      },
+      "src": {
+        "id": "2",
+        "type": "keyword",
+        "help": "src address for route"
+      },
+      "IPV4-ADDR:3.0": {
+        "id": "3.0",
+        "type": "ipv4address",
+        "help": "src address"
+      }
+    },
+    "command": [
+      {
+        "defun": "no set src (IPV4-ADDR:3.0)",
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

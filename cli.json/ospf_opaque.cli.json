@@ -1,0 +1,144 @@
+{
+  "capability-opaque-cmd": {
+    "token": {
+      "capability": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Enable specific OSPF feature"
+      },
+      "opaque": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Opaque LSA"
+      }
+    },
+    "command": [
+      {
+        "defun": "capability opaque",
+        "mode": [
+          "OSPF-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "POST",
+              "path": "ospfv2s/:PROCESS-ID",
+              "params": {
+                "capability_opaque": true
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ospf-opaque-capable-cmd": {
+    "token": {
+      "ospf": {
+        "id": "1",
+        "type": "keyword",
+        "help": "OSPF specific commands"
+      },
+      "opaque-lsa": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Enable the Opaque-LSA capability (rfc2370)"
+      }
+    },
+    "command": [
+      {
+        "defun": "ospf opaque-lsa",
+        "mode": [
+          "OSPF-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "POST",
+              "path": "ospfv2s/:PROCESS-ID",
+              "params": {
+                "capability_opaque": true
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-capability-opaque-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "capability": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Enable specific OSPF feature"
+      },
+      "opaque": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Opaque LSA"
+      }
+    },
+    "command": [
+      {
+        "defun": "no capability opaque",
+        "mode": [
+          "OSPF-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "POST",
+              "path": "ospfv2s/:PROCESS-ID",
+              "params": {
+                "capability_opaque": false
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-ospf-opaque-capable-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "ospf": {
+        "id": "1",
+        "type": "keyword",
+        "help": "OSPF specific commands"
+      },
+      "opaque-lsa": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Disable the Opaque-LSA capability (rfc2370)"
+      }
+    },
+    "command": [
+      {
+        "defun": "no ospf opaque-lsa",
+        "mode": [
+          "OSPF-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "POST",
+              "path": "ospfv2s/:PROCESS-ID",
+              "params": {
+                "capability_opaque": false
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "debug-ospf6-route-cmd": {
+    "token": {
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug route table calculation"
+      },
+      "table": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Debug detail",
+        "enum": "ENUM:4"
+      },
+      "intra-area": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Debug intra-area route calculation",
+        "enum": "ENUM:4"
+      },
+      "inter-area": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "Debug inter-area route calculation",
+        "enum": "ENUM:4"
+      },
+      "memory": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "Debug route memory use",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "debug ospf6 route (table|intra-area|inter-area|memory)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "no-debug-ospf6-route-cmd": {
+    "token": {
+      "no": {
+        "id": "0",
+        "type": "keyword",
+        "help": "Negate a command or set its defaults"
+      },
+      "debug": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Debugging functions (see also 'undebug')"
+      },
+      "ospf6": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Open Shortest Path First (OSPF) for IPv6"
+      },
+      "route": {
+        "id": "3",
+        "type": "keyword",
+        "help": "Debug route table calculation"
+      },
+      "table": {
+        "id": "4.0",
+        "type": "keyword",
+        "help": "Debug intra-area route calculation",
+        "enum": "ENUM:4"
+      },
+      "intra-area": {
+        "id": "4.1",
+        "type": "keyword",
+        "help": "Debug route memory use",
+        "enum": "ENUM:4"
+      },
+      "inter-area": {
+        "id": "4.2",
+        "type": "keyword",
+        "help": "*MISSING-HELP*",
+        "enum": "ENUM:4"
+      },
+      "memory": {
+        "id": "4.3",
+        "type": "keyword",
+        "help": "*MISSING-HELP*",
+        "enum": "ENUM:4"
+      }
+    },
+    "command": [
+      {
+        "defun": "no debug ospf6 route (table|intra-area|inter-area|memory)",
+        "mode": [
+          "ENABLE-NODE",
+          "CONFIG-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "NOP",
+              "path": "",
+              "params": {
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
