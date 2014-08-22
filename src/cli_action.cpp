@@ -88,8 +88,9 @@ CliActionHttp::handle(Cli *cli, ParamsMap& input)
 
   if (cli->is_debug())
     {
-      cout << "method: " << method_ << endl;
-      cout << "path: " << path_ << endl;
+      cout << "> HTTP" << endl;
+      cout << ">> method: " << method_ << endl;
+      cout << ">> path: " << path_ << endl;
     }
 
   for (ParamTokenMap::iterator it = param_token_.begin();
@@ -105,7 +106,7 @@ CliActionHttp::handle(Cli *cli, ParamsMap& input)
       replace(key.begin(), key.end(), '-', '_');
 
       if (cli->is_debug())
-        cout << "param_token_[" << key << "] = " << it->second << endl;
+        cout << ">> params {" << key << ": " << it->second << "}" << endl;
 
       if (it->second.isNull())
         json_params[key] = null_value;

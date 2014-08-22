@@ -497,6 +497,9 @@ CliReadline::handle_actions(CliNodeTokenVector& node_token_vec)
        it != cli_->params_.end(); ++it)
     input[it->first] = it->second;
 
+  if (cli_->is_debug())
+    cout << "> CLI parser" << endl;
+
   // Populate params and keywords.
   for (CliNodeTokenVector::iterator it = node_token_vec.begin();
        it != node_token_vec.end(); ++it)
@@ -504,8 +507,8 @@ CliReadline::handle_actions(CliNodeTokenVector& node_token_vec)
       CliNode *node = it->first;
 
       if (cli_->is_debug())
-        cout << "token: " << node->cli_token() << " "
-             << "input: " << *it->second << endl;
+        cout << ">> input '" << *it->second << "' matches " 
+             << "token '" << node->cli_token() << "'" << endl;
 
       if (node->type_ == CliTree::keyword)
         {
@@ -548,11 +551,17 @@ CliReadline::handle_actions(CliNodeTokenVector& node_token_vec)
         }
     }
 
+  // Special NULL binding.
+  input["NULL"] = cli_->null_key();
+
   // Dump all inputs.
   if (cli_->is_debug())
-    for (ParamsMap::iterator it = input.begin();
-         it != input.end(); ++it)
-      cout << "input[" << it->first << "] = " << it->second << endl;
+    {
+      cout << "> Params Binding" << endl;
+      for (ParamsMap::iterator it = input.begin();
+           it != input.end(); ++it)
+        cout << ">> params[" << it->first << "] = " << it->second << endl;
+    }
 
   if (node->actions_.size() == 0)
     {

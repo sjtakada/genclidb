@@ -47,6 +47,13 @@ class <%= @class_name_p %>Controller < ApplicationController
 <%   end %>
 <% end %>
       @<%= @model_name %>.destroy
+<% if @belongs_to != nil %>
+<%   @belongs_to.each do |k, v| %>
+<%     if !v["destroy-upon"].nil? and v["destroy-upon"] == true %>
+      @<%= @model_name %>.<%= keyword(k) %>.destroy_upon_dependent
+<%     end %>
+<%   end %>
+<% end %>
 <% if @is_assoc == true %>
 <%   @belongs_to.each do |k, v| %>
 <%     if v["type"] == "table" %>

@@ -61,7 +61,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:IPV4-ADDR:4/:IPV4-ADDR:5",
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/:NULL/rules/:IPV4-ADDR:4/:IPV4-ADDR:5",
               "params": {
                 "permit-deny": "ENUM:3"
               }
@@ -129,7 +129,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:IPV4-ADDR:4/:MASK",
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/:NULL/rules/:IPV4-ADDR:4/:MASK",
               "params": {
                 "permit-deny": "ENUM:3"
               }
@@ -202,7 +202,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:IPV4-ADDR:5/:MASK",
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/:NULL/rules/:IPV4-ADDR:5/:MASK",
               "params": {
                 "permit-deny": "ENUM:3"
               }
@@ -270,7 +270,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:ADDRESS/:MASK",
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/:NULL/rules/:ADDRESS/:MASK",
               "params": {
                 "permit-deny": "ENUM:3"
               }
@@ -347,7 +347,7 @@
           {
             "http": {
               "method": "DELETE",
-              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:IPV4-ADDR:4/:IPV4-ADDR:5"
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/:NULL/rules/:IPV4-ADDR:4/:IPV4-ADDR:5"
             }
           }
         ]
@@ -417,7 +417,7 @@
           {
             "http": {
               "method": "DELETE",
-              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:IPV4-ADDR:4/:MASK"
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/:NULL/rules/:IPV4-ADDR:4/:MASK"
             }
           }
         ]
@@ -492,7 +492,7 @@
           {
             "http": {
               "method": "DELETE",
-              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:IPV4-ADDR:5/:MASK"
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/:NULL/rules/:IPV4-ADDR:5/:MASK"
             }
           }
         ]
@@ -562,7 +562,7 @@
           {
             "http": {
               "method": "DELETE",
-              "path": "acl_ipv4_stds/:ACL-NUM/entries/null/rules/:ADDRESS/:MASK"
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/:NULL/rules/:ADDRESS/:MASK"
             }
           }
         ]

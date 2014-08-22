@@ -48,6 +48,9 @@ public:
   void set_cli_json_dir(char *dir) { cli_json_dir_ = dir; }
   string& cli_json_dir() { return cli_json_dir_; }
 
+  void set_null_key(char *null_key) { null_key_ = null_key; }
+  string& null_key() { return null_key_; }
+
   void terminal_init();
   bool init();
   void loop();
@@ -96,6 +99,9 @@ private:
 
   // CLI JSON directory.
   string cli_json_dir_;
+
+  // Null Key string
+  string null_key_;
 
   // Current mode.
   CliTree *mode_;

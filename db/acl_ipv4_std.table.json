@@ -20,7 +20,8 @@
       "alias": "entry",
       "belongs-to": {
         "acl-ipv4-std": {
-          "type": "table"
+          "type": "table",
+          "destroy-upon": true
         }
       },
       "has-one": {
@@ -33,7 +34,7 @@
         "seq": {
           "type": "integer",
           "auto": {
-            "step": 4
+            "step": 10
           }
         }
       }
@@ -43,7 +44,8 @@
       "alias": "rule",
       "belongs-to": {
         "acl-ipv4-std-entry": {
-          "type": "table"
+          "type": "table",
+          "destroy-upon": true
         }
       },
       "keys": {

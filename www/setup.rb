@@ -366,23 +366,55 @@ def str2ip(str)
   IPAddr.new(str).hton
 end
 
-def find_by_func_name_str(table_keys)
-  "find_by_" + table_keys.map{|t| keyword(t[0])}.join("_and_")
+# Generate statement.
+def find_by_statement_str(table_keys)
+  keys = Array.new
+  params = Array.new
+
+  table_keys.each do |t|
+    k, v = keyword(t[0]), t[1]
+    keys << k
+    if v["type"] == "ipv4" or v["type"] == "ipv6"
+      params << "IPAddr.new(params[:" + k + "]).hton"
+    else
+      params << "params[:" + k + "]"
+    end
+  end
+
+  "find_by_" + keys.join("_and_") + "(" + params.join(", ") + ")"
 end
 
-# Generate statement.
+def find_by_statement_str_no_auto(table_keys)
+  keys = Array.new
+  params = Array.new
+
+  table_keys.each do |t|
+    k, v = keyword(t[0]), t[1]
+    if v["type"] != "integer" or v["auto"].nil?
+      keys << k
+      if v["type"] == "ipv4" or v["type"] == "ipv6"
+        params << "IPAddr.new(params[:" + k + "]).hton"
+      else
+        params << "params[:" + k + "]"
+      end
+    end
+  end
+
+  "find_by_" + keys.join("_and_") + "(" + params.join(", ") + ")"
+end
+
 def find_all_statement_str(table_keys)
   keys = Array.new
   params = Array.new
 
   table_keys.each do |t|
-    k, v = t[0], t[1]
+    k, v = keyword(t[0]), t[1]
     if v["type"] != "integer" or v["auto"].nil?
       keys << k
       if v["type"] == "ipv4" or v["type"] == "ipv6"
-        params << "IPAddr.new(params[:" + keyword(k) + "]).hton"
+        params << "IPAddr.new(params[:" + k + "]).hton"
       else
-        params << "params[:" + keyword(k) + "]"
+        params << "params[:" + k + "]"
       end
     end
   end
@@ -405,6 +437,7 @@ def rails_modify_model(table_name, table_keys)
   model = "app/models/" + @model_name + ".rb"
 
   File.open(model, "w") do |f|
+    @app_name = keyword_camel($rails_project)
     @class_name = keyword_camel(table_name)
     @belongs_to = table_def["belongs-to"]
     @has_many = table_def["has-many"]
@@ -416,6 +449,7 @@ def rails_modify_model(table_name, table_keys)
     @keys_def = table_def["keys"]
     @attrs_def = table_def["attributes"]
     @all_keys = table_keys
+    @auto_keys = table_keys.select{|k, v| !v["auto"].nil?}
 
     @default_def = Hash.new
     if @attrs_def != nil
@@ -449,30 +483,6 @@ def rails_api_path(table_name, heritage)
     if !t["keys"].nil?
       t["keys"].each do |k, v|
         path << ":" + keyword(k)
-      end
-    end
-  end
-
-  path.join("/")
-end
-
-def rails_api_path_assoc(belongs_to)
-  path = Array.new
-  path << "api"
-
-  belongs_to.each do |x, y|
-    t = $tables[:json][x]
-    if !t.nil?
-      if t["type"] == "dependent" and !t["alias"].nil?
-        path << keyword_plural(t["alias"])
-      else
-        path << keyword_plural(x)
-      end
-
-      if !t["keys"].nil?
-        t["keys"].each do |k, v|
-          path << ":" + keyword(k)
-        end
       end
     end
   end
@@ -873,12 +883,11 @@ def rails_add_association(table_name)
       else
         b_interfaces.each do |b, obj|
           obj["tables"].each do |t|
-            api_path = rails_api_path_polymorphic(b_tables, t)
+            path = rails_api_path_polymorphic(b_tables, t)
             index_keys = rails_get_index_keys_assoc(b_tables, t)
-            rails_add_routes_polymorphic(table_name, index_keys, t, api_path)
+            rails_add_routes_polymorphic(table_name, index_keys, t, path)
           end
         end
-        api_path = nil
       end
     end
 
@@ -904,6 +913,22 @@ def rails_update_mime_types
       f.puts
       f.puts line
     end
+  end
+end
+
+def rails_generate_api_config
+  puts "=> Generate api_config.rb..."
+
+  api_config = "config/initializers/api_config.rb"
+  template = File.read("../api_config.erb")
+
+  File.open(api_config, "w") do |f|
+    @app_name = keyword_camel($rails_project)
+    @null_key = `cat ../null_key.txt`
+    @null_key.chomp!
+
+    renderer = ERB.new(template, nil, '<>')
+    f.puts renderer.result()
   end
 end
 
@@ -974,8 +999,11 @@ def main(dir)
   # Generate routes
   rails_update_routes
 
-  # Update mime.types
+  # Update initializer/mime.types
   rails_update_mime_types
+
+  # Generate initializer/api_config.rb (custom config)
+  rails_generate_api_config
 
   # rake db:migrate
   rails_rake_db_migrate

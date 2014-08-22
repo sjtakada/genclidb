@@ -33,6 +33,7 @@ struct option longopts[] =
 {
   { "cli_mode", required_argument, NULL, 'm'},
   { "cli_json", required_argument, NULL, 'j'},
+  { "null_key", required_argument, NULL, 'n'},
   { "debug",    no_argument,       NULL, 'd'},
   { "help",     no_argument,       NULL, 'h'},
   { "version",  no_argument,       NULL, 'v'},
@@ -44,7 +45,8 @@ print_help(char *progname)
 {
   cout << "Usage: " << progname << " [OPTION...]" << endl << endl;
   cout << "-m, --cli-mode  Set CLI mode file" << endl;
-  cout << "-j, --cli-json Set CLI JSON directory" << endl;
+  cout << "-j, --cli-json  Set CLI JSON directory" << endl;
+  cout << "-n, --null-key  Set string for Null as a key" << endl;
   cout << "-d, --debug     Runs in debug mode" << endl;
   cout << "-h, --help      Display this help and exit" << endl;
   cout << "-v, --version   Print program version" << endl;
@@ -72,6 +74,7 @@ main(int argc, char **argv)
   bool debug = false;
   char *cli_mode = NULL;
   char *cli_json = NULL;
+  char *null_key = NULL;
 
   progname = ((p = strrchr(argv[0], '/')) ? ++p : argv[0]);
 
@@ -80,7 +83,7 @@ main(int argc, char **argv)
     {
       int opt;
 
-      opt = getopt_long(argc, argv, "m:j:dhv", longopts, 0);
+      opt = getopt_long(argc, argv, "m:j:n:dhv", longopts, 0);
       if (opt == EOF)
         break;
 
@@ -93,6 +96,9 @@ main(int argc, char **argv)
           break;
         case 'j':
           cli_json = optarg;
+          break;
+        case 'n':
+          null_key = optarg;
           break;
         case 'd':
           debug = true;
@@ -115,6 +121,8 @@ main(int argc, char **argv)
     cli->set_cli_mode_file(cli_mode);
   if (cli_json)
     cli->set_cli_json_dir(cli_json);
+  if (null_key)
+    cli->set_null_key(null_key);
 
   // Init CLI.
   if (!cli->init())

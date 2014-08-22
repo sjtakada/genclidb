@@ -71,18 +71,22 @@ class <%= @class_name %> < ActiveRecord::Base
 <% ######################################################################### %>
 
   def self.find_by_params(params)
-<% params = Array.new %>
-<% @all_keys.each do |t| %>
-<%   k, v = t[0], t[1] %>
-<%   if v["type"] == "ipv4" || v["type"] == "ipv6" %>
-    <%= keyword(k) %> = IPAddr.new(params[:<%= keyword(k) %>]).hton
-<%       params << keyword(k) %>
-<%   else %>
-<%       params << "params[:" + keyword(k) + "]" %>
+<% if !@auto_keys.empty? %>
+<%   @auto_keys.each do |k, v| %>
+    if params[:<%= keyword(k) %>] == <%= @app_name %>::Application::NULL_KEY
+      params[:<%= keyword(k) %>] = nil
+    end
+
 <%   end %>
+<%   cond = @auto_keys.map{|k, v| "params[:" + keyword(k) + "] == nil"}.join(" and ") %>
+    if <%= cond %>
+      <%= find_by_statement_str_no_auto(@all_keys) %>
+    else
+      <%= find_by_statement_str(@all_keys) %>
+    end
+<% else %>
+    <%= find_by_statement_str(@all_keys) %>
 <% end %>
-<% params_str = params.join(", ") %>
-    <%= find_by_func_name_str(@all_keys) %>(<%= params_str %>)
   end
 <% ######################################################################### %>
 <% if @all_keys != nil %>
@@ -90,7 +94,7 @@ class <%= @class_name %> < ActiveRecord::Base
 <%     k, v = t[0], t[1] %>
 <%     if v["type"] == "integer" and !v["auto"].nil? and !@keys_def[k].nil? %>
 
-  def self.get_next_<%= keyword(k) %>(params)
+  def self.set_next_<%= keyword(k) %>(params)
     array = <%= @class_name %>.<%= find_all_statement_str(@all_keys) %>
     if array.size == 0
       max = 0
@@ -98,7 +102,7 @@ class <%= @class_name %> < ActiveRecord::Base
       max = array.max_by(&:<%= keyword(k) %>).<%= keyword(k) %>
     end
 
-    val = (max / <%= v["auto"]["step"] %> + 1) * <%= v["auto"]["step"] %>
+    params[:<%= keyword(k) %>] = (max / <%= v["auto"]["step"] %> + 1) * <%= v["auto"]["step"] %>
   end
 <%     end %>
 <%   end %>
@@ -145,10 +149,9 @@ class <%= @class_name %> < ActiveRecord::Base
 <%   @all_keys.each do |t| %>
 <%     k, v = t[0], t[1] %>
 <%     if v["type"] == "integer" and !v["auto"].nil? and !@keys_def[k].nil? %>
-      <%= @model_name %>.<%= keyword(k) %> = get_next_<%= keyword(k) %>(params)
-<%     else %>
-      <%= @model_name %>.<%= keyword(k) %> = params[:<%= keyword(k) %>]
+      set_next_<%= keyword(k) %>(params)
 <%     end %>
+      <%= @model_name %>.<%= keyword(k) %> = params[:<%= keyword(k) %>]
 <%   end %>
 <% end %>
       <%= @model_name %>.save!
@@ -168,6 +171,33 @@ class <%= @class_name %> < ActiveRecord::Base
 <% end %>
     self.save!
   end
+<% ######################################################################### %>
+<% if @has_many != nil or @has_one != nil %>
+<%   cond = Array.new %>
+<%   if @has_many != nil %>
+<%     @has_many.each do |k, v| %>
+<%       cond << keyword_plural(k) + ".empty?" %>
+<%     end %>
+<%   end %>
+<%   if @has_one != nil %>
+<%     @has_one.each do |k, v| %>
+<%       cond << keyword(k) + ".nil?" %>
+<%     end %>
+<%   end %>
+
+  def destroy_upon_dependent
+    if <%= cond.join(" and ") %>
+      destroy
+<% if @belongs_to != nil %>
+<%   @belongs_to.each do |k, v| %>
+<%     if v["destroy-upon"] != nil and v["destroy-upon"] == true %>
+      <%= keyword(k) %>.destroy_upon_dependent
+<%     end %>
+<%   end %>
+<% end %>
+    end
+  end
+<% end %>
 <% ######################################################################### %>
 <% if @belongs_to != nil %>
 <%   @belongs_to.each do |k, v| %>
