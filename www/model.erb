@@ -92,7 +92,8 @@ class <%= @class_name %> < ActiveRecord::Base
 <% if @all_keys != nil %>
 <%   @all_keys.each do |t| %>
 <%     k, v = t[0], t[1] %>
-<%     if v["type"] == "integer" and !v["auto"].nil? and !@keys_def[k].nil? %>
+<%     if v["type"] == "integer" and !v["auto"].nil? %>
+<%       if @keys_def != nil and !@keys_def[k].nil? %>
 
   def self.set_next_<%= keyword(k) %>(params)
     array = <%= @class_name %>.<%= find_all_statement_str(@all_keys) %>
@@ -104,12 +105,19 @@ class <%= @class_name %> < ActiveRecord::Base
 
     params[:<%= keyword(k) %>] = (max / <%= v["auto"]["step"] %> + 1) * <%= v["auto"]["step"] %>
   end
+<%       end %>
 <%     end %>
 <%   end %>
 <% end %>
 <% ######################################################################### %>
 
   def self.get_by_params(params)
+<% @auto_keys.each do |k, v| %>
+    if params[:<%= keyword(k) %>] == <%= @app_name %>::Application::NULL_KEY
+      params[:<%= keyword(k) %>] = nil
+    end
+
+<% end %>
 <% if @belongs_to != nil %>
 <%   @belongs_to.each do |k, v| %>
 <%     if v["type"] == "table" %>
@@ -132,7 +140,16 @@ class <%= @class_name %> < ActiveRecord::Base
 <%     end %>
 <%   end %>
 <% end %>
+<% if @keys_def == nil and !@auto_keys.empty? %>
+    <%= @model_name %> = nil
+<% elsif !@auto_keys.empty? %>
+<%   cond = @auto_keys.map{|k, v| "params[:" + keyword(k) + "] != nil"}.join(" and ") %>
+    if <%= cond %>
+      <%= @model_name %> = find_by_params(params)
+    end
+<% else %>
     <%= @model_name %> = find_by_params(params)
+<% end %>
     if <%= @model_name %> == nil
       <%= @model_name %> = <%= @class_name %>.new
 <% if @belongs_to != nil %>
@@ -148,8 +165,10 @@ class <%= @class_name %> < ActiveRecord::Base
 <% if @all_keys != nil %>
 <%   @all_keys.each do |t| %>
 <%     k, v = t[0], t[1] %>
-<%     if v["type"] == "integer" and !v["auto"].nil? and !@keys_def[k].nil? %>
+<%     if v["type"] == "integer" and !v["auto"].nil? %>
+<%       if @keys_def != nil and !@keys_def[k].nil? %>
       set_next_<%= keyword(k) %>(params)
+<%       end %>
 <%     end %>
       <%= @model_name %>.<%= keyword(k) %> = params[:<%= keyword(k) %>]
 <%   end %>

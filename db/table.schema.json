@@ -63,6 +63,9 @@
                     "type": {
                       "enum": ["table", "interface"]
                     },
+                    "destroy-upon": {
+                      "type": "boolean"
+                    },
                     "tables": {
                       "type": "array",
                       "items": {
@@ -91,6 +94,14 @@
                       "enum": [
                         "string", "integer", "boolean", "ipv4", "ipv6", "enum"
                       ]
+                    },
+                    "auto": {
+                      "type": "object",
+                      "properties": {
+                        "step": {
+                          "type": "integer"
+                        }
+                      }
                     },
                     "range": {
                       "type": "array",

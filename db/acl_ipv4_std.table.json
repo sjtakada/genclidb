@@ -27,6 +27,9 @@
       "has-one": {
         "acl-ipv4-std-rule": {
           "type": "table"
+        },
+        "acl-ipv4-std-remark": {
+          "type": "table"
         }
       },
       "order": "seq",
@@ -60,7 +63,19 @@
         "permit-deny": {
           "type": "enum",
           "values": ["permit", "deny"]
-        },
+        }
+      }
+    },
+    "acl-ipv4-std-remark": {
+      "type": "dependent",
+      "alias": "remark",
+      "belongs-to": {
+        "acl-ipv4-std-entry": {
+          "type": "table",
+          "destroy-upon": true
+        }
+      },
+      "attributes": {
         "remark": {
           "type": "string"
         }

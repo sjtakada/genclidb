@@ -2469,12 +2469,17 @@
         "mode": [
           "CONFIG-NODE"
         ],
+        "bind": [
+          "if RANGE:2.0 do ACL-NUM = RANGE:2.0",
+          "if RANGE:2.1 do ACL-NUM = RANGE:2.1"
+        ],
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "acl_ipv4_stds/:ACL-NUM/entries/:NULL/remarks",
               "params": {
+                "remark": "WORD:4"
               }
             }
           }
