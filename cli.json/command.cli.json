@@ -433,6 +433,37 @@
       }
     ]
   },
+  "show-access-list-cmd": {
+    "token": {
+      "show": {
+        "id": "1",
+        "type": "keyword",
+        "help": "Show running system information"
+      },
+      "access-list": {
+        "id": "2",
+        "type": "keyword",
+        "help": "Access-list information"
+      }
+    },
+    "command": [
+      {
+        "defun": "show access-list",
+        "mode": [
+          "ENABLE-NODE"
+        ],
+        "action": [
+          {
+            "http": {
+              "method": "GET",
+              "path": "show/access-list",
+              "format": "cli"
+            }
+          }
+        ]
+      }
+    ]
+  },
   "show-running-config-cmd": {
     "token": {
       "show": {
