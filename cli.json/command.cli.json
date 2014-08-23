@@ -453,6 +453,7 @@
           "node",
           "ENABLE-NODE",
           "CONFIG-NODE",
+          "INTERFACE-NODE",
           "OSPF-NODE"
         ],
         "action": [

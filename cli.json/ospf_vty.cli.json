@@ -6864,9 +6864,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "authentication": "ENUM:4"
               }
             }
           }
@@ -6943,9 +6944,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "authentication": ""
               }
             }
           }
@@ -7032,9 +7034,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "authentication": null
               }
             }
           }
@@ -7121,9 +7124,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "authentication-key": "WORD:4"
               }
             }
           }
@@ -7247,9 +7251,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "authentication-key": null
               }
             }
           }
@@ -7702,9 +7707,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "cost": "RANGE:4"
               }
             }
           }
@@ -7878,9 +7884,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "cost": null
               }
             }
           }
@@ -8008,9 +8015,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "cost": null
               }
             }
           }
@@ -8212,9 +8220,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "dead-interval": "RANGE:4"
               }
             }
           }
@@ -8258,9 +8267,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "dead-interval": "RANGE:4"
               }
             }
           }
@@ -8505,9 +8515,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "dead-interval": null
               }
             }
           }
@@ -8593,9 +8604,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "hello-interval": "RANGE:4"
               }
             }
           }
@@ -8639,9 +8651,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "hello-interval": "RANGE:4"
               }
             }
           }
@@ -8769,9 +8782,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "hello-interval": null
               }
             }
           }
@@ -8867,9 +8881,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "network": "ENUM:4"
               }
             }
           }
@@ -8965,9 +8980,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "network": null
               }
             }
           }
@@ -9099,9 +9115,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "priority": "RANGE:4"
               }
             }
           }
@@ -9229,9 +9246,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "priority": null
               }
             }
           }
@@ -9363,9 +9381,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "retransmit-interval": "RANGE:4"
               }
             }
           }
@@ -9493,9 +9512,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "retransmit-interval": null
               }
             }
           }
@@ -9581,9 +9601,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "transmit-delay": "RANGE:4"
               }
             }
           }
@@ -9627,9 +9648,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "transmit-delay": "RANGE:4"
               }
             }
           }
@@ -9757,9 +9779,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "transmit-delay": null
               }
             }
           }
@@ -13625,9 +13648,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "mtu-ignore": true
               }
             }
           }
@@ -13714,9 +13738,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs",
               "params": {
+                "mtu-ignore": null
               }
             }
           }

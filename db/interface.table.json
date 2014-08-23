@@ -1,0 +1,22 @@
+{
+  "table": {
+    "interface": {
+      "type": "parent",
+      "has-one": {
+        "ospfv2-if": {
+          "type": "table"
+        }
+      },
+      "keys": {
+        "ifname": {
+          "type": "string"
+        }
+      },
+      "attributes": {
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

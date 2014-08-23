@@ -15,6 +15,9 @@
     "command": [
       {
         "defun": "description [WORD:2]",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
         "action": [
           {
             "http": {
@@ -44,6 +47,9 @@
     "command": [
       {
         "defun": "no description",
+        "mode": [
+          "INTERFACE-NODE"
+        ],
         "action": [
           {
             "http": {
@@ -73,13 +79,23 @@
     "command": [
       {
         "defun": "interface WORD:2",
+        "mode": [
+          "CONFIG-NODE"
+        ],
+        "bind": [
+          "IFNAME = WORD:2"
+        ],
         "action": [
           {
+            "mode": {
+              "name": "INTERFACE-NODE",
+              "params": [
+                "IFNAME"
+              ]
+            },
             "http": {
-              "method": "NOP",
-              "path": "",
-              "params": {
-              }
+              "method": "PUT",
+              "path": "interfaces/:IFNAME"
             }
           }
         ]

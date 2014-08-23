@@ -1,0 +1,64 @@
+{
+  "table": {
+    "ospfv2-if": {
+      "type": "dependent",
+      "belongs-to": {
+        "interface": {
+          "type": "table"
+        }
+      },
+      "attributes": {
+        "hello-interval": {
+          "type": "integer",
+          "range": [1, 65535],
+          "default": 10
+        },
+        "dead-interval": {
+          "type": "integer",
+          "range": [1, 65535],
+          "default": 40
+        },
+        "retransmit-interval": {
+          "type": "integer",
+          "range": [3, 65535],
+          "default": 5
+        },
+        "transmit-delay": {
+          "type": "integer",
+          "range": [1, 65535],
+          "default": 1
+        },
+        "authentication": {
+          "type": "enum",
+          "values": ["", "message-digest", "null"],
+          "null": true,
+          "default": null
+        },
+        "authentication-key": {
+          "type": "string",
+          "null": true,
+          "default": null
+        },
+        "cost": {
+          "type": "integer",
+          "range": [1, 65535],
+          "default": 10
+        },
+        "mtu-ignore": {
+          "type": "boolean",
+          "default": false
+        },
+        "network": {
+          "type": "enum",
+          "values": ["broadcast", "non-broadcast", "point-to-multipoint", "point-to-pont"],
+          "default": "broadcast"
+        },
+        "priority": {
+          "type": "integer",
+          "range": [0, 255],
+          "default": 1
+        }
+      }
+    }
+  }
+}
