@@ -7,6 +7,12 @@
           "type": "table"
         }
       },
+      "keys": {
+        "addr": {
+          "type": "ipv4",
+          "null": true
+        }
+      },
       "attributes": {
         "hello-interval": {
           "type": "integer",

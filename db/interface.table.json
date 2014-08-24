@@ -2,7 +2,7 @@
   "table": {
     "interface": {
       "type": "parent",
-      "has-one": {
+      "has-many": {
         "ospfv2-if": {
           "type": "table"
         }

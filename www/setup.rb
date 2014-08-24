@@ -374,11 +374,7 @@ def find_by_statement_str(table_keys)
   table_keys.each do |t|
     k, v = keyword(t[0]), t[1]
     keys << k
-    if v["type"] == "ipv4" or v["type"] == "ipv6"
-      params << "IPAddr.new(params[:" + k + "]).hton"
-    else
-      params << "params[:" + k + "]"
-    end
+    params << "get_param(params, :" + k + ")"
   end
 
   "find_by_" + keys.join("_and_") + "(" + params.join(", ") + ")"
@@ -392,11 +388,7 @@ def find_by_statement_str_no_auto(table_keys)
     k, v = keyword(t[0]), t[1]
     if v["type"] != "integer" or v["auto"].nil?
       keys << k
-      if v["type"] == "ipv4" or v["type"] == "ipv6"
-        params << "IPAddr.new(params[:" + k + "]).hton"
-      else
-        params << "params[:" + k + "]"
-      end
+      params << "get_param(params, :" + k + ")"
     end
   end
 
@@ -411,11 +403,7 @@ def find_all_statement_str(table_keys)
     k, v = keyword(t[0]), t[1]
     if v["type"] != "integer" or v["auto"].nil?
       keys << k
-      if v["type"] == "ipv4" or v["type"] == "ipv6"
-        params << "IPAddr.new(params[:" + k + "]).hton"
-      else
-        params << "params[:" + k + "]"
-      end
+      params << "get_param(params, :" + k + ")"
     end
   end
 
@@ -449,7 +437,9 @@ def rails_modify_model(table_name, table_keys)
     @keys_def = table_def["keys"]
     @attrs_def = table_def["attributes"]
     @all_keys = table_keys
+    @ip_keys = table_keys.select{|k, v| v["type"] == "ipv4" or v["type"] == "ipv6"}
     @auto_keys = table_keys.select{|k, v| !v["auto"].nil?}
+    @null_keys = table_keys.select{|k, v| !v["null"].nil? and v["null"] == true}
 
     @default_def = Hash.new
     if @attrs_def != nil
@@ -540,9 +530,16 @@ def rails_modify_controller(table_name, table_keys, db_fields, api_path)
 
   File.open(controller, "w") do |f|
     @belongs_to = table_def["belongs-to"]
+    @app_name = keyword_camel($rails_project)
     @model_name = keyword(table_name)
     @class_name = keyword_camel(table_name)
     @class_name_p = keyword_camel(table_name).pluralize
+    @null_keys = {}
+    if table_keys != nil
+      @null_keys = table_keys.select do |k, v|
+        (!v["null"].nil? and v["null"] == true) or !v["auto"].nil?
+      end
+    end
     @api_path = api_path
 
     @order = nil
@@ -614,18 +611,38 @@ def rails_generate_view(table_name)
   end
 end
 
+def is_null_ok(v)
+  if v["null"] != nil and v["null"] == true
+    true
+  elsif v["auto"] != nil
+    true
+  else
+    false
+  end
+end
+
 def rails_keys_constraints(table_keys)
-  cons = ""
+  cons_str = ""
+  conss = Array.new
+  null_key_var = keyword_camel($rails_project) + "::Application::NULL_KEY"
 
   if table_keys != nil
-    keys = table_keys.select {|t| t[1]["type"] == "ipv4" || t[1]["type"] == "ipv6"}
-    if keys.size > 0
-      cons = ", constraints: {" +
-        keys.map {|t| keyword(t[0]) + ': /[\d\.]+/'}.join(', ') + "}"
+    table_keys.each do |k, v|
+      if v["type"] == "ipv4" || v["type"] == "ipv6"
+        if is_null_ok(v) == true
+          conss << keyword(k) + ': /([\d\.]+|#{' + null_key_var + '})/'
+        else
+          conss << keyword(k) + ': /[\d\.]+/'
+        end
+      end
+    end
+
+    if !conss.empty?
+      cons_str = ", constraints: {" + conss.join(', ') + "}"
     end
   end
   
-  cons
+  cons_str
 end
 
 def rails_get_heritage(table_name)
@@ -924,8 +941,7 @@ def rails_generate_api_config
 
   File.open(api_config, "w") do |f|
     @app_name = keyword_camel($rails_project)
-    @null_key = `cat ../null_key.txt`
-    @null_key.chomp!
+    @null_key = $null_key
 
     renderer = ERB.new(template, nil, '<>')
     f.puts renderer.result()
@@ -985,6 +1001,9 @@ def main(dir)
   $routes = Array.new
   $routes_resource = Array.new
   $routes_polymorphic = Array.new
+
+  $null_key = `cat ../null_key.txt`
+  $null_key.chomp!
 
   # Iterate from parents, and then iterate children recursively.
   $tables[:parents].each do |p|

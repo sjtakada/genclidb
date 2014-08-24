@@ -6815,9 +6815,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:5",
               "params": {
+                "authentication": "ENUM:4"
               }
             }
           }
@@ -6865,7 +6866,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "authentication": "ENUM:4"
               }
@@ -6907,9 +6908,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:4",
               "params": {
+                "authentication": ""
               }
             }
           }
@@ -6945,7 +6947,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "authentication": ""
               }
@@ -6992,9 +6994,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:4",
               "params": {
+                "authentication": null
               }
             }
           }
@@ -7035,7 +7038,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "authentication": null
               }
@@ -7082,9 +7085,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:5",
               "params": {
+                "authentication-key": "WORD:4"
               }
             }
           }
@@ -7125,7 +7129,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "authentication-key": "WORD:4"
               }
@@ -7209,9 +7213,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:4",
               "params": {
+                "authentication-key": null
               }
             }
           }
@@ -7252,7 +7257,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "authentication-key": null
               }
@@ -7661,9 +7666,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:5",
               "params": {
+                "cost": "RANGE:4"
               }
             }
           }
@@ -7708,7 +7714,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "cost": "RANGE:4"
               }
@@ -7842,9 +7848,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:4",
               "params": {
+                "cost": null
               }
             }
           }
@@ -7885,7 +7892,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "cost": null
               }
@@ -8016,7 +8023,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "cost": null
               }
@@ -8118,9 +8125,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:5",
               "params": {
+                "cost": null
               }
             }
           }
@@ -8221,7 +8229,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:5",
               "params": {
                 "dead-interval": "RANGE:4"
               }
@@ -8268,7 +8276,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "dead-interval": "RANGE:4"
               }
@@ -8473,9 +8481,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:4",
               "params": {
+                "dead-interval": null
               }
             }
           }
@@ -8516,7 +8525,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "dead-interval": null
               }
@@ -8605,7 +8614,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:5",
               "params": {
                 "hello-interval": "RANGE:4"
               }
@@ -8652,7 +8661,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "hello-interval": "RANGE:4"
               }
@@ -8740,9 +8749,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:4",
               "params": {
+                "hello-interval": null
               }
             }
           }
@@ -8783,7 +8793,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "hello-interval": null
               }
@@ -8882,7 +8892,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "network": "ENUM:4"
               }
@@ -8981,7 +8991,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "network": null
               }
@@ -9069,9 +9079,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:5",
               "params": {
+                "network": "RANGE:4"
               }
             }
           }
@@ -9116,7 +9127,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "priority": "RANGE:4"
               }
@@ -9204,9 +9215,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:4",
               "params": {
+                "network": null
               }
             }
           }
@@ -9247,9 +9259,9 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
-                "priority": null
+                "network": null
               }
             }
           }
@@ -9335,9 +9347,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:5",
               "params": {
+                "priority": "RANGE:4"
               }
             }
           }
@@ -9382,7 +9395,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "retransmit-interval": "RANGE:4"
               }
@@ -9470,9 +9483,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:4",
               "params": {
+                "retransmit-interval": null
               }
             }
           }
@@ -9513,7 +9527,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "retransmit-interval": null
               }
@@ -9602,7 +9616,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:5",
               "params": {
                 "transmit-delay": "RANGE:4"
               }
@@ -9649,7 +9663,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "transmit-delay": "RANGE:4"
               }
@@ -9737,9 +9751,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:4",
               "params": {
+                "transmit-delay": null
               }
             }
           }
@@ -9780,7 +9795,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "transmit-delay": null
               }
@@ -13611,9 +13626,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:4",
               "params": {
+                "mtu-ignore": true
               }
             }
           }
@@ -13649,7 +13665,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "mtu-ignore": true
               }
@@ -13696,9 +13712,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:4",
               "params": {
+                "mtu-ignore": null
               }
             }
           }
@@ -13739,7 +13756,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "interfaces/:IFNAME/ospfv2_ifs",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL",
               "params": {
                 "mtu-ignore": null
               }

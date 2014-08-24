@@ -70,15 +70,37 @@ class <%= @class_name %> < ActiveRecord::Base
   end
 <% ######################################################################### %>
 
-  def self.find_by_params(params)
-<% if !@auto_keys.empty? %>
-<%   @auto_keys.each do |k, v| %>
-    if params[:<%= keyword(k) %>] == <%= @app_name %>::Application::NULL_KEY
-      params[:<%= keyword(k) %>] = nil
+  def get_param(params, key)
+    <%= @class_name %>.get_param(params, key)
+  end
+
+<% if @ip_keys != nil and !@ip_keys.empty? %>
+  def self.get_param(params, key)
+    value = nil
+
+    case key
+<%   @ip_keys.each do |k, v| %>
+    when :<%= keyword(k) %>
+      if params[:<%= keyword(k) %>] != nil
+        value = IPAddr.new(params[:<%= keyword(k) %>]).hton
+      end
+<%   end %>
+    else
+      value = params[key]
     end
 
-<%   end %>
-<%   cond = @auto_keys.map{|k, v| "params[:" + keyword(k) + "] == nil"}.join(" and ") %>
+    value
+  end
+<% else %>
+  def self.get_param(params, key)
+    params[key]
+  end
+<% end %>
+<% ######################################################################### %>
+
+  def self.find_by_params(params)
+<% if !@auto_keys.empty? %>
+<%   cond = @auto_keys.map{|k, v| "get_param(params, :" + keyword(k) + ") == nil"}.join(" and ") %>
     if <%= cond %>
       <%= find_by_statement_str_no_auto(@all_keys) %>
     else
@@ -112,19 +134,13 @@ class <%= @class_name %> < ActiveRecord::Base
 <% ######################################################################### %>
 
   def self.get_by_params(params)
-<% @auto_keys.each do |k, v| %>
-    if params[:<%= keyword(k) %>] == <%= @app_name %>::Application::NULL_KEY
-      params[:<%= keyword(k) %>] = nil
-    end
-
-<% end %>
 <% if @belongs_to != nil %>
 <%   @belongs_to.each do |k, v| %>
 <%     if v["type"] == "table" %>
     <%= keyword(k) %> = <%= keyword_camel(k) %>.get_by_params(params)
 <%     elsif v["type"] == "interface" %>
-    if params["<%= keyword(k) %>"] != nil
-      <%= keyword(k) %>_type = params["<%= keyword(k) %>"]
+    if get_param(params, "<%= keyword(k) %>"] != nil
+      <%= keyword(k) %>_type = get_param(params, "<%= keyword(k) %>")
       <%= keyword(k) %>_id = nil
 
       case <%= keyword(k) %>_type
@@ -143,7 +159,7 @@ class <%= @class_name %> < ActiveRecord::Base
 <% if @keys_def == nil and !@auto_keys.empty? %>
     <%= @model_name %> = nil
 <% elsif !@auto_keys.empty? %>
-<%   cond = @auto_keys.map{|k, v| "params[:" + keyword(k) + "] != nil"}.join(" and ") %>
+<%   cond = @auto_keys.map{|k, v| "get_param(params, :" + keyword(k) + ") != nil"}.join(" and ") %>
     if <%= cond %>
       <%= @model_name %> = find_by_params(params)
     end

@@ -1,5 +1,8 @@
 class <%= @class_name_p %>Controller < ApplicationController
   before_action :set_<%= @model_name %>, only: [:show, :edit, :update, :destroy]
+<% if !@null_keys.empty? %>
+  before_action :<%= @model_name %>_null_params, only: [:create_by_keys, :update_by_keys, :destroy_by_keys]
+<% end %>
   skip_before_filter :verify_authenticity_token, :if => Proc.new {|c| c.request.format == 'application/json' }
 
   # PUT /<%= @api_path %>.json
@@ -183,4 +186,14 @@ class <%= @class_name_p %>Controller < ApplicationController
     def <%= @model_name %>_params
       params.require(:<%= @model_name %>).permit(<%= @keys_str %>)
     end
+<% if !@null_keys.empty? %>
+
+    def <%= @model_name %>_null_params
+<%   @null_keys.each do |k, v| %>
+      if params[:<%= keyword(k) %>] == <%= @app_name %>::Application::NULL_KEY
+        params[:<%= keyword(k) %>] = nil
+      end
+<%   end %>
+    end
+<% end %>
 end
