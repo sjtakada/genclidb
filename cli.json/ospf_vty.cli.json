@@ -7355,9 +7355,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:7/md5_keys/:RANGE:4",
               "params": {
+                "key-string": "WORD:6"
               }
             }
           }
@@ -7411,9 +7412,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL/md5_keys/:RANGE:4",
               "params": {
+                "key-string": "WORD:6"
               }
             }
           }
@@ -7518,10 +7520,8 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
-              "params": {
-              }
+              "method": "DELETE",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:IPV4-ADDR:5/md5_keys/:RANGE:4"
             }
           }
         ]
@@ -7569,10 +7569,8 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
-              "params": {
-              }
+              "method": "DELETE",
+              "path": "interfaces/:IFNAME/ospfv2_ifs/:NULL/md5_keys/:RANGE:4"
             }
           }
         ]

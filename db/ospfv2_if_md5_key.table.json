@@ -1,0 +1,24 @@
+{
+  "table": {
+    "ospfv2-if-md5-key": {
+      "type": "dependent",
+      "belongs-to": {
+        "ospfv2-if": {
+          "type": "table"
+        }
+      },
+      "alias": "md5-key",
+      "keys": {
+        "key-id": {
+          "type": "integer",
+          "range": [1, 255]
+        }
+      },
+      "attributes": {
+        "key-string": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

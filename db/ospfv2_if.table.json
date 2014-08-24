@@ -7,6 +7,11 @@
           "type": "table"
         }
       },
+      "has-many": {
+        "ospfv2-if-md5-key": {
+          "type": "table"
+        }
+      },
       "keys": {
         "addr": {
           "type": "ipv4",
