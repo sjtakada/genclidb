@@ -384,11 +384,11 @@ CliReadline::describe()
           describe_line(it->first, max_len);
           if (it->first->dynamic_path_ != "")
             {
-              Json::Value candidate;
-              get_candidate(cli_, it->first->dynamic_path_, candidate);
+              Json::Value dyn_candidate;
+              get_candidate(cli_, it->first->dynamic_path_, dyn_candidate);
 
-              for (Json::Value::iterator is = candidate.begin();
-                   is != candidate.end(); ++is)
+              for (Json::Value::iterator is = dyn_candidate.begin();
+                   is != dyn_candidate.end(); ++is)
                 {
                   cout << "  " << (*is).asString() << endl;
                 }
