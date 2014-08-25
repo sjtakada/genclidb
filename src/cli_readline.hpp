@@ -143,7 +143,6 @@ private:
   enum ExecResult parse(CliParseState& ps, CliNode *curr);
   enum ExecResult parse_execute(CliParseStateExecute& ps, CliNode *curr);
   void describe_line(CliNode *node, size_t max_len_token);
-  void get_candidate(Cli *cli, string& path, Json::Value& candidate);
   void handle_actions(CliNodeTokenVector& node_token_vec);
 };
 

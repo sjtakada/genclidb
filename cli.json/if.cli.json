@@ -74,13 +74,10 @@
         "id": "2",
         "type": "string",
         "help": "Interface's name",
-        "dynamic": {
-          "http": {
-            "method": "GET",
-            "path": "show/interfaces",
-            "format": "json"
-          },
-          "cache": true
+        "update": {
+          "on": "boot",
+          "path": "show/interfaces",
+          "as": "candidate"
         }
       }
     },

@@ -30,6 +30,7 @@
 #include "cli_tree.hpp"
 #include "cli_action.hpp"
 #include "cli_string.hpp"
+#include "cli_http.hpp"
 
 const string CliNodeIPv4Prefix::cli_token_default_("A.B.C.D/M");
 const string CliNodeIPv4Address::cli_token_default_("A.B.C.D");
@@ -148,11 +149,8 @@ CliTree::new_node_by_type(int type, Json::Value& tokens, string& def_token)
 {
   string id = tokens[def_token]["id"].asString();
   string help = tokens[def_token]["help"].asString();
-  string dynamic_path;
+  Json::Value update, on, path, as;
   CliNode *node;
-
-  if (!tokens[def_token]["dynamic"].isNull())
-    dynamic_path = tokens[def_token]["dynamic"]["http"]["path"].asString();
 
   switch (type)
     {
@@ -197,7 +195,20 @@ CliTree::new_node_by_type(int type, Json::Value& tokens, string& def_token)
       assert(0);
     }
 
-  node->dynamic_path_ = dynamic_path;
+  update = tokens[def_token]["update"];
+  if (!update.isNull())
+    {
+      on = update["on"];
+      path = update["path"];
+      as = update["as"];
+
+      if (on.asString() == "boot")
+        {
+          Cli *cli = Cli::instance();
+          string path_str = path.asString();
+          CliHttp::get_candidate(cli, path_str, node->candidates_);
+        }
+    }
 
   return node;
 }

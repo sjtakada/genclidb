@@ -44,6 +44,8 @@ public:
       is_debug_(is_debug), runtime_error_(false)
   { }
 
+  static bool get_candidate(Cli *cli, string& path, StringVector& candidates);
+
   bool runtime_error() { return runtime_error_; }
   stringstream& result() { return result_; }
   int status() { return status_; }

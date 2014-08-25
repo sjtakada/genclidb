@@ -62,3 +62,45 @@ CliHttp::send_request()
         cout << e.what() << std::endl;
     }
 }
+
+bool
+CliHttp::get_candidate(Cli *cli, string& path, StringVector& candidates)
+{
+  string url("http://");
+  string method("GET");
+  string json;
+  Json::Value json_resp;
+
+  url += cli->api_server();
+  url += "/" + cli->api_prefix();
+  url += "/" + path;
+  url += ".json";
+
+  CliHttp http(url, method, json, cli->is_debug());
+  Json::Reader reader;
+  http.send_request();
+
+  if (http.runtime_error())
+    return false;
+
+
+  switch (http.status() / 100)
+    {
+    case 1:
+    case 2:
+      reader.parse(http.result().str(), json_resp);
+      // Assuming JSON response is array of strings.
+      for (Json::Value::iterator it = json_resp.begin();
+           it != json_resp.end(); ++it)
+        candidates.push_back((*it).asString());
+
+      break;
+    case 3:
+    case 4:
+    case 5:
+      cout << "HTTP Error: " << http.status() << endl;
+      return false;
+    }
+
+  return true;
+}

@@ -313,39 +313,6 @@ CliReadline::describe_line(CliNode *node, size_t max_len_token)
        << cli_token << help << endl;
 }
 
-void
-CliReadline::get_candidate(Cli *cli, string& path, Json::Value& candidate)
-{
-  string url("http://");
-  string method("GET");
-  string json;
-
-  url += cli->api_server();
-  url += "/" + cli->api_prefix();
-  url += "/" + path;
-  url += ".json";
-
-  CliHttp http(url, method, json, cli->is_debug());
-  Json::Reader reader;
-  http.send_request();
-
-  if (!http.runtime_error())
-    {
-      switch (http.status() / 100)
-        {
-        case 1:
-        case 2:
-          reader.parse(http.result().str(), candidate);
-          break;
-        case 3:
-        case 4:
-        case 5:
-          cout << "HTTP Error: " << http.status() << endl;
-          break;
-        }
-    }
-}
-
 int
 CliReadline::describe()
 {
@@ -382,17 +349,11 @@ CliReadline::describe()
            it != ps.matched_vec_.end(); ++it)
         {
           describe_line(it->first, max_len);
-          if (it->first->dynamic_path_ != "")
-            {
-              Json::Value dyn_candidate;
-              get_candidate(cli_, it->first->dynamic_path_, dyn_candidate);
 
-              for (Json::Value::iterator is = dyn_candidate.begin();
-                   is != dyn_candidate.end(); ++is)
-                {
-                  cout << "  " << (*is).asString() << endl;
-                }
-            }
+          CliNode *node = it->first;
+          for (StringVector::iterator is = node->candidates_.begin();
+               is != node->candidates_.end(); ++is)
+            cout << "  " << *is << endl;
         }
 
       if (ps.is_cmd_)

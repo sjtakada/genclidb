@@ -108,8 +108,8 @@ protected:
   // Executable command node.
   bool cmd_;
 
-  // Path to get dynamic candidate to fill this node.
-  string dynamic_path_;
+  // List of candidate for complete or describe this node.
+  StringVector candidates_;
 
   // Action.
   CliActionVector actions_;
