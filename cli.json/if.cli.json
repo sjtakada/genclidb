@@ -73,7 +73,15 @@
       "WORD:2": {
         "id": "2",
         "type": "string",
-        "help": "Interface's name"
+        "help": "Interface's name",
+        "dynamic": {
+          "http": {
+            "method": "GET",
+            "path": "show/interfaces",
+            "format": "json"
+          },
+          "cache": true
+        }
       }
     },
     "command": [

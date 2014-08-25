@@ -148,7 +148,11 @@ CliTree::new_node_by_type(int type, Json::Value& tokens, string& def_token)
 {
   string id = tokens[def_token]["id"].asString();
   string help = tokens[def_token]["help"].asString();
+  string dynamic_path;
   CliNode *node;
+
+  if (!tokens[def_token]["dynamic"].isNull())
+    dynamic_path = tokens[def_token]["dynamic"]["http"]["path"].asString();
 
   switch (type)
     {
@@ -192,6 +196,8 @@ CliTree::new_node_by_type(int type, Json::Value& tokens, string& def_token)
       cout << "Unknown type" << endl;
       assert(0);
     }
+
+  node->dynamic_path_ = dynamic_path;
 
   return node;
 }

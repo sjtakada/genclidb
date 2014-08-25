@@ -105,8 +105,11 @@ protected:
   // If it is 0, this node will be hidden.
   u_int16_t exposed_;
 
-  // Command.
+  // Executable command node.
   bool cmd_;
+
+  // Path to get dynamic candidate to fill this node.
+  string dynamic_path_;
 
   // Action.
   CliActionVector actions_;

@@ -24,17 +24,11 @@
 #include <iomanip>
 #include <algorithm>
 
-#include <curlpp/cURLpp.hpp>
-#include <curlpp/Easy.hpp>
-#include <curlpp/Options.hpp>
-#include <curlpp/Infos.hpp>
-#include <curlpp/Exception.hpp>
 #include "json/json.h"
 
 #include "cli.hpp"
 #include "cli_action.hpp"
-
-using namespace curlpp;
+#include "cli_http.hpp"
 
 CliActionHttp::CliActionHttp(Json::Value& http)
   : CliAction()
@@ -151,10 +145,8 @@ CliActionHttp::handle(Cli *cli, ParamsMap& input)
 void
 CliActionHttp::request(Cli *cli, string& method, string& path, string& json)
 {
-  if (method != "GET"
-      && method != "POST"
-      && method != "PUT"
-      && method != "DELETE")
+  if (method != "GET" && method != "POST"
+      && method != "PUT" && method != "DELETE")
     return;
 
   string url("http://localhost");
@@ -169,60 +161,28 @@ CliActionHttp::request(Cli *cli, string& method, string& path, string& json)
   else
     url += "." + format_;
 
-  try
+  CliHttp http(url, method, json, cli->is_debug());
+  http.send_request();
+
+  if (!http.runtime_error())
     {
-      Cleanup myCleanup;
-      Easy req;
-      stringstream result;
-
-      req.setOpt(new options::Url(url));
-      if (cli->is_debug())
-        req.setOpt(new options::Verbose(true));
-
-      list<string> header;
-      header.push_back("Content-type: application/json");
-
-      req.setOpt(new options::HttpHeader(header));
-      req.setOpt(new options::CustomRequest(method));
-      req.setOpt(new options::WriteStream(&result));
-
-      if (method != "GET")
-        {
-          req.setOpt(new options::PostFields(json));
-          req.setOpt(new options::PostFieldSize(json.size()));
-        }
-
-      req.perform();
-
-      int status = infos::ResponseCode::get(req);
-      switch (status / 100)
+      switch (http.status() / 100)
         {
         case 1:
         case 2:
           if (format_ == "cli")
-            cout << result.str() << endl;
+            cout << http.result().str() << endl;
           break;
         case 3:
         case 4:
         case 5:
-          cout << "HTTP Error: " << status << endl;
+        default:
+          cout << "HTTP Error: " << http.status() << endl;
           break;
         }
 
-      cli->set_result(result);
+      cli->set_result(http.result());
     }
-  catch (curlpp::RuntimeError& e)
-    {
-      if (cli->is_debug())
-        cout << e.what() << std::endl;
-    }
-  catch (curlpp::LogicError& e)
-    {
-      if (cli->is_debug())
-        cout << e.what() << std::endl;
-    }
-
-  //  cout << endl;
 }
 
 

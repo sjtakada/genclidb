@@ -31,6 +31,7 @@
 #include "cli_action.hpp"
 #include "cli_readline.hpp"
 #include "cli_string.hpp"
+#include "cli_http.hpp"
 #include "cli.hpp"
 
 size_t
@@ -312,6 +313,39 @@ CliReadline::describe_line(CliNode *node, size_t max_len_token)
        << cli_token << help << endl;
 }
 
+void
+CliReadline::get_candidate(Cli *cli, string& path, Json::Value& candidate)
+{
+  string url("http://localhost");
+  string api_prefix("/zebra/api");
+  string method("GET");
+  string json;
+
+  url += api_prefix;
+  url += "/" + path;
+  url += ".json";
+
+  CliHttp http(url, method, json, cli->is_debug());
+  Json::Reader reader;
+  http.send_request();
+
+  if (!http.runtime_error())
+    {
+      switch (http.status() / 100)
+        {
+        case 1:
+        case 2:
+          reader.parse(http.result().str(), candidate);
+          break;
+        case 3:
+        case 4:
+        case 5:
+          cout << "HTTP Error: " << http.status() << endl;
+          break;
+        }
+    }
+}
+
 int
 CliReadline::describe()
 {
@@ -346,7 +380,20 @@ CliReadline::describe()
 
       for (CliNodeMatchStateVector::iterator it = ps.matched_vec_.begin();
            it != ps.matched_vec_.end(); ++it)
-        describe_line(it->first, max_len);
+        {
+          describe_line(it->first, max_len);
+          if (it->first->dynamic_path_ != "")
+            {
+              Json::Value candidate;
+              get_candidate(cli_, it->first->dynamic_path_, candidate);
+
+              for (Json::Value::iterator is = candidate.begin();
+                   is != candidate.end(); ++is)
+                {
+                  cout << "  " << (*is).asString() << endl;
+                }
+            }
+        }
 
       if (ps.is_cmd_)
         cout << "  <cr>" << endl;
