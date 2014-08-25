@@ -149,10 +149,10 @@ CliActionHttp::request(Cli *cli, string& method, string& path, string& json)
       && method != "PUT" && method != "DELETE")
     return;
 
-  string url("http://localhost");
-  string api_prefix("/zebra/api");
+  string url("http://");
 
-  url += api_prefix;
+  url += cli->api_server();
+  url += "/" + cli->api_prefix();
   if (!path.empty())
     url += "/" + path;
 

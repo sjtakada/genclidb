@@ -48,6 +48,12 @@ public:
   void set_cli_json_dir(char *dir) { cli_json_dir_ = dir; }
   string& cli_json_dir() { return cli_json_dir_; }
 
+  void set_api_server(char *api_server) { api_server_ = api_server; }
+  string& api_server() { return api_server_; }
+
+  void set_api_prefix(char *api_prefix) { api_prefix_ = api_prefix; }
+  string& api_prefix() { return api_prefix_; }
+
   void set_null_key(char *null_key) { null_key_ = null_key; }
   string& null_key() { return null_key_; }
 
@@ -82,7 +88,8 @@ public:
 private:
   // For singleton instance.
   Cli() : debug_(true), exit_(false), cli_mode_file_("cli_mode.json"),
-          cli_json_dir_("."), mode_(NULL), hostname_("Router") { }
+          cli_json_dir_("."), api_server_("localhost"), api_prefix_("api"),
+          mode_(NULL), hostname_("Router") { }
   Cli(Cli const&) { }
 
   // Singleton instance.
@@ -99,6 +106,12 @@ private:
 
   // CLI JSON directory.
   string cli_json_dir_;
+
+  // API server host.
+  string api_server_;
+
+  // API prefix.
+  string api_prefix_;
 
   // Null Key string
   string null_key_;

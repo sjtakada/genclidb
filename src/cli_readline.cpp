@@ -316,12 +316,12 @@ CliReadline::describe_line(CliNode *node, size_t max_len_token)
 void
 CliReadline::get_candidate(Cli *cli, string& path, Json::Value& candidate)
 {
-  string url("http://localhost");
-  string api_prefix("/zebra/api");
+  string url("http://");
   string method("GET");
   string json;
 
-  url += api_prefix;
+  url += cli->api_server();
+  url += "/" + cli->api_prefix();
   url += "/" + path;
   url += ".json";
 
