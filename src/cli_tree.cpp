@@ -37,6 +37,7 @@ const string CliNodeIPv4Address::cli_token_default_("A.B.C.D");
 const string CliNodeIPv6Prefix::cli_token_default_("X:X::X:X/M");
 const string CliNodeIPv6Address::cli_token_default_("X:X::X:X");
 const string CliNodeWord::cli_token_default_("WORD");
+const string CliNodeCommunity::cli_token_default_("AA:NN");
 
 int
 CliTree::get_token(string& str, string& token)
@@ -105,7 +106,7 @@ CliTree::get_token(string& str, string& token)
       else if (strncmp(p, "METRIC-OFFSET", 13) == 0)
         type = CliTree::word;
       else if (strncmp(p, "COMMUNITY", 9) == 0)
-        type = CliTree::word;
+        type = CliTree::community;
       else if (strncmp(p, "WORD", 4) == 0)
         type = CliTree::word;
       else if (strncmp(p, "TIME", 4) == 0)
@@ -177,6 +178,9 @@ CliTree::new_node_by_type(int type, Json::Value& tokens, string& def_token)
       }
     case CliTree::word:
       node = new CliNodeWord(type, id, def_token, help);
+      break;
+    case CliTree::community:
+      node = new CliNodeCommunity(type, id, def_token, help);
       break;
     case CliTree::array:
       node = new CliNodeWord(type, id, def_token, help);
@@ -487,7 +491,7 @@ CliNodeIPv4Prefix::cli_match(string& input)
               state = state_dot;
               dots++;
               if (dots > 3)
-                return make_pair(match_failure, match_none);;
+                return make_pair(match_failure, match_none);
             }
           else if (*p == '/')
             state = state_slash;
@@ -495,12 +499,12 @@ CliNodeIPv4Prefix::cli_match(string& input)
             {
               val = val * 10 + (int)(*p - '0');
               if (val > 255)
-                return make_pair(match_failure, match_none);;
+                return make_pair(match_failure, match_none);
             }
           break;
         case state_dot:
           if (!isdigit((int)*p))
-            return make_pair(match_failure, match_none);;
+            return make_pair(match_failure, match_none);
 
           val = (int)(*p - '0');
           octets++;
@@ -508,18 +512,18 @@ CliNodeIPv4Prefix::cli_match(string& input)
           break;
         case state_slash:
           if (!isdigit((int)*p))
-            return make_pair(match_failure, match_none);;
+            return make_pair(match_failure, match_none);
 
           plen = (int)(*p - '0');
           state = state_plen;
           break;
         case state_plen:
           if (!isdigit((int)*p))
-            return make_pair(match_failure, match_none);;
+            return make_pair(match_failure, match_none);
 
           plen = plen * 10 + (int)(*p - '0');
           if (plen > 32)
-            return make_pair(match_failure, match_none);;
+            return make_pair(match_failure, match_none);
 
           break;
         }
@@ -736,6 +740,7 @@ CliNodeIPv6Prefix::cli_match(string& input)
   return make_pair(match_success, match_full);
 }
 
+// XXX/TODO
 MatchState
 CliNodeIPv6Address::cli_match(string& input)
 {
@@ -748,3 +753,70 @@ CliNodeIPv6Address::cli_match(string& input)
 
   return make_pair(match_success, match_full);
 }
+
+MatchState
+CliNodeCommunity::cli_match(string& input)
+{
+  const char *str = input.c_str();
+  const char *p = str;
+  u_int64_t aa, nn;
+
+  enum {
+    state_init,
+    state_aa,
+    state_colon,
+    state_nn
+  };
+
+  int state = state_init;
+
+  while (*p != '\0')
+    {
+      switch (state)
+        {
+        case state_init:
+          if (!isdigit((int)*p))
+            return make_pair(match_failure, match_none);
+
+          state = state_aa;
+          aa = (int)(*p - '0');
+          break;
+        case state_aa:
+          if (!isdigit((int)*p) && *p != ':')
+            return make_pair(match_failure, match_none);
+
+          if (*p == ':')
+            state = state_colon;
+          else
+            {
+              aa = aa * 10 + (int)(*p - '0');
+              if (aa > 65535)
+                return make_pair(match_failure, match_none);
+            }
+          break;
+        case state_colon:
+          if (!isdigit((int)*p))
+            return make_pair(match_failure, match_none);
+
+          nn = (int)(*p - '0');
+          state = state_nn;
+          break;
+        case state_nn:
+          if (!isdigit((int)*p))
+            return make_pair(match_failure, match_none);
+
+          nn = nn * 10 + (int)(*p - '0');
+          if (nn > 65535)
+            return make_pair(match_failure, match_none);
+
+          break;
+        }
+      p++;
+    }
+
+  if (state != state_nn)
+    return make_pair(match_success, match_incomplete);
+
+  return make_pair(match_success, match_full);
+}
+

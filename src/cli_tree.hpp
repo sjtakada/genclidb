@@ -219,11 +219,26 @@ class CliNodeWord: public CliNode
 public:
   CliNodeWord(int type, string& id, string& def_token, string& help)
     : CliNode(type, id, def_token, help)
-  { cli_token_ = "WORD"; }
+  { }
 
   const string& cli_token() { return CliNodeWord::cli_token_default_; }
   MatchState cli_match(string& input)
   { return make_pair(match_success, match_partial); }
+
+private:
+  const static string cli_token_default_;
+};
+
+// Community AA:NN
+class CliNodeCommunity: public CliNode
+{
+public:
+  CliNodeCommunity(int type, string& id, string& def_token, string& help)
+    : CliNode(type, id, def_token, help)
+  { }
+
+  const string& cli_token() { return CliNodeCommunity::cli_token_default_; }
+  MatchState cli_match(string& input);
 
 private:
   const static string cli_token_default_;
@@ -259,6 +274,7 @@ public:
     ipv6_address,
     range,
     word,
+    community,
     array,
     keyword,
   } token;
