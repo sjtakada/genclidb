@@ -253,7 +253,8 @@ CliTree::build_recursive(CliNodeVector& curr, CliNodeVector& head,
               }
             while (type == CliTree::vertical_bar);
 
-            if (type == CliTree::right_brace)
+            if (type == CliTree::right_brace
+                || type == CliTree::right_bracket)
               {
                 for (CliNodeVector::iterator it = hv.begin();
                      it != hv.end(); ++it)
