@@ -29,6 +29,9 @@
       },
       "RIPNG-NODE": {
         "prompt": "(config-router)#"
+      },
+      "RMAP-NODE": {
+        "prompt": "(config-route-map)#"
       }
     }
   }

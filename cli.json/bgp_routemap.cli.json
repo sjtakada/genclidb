@@ -1847,9 +1847,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "route_maps/:NAME/entries/:SEQ/matches/as_paths",
               "params": {
+                "as-path-access-list": "WORD:3"
               }
             }
           }

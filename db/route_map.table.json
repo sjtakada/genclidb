@@ -1,0 +1,138 @@
+{
+  "table": {
+    "route-map": {
+      "type": "parent",
+      "has-many": {
+        "route-map-entry": {
+          "type": "table"
+        }
+      },
+      "keys": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "route-map-entry": {
+      "type": "dependent",
+      "alias": "entry",
+      "belongs-to": {
+        "route-map": {
+          "type": "table"
+        }
+      },
+      "has-many": {
+        "route-map-match": {
+          "type": "table"
+        },
+        "route-map-set": {
+          "type": "table"
+        }
+      },
+      "keys": {
+        "seq": {
+          "type": "integer",
+          "range": [1, 65535]
+        }
+      },
+      "attributes": {
+        "permit-deny": {
+          "type": "enum",
+          "values": ["permit", "deny"]
+        }
+      }
+    },
+    "route-map-match": {
+      "type": "dependent",
+      "alias": "match",
+      "belongs-to": {
+        "route-map-entry": {
+          "type": "table"
+        }
+      },
+      "has-one": {
+        "route-map-match-as-path": {
+          "type": "table"
+        },
+        "route-map-match-tag": {
+          "type": "table"
+        }
+      }
+    },
+    "route-map-set": {
+      "type": "dependent",
+      "alias": "set",
+      "belongs-to": {
+        "route-map-entry": {
+          "type": "table"
+        }
+      },
+      "has-one": {
+        "route-map-set-as-path": {
+          "type": "table"
+        },
+        "route-map-set-tag": {
+          "type": "table"
+        }
+      }
+    },
+    "route-map-match-as-path": {
+      "type": "dependent",
+      "alias": "as-path",
+      "belongs-to": {
+        "route-map-match": {
+          "type": "table"
+        }
+      },
+      "attributes": {
+        "as-path-access-list": {
+          "type": "string"
+        }
+      }
+    },
+    "route-map-match-tag": {
+      "type": "dependent",
+      "alias": "tag",
+      "belongs-to": {
+        "route-map-match": {
+          "type": "table"
+        }
+      },
+      "attributes": {
+        "tag": {
+          "type": "integer",
+          "range": [0, 4294967295]
+        }
+      }
+    },
+
+    "route-map-set-as-path": {
+      "type": "dependent",
+      "alias": "as-path",
+      "belongs-to": {
+        "route-map-set": {
+          "type": "table"
+        }
+      },
+      "attributes": {
+        "as-path-access-list": {
+          "type": "string"
+        }
+      }
+    },
+    "route-map-set-tag": {
+      "type": "dependent",
+      "alias": "tag",
+      "belongs-to": {
+        "route-map-set": {
+          "type": "table"
+        }
+      },
+      "attributes": {
+        "tag": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

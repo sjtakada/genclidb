@@ -37,15 +37,26 @@
       {
         "defun": "route-map WORD:2 (deny|permit) RANGE:4",
         "mode": [
-          "CONFIG-NODE",
-          "RMAP-NODE"
+          "CONFIG-NODE"
+        ],
+        "bind": [
+          "NAME = WORD:2",
+          "SEQ = RANGE:4"
         ],
         "action": [
           {
+            "mode": {
+              "name": "RMAP-NODE",
+              "params": [
+                "NAME",
+                "SEQ"
+              ]
+            },
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "route_maps/:NAME/entries/:SEQ",
               "params": {
+                "permit-deny": "ENUM:3"
               }
             }
           }

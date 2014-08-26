@@ -1288,11 +1288,13 @@
         ],
         "action": [
           {
-            "method": "NOP",
-            "path": "",
-            "params": {
-            },
-            "cond": "http"
+            "http": {
+              "method": "POST",
+              "path": "route_maps/:NAME/entries/:SEQ/sets/tags",
+              "params": {
+                "tag": "RANGE:3"
+              }
+            }
           }
         ]
       }
