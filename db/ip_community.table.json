@@ -1,0 +1,43 @@
+{
+  "table": {
+    "ip-community": {
+      "type": "parent",
+      "has-many": {
+        "ip-community-rule": {
+          "type": "table"
+        }
+      },
+      "keys": {
+        "number": {
+          "type": "integer",
+          "range": [1, 99]
+        }
+      }
+    },
+    "ip-community-rule": {
+      "type": "dependent",
+      "belongs-to": {
+        "ip-community": {
+          "type": "table"
+        }
+      },
+      "keys": {
+        "seq": {
+          "type": "integer",
+          "auto": {
+            "step": 5
+          }
+        }
+      },
+      "attributes": {
+        "permit-deny": {
+          "type": "enum",
+          "values": ["permit", "deny"]
+        },
+        "communities": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

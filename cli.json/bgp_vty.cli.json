@@ -25240,9 +25240,11 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "ip_communities/:RANGE:3/ip_community_rules/:NULL",
               "params": {
+                "permit-deny": "ENUM:4",
+                "communities": "COMMUNITY:5"
               }
             }
           }
