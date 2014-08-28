@@ -110,7 +110,7 @@ def cli_get_token(str)
     type = :ipv4address
   elsif str =~ /^X:X::X:X\/M/
     type = :ipv6prefix
-  elsif str =~ /^X:X::X:X\/M/
+  elsif str =~ /^X:X::X:X/
     type = :ipv6address
   elsif str =~ /^\<[[:digit:]]+-[[:digit:]]+\>/
     type = :integer
@@ -145,7 +145,7 @@ def cli_str2token(defun)
   i = 0
   h = Hash.new
   id = Array.new
-  # Make no starting from '0' and other starting from '1',
+  # Make 'no' starting from '0' and other starting from '1',
   # so that params' ID becomes consistent.
   if cmdstr =~ /^no /
     id.push(0)

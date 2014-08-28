@@ -2056,9 +2056,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4.0": {
+      "IPV6-ADDR:4.0": {
         "id": "4.0",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:4.1": {
@@ -2069,7 +2069,7 @@
     },
     "command": [
       {
-        "defun": "ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1)",
+        "defun": "ipv6 route IPV6-PREFIX:3 (IPV6-ADDR:4.0|WORD:4.1)",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2103,9 +2103,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4.0": {
+      "IPV6-ADDR:4.0": {
         "id": "4.0",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:4.1": {
@@ -2128,7 +2128,7 @@
     },
     "command": [
       {
-        "defun": "ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1) (reject|blackhole)",
+        "defun": "ipv6 route IPV6-PREFIX:3 (IPV6-ADDR:4.0|WORD:4.1) (reject|blackhole)",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2162,9 +2162,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4": {
+      "IPV6-ADDR:4": {
         "id": "4",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:5": {
@@ -2175,7 +2175,7 @@
     },
     "command": [
       {
-        "defun": "ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5",
+        "defun": "ipv6 route IPV6-PREFIX:3 IPV6-ADDR:4 WORD:5",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2209,9 +2209,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4": {
+      "IPV6-ADDR:4": {
         "id": "4",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:5": {
@@ -2234,7 +2234,7 @@
     },
     "command": [
       {
-        "defun": "ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5 (reject|blackhole)",
+        "defun": "ipv6 route IPV6-PREFIX:3 IPV6-ADDR:4 WORD:5 (reject|blackhole)",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2268,9 +2268,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4.0": {
+      "IPV6-ADDR:4.0": {
         "id": "4.0",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:4.1": {
@@ -2290,7 +2290,7 @@
     },
     "command": [
       {
-        "defun": "ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1) RANGE:5",
+        "defun": "ipv6 route IPV6-PREFIX:3 (IPV6-ADDR:4.0|WORD:4.1) RANGE:5",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2324,9 +2324,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4.0": {
+      "IPV6-ADDR:4.0": {
         "id": "4.0",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:4.1": {
@@ -2358,7 +2358,7 @@
     },
     "command": [
       {
-        "defun": "ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1) (reject|blackhole) RANGE:6",
+        "defun": "ipv6 route IPV6-PREFIX:3 (IPV6-ADDR:4.0|WORD:4.1) (reject|blackhole) RANGE:6",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2392,9 +2392,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4": {
+      "IPV6-ADDR:4": {
         "id": "4",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:5": {
@@ -2414,7 +2414,7 @@
     },
     "command": [
       {
-        "defun": "ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5 RANGE:6",
+        "defun": "ipv6 route IPV6-PREFIX:3 IPV6-ADDR:4 WORD:5 RANGE:6",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2448,9 +2448,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4": {
+      "IPV6-ADDR:4": {
         "id": "4",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:5": {
@@ -2482,7 +2482,7 @@
     },
     "command": [
       {
-        "defun": "ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5 (reject|blackhole) RANGE:7",
+        "defun": "ipv6 route IPV6-PREFIX:3 IPV6-ADDR:4 WORD:5 (reject|blackhole) RANGE:7",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2521,9 +2521,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4.0": {
+      "IPV6-ADDR:4.0": {
         "id": "4.0",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:4.1": {
@@ -2534,7 +2534,7 @@
     },
     "command": [
       {
-        "defun": "no ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1)",
+        "defun": "no ipv6 route IPV6-PREFIX:3 (IPV6-ADDR:4.0|WORD:4.1)",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2573,9 +2573,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4.0": {
+      "IPV6-ADDR:4.0": {
         "id": "4.0",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:4.1": {
@@ -2598,7 +2598,7 @@
     },
     "command": [
       {
-        "defun": "no ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1) (reject|blackhole)",
+        "defun": "no ipv6 route IPV6-PREFIX:3 (IPV6-ADDR:4.0|WORD:4.1) (reject|blackhole)",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2637,9 +2637,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4": {
+      "IPV6-ADDR:4": {
         "id": "4",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:5": {
@@ -2650,7 +2650,7 @@
     },
     "command": [
       {
-        "defun": "no ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5",
+        "defun": "no ipv6 route IPV6-PREFIX:3 IPV6-ADDR:4 WORD:5",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2689,9 +2689,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4": {
+      "IPV6-ADDR:4": {
         "id": "4",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:5": {
@@ -2714,7 +2714,7 @@
     },
     "command": [
       {
-        "defun": "no ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5 (reject|blackhole)",
+        "defun": "no ipv6 route IPV6-PREFIX:3 IPV6-ADDR:4 WORD:5 (reject|blackhole)",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2753,9 +2753,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4.0": {
+      "IPV6-ADDR:4.0": {
         "id": "4.0",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:4.1": {
@@ -2775,7 +2775,7 @@
     },
     "command": [
       {
-        "defun": "no ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1) RANGE:5",
+        "defun": "no ipv6 route IPV6-PREFIX:3 (IPV6-ADDR:4.0|WORD:4.1) RANGE:5",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2814,9 +2814,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4.0": {
+      "IPV6-ADDR:4.0": {
         "id": "4.0",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:4.1": {
@@ -2848,7 +2848,7 @@
     },
     "command": [
       {
-        "defun": "no ipv6 route IPV6-PREFIX:3 (WORD:4.0|WORD:4.1) (reject|blackhole) RANGE:6",
+        "defun": "no ipv6 route IPV6-PREFIX:3 (IPV6-ADDR:4.0|WORD:4.1) (reject|blackhole) RANGE:6",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2887,9 +2887,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4": {
+      "IPV6-ADDR:4": {
         "id": "4",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:5": {
@@ -2909,7 +2909,7 @@
     },
     "command": [
       {
-        "defun": "no ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5 RANGE:6",
+        "defun": "no ipv6 route IPV6-PREFIX:3 IPV6-ADDR:4 WORD:5 RANGE:6",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -2948,9 +2948,9 @@
         "type": "ipv6prefix",
         "help": "IPv6 destination prefix (e.g. 3ffe:506::/32)"
       },
-      "WORD:4": {
+      "IPV6-ADDR:4": {
         "id": "4",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 gateway address"
       },
       "WORD:5": {
@@ -2982,7 +2982,7 @@
     },
     "command": [
       {
-        "defun": "no ipv6 route IPV6-PREFIX:3 WORD:4 WORD:5 (reject|blackhole) RANGE:7",
+        "defun": "no ipv6 route IPV6-PREFIX:3 IPV6-ADDR:4 WORD:5 (reject|blackhole) RANGE:7",
         "mode": [
           "CONFIG-NODE"
         ],
@@ -3188,15 +3188,15 @@
         "type": "keyword",
         "help": "IPv6 routing table"
       },
-      "WORD:4": {
+      "IPV6-ADDR:4": {
         "id": "4",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 Address"
       }
     },
     "command": [
       {
-        "defun": "show ipv6 route WORD:4",
+        "defun": "show ipv6 route IPV6-ADDR:4",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"

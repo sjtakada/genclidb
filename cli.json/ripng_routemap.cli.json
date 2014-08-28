@@ -509,15 +509,15 @@
         "type": "keyword",
         "help": "IPv6 local address"
       },
-      "WORD:5": {
+      "IPV6-ADDR:5": {
         "id": "5",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address of next hop"
       }
     },
     "command": [
       {
-        "defun": "set ipv6 next-hop local WORD:5",
+        "defun": "set ipv6 next-hop local IPV6-ADDR:5",
         "mode": [
           "RMAP-NODE"
         ],
@@ -608,15 +608,15 @@
         "type": "keyword",
         "help": "IPv6 local address"
       },
-      "WORD:5": {
+      "IPV6-ADDR:5": {
         "id": "5",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address of next hop"
       }
     },
     "command": [
       {
-        "defun": "no set ipv6 next-hop local WORD:5",
+        "defun": "no set ipv6 next-hop local IPV6-ADDR:5",
         "mode": [
           "RMAP-NODE"
         ],

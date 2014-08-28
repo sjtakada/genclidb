@@ -175,9 +175,9 @@
         "type": "keyword",
         "help": "Display connected prefixes to advertise"
       },
-      "WORD:7.0": {
+      "IPV6-ADDR:7.0": {
         "id": "7.0",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Display the route bestmatches the address"
       },
       "IPV6-PREFIX:7.1": {
@@ -194,7 +194,7 @@
     },
     "command": [
       {
-        "defun": "show ipv6 ospf6 interface WORD:5 prefix (WORD:7.0|IPV6-PREFIX:7.1|detail)",
+        "defun": "show ipv6 ospf6 interface WORD:5 prefix (IPV6-ADDR:7.0|IPV6-PREFIX:7.1|detail)",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -357,9 +357,9 @@
         "type": "keyword",
         "help": "Display connected prefixes to advertise"
       },
-      "WORD:6.0": {
+      "IPV6-ADDR:6.0": {
         "id": "6.0",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Display the route bestmatches the address"
       },
       "IPV6-PREFIX:6.1": {
@@ -376,7 +376,7 @@
     },
     "command": [
       {
-        "defun": "show ipv6 ospf6 interface prefix (WORD:6.0|IPV6-PREFIX:6.1|detail)",
+        "defun": "show ipv6 ospf6 interface prefix (IPV6-ADDR:6.0|IPV6-PREFIX:6.1|detail)",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"

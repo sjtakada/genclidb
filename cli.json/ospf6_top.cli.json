@@ -292,9 +292,9 @@
         "type": "keyword",
         "help": "Routing Table"
       },
-      "WORD:5.0": {
+      "IPV6-ADDR:5.0": {
         "id": "5.0",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Specify IPv6 address"
       },
       "IPV6-PREFIX:5.1": {
@@ -317,7 +317,7 @@
     },
     "command": [
       {
-        "defun": "show ipv6 ospf6 route (WORD:5.0|IPV6-PREFIX:5.1|detail|summary)",
+        "defun": "show ipv6 ospf6 route (IPV6-ADDR:5.0|IPV6-PREFIX:5.1|detail|summary)",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"

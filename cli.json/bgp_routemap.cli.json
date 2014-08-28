@@ -16,15 +16,15 @@
         "type": "ipv4address",
         "help": "IPv6 address of peer"
       },
-      "WORD:3.1": {
+      "IPV6-ADDR:3.1": {
         "id": "3.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IP address of peer"
       }
     },
     "command": [
       {
-        "defun": "match peer (IPV4-ADDR:3.0|WORD:3.1)",
+        "defun": "match peer (IPV4-ADDR:3.0|IPV6-ADDR:3.1)",
         "mode": [
           "RMAP-NODE"
         ],
@@ -137,15 +137,15 @@
         "type": "ipv4address",
         "help": "IPv6 address of peer"
       },
-      "WORD:3.1": {
+      "IPV6-ADDR:3.1": {
         "id": "3.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IP address of peer"
       }
     },
     "command": [
       {
-        "defun": "no match peer (IPV4-ADDR:3.0|WORD:3.1)",
+        "defun": "no match peer (IPV4-ADDR:3.0|IPV6-ADDR:3.1)",
         "mode": [
           "RMAP-NODE"
         ],
@@ -4024,15 +4024,15 @@
         "type": "keyword",
         "help": "Match IPv6 next-hop address of route"
       },
-      "WORD:4": {
+      "IPV6-ADDR:4": {
         "id": "4",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address of next hop"
       }
     },
     "command": [
       {
-        "defun": "match ipv6 next-hop WORD:4",
+        "defun": "match ipv6 next-hop IPV6-ADDR:4",
         "mode": [
           "RMAP-NODE"
         ],
@@ -4071,15 +4071,15 @@
         "type": "keyword",
         "help": "Match IPv6 next-hop address of route"
       },
-      "WORD:4": {
+      "IPV6-ADDR:4": {
         "id": "4",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address of next hop"
       }
     },
     "command": [
       {
-        "defun": "no match ipv6 next-hop WORD:4",
+        "defun": "no match ipv6 next-hop IPV6-ADDR:4",
         "mode": [
           "RMAP-NODE"
         ],
@@ -4217,15 +4217,15 @@
         "type": "keyword",
         "help": "IPv6 global address"
       },
-      "WORD:5": {
+      "IPV6-ADDR:5": {
         "id": "5",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address of next hop"
       }
     },
     "command": [
       {
-        "defun": "set ipv6 next-hop global WORD:5",
+        "defun": "set ipv6 next-hop global IPV6-ADDR:5",
         "mode": [
           "RMAP-NODE"
         ],
@@ -4316,15 +4316,15 @@
         "type": "keyword",
         "help": "IPv6 global address"
       },
-      "WORD:5": {
+      "IPV6-ADDR:5": {
         "id": "5",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address of next hop"
       }
     },
     "command": [
       {
-        "defun": "no set ipv6 next-hop global WORD:5",
+        "defun": "no set ipv6 next-hop global IPV6-ADDR:5",
         "mode": [
           "RMAP-NODE"
         ],
@@ -4363,15 +4363,15 @@
         "type": "keyword",
         "help": "IPv6 local address"
       },
-      "WORD:5": {
+      "IPV6-ADDR:5": {
         "id": "5",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address of next hop"
       }
     },
     "command": [
       {
-        "defun": "set ipv6 next-hop local WORD:5",
+        "defun": "set ipv6 next-hop local IPV6-ADDR:5",
         "mode": [
           "RMAP-NODE"
         ],
@@ -4462,15 +4462,15 @@
         "type": "keyword",
         "help": "IPv6 local address"
       },
-      "WORD:5": {
+      "IPV6-ADDR:5": {
         "id": "5",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address of next hop"
       }
     },
     "command": [
       {
-        "defun": "no set ipv6 next-hop local WORD:5",
+        "defun": "no set ipv6 next-hop local IPV6-ADDR:5",
         "mode": [
           "RMAP-NODE"
         ],

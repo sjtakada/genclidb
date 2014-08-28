@@ -3296,15 +3296,15 @@
         "type": "keyword",
         "help": "BGP information"
       },
-      "WORD:3": {
+      "IPV6-ADDR:3": {
         "id": "3",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Network in the BGP routing table to display"
       }
     },
     "command": [
       {
-        "defun": "show bgp WORD:3",
+        "defun": "show bgp IPV6-ADDR:3",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -3340,15 +3340,15 @@
         "type": "keyword",
         "help": "Address family"
       },
-      "WORD:4": {
+      "IPV6-ADDR:4": {
         "id": "4",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Network in the BGP routing table to display"
       }
     },
     "command": [
       {
-        "defun": "show bgp ipv6 WORD:4",
+        "defun": "show bgp ipv6 IPV6-ADDR:4",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -3396,15 +3396,15 @@
         "help": "Address Family modifier",
         "enum": "ENUM:4"
       },
-      "WORD:5": {
+      "IPV6-ADDR:5": {
         "id": "5",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Network in the BGP routing table to display"
       }
     },
     "command": [
       {
-        "defun": "show bgp ipv6 (unicast|multicast) WORD:5",
+        "defun": "show bgp ipv6 (unicast|multicast) IPV6-ADDR:5",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -3440,15 +3440,15 @@
         "type": "keyword",
         "help": "BGP information"
       },
-      "WORD:4": {
+      "IPV6-ADDR:4": {
         "id": "4",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Network in the BGP routing table to display"
       }
     },
     "command": [
       {
-        "defun": "show ipv6 bgp WORD:4",
+        "defun": "show ipv6 bgp IPV6-ADDR:4",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -3761,15 +3761,15 @@
         "type": "string",
         "help": "View name"
       },
-      "WORD:5": {
+      "IPV6-ADDR:5": {
         "id": "5",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Network in the BGP routing table to display"
       }
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 WORD:5",
+        "defun": "show bgp view WORD:4 IPV6-ADDR:5",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -3815,15 +3815,15 @@
         "type": "keyword",
         "help": "Address family"
       },
-      "WORD:6": {
+      "IPV6-ADDR:6": {
         "id": "6",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Network in the BGP routing table to display"
       }
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 ipv6 WORD:6",
+        "defun": "show bgp view WORD:4 ipv6 IPV6-ADDR:6",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -4000,15 +4000,15 @@
         "type": "keyword",
         "help": "MBGP information"
       },
-      "WORD:4": {
+      "IPV6-ADDR:4": {
         "id": "4",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Network in the MBGP routing table to display"
       }
     },
     "command": [
       {
-        "defun": "show ipv6 mbgp WORD:4",
+        "defun": "show ipv6 mbgp IPV6-ADDR:4",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -11487,9 +11487,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "prefix-counts": {
@@ -11500,7 +11500,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp neighbors (IPV4-ADDR:5.0|WORD:5.1) prefix-counts",
+        "defun": "show ip bgp neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) prefix-counts",
         "mode": [
           "ENABLE-NODE"
         ],
@@ -11544,9 +11544,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "prefix-counts": {
@@ -11557,7 +11557,7 @@
     },
     "command": [
       {
-        "defun": "show bgp ipv6 neighbors (IPV4-ADDR:5.0|WORD:5.1) prefix-counts",
+        "defun": "show bgp ipv6 neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) prefix-counts",
         "mode": [
           "ENABLE-NODE"
         ],
@@ -11618,9 +11618,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "prefix-counts": {
@@ -11631,7 +11631,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp ipv4 (unicast|multicast) neighbors (IPV4-ADDR:7.0|WORD:7.1) prefix-counts",
+        "defun": "show ip bgp ipv4 (unicast|multicast) neighbors (IPV4-ADDR:7.0|IPV6-ADDR:7.1) prefix-counts",
         "mode": [
           "ENABLE-NODE"
         ],
@@ -11685,9 +11685,9 @@
         "type": "ipv4address",
         "help": "Detailed information on TCP and BGP neighbor connections"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "prefix-counts": {
@@ -11698,7 +11698,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp vpnv4 all neighbors (IPV4-ADDR:7.0|WORD:7.1) prefix-counts",
+        "defun": "show ip bgp vpnv4 all neighbors (IPV4-ADDR:7.0|IPV6-ADDR:7.1) prefix-counts",
         "mode": [
           "ENABLE-NODE"
         ],
@@ -11752,9 +11752,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "advertised-routes": {
@@ -11765,7 +11765,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp view WORD:5 neighbors (IPV4-ADDR:7.0|WORD:7.1) advertised-routes",
+        "defun": "show ip bgp view WORD:5 neighbors (IPV4-ADDR:7.0|IPV6-ADDR:7.1) advertised-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -11810,9 +11810,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "advertised-routes": {
@@ -11823,7 +11823,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp neighbors (IPV4-ADDR:5.0|WORD:5.1) advertised-routes",
+        "defun": "show ip bgp neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) advertised-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -11885,9 +11885,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "advertised-routes": {
@@ -11898,7 +11898,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp ipv4 (unicast|multicast) neighbors (IPV4-ADDR:7.0|WORD:7.1) advertised-routes",
+        "defun": "show ip bgp ipv4 (unicast|multicast) neighbors (IPV4-ADDR:7.0|IPV6-ADDR:7.1) advertised-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -11948,9 +11948,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "advertised-routes": {
@@ -11961,7 +11961,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 neighbors (IPV4-ADDR:6.0|WORD:6.1) advertised-routes",
+        "defun": "show bgp view WORD:4 neighbors (IPV4-ADDR:6.0|IPV6-ADDR:6.1) advertised-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12016,9 +12016,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "advertised-routes": {
@@ -12029,7 +12029,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 ipv6 neighbors (IPV4-ADDR:7.0|WORD:7.1) advertised-routes",
+        "defun": "show bgp view WORD:4 ipv6 neighbors (IPV4-ADDR:7.0|IPV6-ADDR:7.1) advertised-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12079,9 +12079,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received-routes": {
@@ -12092,7 +12092,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 neighbors (IPV4-ADDR:6.0|WORD:6.1) received-routes",
+        "defun": "show bgp view WORD:4 neighbors (IPV4-ADDR:6.0|IPV6-ADDR:6.1) received-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12147,9 +12147,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received-routes": {
@@ -12160,7 +12160,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 ipv6 neighbors (IPV4-ADDR:7.0|WORD:7.1) received-routes",
+        "defun": "show bgp view WORD:4 ipv6 neighbors (IPV4-ADDR:7.0|IPV6-ADDR:7.1) received-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12200,9 +12200,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:4.1": {
+      "IPV6-ADDR:4.1": {
         "id": "4.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "advertised-routes": {
@@ -12213,7 +12213,7 @@
     },
     "command": [
       {
-        "defun": "show bgp neighbors (IPV4-ADDR:4.0|WORD:4.1) advertised-routes",
+        "defun": "show bgp neighbors (IPV4-ADDR:4.0|IPV6-ADDR:4.1) advertised-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12258,9 +12258,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "advertised-routes": {
@@ -12271,7 +12271,7 @@
     },
     "command": [
       {
-        "defun": "show bgp ipv6 neighbors (IPV4-ADDR:5.0|WORD:5.1) advertised-routes",
+        "defun": "show bgp ipv6 neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) advertised-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12316,9 +12316,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "advertised-routes": {
@@ -12329,7 +12329,7 @@
     },
     "command": [
       {
-        "defun": "show ipv6 bgp neighbors (IPV4-ADDR:5.0|WORD:5.1) advertised-routes",
+        "defun": "show ipv6 bgp neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) advertised-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12374,9 +12374,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "advertised-routes": {
@@ -12387,7 +12387,7 @@
     },
     "command": [
       {
-        "defun": "show ipv6 mbgp neighbors (IPV4-ADDR:5.0|WORD:5.1) advertised-routes",
+        "defun": "show ipv6 mbgp neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) advertised-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12442,9 +12442,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received-routes": {
@@ -12455,7 +12455,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp view WORD:5 neighbors (IPV4-ADDR:7.0|WORD:7.1) received-routes",
+        "defun": "show ip bgp view WORD:5 neighbors (IPV4-ADDR:7.0|IPV6-ADDR:7.1) received-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12500,9 +12500,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received-routes": {
@@ -12513,7 +12513,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp neighbors (IPV4-ADDR:5.0|WORD:5.1) received-routes",
+        "defun": "show ip bgp neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) received-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12575,9 +12575,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received-routes": {
@@ -12588,7 +12588,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp ipv4 (unicast|multicast) neighbors (IPV4-ADDR:7.0|WORD:7.1) received-routes",
+        "defun": "show ip bgp ipv4 (unicast|multicast) neighbors (IPV4-ADDR:7.0|IPV6-ADDR:7.1) received-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12662,9 +12662,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:8.1": {
+      "IPV6-ADDR:8.1": {
         "id": "8.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "advertised-routes": {
@@ -12682,7 +12682,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 (ipv4|ipv6) (unicast|multicast) neighbors (IPV4-ADDR:8.0|WORD:8.1) (advertised-routes|received-routes)",
+        "defun": "show bgp view WORD:4 (ipv4|ipv6) (unicast|multicast) neighbors (IPV4-ADDR:8.0|IPV6-ADDR:8.1) (advertised-routes|received-routes)",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12727,9 +12727,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received": {
@@ -12745,7 +12745,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp neighbors (IPV4-ADDR:5.0|WORD:5.1) received prefix-filter",
+        "defun": "show ip bgp neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) received prefix-filter",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12807,9 +12807,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received": {
@@ -12825,7 +12825,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp ipv4 (unicast|multicast) neighbors (IPV4-ADDR:7.0|WORD:7.1) received prefix-filter",
+        "defun": "show ip bgp ipv4 (unicast|multicast) neighbors (IPV4-ADDR:7.0|IPV6-ADDR:7.1) received prefix-filter",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12865,9 +12865,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:4.1": {
+      "IPV6-ADDR:4.1": {
         "id": "4.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received-routes": {
@@ -12878,7 +12878,7 @@
     },
     "command": [
       {
-        "defun": "show bgp neighbors (IPV4-ADDR:4.0|WORD:4.1) received-routes",
+        "defun": "show bgp neighbors (IPV4-ADDR:4.0|IPV6-ADDR:4.1) received-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12923,9 +12923,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received-routes": {
@@ -12936,7 +12936,7 @@
     },
     "command": [
       {
-        "defun": "show bgp ipv6 neighbors (IPV4-ADDR:5.0|WORD:5.1) received-routes",
+        "defun": "show bgp ipv6 neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) received-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -12976,9 +12976,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:4.1": {
+      "IPV6-ADDR:4.1": {
         "id": "4.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received": {
@@ -12994,7 +12994,7 @@
     },
     "command": [
       {
-        "defun": "show bgp neighbors (IPV4-ADDR:4.0|WORD:4.1) received prefix-filter",
+        "defun": "show bgp neighbors (IPV4-ADDR:4.0|IPV6-ADDR:4.1) received prefix-filter",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -13039,9 +13039,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received": {
@@ -13057,7 +13057,7 @@
     },
     "command": [
       {
-        "defun": "show bgp ipv6 neighbors (IPV4-ADDR:5.0|WORD:5.1) received prefix-filter",
+        "defun": "show bgp ipv6 neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) received prefix-filter",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -13102,9 +13102,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received-routes": {
@@ -13115,7 +13115,7 @@
     },
     "command": [
       {
-        "defun": "show ipv6 bgp neighbors (IPV4-ADDR:5.0|WORD:5.1) received-routes",
+        "defun": "show ipv6 bgp neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) received-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -13160,9 +13160,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received-routes": {
@@ -13173,7 +13173,7 @@
     },
     "command": [
       {
-        "defun": "show ipv6 mbgp neighbors (IPV4-ADDR:5.0|WORD:5.1) received-routes",
+        "defun": "show ipv6 mbgp neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) received-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -13223,9 +13223,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received": {
@@ -13241,7 +13241,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 neighbors (IPV4-ADDR:6.0|WORD:6.1) received prefix-filter",
+        "defun": "show bgp view WORD:4 neighbors (IPV4-ADDR:6.0|IPV6-ADDR:6.1) received prefix-filter",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -13297,9 +13297,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "received": {
@@ -13315,7 +13315,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 ipv6 neighbors (IPV4-ADDR:7.0|WORD:7.1) received prefix-filter",
+        "defun": "show bgp view WORD:4 ipv6 neighbors (IPV4-ADDR:7.0|IPV6-ADDR:7.1) received prefix-filter",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -13361,9 +13361,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "routes": {
@@ -13374,7 +13374,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp neighbors (IPV4-ADDR:5.0|WORD:5.1) routes",
+        "defun": "show ip bgp neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -13419,9 +13419,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "flap-statistics": {
@@ -13432,7 +13432,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp neighbors (IPV4-ADDR:5.0|WORD:5.1) flap-statistics",
+        "defun": "show ip bgp neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) flap-statistics",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -13477,9 +13477,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "dampened-routes": {
@@ -13490,7 +13490,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp neighbors (IPV4-ADDR:5.0|WORD:5.1) dampened-routes",
+        "defun": "show ip bgp neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) dampened-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -13552,9 +13552,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "routes": {
@@ -13565,7 +13565,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp ipv4 (unicast|multicast) neighbors (IPV4-ADDR:7.0|WORD:7.1) routes",
+        "defun": "show ip bgp ipv4 (unicast|multicast) neighbors (IPV4-ADDR:7.0|IPV6-ADDR:7.1) routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -13620,15 +13620,15 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       }
     },
     "command": [
       {
-        "defun": "show ip bgp view WORD:5 rsclient (IPV4-ADDR:7.0|WORD:7.1)",
+        "defun": "show ip bgp view WORD:5 rsclient (IPV4-ADDR:7.0|IPV6-ADDR:7.1)",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -13673,15 +13673,15 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       }
     },
     "command": [
       {
-        "defun": "show ip bgp rsclient (IPV4-ADDR:5.0|WORD:5.1)",
+        "defun": "show ip bgp rsclient (IPV4-ADDR:5.0|IPV6-ADDR:5.1)",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -13748,15 +13748,15 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:8.1": {
+      "IPV6-ADDR:8.1": {
         "id": "8.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       }
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 ipv4 (unicast|multicast) rsclient (IPV4-ADDR:8.0|WORD:8.1)",
+        "defun": "show bgp view WORD:4 ipv4 (unicast|multicast) rsclient (IPV4-ADDR:8.0|IPV6-ADDR:8.1)",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -13813,15 +13813,15 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       }
     },
     "command": [
       {
-        "defun": "show bgp ipv4 (unicast|multicast) rsclient (IPV4-ADDR:6.0|WORD:6.1)",
+        "defun": "show bgp ipv4 (unicast|multicast) rsclient (IPV4-ADDR:6.0|IPV6-ADDR:6.1)",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -13876,9 +13876,9 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
       "IPV4-ADDR:8": {
@@ -13889,7 +13889,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp view WORD:5 rsclient (IPV4-ADDR:7.0|WORD:7.1) IPV4-ADDR:8",
+        "defun": "show ip bgp view WORD:5 rsclient (IPV4-ADDR:7.0|IPV6-ADDR:7.1) IPV4-ADDR:8",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -13935,9 +13935,9 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
       "IPV4-ADDR:6": {
@@ -13948,7 +13948,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp rsclient (IPV4-ADDR:5.0|WORD:5.1) IPV4-ADDR:6",
+        "defun": "show ip bgp rsclient (IPV4-ADDR:5.0|IPV6-ADDR:5.1) IPV4-ADDR:6",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -14016,9 +14016,9 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:8.1": {
+      "IPV6-ADDR:8.1": {
         "id": "8.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
       "IPV4-ADDR:9": {
@@ -14029,7 +14029,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 ipv4 (unicast|multicast) rsclient (IPV4-ADDR:8.0|WORD:8.1) IPV4-ADDR:9",
+        "defun": "show bgp view WORD:4 ipv4 (unicast|multicast) rsclient (IPV4-ADDR:8.0|IPV6-ADDR:8.1) IPV4-ADDR:9",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -14087,9 +14087,9 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
       "IPV4-ADDR:7": {
@@ -14100,7 +14100,7 @@
     },
     "command": [
       {
-        "defun": "show bgp ipv4 (unicast|multicast) rsclient (IPV4-ADDR:6.0|WORD:6.1) IPV4-ADDR:7",
+        "defun": "show bgp ipv4 (unicast|multicast) rsclient (IPV4-ADDR:6.0|IPV6-ADDR:6.1) IPV4-ADDR:7",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -14156,9 +14156,9 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
       "IPV4-PREFIX:8": {
@@ -14169,7 +14169,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp view WORD:5 rsclient (IPV4-ADDR:7.0|WORD:7.1) IPV4-PREFIX:8",
+        "defun": "show ip bgp view WORD:5 rsclient (IPV4-ADDR:7.0|IPV6-ADDR:7.1) IPV4-PREFIX:8",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -14215,9 +14215,9 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
       "IPV4-PREFIX:6": {
@@ -14228,7 +14228,7 @@
     },
     "command": [
       {
-        "defun": "show ip bgp rsclient (IPV4-ADDR:5.0|WORD:5.1) IPV4-PREFIX:6",
+        "defun": "show ip bgp rsclient (IPV4-ADDR:5.0|IPV6-ADDR:5.1) IPV4-PREFIX:6",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -14296,9 +14296,9 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:8.1": {
+      "IPV6-ADDR:8.1": {
         "id": "8.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
       "IPV4-PREFIX:9": {
@@ -14309,7 +14309,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 ipv4 (unicast|multicast) rsclient (IPV4-ADDR:8.0|WORD:8.1) IPV4-PREFIX:9",
+        "defun": "show bgp view WORD:4 ipv4 (unicast|multicast) rsclient (IPV4-ADDR:8.0|IPV6-ADDR:8.1) IPV4-PREFIX:9",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -14367,9 +14367,9 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
       "IPV4-PREFIX:7": {
@@ -14380,7 +14380,7 @@
     },
     "command": [
       {
-        "defun": "show bgp ipv4 (unicast|multicast) rsclient (IPV4-ADDR:6.0|WORD:6.1) IPV4-PREFIX:7",
+        "defun": "show bgp ipv4 (unicast|multicast) rsclient (IPV4-ADDR:6.0|IPV6-ADDR:6.1) IPV4-PREFIX:7",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -14431,9 +14431,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "routes": {
@@ -14444,7 +14444,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 neighbors (IPV4-ADDR:6.0|WORD:6.1) routes",
+        "defun": "show bgp view WORD:4 neighbors (IPV4-ADDR:6.0|IPV6-ADDR:6.1) routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -14499,9 +14499,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "routes": {
@@ -14512,7 +14512,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 ipv6 neighbors (IPV4-ADDR:7.0|WORD:7.1) routes",
+        "defun": "show bgp view WORD:4 ipv6 neighbors (IPV4-ADDR:7.0|IPV6-ADDR:7.1) routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -14562,9 +14562,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "dampened-routes": {
@@ -14575,7 +14575,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 neighbors (IPV4-ADDR:6.0|WORD:6.1) dampened-routes",
+        "defun": "show bgp view WORD:4 neighbors (IPV4-ADDR:6.0|IPV6-ADDR:6.1) dampened-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -14630,9 +14630,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "dampened-routes": {
@@ -14643,7 +14643,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 ipv6 neighbors (IPV4-ADDR:7.0|WORD:7.1) dampened-routes",
+        "defun": "show bgp view WORD:4 ipv6 neighbors (IPV4-ADDR:7.0|IPV6-ADDR:7.1) dampened-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -14693,9 +14693,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "flap-statistics": {
@@ -14706,7 +14706,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 neighbors (IPV4-ADDR:6.0|WORD:6.1) flap-statistics",
+        "defun": "show bgp view WORD:4 neighbors (IPV4-ADDR:6.0|IPV6-ADDR:6.1) flap-statistics",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -14761,9 +14761,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:7.1": {
+      "IPV6-ADDR:7.1": {
         "id": "7.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "flap-statistics": {
@@ -14774,7 +14774,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 ipv6 neighbors (IPV4-ADDR:7.0|WORD:7.1) flap-statistics",
+        "defun": "show bgp view WORD:4 ipv6 neighbors (IPV4-ADDR:7.0|IPV6-ADDR:7.1) flap-statistics",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -14814,9 +14814,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:4.1": {
+      "IPV6-ADDR:4.1": {
         "id": "4.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "routes": {
@@ -14827,7 +14827,7 @@
     },
     "command": [
       {
-        "defun": "show bgp neighbors (IPV4-ADDR:4.0|WORD:4.1) routes",
+        "defun": "show bgp neighbors (IPV4-ADDR:4.0|IPV6-ADDR:4.1) routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -14872,9 +14872,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "routes": {
@@ -14885,7 +14885,7 @@
     },
     "command": [
       {
-        "defun": "show bgp ipv6 neighbors (IPV4-ADDR:5.0|WORD:5.1) routes",
+        "defun": "show bgp ipv6 neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -14930,9 +14930,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "routes": {
@@ -14943,7 +14943,7 @@
     },
     "command": [
       {
-        "defun": "show ipv6 bgp neighbors (IPV4-ADDR:5.0|WORD:5.1) routes",
+        "defun": "show ipv6 bgp neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -14988,9 +14988,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "routes": {
@@ -15001,7 +15001,7 @@
     },
     "command": [
       {
-        "defun": "show ipv6 mbgp neighbors (IPV4-ADDR:5.0|WORD:5.1) routes",
+        "defun": "show ipv6 mbgp neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -15041,9 +15041,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:4.1": {
+      "IPV6-ADDR:4.1": {
         "id": "4.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "flap-statistics": {
@@ -15054,7 +15054,7 @@
     },
     "command": [
       {
-        "defun": "show bgp neighbors (IPV4-ADDR:4.0|WORD:4.1) flap-statistics",
+        "defun": "show bgp neighbors (IPV4-ADDR:4.0|IPV6-ADDR:4.1) flap-statistics",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -15099,9 +15099,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "flap-statistics": {
@@ -15112,7 +15112,7 @@
     },
     "command": [
       {
-        "defun": "show bgp ipv6 neighbors (IPV4-ADDR:5.0|WORD:5.1) flap-statistics",
+        "defun": "show bgp ipv6 neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) flap-statistics",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -15152,9 +15152,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:4.1": {
+      "IPV6-ADDR:4.1": {
         "id": "4.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "dampened-routes": {
@@ -15165,7 +15165,7 @@
     },
     "command": [
       {
-        "defun": "show bgp neighbors (IPV4-ADDR:4.0|WORD:4.1) dampened-routes",
+        "defun": "show bgp neighbors (IPV4-ADDR:4.0|IPV6-ADDR:4.1) dampened-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -15210,9 +15210,9 @@
         "type": "ipv4address",
         "help": "Neighbor to display information about"
       },
-      "WORD:5.1": {
+      "IPV6-ADDR:5.1": {
         "id": "5.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Neighbor to display information about"
       },
       "dampened-routes": {
@@ -15223,7 +15223,7 @@
     },
     "command": [
       {
-        "defun": "show bgp ipv6 neighbors (IPV4-ADDR:5.0|WORD:5.1) dampened-routes",
+        "defun": "show bgp ipv6 neighbors (IPV4-ADDR:5.0|IPV6-ADDR:5.1) dampened-routes",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -15273,15 +15273,15 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       }
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 rsclient (IPV4-ADDR:6.0|WORD:6.1)",
+        "defun": "show bgp view WORD:4 rsclient (IPV4-ADDR:6.0|IPV6-ADDR:6.1)",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -15321,15 +15321,15 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:4.1": {
+      "IPV6-ADDR:4.1": {
         "id": "4.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       }
     },
     "command": [
       {
-        "defun": "show bgp rsclient (IPV4-ADDR:4.0|WORD:4.1)",
+        "defun": "show bgp rsclient (IPV4-ADDR:4.0|IPV6-ADDR:4.1)",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -15396,15 +15396,15 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:8.1": {
+      "IPV6-ADDR:8.1": {
         "id": "8.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       }
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 ipv6 (unicast|multicast) rsclient (IPV4-ADDR:8.0|WORD:8.1)",
+        "defun": "show bgp view WORD:4 ipv6 (unicast|multicast) rsclient (IPV4-ADDR:8.0|IPV6-ADDR:8.1)",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -15461,15 +15461,15 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       }
     },
     "command": [
       {
-        "defun": "show bgp ipv6 (unicast|multicast) rsclient (IPV4-ADDR:6.0|WORD:6.1)",
+        "defun": "show bgp ipv6 (unicast|multicast) rsclient (IPV4-ADDR:6.0|IPV6-ADDR:6.1)",
         "mode": [
           "VIEW-NODE",
           "ENABLE-NODE"
@@ -15519,20 +15519,20 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
-      "WORD:7": {
+      "IPV6-ADDR:7": {
         "id": "7",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Network in the BGP routing table to display"
       }
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 rsclient (IPV4-ADDR:6.0|WORD:6.1) WORD:7",
+        "defun": "show bgp view WORD:4 rsclient (IPV4-ADDR:6.0|IPV6-ADDR:6.1) IPV6-ADDR:7",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -15573,20 +15573,20 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:4.1": {
+      "IPV6-ADDR:4.1": {
         "id": "4.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
-      "WORD:5": {
+      "IPV6-ADDR:5": {
         "id": "5",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Network in the BGP routing table to display"
       }
     },
     "command": [
       {
-        "defun": "show bgp rsclient (IPV4-ADDR:4.0|WORD:4.1) WORD:5",
+        "defun": "show bgp rsclient (IPV4-ADDR:4.0|IPV6-ADDR:4.1) IPV6-ADDR:5",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -15654,20 +15654,20 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:8.1": {
+      "IPV6-ADDR:8.1": {
         "id": "8.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
-      "WORD:9": {
+      "IPV6-ADDR:9": {
         "id": "9",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Network in the BGP routing table to display"
       }
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 ipv6 (unicast|multicast) rsclient (IPV4-ADDR:8.0|WORD:8.1) WORD:9",
+        "defun": "show bgp view WORD:4 ipv6 (unicast|multicast) rsclient (IPV4-ADDR:8.0|IPV6-ADDR:8.1) IPV6-ADDR:9",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -15725,20 +15725,20 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
-      "WORD:7": {
+      "IPV6-ADDR:7": {
         "id": "7",
-        "type": "string",
+        "type": "ipv6address",
         "help": "Network in the BGP routing table to display"
       }
     },
     "command": [
       {
-        "defun": "show bgp ipv6 (unicast|multicast) rsclient (IPV4-ADDR:6.0|WORD:6.1) WORD:7",
+        "defun": "show bgp ipv6 (unicast|multicast) rsclient (IPV4-ADDR:6.0|IPV6-ADDR:6.1) IPV6-ADDR:7",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -15789,9 +15789,9 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
       "IPV6-PREFIX:7": {
@@ -15802,7 +15802,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 rsclient (IPV4-ADDR:6.0|WORD:6.1) IPV6-PREFIX:7",
+        "defun": "show bgp view WORD:4 rsclient (IPV4-ADDR:6.0|IPV6-ADDR:6.1) IPV6-PREFIX:7",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -15843,9 +15843,9 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:4.1": {
+      "IPV6-ADDR:4.1": {
         "id": "4.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
       "IPV6-PREFIX:5": {
@@ -15856,7 +15856,7 @@
     },
     "command": [
       {
-        "defun": "show bgp rsclient (IPV4-ADDR:4.0|WORD:4.1) IPV6-PREFIX:5",
+        "defun": "show bgp rsclient (IPV4-ADDR:4.0|IPV6-ADDR:4.1) IPV6-PREFIX:5",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -15924,9 +15924,9 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:8.1": {
+      "IPV6-ADDR:8.1": {
         "id": "8.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
       "IPV6-PREFIX:9": {
@@ -15937,7 +15937,7 @@
     },
     "command": [
       {
-        "defun": "show bgp view WORD:4 ipv6 (unicast|multicast) rsclient (IPV4-ADDR:8.0|WORD:8.1) IPV6-PREFIX:9",
+        "defun": "show bgp view WORD:4 ipv6 (unicast|multicast) rsclient (IPV4-ADDR:8.0|IPV6-ADDR:8.1) IPV6-PREFIX:9",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",
@@ -15995,9 +15995,9 @@
         "type": "ipv4address",
         "help": "Neighbor address"
       },
-      "WORD:6.1": {
+      "IPV6-ADDR:6.1": {
         "id": "6.1",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 address"
       },
       "IPV6-PREFIX:7": {
@@ -16008,7 +16008,7 @@
     },
     "command": [
       {
-        "defun": "show bgp ipv6 (unicast|multicast) rsclient (IPV4-ADDR:6.0|WORD:6.1) IPV6-PREFIX:7",
+        "defun": "show bgp ipv6 (unicast|multicast) rsclient (IPV4-ADDR:6.0|IPV6-ADDR:6.1) IPV6-PREFIX:7",
         "mode": [
           "VIEW-NODE",
           "RESTRICTED-NODE",

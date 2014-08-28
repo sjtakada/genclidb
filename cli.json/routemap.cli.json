@@ -37,7 +37,8 @@
       {
         "defun": "route-map WORD:2 (deny|permit) RANGE:4",
         "mode": [
-          "CONFIG-NODE"
+          "CONFIG-NODE",
+          "RMAP-NODE"
         ],
         "bind": [
           "NAME = WORD:2",

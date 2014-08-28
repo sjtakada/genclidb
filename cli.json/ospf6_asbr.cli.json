@@ -628,15 +628,15 @@
         "type": "keyword",
         "help": "Forwarding Address"
       },
-      "WORD:3": {
+      "IPV6-ADDR:3": {
         "id": "3",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 Address"
       }
     },
     "command": [
       {
-        "defun": "set forwarding-address WORD:3",
+        "defun": "set forwarding-address IPV6-ADDR:3",
         "mode": [
           "RMAP-NODE"
         ],
@@ -670,15 +670,15 @@
         "type": "keyword",
         "help": "Forwarding Address"
       },
-      "WORD:3": {
+      "IPV6-ADDR:3": {
         "id": "3",
-        "type": "string",
+        "type": "ipv6address",
         "help": "IPv6 Address"
       }
     },
     "command": [
       {
-        "defun": "no set forwarding-address WORD:3",
+        "defun": "no set forwarding-address IPV6-ADDR:3",
         "mode": [
           "RMAP-NODE"
         ],
