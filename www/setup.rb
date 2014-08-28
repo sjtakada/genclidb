@@ -109,10 +109,14 @@ def rails_data_type(obj)
   type
 end
 
-def rails_db_add_index(table_name, table_keys)
+def rails_db_add_index(table_name, table_keys, attrs)
   # Generate migration as a place holder.
   name_p, migration = rails_migration(table_name)
   index_keys = table_keys.map{|t| t[0]}
+  if attrs != nil
+    index_keys += attrs.map{|k, v| k}
+  end
+
   template = File.read("../add_index.erb")
 
   Dir.chdir("db/migrate")
@@ -437,6 +441,9 @@ def rails_modify_model(table_name, table_keys)
     @keys_def = table_def["keys"]
     @attrs_def = table_def["attributes"]
     @all_keys = table_keys
+    if @keys_def == nil and @attrs_def != nil
+      @all_keys += @attrs_def.select{|k, v| !v["as-key"].nil? and v["as-key"] == true}.map{|k, v| [k, v]}
+    end
     @ip_keys = table_keys.select{|k, v| v["type"] == "ipv4" or v["type"] == "ipv6"}
     @auto_keys = table_keys.select{|k, v| !v["auto"].nil?}
     @null_keys = table_keys.select{|k, v| !v["null"].nil? and v["null"] == true}
@@ -698,7 +705,6 @@ def rails_get_db_fields(table_def, table_keys)
     if table_def["belongs-to"] != nil
       table_def["belongs-to"].each do |k, v|
         db_fields << [ keyword(k) + "_id", "integer" ]
-#      db_fields << [ keyword(k) + "_type", "string" ] if v["type"] == "interface"
       end
     end
   end
@@ -769,7 +775,11 @@ def rails_add_table(table_name)
 
     if $tables[:flag][table_name] == "N" or $tables[:flag][table_name] == "U"
       # Migration: generate index's
-      rails_db_add_index(table_name, table_keys)
+      if table_def["keys"].nil?
+        rails_db_add_index(table_name, table_keys, table_def["attributes"])
+      else
+        rails_db_add_index(table_name, table_keys, nil)
+      end
 
       # Migration: set default value
       rails_db_set_default(table_name)
@@ -858,7 +868,7 @@ def rails_add_association(table_name)
 
     if $tables[:flag][table_name] == "N" or $tables[:flag][table_name] == "U"
       # Migration: generate index's
-      rails_db_add_index(table_name, table_keys)
+      rails_db_add_index(table_name, table_keys, nil)
 
       # Migration: set default value
       rails_db_set_default(table_name)

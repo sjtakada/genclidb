@@ -25241,7 +25241,7 @@
           {
             "http": {
               "method": "POST",
-              "path": "ip_communities/:RANGE:3/ip_community_rules/:NULL",
+              "path": "ip_communities/:RANGE:3/ip_community_rules",
               "params": {
                 "permit-deny": "ENUM:4",
                 "communities": "COMMUNITY:5"
@@ -25571,10 +25571,8 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
-              "params": {
-              }
+              "method": "DELETE",
+              "path": "ip_communities/:RANGE:3"
             }
           }
         ]
@@ -25774,9 +25772,11 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "DELETE",
+              "path": "ip_communities/:RANGE:3/ip_community_rules",
               "params": {
+                "permit-deny": "ENUM:4",
+                "communities": "COMMUNITY:5"
               }
             }
           }

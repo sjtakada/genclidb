@@ -21,20 +21,14 @@
           "type": "table"
         }
       },
-      "keys": {
-        "seq": {
-          "type": "integer",
-          "auto": {
-            "step": 5
-          }
-        }
-      },
       "attributes": {
         "permit-deny": {
+          "as-key": true,
           "type": "enum",
           "values": ["permit", "deny"]
         },
         "communities": {
+          "as-key": true,
           "type": "string"
         }
       }

@@ -133,6 +133,9 @@
                 "^[a-z_A-Z0-9\-]+$": {
                   "type": "object",
                   "properties": {
+                    "as-key": {
+                      "type": "boolean"
+                    },
                     "type": {
                       "enum": [
                         "string", "integer", "boolean", "ipv4", "ipv6", "enum"
