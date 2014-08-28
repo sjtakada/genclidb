@@ -525,6 +525,16 @@ CliReadline::handle_actions(CliNodeTokenVector& node_token_vec)
           if (!knode->enum_key().empty())
             input[knode->enum_key()] = knode->cli_token();
         }
+      else if (node->type_ == CliTree::word
+               || node->type_ == CliTree::community)
+        {
+          ParamsMap::iterator is = input.find(node->def_token());
+
+          if (is == input.end())
+            input[node->def_token()] = node->format_param(*it->second);
+          else
+            input[node->def_token()] += " " + node->format_param(*it->second);
+        }
       else
         {
           input[node->def_token()] = node->format_param(*it->second);
