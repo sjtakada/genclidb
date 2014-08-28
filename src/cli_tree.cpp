@@ -741,16 +741,112 @@ CliNodeIPv6Prefix::cli_match(string& input)
   return make_pair(match_success, match_full);
 }
 
-// XXX/TODO
 MatchState
 CliNodeIPv6Address::cli_match(string& input)
 {
-  struct in6_addr addr;
-  int ret;
+  const char *str = input.c_str();
+  const char *p = str;
+  bool first_colon = false;
+  bool double_colon = false;
+  int xdigits = 0;
+  int xdigits_count = 0;
+  int colon_count = 0;
 
-  ret = inet_pton(AF_INET6, input.c_str(), &addr);
-  if (ret == 0)
-    return make_pair(match_failure, match_none);;
+  enum {
+    state_init,
+    state_xdigit,
+    state_colon1,
+    state_colon2
+  };
+
+  int state = state_init;
+
+  while (*p != '\0')
+    {
+      switch (state)
+        {
+        case state_init:
+          if (!isxdigit((int)*p) && *p != ':')
+            return make_pair(match_failure, match_none);
+
+          // This is special case.
+          if (*p == ':')
+            {
+              state = state_colon1;
+              first_colon = true;
+              colon_count++;
+            }
+          else
+            {
+              state = state_xdigit;
+              xdigits++;
+            }
+          break;
+        case state_xdigit:
+          if (!isxdigit((int)*p) && *p != ':' && *p != '/')
+            return make_pair(match_failure, match_none);
+
+          if (isxdigit((int)*p))
+            xdigits++;
+          else if (*p == ':')
+            {
+              state = state_colon1;
+              xdigits = 0;
+              xdigits_count++;
+              colon_count++;
+            }
+
+          break;
+        case state_colon1:
+          if (!isxdigit((int)*p) && *p != ':')
+            return make_pair(match_failure, match_none);
+
+          if (isxdigit((int)*p))
+            {
+              if (first_colon)
+                return make_pair(match_failure, match_none);
+
+              state = state_xdigit;
+              xdigits++;
+            }
+          else if (*p == ':')
+            {
+              state = state_colon2;
+              colon_count++;
+            }
+
+          break;
+        case state_colon2:
+          if (!isxdigit((int)*p) && *p != '/')
+            return make_pair(match_failure, match_none);
+
+          if (isxdigit((int)*p))
+            {
+              state = state_xdigit;
+              xdigits = 1;
+            }
+
+          double_colon = true;
+          break;
+        }
+
+      if (colon_count > 7)
+        return make_pair(match_failure, match_none);
+
+      if (xdigits > 4)
+        return make_pair(match_failure, match_none);
+
+      if (xdigits_count > 8)
+        return make_pair(match_failure, match_none);
+
+      if (double_colon && state == state_colon2)
+        return make_pair(match_failure, match_none);
+
+      p++;
+    }
+
+  if (state != state_xdigit)
+    return make_pair(match_success, match_incomplete);
 
   return make_pair(match_success, match_full);
 }
