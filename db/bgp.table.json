@@ -1,0 +1,87 @@
+{
+  "table": {
+    "bgp": {
+      "type": "parent",
+      "keys": {
+        "as-number": {
+          "type": "integer",
+          "range": [1, 65535]
+        }
+      },
+      "attributes": {
+        "always-compare-med": {
+          "type": "boolean",
+          "default": false
+        },
+        "bestpath-as-path-confed": {
+          "type": "boolean",
+          "default": false
+        },
+        "bestpath-as-path-ignore": {
+          "type": "boolean",
+          "default": false
+        },
+        "bestpath-compare-routerid": {
+          "type": "boolean",
+          "default": false
+        },
+        "bestpath-med-missing-as-worst": {
+          "type": "boolean",
+          "default": false
+        },
+        "bestpath-med-confed": {
+          "type": "boolean",
+          "default": false
+        },
+        "client-to-client-reflection": {
+          "type": "boolean",
+          "default": false
+        },
+        "cluster-id": {
+          "type": "integer",
+          "range": [1, 4294967295],
+          "default": null
+        },
+        "confederation-identifier": {
+          "type": "integer",
+          "range": [1, 4294967295],
+          "default": null
+        },
+        "default-local-preference": {
+          "type": "integer",
+          "range": [1, 4294967295],
+          "default": null
+        },
+        "deterministic-med": {
+          "type": "boolean",
+          "default": null
+        },
+        "enforced-first-as": {
+          "type": "boolean",
+          "default": null
+        },
+        "fast-external-failover": {
+          "type": "boolean",
+          "default": null
+        },
+        "log-neighbor-changes": {
+          "type": "boolean",
+          "default": null
+        },
+        "network-import-check": {
+          "type": "boolean",
+          "default": null
+        },
+        "router-id": {
+          "type": "ipv4",
+          "default": null
+        },
+        "scan-time": {
+          "type": "integer",
+          "range": [5, 60],
+          "default": null
+        }
+      }
+    }
+  }
+}

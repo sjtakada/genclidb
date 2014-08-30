@@ -241,13 +241,20 @@
         "mode": [
           "CONFIG-NODE"
         ],
+        "bind": [
+          "AS-NUM = RANGE:3"
+        ],
         "action": [
           {
+            "mode": {
+              "name": "BGP-NODE",
+              "params": [
+                "AS-NUM"
+              ]
+            },
             "http": {
-              "method": "NOP",
-              "path": "",
-              "params": {
-              }
+              "method": "PUT",
+              "path": "bgps/:AS-NUM"
             }
           }
         ]

@@ -251,7 +251,9 @@ def rails_attr_get_default(attrs, key)
     if attrs[key] != nil
       attr = attrs[key]
       if attr.has_key?("default")
-        if attr["type"] == "boolean" or attr["type"] == "integer"
+        if attr["default"] == nil
+          return "nil"
+        elsif attr["type"] == "boolean" or attr["type"] == "integer"
           return attr["default"].to_s
         elsif attr["default"] != nil
           return '"' + attr["default"] + '"'
@@ -318,6 +320,8 @@ def rails_db_set_default(table_name)
             options << ":null => " + null_ok.to_s
             if default_value != "nil"
               options << ":default => " + default_value.to_s
+            else
+              options << ":default => nil"
             end
 
             line = options.join(", ")
