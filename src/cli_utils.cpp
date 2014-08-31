@@ -35,7 +35,7 @@
 //   1: Area ID format ("ipv4" or "integer")
 //
 StringVector&
-area_id_and_format(StringVector& vec)
+CliFunctorAreaIDandFormat::operator() (StringVector& vec) const
 {
   // Save all parameters in local vairables.
   string addr(vec[0]);
@@ -82,7 +82,7 @@ area_id_and_format(StringVector& vec)
 //   1: Mask length (<0-32>)
 //
 StringVector&
-ipv4prefix2address_masklen(StringVector& vec)
+CliFunctorIPv4Prefix2AddressMasklen::operator() (StringVector& vec) const
 {
   string prefix(vec[0]);
   string address;
@@ -111,7 +111,7 @@ ipv4prefix2address_masklen(StringVector& vec)
 //   0: IPv4 Network Address (A.B.C.D)
 //
 StringVector&
-apply_mask_ipv4(StringVector& vec)
+CliFunctorApplyMaskIPv4::operator() (StringVector& vec) const
 {
   string addr(vec[0]);
   string masklen(vec[1]);
@@ -136,9 +136,10 @@ apply_mask_ipv4(StringVector& vec)
 void
 CliUtils::init()
 {
-  filter_map_["area_id_and_format"] = area_id_and_format;
-  filter_map_["ipv4prefix2address_masklen"] = ipv4prefix2address_masklen;
-  filter_map_["apply_mask_ipv4"] = apply_mask_ipv4;
+  functor_map_["area_id_and_format"] = new CliFunctorAreaIDandFormat;
+  functor_map_["ipv4prefix2address_masklen"] =
+    new CliFunctorIPv4Prefix2AddressMasklen;
+  functor_map_["apply_mask_ipv4"] = new CliFunctorApplyMaskIPv4;
 }
 
 bool
@@ -205,7 +206,7 @@ CliUtils::bind_interpreter(string& statement, ParamsMap& input)
   lvalue = str.substr(0, pos);
   rvalue = str.substr(pos + 1, string::npos);
 
-  // Proces rvalues to get list of converted strings.
+  // Process rvalues to get list of converted strings.
   while (bind_get_token(rvalue, token))
     {
       if (token == "(")
@@ -219,10 +220,10 @@ CliUtils::bind_interpreter(string& statement, ParamsMap& input)
           in_params = false;
 
           // Call filter function.
-          CliFilterFuncMap::iterator is = filter_map_.find(func_name);
-          if (is != filter_map_.end())
+          CliFunctorMap::iterator is = functor_map_.find(func_name);
+          if (is != functor_map_.end())
             {
-              StringVector vec = is->second(params);
+              StringVector vec = (*is->second)(params);
               for (StringVector::iterator it = vec.begin();
                    it != vec.end(); ++it)
                 values.push_back(*it);

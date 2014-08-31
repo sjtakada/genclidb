@@ -25,8 +25,36 @@
 #include <vector>
 #include <string>
 
-typedef StringVector& (*CliParamsFilter)(StringVector&);
-typedef map<string, CliParamsFilter> CliFilterFuncMap;
+// Base functor
+class CliFunctor
+{
+public:
+  virtual StringVector& operator() (StringVector& vec) const = 0;
+};
+
+typedef map<string, CliFunctor *> CliFunctorMap;
+
+
+// Area ID and Format Functor.
+class CliFunctorAreaIDandFormat: public CliFunctor
+{
+public:
+  StringVector& operator() (StringVector& vec) const;
+};
+
+// IPV4Prefix to Address Masklen Functor.
+class CliFunctorIPv4Prefix2AddressMasklen: public CliFunctor
+{
+public:
+  StringVector& operator() (StringVector& vec) const;
+};
+
+// Apply Mask IPv4 Functor.
+class CliFunctorApplyMaskIPv4: public CliFunctor
+{
+public:
+  StringVector& operator() (StringVector& vec) const;
+};
 
 class CliUtils
 {
@@ -37,7 +65,7 @@ public:
   bool bind_interpreter(string& statement, ParamsMap& input);
 
 private:
-  CliFilterFuncMap filter_map_;
+  CliFunctorMap functor_map_;
 
   bool bind_get_token(string& str, string& token);
 };
