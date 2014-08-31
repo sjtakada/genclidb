@@ -481,7 +481,6 @@
             "http": {
               "method": "POST",
               "path": "ospfv2s/:PROCESS-ID/networks/:ADDRESS/:MASKLEN",
-              "pathx": "ospfv2_networks/:PROCESS-ID/:ADDRESS/:MASKLEN",
               "params": {
                 "area-id": "AREA-ID-NUM"
               }
@@ -535,19 +534,16 @@
           "OSPF-NODE"
         ],
         "bind": [
-          "if IPV4-PREFIX:2 do ADDRESS, MASKLEN = prefix2address_mask_len (IPV4-PREFIX:2)",
+          "if IPV4-PREFIX:2 do ADDRESS, MASKLEN = ipv4prefix2address_masklen (IPV4-PREFIX:2)",
           "if IPV4-PREFIX:2 do ADDRESS = apply_mask_ipv4 (ADDRESS, MASKLEN)",
-          "if RANGE:4.1     do AREA-ID-NUM = RANGE:4.1",
-          "if IPV4-ADDR:4.0 do AREA-ID-NUM = ipv4_addr2uint32 (IPV4-ADDR:4.0)"
+          "if RANGE:4.1     do AREA-ID-NUM, AREA-ID-FORMAT = area_id_and_format (NULL, RANGE:4.1)",
+          "if IPV4-ADDR:4.0 do AREA-ID-NUM, AREA-ID-FORMAT = area_id_and_format (IPV4-ADDR:4.0, NULL)"
         ],
         "action": [
           {
             "http": {
               "method": "DELETE",
-              "path": "ospfv2_networks/:PROCESS-ID/:ADDRESS/:MASKLEN",
-              "params": {
-                "area-id": "AREA-ID-NUM"
-              }
+              "path": "ospfv2s/:PROCESS-ID/networks/:ADDRESS/:MASKLEN"
             }
           }
         ]

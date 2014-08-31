@@ -1405,9 +1405,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "bgps/:AS-NUM",
               "params": {
+                "always-compare-med": true
               }
             }
           }
