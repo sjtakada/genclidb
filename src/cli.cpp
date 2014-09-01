@@ -89,7 +89,6 @@ Cli::init()
   terminal_init();
 
   // CLI mode init.
-  //  mode_read((char *)"../cli.json/quagga.cli_mode.json");
   if (!mode_read((char *)cli_mode_file().c_str()))
     return false;
 

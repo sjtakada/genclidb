@@ -240,8 +240,5 @@ CliActionBuiltIn::handle(Cli *cli, ParamsMap& input)
 
   cli->built_in_.call(func_, vec);
 
-  //  if (cli->built_in_[func_])
-  //    cli->built_in_[func_](cli, vec);
-
   return true;
 }
