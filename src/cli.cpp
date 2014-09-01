@@ -93,8 +93,8 @@ Cli::init()
   if (!mode_read((char *)cli_mode_file().c_str()))
     return false;
 
-  // Built-in functions init.
-  cli_builtins_init(this);
+  // Built-In init.
+  built_in_.init(this);
 
   // Read CLI definitions.
   load_cli_json_all((char *)cli_json_dir().c_str());
@@ -133,12 +133,10 @@ Cli::exit()
   else if (mode_->exit_to_end())
     {
       end();
-      cout << endl;
     }
   else
     {
       mode_up(1);
-      cout << endl;
     }
 
   rl_.clear();

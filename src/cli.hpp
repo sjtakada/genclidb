@@ -31,8 +31,6 @@ using namespace std;
 #include "cli_tree.hpp"
 #include "cli_builtins.hpp"
 
-typedef map<string, cli_builtin_func> BuiltinFuncMap;
-
 class Cli
 {
 public:
@@ -80,7 +78,7 @@ public:
   struct winsize ws_;
 
   // Built-in function map.
-  BuiltinFuncMap built_in_;
+  CliBuiltIn built_in_;
 
   // Mode parameters.
   ParamsMap params_;

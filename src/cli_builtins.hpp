@@ -27,8 +27,30 @@
 
 #include "project.hpp"
 
-typedef int (*cli_builtin_func) (Cli *, StringVector& vec);
+//void cli_builtins_init(Cli *cli);
 
-void cli_builtins_init(Cli *cli);
+class CliBuiltIn;
+
+typedef int (*cli_builtin_func) (Cli *, StringVector& vec);
+typedef map<string, cli_builtin_func> CliBuiltInFuncMap;
+
+class CliBuiltIn
+{
+public:
+  CliBuiltIn() { }
+  void init(Cli *cli);
+  int call(string name, StringVector& vec);
+
+private:
+  Cli *cli_;
+
+  CliBuiltInFuncMap func_;
+
+  static int debug_cli(Cli *cli, StringVector& vec);
+  static int no_debug_cli(Cli *cli, StringVector& vec);
+  static int exit(Cli *cli, StringVector& vec);
+  static int show_result(Cli *cli, StringVector& vec);
+  static int write_result(Cli *cli, StringVector& vec);
+};
 
 #endif /* _CLI_BUILTINS_HPP_ */

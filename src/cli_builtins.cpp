@@ -25,7 +25,7 @@
 #include "cli_builtins.hpp"
 
 int
-cli_builtins_debug_cli_set(Cli *cli, StringVector& vec)
+CliBuiltIn::debug_cli(Cli *cli, StringVector& vec)
 {
   cli->set_debug(true);
 
@@ -33,7 +33,7 @@ cli_builtins_debug_cli_set(Cli *cli, StringVector& vec)
 }
 
 int
-cli_builtins_debug_cli_unset(Cli *cli, StringVector& vec)
+CliBuiltIn::no_debug_cli(Cli *cli, StringVector& vec)
 {
   cli->set_debug(false);
 
@@ -41,7 +41,7 @@ cli_builtins_debug_cli_unset(Cli *cli, StringVector& vec)
 }
 
 int
-cli_exit(Cli *cli, StringVector& vec)
+CliBuiltIn::exit(Cli *cli, StringVector& vec)
 {
   cli->exit();
 
@@ -49,15 +49,7 @@ cli_exit(Cli *cli, StringVector& vec)
 }
 
 int
-cli_debug(Cli *cli, StringVector& vec)
-{
-  cout << "DEBUG" << endl;
-
-  return 1;
-}
-
-int
-cli_show_result(Cli *cli, StringVector& vec)
+CliBuiltIn::show_result(Cli *cli, StringVector& vec)
 {
   cout << cli->result().str() << endl;
 
@@ -65,7 +57,7 @@ cli_show_result(Cli *cli, StringVector& vec)
 }
 
 int
-cli_write_result(Cli *cli, StringVector& vec)
+CliBuiltIn::write_result(Cli *cli, StringVector& vec)
 {
   ofstream file;
 
@@ -76,14 +68,25 @@ cli_write_result(Cli *cli, StringVector& vec)
   return 1;
 }
 
+
 void
-cli_builtins_init(Cli *cli)
+CliBuiltIn::init(Cli *cli)
 {
-  cli->built_in_["debug-cli-set"] = cli_builtins_debug_cli_set;
-  cli->built_in_["debug-cli-unset"] = cli_builtins_debug_cli_unset;
-  cli->built_in_["cli-exit"] = cli_exit;
-  cli->built_in_["cli-debug"] = cli_debug;
-  cli->built_in_["show-result"] = cli_show_result;
-  cli->built_in_["write-result"] = cli_write_result;
+  cli_ = cli;
+
+  func_["debug-cli"] = debug_cli;
+  func_["no-debug-cli"] = no_debug_cli;
+  func_["exit"] = exit;
+  func_["show-result"] = show_result;
+  func_["write-result"] = write_result;
 }
 
+int
+CliBuiltIn::call(string name, StringVector& vec)
+{
+  CliBuiltInFuncMap::iterator it = func_.find(name);
+  if (it != func_.end())
+    return it->second(cli_, vec);
+
+  return 0;
+}

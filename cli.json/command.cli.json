@@ -98,27 +98,13 @@
           "RIP-NODE",
           "OSPF6-NODE",
           "RIPNG-NODE",
-          "ENABLE-NODE"
-        ],
-        "action": [
-          {
-            "built-in": {
-              "func": "cli-exit"
-            }
-          }
-        ]
-      },
-      {
-        "defun": "exit",
-        "mode": [
+          "ENABLE-NODE",
           "CONFIG-NODE"
         ],
         "action": [
           {
-            "*": {
-              "mode": {
-                "name": "ENABLE-NODE"
-              }
+            "built-in": {
+              "func": "exit"
             }
           }
         ]
