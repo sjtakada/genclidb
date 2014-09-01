@@ -45,6 +45,8 @@ public:
   { }
 
   static bool get_candidate(Cli *cli, string& path, StringVector& candidates);
+  static bool get_candidate_on_demand(Cli *cli, string& path, string& field,
+                                      StringVector& candidates);
 
   bool runtime_error() { return runtime_error_; }
   stringstream& result() { return result_; }

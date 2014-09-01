@@ -150,7 +150,6 @@ CliTree::new_node_by_type(int type, Json::Value& tokens, string& def_token)
 {
   string id = tokens[def_token]["id"].asString();
   string help = tokens[def_token]["help"].asString();
-  Json::Value update, on, path, as;
   CliNode *node;
 
   switch (type)
@@ -199,18 +198,30 @@ CliTree::new_node_by_type(int type, Json::Value& tokens, string& def_token)
       assert(0);
     }
 
-  update = tokens[def_token]["update"];
+  Json::Value update = tokens[def_token]["update"];
   if (!update.isNull())
     {
+      Json::Value on, path, field;
+
       on = update["on"];
       path = update["path"];
-      as = update["as"];
+      //      as = update["as"];
+      field = update["field"];
 
+      node->update_ = new CliNodeUpdate;
+
+      // XXX/TODO
       if (on.asString() == "boot")
         {
           Cli *cli = Cli::instance();
           string path_str = path.asString();
-          CliHttp::get_candidate(cli, path_str, node->candidates_);
+          CliHttp::get_candidate(cli, path_str,
+                                 node->update_->candidates_);
+        }
+      else if (on.asString() == "demand")
+        {
+          node->update_->path_ = path.asString();
+          node->update_->field_ = field.asString();
         }
     }
 

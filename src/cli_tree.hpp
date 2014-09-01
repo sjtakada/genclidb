@@ -49,6 +49,27 @@ enum MatchFlag {
 
 typedef pair<enum MatchResult, enum MatchFlag> MatchState;
 
+// Information for Dynamic updated node.
+class CliNodeUpdate
+{
+  //  friend class CliNode;
+  friend class CliTree;
+  friend class CliReadline;
+
+public:
+  CliNodeUpdate() { }
+
+private:
+  // List of candidate for complete or describe this node.
+  StringVector candidates_;
+
+  // On demand path.
+  string path_;
+
+  // On demand fields.
+  string field_;
+};
+
 // Base virtual class for CLI Node.
 class CliNode
 {
@@ -56,7 +77,8 @@ public:
   CliNode() { }
   CliNode(int type, string& id, string& def_token, string& help)
     : type_(type), id_(id), def_token_(def_token), help_(help),
-      cli_token_(""), completable_(false), exposed_(0), cmd_(false)
+      cli_token_(""), completable_(false), exposed_(0), cmd_(false),
+      update_(NULL)
   { }
   ~CliNode() { }
 
@@ -108,8 +130,8 @@ protected:
   // Executable command node.
   bool cmd_;
 
-  // List of candidate for complete or describe this node.
-  StringVector candidates_;
+  // Information for dynamic updated node.
+  CliNodeUpdate *update_;
 
   // Action.
   CliActionVector actions_;

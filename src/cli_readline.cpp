@@ -318,7 +318,6 @@ CliReadline::describe()
 {
   // current mode.
   CliTree *tree = cli_->current_mode();
-  CliNode *candidate;
   CliParseState ps(rl_line_buffer);
   enum ExecResult result = exec_complete;
 
@@ -339,21 +338,43 @@ CliReadline::describe()
       for (CliNodeMatchStateVector::iterator it = ps.matched_vec_.begin();
            it != ps.matched_vec_.end(); ++it)
         {
-          candidate = it->first;
-          size_t len = candidate->cli_token().size();
+          CliNode *node = it->first;
+          size_t len = node->cli_token().size();
           if (max_len < len)
             max_len = len;
+
+          CliNodeUpdate *u = node->update_;
+
+          if (u)
+            {
+              // On demand
+              if (!u->path_.empty())
+                CliHttp::get_candidate_on_demand(cli_, u->path_, u->field_,
+                                                 u->candidates_);
+
+              for (StringVector::iterator is = u->candidates_.begin();
+                   is != u->candidates_.end(); ++is)
+                {
+                  if (max_len < (*is).size())
+                    max_len = (*is).size();
+                }
+            }
         }
 
       for (CliNodeMatchStateVector::iterator it = ps.matched_vec_.begin();
            it != ps.matched_vec_.end(); ++it)
         {
-          describe_line(it->first, max_len);
-
           CliNode *node = it->first;
-          for (StringVector::iterator is = node->candidates_.begin();
-               is != node->candidates_.end(); ++is)
-            cout << "  " << *is << endl;
+          describe_line(node, max_len);
+
+          CliNodeUpdate *u = node->update_;
+
+          if (u)
+            {
+              for (StringVector::iterator is = u->candidates_.begin();
+                   is != u->candidates_.end(); ++is)
+                cout << "  " << *is << endl;
+            }
         }
 
       if (ps.is_cmd_)
