@@ -45,13 +45,15 @@ public:
   { }
 
   static bool get_candidate(Cli *cli, string& path, StringVector& candidates);
-  static bool get_candidate_on_demand(Cli *cli, string& path, string& field,
-                                      StringVector& candidates);
+  static bool update_on_demand(Cli *cli, string& path, string& field,
+                               StringVector& candidates);
 
+  void send_request();
+  static void path_from_params(string str, string& path, ParamsMap& input);
   bool runtime_error() { return runtime_error_; }
   stringstream& result() { return result_; }
   int status() { return status_; }
-  void send_request();
+
 
 private:
   // Request URL.

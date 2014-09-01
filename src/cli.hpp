@@ -74,6 +74,12 @@ public:
   stringstream& result() { return result_; }
   void set_result(stringstream& result) { result_.str(result.str()); }
 
+  void params_populate(ParamsMap& input)
+  {
+    for (ParamsMap::iterator it = params_.begin(); it != params_.end(); ++it)
+      input[it->first] = it->second;
+  }
+
   // Terminal width, height.
   struct winsize ws_;
 

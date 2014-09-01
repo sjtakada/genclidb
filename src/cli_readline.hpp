@@ -54,8 +54,8 @@ public:
   // Current remaining input.
   string line_;
 
-  // Current position.
-  //  u_int16_t pos_;
+  // Last token.
+  string token_;
 
   // Input length
   u_int16_t len_;

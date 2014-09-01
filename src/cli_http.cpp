@@ -22,6 +22,27 @@
 
 #include "cli.hpp"
 #include "cli_http.hpp"
+#include "cli_string.hpp"
+
+void
+CliHttp::path_from_params(string str, string& path, ParamsMap& input)
+{
+  string token;
+  const char *delim = "";
+
+  // Generate path with parameter.
+  while (get_token(str, token, "/"))
+    {
+      path += delim;
+
+      if (token.c_str()[0] == ':')
+        path += input[&token.c_str()[1]];
+      else
+        path += token;
+
+      delim = "/";
+    }
+}
 
 void
 CliHttp::send_request()
@@ -106,8 +127,8 @@ CliHttp::get_candidate(Cli *cli, string& path, StringVector& candidates)
 }
 
 bool
-CliHttp::get_candidate_on_demand(Cli *cli, string& path, string& field,
-                                 StringVector& candidates)
+CliHttp::update_on_demand(Cli *cli, string& path, string& field,
+                          StringVector& candidates)
 {
   string url("http://");
   string method("GET");
@@ -117,8 +138,7 @@ CliHttp::get_candidate_on_demand(Cli *cli, string& path, string& field,
   candidates.clear();
 
   url += cli->api_server();
-  //  url += "/" + cli->api_prefix();
-  url += "/zebra";
+  url += "/" + cli->api_prefix();
   url += "/" + path;
   url += ".json";
 

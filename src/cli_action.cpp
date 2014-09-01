@@ -46,39 +46,12 @@ CliActionHttp::CliActionHttp(Json::Value& http)
 }
 
 bool
-CliActionHttp::get_token(string& str, string& token)
-{
-  const char *p = str.c_str();
-  size_t pos;
-
-  // skip "/".
-  pos = strspn(p, "/");
-  if (pos > 0)
-    str = str.substr(pos, string::npos);
-
-  // stirng is empty.
-  if (str.empty())
-    return false;
-
-  p = str.c_str();
-  pos = strcspn(p, "/");
-  token = str.substr(0, pos);
-
-  str = str.substr(pos, string::npos);
-
-  return true;
-}
-
-bool
 CliActionHttp::handle(Cli *cli, ParamsMap& input)
 {
   Json::Value json_params;
   Json::FastWriter writer;
   Json::Value null_value;
-  string str(path_);
-  string path;
-  string token;
-  const char *delim = "";
+  string path_str;
 
   if (cli->is_debug())
     {
@@ -120,24 +93,15 @@ CliActionHttp::handle(Cli *cli, ParamsMap& input)
     }
 
   // Generate path with parameter.
-  while (get_token(str, token))
-    {
-      path += delim;
+  CliHttp::path_from_params(path_, path_str, input);
 
-      if (token.c_str()[0] == ':')
-        path += input[&token.c_str()[1]];
-      else
-        path += token;
-
-      delim = "/";
-    }
-
+  // Generate JSON string.
   string json_str = writer.write(json_params);
 
   if (cli->is_debug())
     cout << "json: " << json_str << endl;
 
-  request(cli, method_, path, json_str);
+  request(cli, method_, path_str, json_str);
 
   return true;
 }

@@ -51,7 +51,6 @@ private:
   ParamTokenMap param_token_;
 
   void request(Cli *cli, string& method, string& path, string& json);
-  bool get_token(string& str, string& token);
 };
 
 class CliActionMode: public CliAction

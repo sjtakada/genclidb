@@ -505,7 +505,14 @@
       "IPV4-PREFIX:2": {
         "id": "2",
         "type": "ipv4prefix",
-        "help": "OSPF network prefix"
+        "help": "OSPF network prefix",
+        "update": {
+          "on": "demand",
+          "pathx": "ospfv2s/1/networks",
+          "path": "ospfv2s/:PROCESS-ID/networks",
+          "field": "address",
+          "fields": "address_masklen2ipv4_prefix(address, masklen)"
+        }
       },
       "area": {
         "id": "3",

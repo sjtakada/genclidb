@@ -78,3 +78,29 @@ trim_spaces_at_head(string& str)
   return false;
 }
 
+// Get 'token' from 'str' with 'sep' separator.
+// Return false if 'str' becomes empty.
+bool
+get_token(string& str, string& token, const char *sep)
+{
+  const char *p = str.c_str();
+  size_t pos;
+
+  // skip separator.
+  pos = strspn(p, sep);
+  if (pos > 0)
+    str = str.substr(pos, string::npos);
+
+  // stirng is empty.
+  if (str.empty())
+    return false;
+
+  p = str.c_str();
+  pos = strcspn(p, sep);
+  token = str.substr(0, pos);
+
+  str = str.substr(pos, string::npos);
+
+  return true;
+}
+

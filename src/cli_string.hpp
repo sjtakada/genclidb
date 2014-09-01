@@ -26,5 +26,6 @@ size_t white_space_length(string& str);
 size_t command_length(string& str);
 bool is_white_space_only(string& str);
 bool trim_spaces_at_head(string& str);
+bool get_token(string& str, string& token, const char *sep);
 
 #endif /* _CLI_STRING_HPP_ */

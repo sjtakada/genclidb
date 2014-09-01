@@ -155,8 +155,6 @@ CliReadline::match_shorter(CliParseState& ps, CliNode *curr, string& token)
 enum ExecResult
 CliReadline::parse(CliParseState& ps, CliNode *curr)
 {
-  string token;
-
   do {
     ps.matched_vec_.clear();
     if (!trim_spaces_at_head(ps.line_))
@@ -165,10 +163,10 @@ CliReadline::parse(CliParseState& ps, CliNode *curr)
     fill_matched_vec(curr, ps.matched_vec_);
     filter_hidden(ps.matched_vec_);
 
-    if (!get_token(ps.line_, token))
+    if (!get_token(ps.line_, ps.token_))
       break;
 
-    match_token(token, curr, ps.matched_vec_);
+    match_token(ps.token_, curr, ps.matched_vec_);
     filter_hidden(ps.matched_vec_);
 
     if (ps.line_.begin() != ps.line_.end())
@@ -177,7 +175,7 @@ CliReadline::parse(CliParseState& ps, CliNode *curr)
 
         if (ps.matched_vec_.size() == 0)
           {
-            match_shorter(ps, curr, token);
+            match_shorter(ps, curr, ps.token_);
             if (curr->next_.size() == 0)
               ps.matched_len_++;
 
@@ -192,7 +190,7 @@ CliReadline::parse(CliParseState& ps, CliNode *curr)
 
     if (ps.matched_vec_.size() == 0)
       {
-        match_shorter(ps, curr, token);
+        match_shorter(ps, curr, ps.token_);
         if (curr->next_.size() == 0)
           ps.matched_len_++;
 
@@ -349,8 +347,14 @@ CliReadline::describe()
             {
               // On demand
               if (!u->path_.empty())
-                CliHttp::get_candidate_on_demand(cli_, u->path_, u->field_,
-                                                 u->candidates_);
+                {
+                  string path_str;
+                  ParamsMap input;
+                  cli_->params_populate(input);
+                  CliHttp::path_from_params(u->path_, path_str, input);
+                  CliHttp::update_on_demand(cli_, path_str, u->field_,
+                                            u->candidates_);
+                }
 
               for (StringVector::iterator is = u->candidates_.begin();
                    is != u->candidates_.end(); ++is)
@@ -440,9 +444,35 @@ CliReadline::completion_matches(const char *text, int state)
           cout << rl_line_buffer;
 
           int i = 0;
+          size_t size = ps.matched_vec_.size() + 1;
+          StringVector vec;
 
-          matched_strvec_ =
-            (char **)calloc(ps.matched_vec_.size() + 1, sizeof(char *));
+          // First estimate vector size.
+          for (CliNodeMatchStateVector::iterator it = ps.matched_vec_.begin();
+               it != ps.matched_vec_.end(); ++it)
+            {
+              CliNode *node = it->first;
+              CliNodeUpdate *u = node->update_;
+              if (node->type_ != CliTree::keyword)
+                // On demand
+                if (u && !u->path_.empty())
+                  {
+                    string path_str;
+                    ParamsMap input;
+                    cli_->params_populate(input);
+                    CliHttp::path_from_params(u->path_, path_str, input);
+                    CliHttp::update_on_demand(cli_, path_str, u->field_,
+                                              u->candidates_);
+              
+                    for (StringVector::iterator is = u->candidates_.begin();
+                         is != u->candidates_.end(); ++is)
+                      if (((*is).compare(0, ps.token_.size(), ps.token_)) == 0)
+                        vec.push_back(*is);
+                  }
+            }
+
+          size += vec.size();
+          matched_strvec_ = (char **)calloc(size, sizeof(char *));
 
           for (CliNodeMatchStateVector::iterator it = ps.matched_vec_.begin();
                it != ps.matched_vec_.end(); ++it)
@@ -451,6 +481,11 @@ CliReadline::completion_matches(const char *text, int state)
               if (node->type_ == CliTree::keyword)
                 matched_strvec_[i++] = strdup(node->cli_token().c_str());
             }
+
+          // We want to complete on-demand candidate from existing
+          // configuration, but not from keyword.
+          for (StringVector::iterator it = vec.begin(); it != vec.end(); ++it)
+            matched_strvec_[i++] = strdup((*it).c_str());
         }
     }
 
@@ -522,9 +557,7 @@ CliReadline::handle_actions(CliNodeTokenVector& node_token_vec)
   KeywordsMap keywords;
 
   // Populate mode params first.
-  for (ParamsMap::iterator it = cli_->params_.begin();
-       it != cli_->params_.end(); ++it)
-    input[it->first] = it->second;
+  cli_->params_populate(input);
 
   if (cli_->is_debug())
     cout << "> CLI parser" << endl;
