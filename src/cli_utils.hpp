@@ -25,6 +25,8 @@
 #include <vector>
 #include <string>
 
+#include "json/json.h"
+
 // Base functor
 class CliFunctor
 {
@@ -49,6 +51,13 @@ public:
   StringVector& operator() (StringVector& vec) const;
 };
 
+// Address Masklen to IPV4Prefix Functor.
+class CliFunctorAddressMasklen2IPv4Prefix: public CliFunctor
+{
+public:
+  StringVector& operator() (StringVector& vec) const;
+};
+
 // Apply Mask IPv4 Functor.
 class CliFunctorApplyMaskIPv4: public CliFunctor
 {
@@ -63,11 +72,16 @@ public:
 
   void init();
   bool bind_interpreter(string& statement, ParamsMap& input);
+  void json_to_params(Json::Value& obj, ParamsMap& params);
+  void candidates_by_field(Json::Value& json_resp,
+                           string& field, StringVector& candidates);
 
 private:
   CliFunctorMap functor_map_;
 
-  bool bind_get_token(string& str, string& token);
+  bool get_bind_token(string& str, string& token);
+  void expand(string& statement, ParamsMap& input, StringVector& values);
+
 };
 
 static inline unsigned int

@@ -116,6 +116,7 @@ public:
   char *completion_matches(const char *text, int state);
 
   void clear() { if (buf_) buf_[0] = '\0'; }
+  CliUtils& utils() { return utils_; }
 
 private:
   // Parent CLI object.
@@ -132,7 +133,7 @@ private:
   int matched_index_;
 
   // Private member functions.
-  bool get_token(string&str, string& token);
+  bool get_input_token(string&str, string& token);
   void fill_matched_vec(CliNode *node,
                         CliNodeMatchStateVector& matched_vec);
   void filter_matched(CliNodeMatchStateVector& matched_vec, MatchFlag limit);

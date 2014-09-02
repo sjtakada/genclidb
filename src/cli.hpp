@@ -36,6 +36,7 @@ class Cli
 public:
   static Cli *instance();
   static CliReadline& readline() { return Cli::instance()->rl_; }
+  CliReadline& rl() { return rl_; }
   CliTree *current_mode() { return mode_; }
   void set_debug(bool debug) { debug_ = debug; }
   bool is_debug() { return debug_; }

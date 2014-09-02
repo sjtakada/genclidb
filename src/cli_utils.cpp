@@ -101,6 +101,31 @@ CliFunctorIPv4Prefix2AddressMasklen::operator() (StringVector& vec) const
   return vec;
 }
 
+// For given network adddress and masklen, return prefix (A.B.C.D/M).
+//
+// Input:
+//   0: IPv4 network address (A.B.C.D)
+//   1: Mask length (<0-32>)
+//
+// Output:
+//   0: IPv4 prefix (A.B.C.D/M)
+//
+StringVector&
+CliFunctorAddressMasklen2IPv4Prefix::operator() (StringVector& vec) const
+{
+  string address(vec[0]);
+  string masklen(vec[1]);
+  string prefix;
+
+  vec.clear();
+
+  prefix = address + "/" + masklen;
+
+  vec.push_back(prefix);
+
+  return vec;
+}
+
 // For given network address and mask pair, apply mask and return address.
 //
 // Input:
@@ -136,14 +161,18 @@ CliFunctorApplyMaskIPv4::operator() (StringVector& vec) const
 void
 CliUtils::init()
 {
-  functor_map_["area_id_and_format"] = new CliFunctorAreaIDandFormat;
+  functor_map_["area_id_and_format"] =
+    new CliFunctorAreaIDandFormat;
   functor_map_["ipv4prefix2address_masklen"] =
     new CliFunctorIPv4Prefix2AddressMasklen;
-  functor_map_["apply_mask_ipv4"] = new CliFunctorApplyMaskIPv4;
+  functor_map_["address_masklen2ipv4prefix"] =
+    new CliFunctorAddressMasklen2IPv4Prefix;
+  functor_map_["apply_mask_ipv4"] =
+    new CliFunctorApplyMaskIPv4;
 }
 
 bool
-CliUtils::bind_get_token(string& str, string& token)
+CliUtils::get_bind_token(string& str, string& token)
 {
   const char *p = str.c_str();
   size_t pos;
@@ -185,29 +214,17 @@ CliUtils::bind_get_token(string& str, string& token)
   return true;
 }
 
-bool
-CliUtils::bind_interpreter(string& statement, ParamsMap& input)
+void
+CliUtils::expand(string& statement, ParamsMap& input, StringVector& values)
 {
-  string str(statement);
-  string lvalue, rvalue;
   string token;
-  string tmp_token;
   string func_name;
-  StringVector values;
-  size_t pos;
   bool in_params = false;
+  string tmp_token;
   StringVector params;
 
-  // First separate left values and right values.
-  pos = str.find("=");
-  if (pos == string::npos)
-    return false;
-
-  lvalue = str.substr(0, pos);
-  rvalue = str.substr(pos + 1, string::npos);
-
   // Process rvalues to get list of converted strings.
-  while (bind_get_token(rvalue, token))
+  while (get_bind_token(statement, token))
     {
       if (token == "(")
         {
@@ -265,11 +282,32 @@ CliUtils::bind_interpreter(string& statement, ParamsMap& input)
       else
         values.push_back(tmp_token);
     }
+}
+
+bool
+CliUtils::bind_interpreter(string& statement, ParamsMap& input)
+{
+  string str(statement);
+  string lvalue, rvalue;
+  string token;
+  StringVector values;
+  size_t pos;
+
+  // First separate left values and right values.
+  pos = str.find("=");
+  if (pos == string::npos)
+    return false;
+
+  lvalue = str.substr(0, pos);
+  rvalue = str.substr(pos + 1, string::npos);
+
+  // Process statement
+  expand(rvalue, input, values);
 
   unsigned int i = 0;
 
   // Bind rvalues to lvalues.
-  while (bind_get_token(lvalue, token))
+  while (get_bind_token(lvalue, token))
     {
       if (token == ",")
         continue;
@@ -283,3 +321,28 @@ CliUtils::bind_interpreter(string& statement, ParamsMap& input)
 
   return true;
 }
+
+void
+CliUtils::json_to_params(Json::Value& obj, ParamsMap& params)
+{
+  for (Json::Value::iterator it = obj.begin(); it != obj.end(); ++it)
+    params[it.key().asString()] = (*it).asString();
+}
+
+void
+CliUtils::candidates_by_field(Json::Value& json_resp,
+                              string& field, StringVector& candidates)
+{
+  for (Json::Value::iterator it = json_resp.begin();
+       it != json_resp.end(); ++it)
+    {
+      Json::Value record = (*it);
+      ParamsMap params;
+      string str(field);
+  
+      json_to_params(record, params);
+
+      expand(str, params, candidates);
+    }
+}
+

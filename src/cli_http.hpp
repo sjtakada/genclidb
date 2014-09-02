@@ -45,8 +45,10 @@ public:
   { }
 
   static bool get_candidate(Cli *cli, string& path, StringVector& candidates);
-  static bool update_on_demand(Cli *cli, string& path, string& field,
+  static bool update_on_demand(Cli *cli, string& path, string field,
                                StringVector& candidates);
+  static void candidates_by_field(Json::Value json_resp,
+                                  string& field, StringVector& candidates);
 
   void send_request();
   static void path_from_params(string str, string& path, ParamsMap& input);

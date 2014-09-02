@@ -508,10 +508,8 @@
         "help": "OSPF network prefix",
         "update": {
           "on": "demand",
-          "pathx": "ospfv2s/1/networks",
           "path": "ospfv2s/:PROCESS-ID/networks",
-          "field": "address",
-          "fields": "address_masklen2ipv4_prefix(address, masklen)"
+          "field": "address_masklen2ipv4prefix(address, masklen)"
         }
       },
       "area": {

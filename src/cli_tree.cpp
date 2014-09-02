@@ -40,7 +40,7 @@ const string CliNodeWord::cli_token_default_("WORD");
 const string CliNodeCommunity::cli_token_default_("AA:NN");
 
 int
-CliTree::get_token(string& str, string& token)
+CliTree::get_cli_token(string& str, string& token)
 {
   const char *reject = "()[]{}| ";
   boost::smatch m;
@@ -248,7 +248,7 @@ CliTree::build_recursive(CliNodeVector& curr, CliNodeVector& head,
 
   while (str.begin() != str.end())
     {
-      type = get_token(str, def_token);
+      type = get_cli_token(str, def_token);
       switch (type)
         {
         case CliTree::left_paren:

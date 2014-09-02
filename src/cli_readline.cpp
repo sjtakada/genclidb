@@ -60,7 +60,7 @@ CliReadline::match_token(string& input, CliNode *curr,
 }
 
 bool
-CliReadline::get_token(string& str, string& token)
+CliReadline::get_input_token(string& str, string& token)
 {
   size_t len;
 
@@ -163,7 +163,7 @@ CliReadline::parse(CliParseState& ps, CliNode *curr)
     fill_matched_vec(curr, ps.matched_vec_);
     filter_hidden(ps.matched_vec_);
 
-    if (!get_token(ps.line_, ps.token_))
+    if (!get_input_token(ps.line_, ps.token_))
       break;
 
     match_token(ps.token_, curr, ps.matched_vec_);
@@ -228,7 +228,7 @@ CliReadline::parse_execute(CliParseStateExecute& ps, CliNode *curr)
         return exec_unrecognized;
       }
 
-    if (!get_token(ps.line_, token))
+    if (!get_input_token(ps.line_, token))
       break;
 
     fill_matched_vec(curr, ps.matched_vec_);
@@ -359,8 +359,8 @@ CliReadline::describe()
               for (StringVector::iterator is = u->candidates_.begin();
                    is != u->candidates_.end(); ++is)
                 {
-                  if (max_len < (*is).size())
-                    max_len = (*is).size();
+//                  if (max_len < (*is).size())
+//                    max_len = (*is).size();
                 }
             }
         }

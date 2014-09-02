@@ -328,7 +328,7 @@ private:
   bool exit_to_end_;
 
   // Member functions.
-  int get_token(string& str, string& token);
+  int get_cli_token(string& str, string& token);
   int build_recursive(CliNodeVector& curr, CliNodeVector& head,
                       CliNodeVector& tail, string& str, Json::Value& tokens,
                       Json::Value& command);
