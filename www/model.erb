@@ -133,6 +133,11 @@ class <%= @class_name %> < ActiveRecord::Base
 <% end %>
 <% ######################################################################### %>
 
+  def self.find_all_by_params(params)
+    <%= find_all_statement_str(@parent_keys) %>
+  end
+<% ######################################################################### %>
+
   def self.get_by_params(params)
 <% if @belongs_to != nil %>
 <%   @belongs_to.each do |k, v| %>

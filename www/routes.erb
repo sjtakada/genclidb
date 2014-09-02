@@ -62,9 +62,12 @@
 <% @routes.each do |r| %>
 
   # API routes for <%= keyword_camel(r[:name]) %>
-  put "<%= r[:path] %>", to: "<%= r[:name] %>#create_by_keys"<%= r[:cons] %>
-  post "<%= r[:path] %>", to: "<%= r[:name] %>#update_by_keys"<%= r[:cons] %>
-  delete "<%= r[:path] %>", to: "<%= r[:name] %>#destroy_by_keys"<%= r[:cons] %>
+<% if r[:get] != nil %>
+  get "<%= r[:get][:path] %>", to: "<%= r[:name] %>#find_all_by_keys"<%= r[:get][:cons] %>
+<% end %>
+  put "<%= r[:put][:path] %>", to: "<%= r[:name] %>#create_by_keys"<%= r[:put][:cons] %>
+  post "<%= r[:post][:path] %>", to: "<%= r[:name] %>#update_by_keys"<%= r[:post][:cons] %>
+  delete "<%= r[:delete][:path] %>", to: "<%= r[:name] %>#destroy_by_keys"<%= r[:delete][:cons] %>
 <% end %>
 
   # Custom APIs for association tables.

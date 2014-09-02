@@ -5,6 +5,17 @@ class <%= @class_name_p %>Controller < ApplicationController
 <% end %>
   skip_before_filter :verify_authenticity_token, :if => Proc.new {|c| c.request.format == 'application/json' }
 
+<% ######################################################################### %>
+  # GET /<%= @api_path %>.json
+  def find_all_by_keys
+    @<%= @model_name_p %> = <%= @class_name %>.find_all_by_params(params)
+
+    respond_to do |format|
+      format.json { render action: 'index' }
+    end
+  end
+
+<% ######################################################################### %>
   # PUT /<%= @api_path %>.json
   def create_by_keys
     @<%= @model_name %> = <%= @class_name %>.get_by_params(params)

@@ -451,6 +451,12 @@ def rails_modify_model(table_name, table_keys)
     @ip_keys = table_keys.select{|k, v| v["type"] == "ipv4" or v["type"] == "ipv6"}
     @auto_keys = table_keys.select{|k, v| !v["auto"].nil?}
     @null_keys = table_keys.select{|k, v| !v["null"].nil? and v["null"] == true}
+    if @keys_def != nil
+      @parent_keys = table_keys.select{|k, v| !table_def["keys"][k]}
+    else
+      @parent_keys = {}
+    end
+
 
     @default_def = Hash.new
     if @attrs_def != nil
@@ -482,6 +488,29 @@ def rails_api_path(table_name, heritage)
     end
 
     if !t["keys"].nil?
+      t["keys"].each do |k, v|
+        path << ":" + keyword(k)
+      end
+    end
+  end
+
+  path.join("/")
+end
+
+def rails_api_path_collection(table_name, heritage)
+  path = Array.new
+  path << "api"
+
+  heritage.each do |tuple|
+    name, t = tuple[0], tuple[1]
+
+    if t["type"] == "dependent" and !t["alias"].nil?
+      path << keyword_plural(t["alias"])
+    else
+      path << keyword_plural(name)
+    end
+
+    if !t["keys"].nil? and tuple != heritage.last
       t["keys"].each do |k, v|
         path << ":" + keyword(k)
       end
@@ -543,6 +572,7 @@ def rails_modify_controller(table_name, table_keys, db_fields, api_path)
     @belongs_to = table_def["belongs-to"]
     @app_name = keyword_camel($rails_project)
     @model_name = keyword(table_name)
+    @model_name_p = keyword(table_name).pluralize
     @class_name = keyword_camel(table_name)
     @class_name_p = keyword_camel(table_name).pluralize
     @null_keys = {}
@@ -732,13 +762,28 @@ def rails_get_db_fields(table_def, table_keys)
   db_fields
 end
 
-def rails_add_routes(table_name, table_keys, api_path)
+def rails_add_routes(table_name, table_keys, api_path, parent_keys, api_path_collection)
   puts "=> Add routes for '" + keyword(table_name) + "' ..."
 
   route = Hash.new
   route[:name] = keyword_plural(table_name)
-  route[:path] = api_path
-  route[:cons] = rails_keys_constraints(table_keys)
+  
+  if parent_keys != nil
+    route[:get] = Hash.new
+    route[:get][:path] = api_path_collection
+    route[:get][:cons] = rails_keys_constraints(parent_keys)
+  end
+
+  route[:put] = Hash.new
+  route[:post] = Hash.new
+  route[:delete] = Hash.new
+
+  route[:put][:path] = api_path
+  route[:post][:path] = api_path
+  route[:delete][:path] = api_path
+  route[:put][:cons] = rails_keys_constraints(table_keys)
+  route[:post][:cons] = rails_keys_constraints(table_keys)
+  route[:delete][:cons] = rails_keys_constraints(table_keys)
   $routes << route
   $routes_resource << keyword_plural(table_name)
 end
@@ -767,6 +812,7 @@ def rails_add_table(table_name)
     table_keys = rails_get_table_keys(heritage)
     db_fields = rails_get_db_fields(table_def, table_keys)
     api_path = rails_api_path(table_name, heritage)
+    api_path_collection = rails_api_path_collection(table_name, heritage)
 
     # New table, scaffold.
     if $tables[:flag][table_name] == "N"
@@ -804,8 +850,16 @@ def rails_add_table(table_name)
       rails_generate_view(table_name)
     end
 
+    keys_def = table_def["keys"]
+    if keys_def != nil
+      parent_keys = table_keys.select{|k, v| !keys_def[k]}
+    else
+      parent_keys = {}
+    end
+
     # Routes: add routes
-    rails_add_routes(table_name, table_keys, api_path)
+    rails_add_routes(table_name, table_keys, api_path,
+                     parent_keys, api_path_collection)
 
     # Iterate children recursively
     if !table_def["has-many"].nil?
@@ -910,7 +964,7 @@ def rails_add_association(table_name)
       if b_interfaces.size == 0
         api_path = rails_api_path_polymorphic(b_tables)
         index_keys = rails_get_index_keys_assoc(b_tables, nil)
-        rails_add_routes(table_name, index_keys, api_path)
+        rails_add_routes(table_name, index_keys, api_path, nil, nil)
       else
         b_interfaces.each do |b, obj|
           obj["tables"].each do |t|
