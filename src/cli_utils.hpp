@@ -70,17 +70,17 @@ class CliUtils
 public:
   CliUtils() { }
 
-  void init();
-  bool bind_interpreter(string& statement, ParamsMap& input);
-  void json_to_params(Json::Value& obj, ParamsMap& params);
-  void candidates_by_field(Json::Value& json_resp,
-                           string& field, StringVector& candidates);
+  static void init();
+  static bool bind_interpreter(string& statement, ParamsMap& input);
+  static void json_to_params(Json::Value& obj, ParamsMap& params);
+  static void candidates_by_field(Json::Value& json_resp,
+                                  string& field, StringVector& candidates);
 
 private:
-  CliFunctorMap functor_map_;
+  static CliFunctorMap functor_map_;
 
-  bool get_bind_token(string& str, string& token);
-  void expand(string& statement, ParamsMap& input, StringVector& values);
+  static bool get_bind_token(string& str, string& token);
+  static void expand(string& statement, ParamsMap& input, StringVector& values);
 
 };
 

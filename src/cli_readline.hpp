@@ -116,14 +116,10 @@ public:
   char *completion_matches(const char *text, int state);
 
   void clear() { if (buf_) buf_[0] = '\0'; }
-  CliUtils& utils() { return utils_; }
 
 private:
   // Parent CLI object.
   Cli *cli_;
-
-  // Cli Utils.
-  CliUtils utils_;
 
   // Readline buffer.
   char *buf_;

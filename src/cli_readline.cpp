@@ -520,7 +520,7 @@ void
 CliReadline::init(Cli *cli)
 {
   cli_ = cli;
-  utils_.init();
+  //  utils_.init();
 
   rl_bind_key('?', readline_describe);
   rl_completion_entry_function = readline_completion_dummy;
@@ -606,20 +606,20 @@ CliReadline::handle_actions(CliNodeTokenVector& node_token_vec)
 
       // Always bind if it is TRUE.
       if (cond[0] == '\0')
-        utils_.bind_interpreter(it->second, input);
+        CliUtils::bind_interpreter(it->second, input);
       // If the parameter is NOT present.
       else if (cond[0] == '!')
         {
           ParamsMap::iterator is = input.find(&cond[1]);
           if (is == input.end())
-            utils_.bind_interpreter(it->second, input);
+            CliUtils::bind_interpreter(it->second, input);
         }
       // If the parameter is present.
       else
         {
           ParamsMap::iterator is = input.find(cond);
           if (is != input.end())
-            utils_.bind_interpreter(it->second, input);
+            CliUtils::bind_interpreter(it->second, input);
         }
     }
 

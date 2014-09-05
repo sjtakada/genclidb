@@ -126,15 +126,6 @@ CliHttp::get_candidate(Cli *cli, string& path, StringVector& candidates)
   return true;
 }
 
-void
-CliHttp::candidates_by_field(Json::Value json_resp,
-                             string& field, StringVector& candidates)
-{
-  (void)json_resp;
-  (void)field;
-  (void)candidates;
-}
-
 bool
 CliHttp::update_on_demand(Cli *cli, string& path, string field,
                           StringVector& candidates)
@@ -164,7 +155,7 @@ CliHttp::update_on_demand(Cli *cli, string& path, string field,
     case 2:
       reader.parse(http.result().str(), json_resp);
       // Assuming JSON response is array of strings.
-      cli->rl().utils().candidates_by_field(json_resp, field, candidates);
+      CliUtils::candidates_by_field(json_resp, field, candidates);
       break;
     case 3:
     case 4:

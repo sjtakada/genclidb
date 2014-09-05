@@ -106,6 +106,9 @@ Cli::init()
         tree->top_->sort_recursive();
     }
 
+  // CLI utilities init.
+  CliUtils::init();
+
   // readline init
   rl_.init(this);
 

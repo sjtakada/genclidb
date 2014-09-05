@@ -23,6 +23,9 @@
 #include "project.hpp"
 #include "cli_utils.hpp"
 
+CliFunctorMap CliUtils::functor_map_;
+
+
 // For given Area ID (either IP address or numeric format), return Area ID in
 // numeric format and type of format.
 //

@@ -441,9 +441,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "bgps/:AS-NUM",
               "params": {
+                "router-id": "IPV4-ADDR:3"
               }
             }
           }
@@ -478,9 +479,10 @@
         "action": [
           {
             "http": {
-              "method": "NOP",
-              "path": "",
+              "method": "POST",
+              "path": "bgps/:AS-NUM",
               "params": {
+                "router-id": null
               }
             }
           }
